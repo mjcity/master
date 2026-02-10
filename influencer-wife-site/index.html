@@ -15,6 +15,7 @@
       --text: #2c2240;
       --muted: #6f628d;
       --good: #13b67a;
+      --warn: #ff9f1c;
     }
 
     * { box-sizing: border-box; }
@@ -28,7 +29,7 @@
     }
 
     .wrap {
-      max-width: 980px;
+      max-width: 1040px;
       margin: 0 auto;
       padding: 24px;
     }
@@ -70,7 +71,7 @@
     }
 
     .icon {
-      font-size: 1.5rem;
+      font-size: 1.2rem;
       margin-right: 8px;
     }
 
@@ -98,9 +99,118 @@
       border: 2px solid #4f2aa8;
     }
 
-    .good {
-      color: var(--good);
+    .good { color: var(--good); font-weight: 700; }
+    .warn { color: var(--warn); font-weight: 700; }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 12px;
+      margin: 14px 0 20px;
+    }
+
+    .stat {
+      border-radius: 14px;
+      padding: 14px;
+      background: #fff;
+      border: 2px solid #f2edff;
+    }
+
+    .stat .label { color: var(--muted); font-size: .85rem; }
+    .stat .value { font-size: 1.4rem; font-weight: 700; }
+
+    .calendar-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .btn {
+      border: 2px solid #e8defe;
+      background: #fff;
+      color: var(--purple);
+      padding: 8px 12px;
+      border-radius: 10px;
       font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn:hover { background: #f9f6ff; }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+    }
+
+    .day-label {
+      text-align: center;
+      font-size: .8rem;
+      color: var(--muted);
+      font-weight: 700;
+      padding: 6px 0;
+    }
+
+    .day {
+      min-height: 94px;
+      border: 2px solid #f2edff;
+      border-radius: 12px;
+      padding: 8px;
+      background: #fff;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .day.faded { opacity: 0.45; }
+    .day.today { border-color: var(--pink); }
+
+    .day-number { font-weight: 700; font-size: .9rem; }
+    .dots { display: flex; gap: 4px; margin-top: 8px; flex-wrap: wrap; }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #d3c8f7;
+    }
+
+    .dot.posted { background: var(--good); }
+    .dot.filmed { background: var(--blue); }
+    .dot.returned { background: var(--warn); }
+
+    .edit-row {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: 1fr;
+      margin-top: 14px;
+    }
+
+    .input, textarea {
+      width: 100%;
+      border: 2px solid #e8defe;
+      border-radius: 12px;
+      padding: 10px;
+      font: inherit;
+      background: #fff;
+    }
+
+    textarea { min-height: 90px; resize: vertical; }
+
+    .checks {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin: 4px 0;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .mini {
+      font-size: .88rem;
+      color: var(--muted);
     }
 
     footer {
@@ -143,7 +253,7 @@
           <li>Monthly product cap: <strong>$60</strong></li>
           <li>Buy from return-friendly stores only</li>
           <li>Keep 1 “hero item” each month, return the rest</li>
-          <li>Track spend in notes app every purchase day</li>
+          <li>Track spend + return deadlines in notes</li>
         </ul>
       </article>
 
@@ -159,43 +269,68 @@
     </section>
 
     <section class="card" style="margin-bottom:16px;">
-      <h2><span class="icon">📅</span>Weekly Posting Plan (5 Posts)</h2>
-      <ol>
-        <li><strong>Monday:</strong> “First Impression” (new product unbox + quick reaction)</li>
-        <li><strong>Tuesday:</strong> “Mini Tutorial” (under 30 sec, one look)</li>
-        <li><strong>Wednesday:</strong> “Outfit + Wig Combo” (before/after transition)</li>
-        <li><strong>Thursday:</strong> “Wear Test Update” (did it last all day?)</li>
-        <li><strong>Friday:</strong> “Keep or Return?” final verdict</li>
-      </ol>
-      <p class="good">✅ Batch all filming in one 2-hour session on Sunday.</p>
+      <h2><span class="icon">📅</span>Interactive Calendar + Success Tracker</h2>
+      <p class="mini">Click a day to add notes, mark posted/filmed/returned, and log spend. Data saves automatically in this browser.</p>
+
+      <div class="dashboard">
+        <div class="stat">
+          <div class="label">Posts This Month</div>
+          <div class="value" id="postsMonth">0</div>
+        </div>
+        <div class="stat">
+          <div class="label">Filming Days</div>
+          <div class="value" id="filmMonth">0</div>
+        </div>
+        <div class="stat">
+          <div class="label">Budget Used</div>
+          <div class="value" id="budgetUsed">$0.00</div>
+        </div>
+        <div class="stat">
+          <div class="label">Monthly Target</div>
+          <div class="value">22 Posts</div>
+        </div>
+      </div>
+
+      <div class="calendar-head">
+        <button class="btn" id="prevMonth">← Prev</button>
+        <h3 id="monthTitle" style="margin:0;"></h3>
+        <button class="btn" id="nextMonth">Next →</button>
+      </div>
+
+      <div class="calendar-grid" id="calendarLabels"></div>
+      <div class="calendar-grid" id="calendarGrid"></div>
+
+      <div class="edit-row">
+        <h3 id="selectedDateTitle">Select a date</h3>
+        <div class="checks">
+          <label><input type="checkbox" id="didPost" /> ✅ Posted</label>
+          <label><input type="checkbox" id="didFilm" /> 🎬 Filmed</label>
+          <label><input type="checkbox" id="didReturn" /> 📦 Returned item</label>
+        </div>
+        <label class="mini">Spend for this day ($)</label>
+        <input class="input" id="spendInput" type="number" min="0" step="0.01" placeholder="0.00" />
+        <label class="mini">Notes</label>
+        <textarea id="dayNotes" placeholder="Example: Posted wig try-on at 7pm. Good comments. Return deadline Friday."></textarea>
+        <button class="btn" id="saveDay">Save Day</button>
+      </div>
+      <p class="mini">Tip: Sunday = batch filming day. Friday = Keep or Return verdict day.</p>
     </section>
 
-    <section class="cards">
-      <article class="card">
-        <h3><span class="icon">⚡</span>Minimal-Effort Workflow</h3>
-        <ol>
-          <li>Film 5 short clips in one session</li>
-          <li>Use same hook format: “Is this worth it?”</li>
-          <li>Edit with one template each week</li>
-          <li>Schedule all posts same day</li>
-          <li>Return products every Saturday</li>
-        </ol>
-      </article>
-
-      <article class="card">
-        <h3><span class="icon">📈</span>Growth System</h3>
-        <ul>
-          <li>Use 3 recurring hashtags + 2 trending tags</li>
-          <li>Pin best “Keep or Return” video weekly</li>
-          <li>Reply to first 10 comments fast</li>
-          <li>Track saves + shares (not just likes)</li>
-        </ul>
-      </article>
+    <section class="card" style="margin-bottom:16px;">
+      <h2><span class="icon">📅</span>Weekly Posting Plan (5 Posts)</h2>
+      <ol>
+        <li><strong>Monday:</strong> “First Impression”</li>
+        <li><strong>Tuesday:</strong> “Mini Tutorial”</li>
+        <li><strong>Wednesday:</strong> “Outfit + Wig Combo”</li>
+        <li><strong>Thursday:</strong> “Wear Test Update”</li>
+        <li><strong>Friday:</strong> “Keep or Return?” verdict</li>
+      </ol>
+      <p class="good">✅ Batch all filming in one 2-hour session on Sunday.</p>
+      <p class="warn">⚠️ Keep monthly spend under $60 by returning non-keeper items weekly.</p>
     </section>
 
     <section class="card">
       <h2><span class="icon">🧠</span>Copy/Paste Prompt for Content Ideas</h2>
-      <p>Use this in ChatGPT or any idea tool:</p>
       <div class="prompt">I am a beginner beauty/lifestyle creator in 2026. I create content in a small bedroom with minimal setup. I can spend only $60 per month on products, and I may need to return many items. I focus on makeup, clothes, wigs, and quick product reviews.
 
 Give me a 30-day content plan with 5 posts per week. Keep each idea low-effort, short-form video friendly, and easy to film in one room. For each post, include:
@@ -209,8 +344,189 @@ Also include one weekly batch-filming checklist and one simple way to recycle ea
     </section>
 
     <footer>
-      Made with 💖 for your wife — fun, simple, and consistent wins.
+      Made with 💖 for your wife — colorful, simple, and now interactive.
     </footer>
   </div>
+
+  <script>
+    const storageKey = "glowup_calendar_data_v1";
+    const state = {
+      current: new Date(),
+      selectedDateKey: null,
+      data: JSON.parse(localStorage.getItem(storageKey) || "{}")
+    };
+
+    const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+    const el = {
+      monthTitle: document.getElementById("monthTitle"),
+      labels: document.getElementById("calendarLabels"),
+      grid: document.getElementById("calendarGrid"),
+      selectedDateTitle: document.getElementById("selectedDateTitle"),
+      didPost: document.getElementById("didPost"),
+      didFilm: document.getElementById("didFilm"),
+      didReturn: document.getElementById("didReturn"),
+      spendInput: document.getElementById("spendInput"),
+      dayNotes: document.getElementById("dayNotes"),
+      postsMonth: document.getElementById("postsMonth"),
+      filmMonth: document.getElementById("filmMonth"),
+      budgetUsed: document.getElementById("budgetUsed")
+    };
+
+    function dateKey(y, m, d) {
+      return `${y}-${String(m + 1).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
+    }
+
+    function saveState() {
+      localStorage.setItem(storageKey, JSON.stringify(state.data));
+    }
+
+    function getEntry(key) {
+      return state.data[key] || { posted: false, filmed: false, returned: false, spend: 0, notes: "" };
+    }
+
+    function renderLabels() {
+      el.labels.innerHTML = "";
+      dayNames.forEach(name => {
+        const d = document.createElement("div");
+        d.className = "day-label";
+        d.textContent = name;
+        el.labels.appendChild(d);
+      });
+    }
+
+    function renderCalendar() {
+      const year = state.current.getFullYear();
+      const month = state.current.getMonth();
+      const first = new Date(year, month, 1);
+      const startDay = first.getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      const daysInPrev = new Date(year, month, 0).getDate();
+
+      el.monthTitle.textContent = state.current.toLocaleDateString(undefined, { month: "long", year: "numeric" });
+      el.grid.innerHTML = "";
+
+      const today = new Date();
+      const cells = [];
+
+      for (let i = 0; i < startDay; i++) {
+        const dayNum = daysInPrev - startDay + i + 1;
+        cells.push({ y: year, m: month - 1, d: dayNum, faded: true });
+      }
+
+      for (let d = 1; d <= daysInMonth; d++) {
+        cells.push({ y: year, m: month, d, faded: false });
+      }
+
+      while (cells.length < 42) {
+        const d = cells.length - (startDay + daysInMonth) + 1;
+        cells.push({ y: year, m: month + 1, d, faded: true });
+      }
+
+      cells.forEach(({ y, m, d, faded }) => {
+        const realDate = new Date(y, m, d);
+        const key = dateKey(realDate.getFullYear(), realDate.getMonth(), realDate.getDate());
+        const entry = getEntry(key);
+
+        const cell = document.createElement("div");
+        cell.className = "day" + (faded ? " faded" : "");
+
+        if (
+          realDate.getFullYear() === today.getFullYear() &&
+          realDate.getMonth() === today.getMonth() &&
+          realDate.getDate() === today.getDate()
+        ) {
+          cell.classList.add("today");
+        }
+
+        cell.innerHTML = `
+          <div class="day-number">${realDate.getDate()}</div>
+          <div class="dots">
+            <span class="dot ${entry.posted ? "posted" : ""}" title="Posted"></span>
+            <span class="dot ${entry.filmed ? "filmed" : ""}" title="Filmed"></span>
+            <span class="dot ${entry.returned ? "returned" : ""}" title="Returned"></span>
+          </div>
+        `;
+
+        cell.addEventListener("click", () => {
+          state.selectedDateKey = key;
+          loadSelectedDay();
+        });
+
+        el.grid.appendChild(cell);
+      });
+
+      if (!state.selectedDateKey) {
+        state.selectedDateKey = dateKey(today.getFullYear(), today.getMonth(), today.getDate());
+      }
+
+      refreshStats();
+    }
+
+    function loadSelectedDay() {
+      if (!state.selectedDateKey) return;
+      const entry = getEntry(state.selectedDateKey);
+      el.selectedDateTitle.textContent = `Editing: ${state.selectedDateKey}`;
+      el.didPost.checked = !!entry.posted;
+      el.didFilm.checked = !!entry.filmed;
+      el.didReturn.checked = !!entry.returned;
+      el.spendInput.value = Number(entry.spend || 0) ? Number(entry.spend).toFixed(2) : "";
+      el.dayNotes.value = entry.notes || "";
+    }
+
+    function saveSelectedDay() {
+      if (!state.selectedDateKey) return;
+      state.data[state.selectedDateKey] = {
+        posted: el.didPost.checked,
+        filmed: el.didFilm.checked,
+        returned: el.didReturn.checked,
+        spend: Number(el.spendInput.value || 0),
+        notes: el.dayNotes.value.trim()
+      };
+      saveState();
+      renderCalendar();
+      loadSelectedDay();
+    }
+
+    function refreshStats() {
+      const year = state.current.getFullYear();
+      const month = state.current.getMonth();
+      let posts = 0;
+      let films = 0;
+      let spend = 0;
+
+      Object.entries(state.data).forEach(([k, v]) => {
+        const [yy, mm] = k.split("-").map(Number);
+        if (yy === year && mm === month + 1) {
+          if (v.posted) posts += 1;
+          if (v.filmed) films += 1;
+          spend += Number(v.spend || 0);
+        }
+      });
+
+      el.postsMonth.textContent = posts;
+      el.filmMonth.textContent = films;
+      el.budgetUsed.textContent = `$${spend.toFixed(2)}`;
+      el.budgetUsed.style.color = spend > 60 ? "#d7263d" : "var(--text)";
+    }
+
+    document.getElementById("prevMonth").addEventListener("click", () => {
+      state.current = new Date(state.current.getFullYear(), state.current.getMonth() - 1, 1);
+      renderCalendar();
+      loadSelectedDay();
+    });
+
+    document.getElementById("nextMonth").addEventListener("click", () => {
+      state.current = new Date(state.current.getFullYear(), state.current.getMonth() + 1, 1);
+      renderCalendar();
+      loadSelectedDay();
+    });
+
+    document.getElementById("saveDay").addEventListener("click", saveSelectedDay);
+
+    renderLabels();
+    renderCalendar();
+    loadSelectedDay();
+  </script>
 </body>
 </html>
