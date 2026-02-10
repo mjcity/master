@@ -26,9 +26,9 @@ Keep output practical, copy-pasteable, and optimized for Nano Banana keyframes +
 app.post("/api/generate", async (req, res) => {
   try {
     const apiKey = process.env.OPENAI_API_KEY;
-    if (!apiKey) {
+    if (!apiKey || apiKey.includes("your_openai_key") || apiKey.includes("your_ope")) {
       return res.status(500).json({
-        error: "Missing OPENAI_API_KEY on server. Set it before starting the app."
+        error: "OPENAI_API_KEY is missing or still set to a placeholder. Use a real key from platform.openai.com/api-keys and restart the server."
       });
     }
 
