@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ActionFilm Architect</title>
+    <style>
+      body { font-family: Inter, system-ui, Arial, sans-serif; max-width: 980px; margin: 30px auto; padding: 0 16px; background: #0b0b0f; color: #f4f4f6; }
+      h1 { margin-bottom: 8px; }
+      p { color: #b9b9c7; }
+      textarea { width: 100%; min-height: 140px; border-radius: 10px; border: 1px solid #2b2b35; background: #11111a; color: #fff; padding: 12px; }
+      button { margin-top: 12px; background: #6d5efc; color: #fff; border: none; border-radius: 10px; padding: 10px 14px; font-weight: 600; cursor: pointer; }
+      button:disabled { opacity: 0.6; cursor: not-allowed; }
+      pre { white-space: pre-wrap; background: #101018; border: 1px solid #2a2a37; padding: 14px; border-radius: 10px; margin-top: 16px; }
+      .small { font-size: 13px; color: #8c8ca1; margin-top: 6px; }
+    </style>
+  </head>
+  <body>
+    <h1>🎬 ActionFilm Architect</h1>
+    <p>Describe the movie you want. You’ll get concept, script, shot list, prompts, and contact sheets.</p>
+
+    <textarea id="prompt" placeholder="Example: Create a 30-second neo-noir rooftop chase with one hero and two masked interceptors..."></textarea>
+    <br />
+    <button id="go">Generate Movie Package</button>
+    <div class="small">Server uses OPENAI_API_KEY from your environment.</div>
+
+    <pre id="out">Output will appear here...</pre>
+
+    <script>
+      const btn = document.getElementById('go');
+      const out = document.getElementById('out');
+      const promptEl = document.getElementById('prompt');
+
+      btn.addEventListener('click', async () => {
+        const prompt = promptEl.value.trim();
+        if (!prompt) {
+          out.textContent = 'Please enter a prompt first.';
+          return;
+        }
+        btn.disabled = true;
+        out.textContent = 'Generating...';
+        try {
+          const r = await fetch('/api/generate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ prompt })
+          });
+          const data = await r.json();
+          if (!r.ok) {
+            out.textContent = 'Error: ' + (data.error || 'Unknown error');
+          } else {
+            out.textContent = data.text;
+          }
+        } catch (e) {
+          out.textContent = 'Error: ' + e.message;
+        } finally {
+          btn.disabled = false;
+        }
+      });
+    </script>
+  </body>
+</html>
