@@ -264,6 +264,7 @@
     let masteredBuffer = null;
     let audioCtx = null;
     let currentSource = null;
+    let htmlPlayer = null;
 
     const setStatus = (text) => el.status.textContent = text;
     const setProgress = (n) => el.progress.style.width = `${Math.max(0, Math.min(100, n))}%`;
@@ -394,25 +395,55 @@
         currentSource.disconnect();
         currentSource = null;
       }
+      if (htmlPlayer) {
+        try { htmlPlayer.pause(); } catch (_) {}
+        htmlPlayer.src = '';
+        htmlPlayer = null;
+      }
       el.stopBtn.disabled = true;
     }
 
-    function playBuffer(buffer) {
+    async function playBuffer(buffer) {
       if (!buffer) return;
       initAudio();
       stopPlayback();
-      const src = audioCtx.createBufferSource();
-      src.buffer = buffer;
-      src.connect(audioCtx.destination);
-      src.onended = () => {
-        if (currentSource === src) {
-          currentSource = null;
+
+      try {
+        if (audioCtx.state !== 'running') await audioCtx.resume();
+
+        const src = audioCtx.createBufferSource();
+        src.buffer = buffer;
+        src.connect(audioCtx.destination);
+        src.onended = () => {
+          if (currentSource === src) {
+            currentSource = null;
+            el.stopBtn.disabled = true;
+          }
+        };
+        currentSource = src;
+        el.stopBtn.disabled = false;
+        src.start();
+        return;
+      } catch (_) {
+        // iOS/Safari fallback
+      }
+
+      try {
+        const wavBlob = encodeWAV(buffer);
+        htmlPlayer = new Audio(URL.createObjectURL(wavBlob));
+        htmlPlayer.playsInline = true;
+        htmlPlayer.onended = () => {
+          if (htmlPlayer) {
+            URL.revokeObjectURL(htmlPlayer.src);
+            htmlPlayer = null;
+          }
           el.stopBtn.disabled = true;
-        }
-      };
-      currentSource = src;
-      el.stopBtn.disabled = false;
-      src.start();
+        };
+        await htmlPlayer.play();
+        el.stopBtn.disabled = false;
+      } catch (err) {
+        setStatus(`Playback blocked on this phone. Tap Play again (${err.message || 'audio policy'})`);
+      }
     }
 
     function interleavedPCM(buffer) {
@@ -472,7 +503,12 @@
     }
 
     function bindFile(file) {
-      if (!file || !file.type.startsWith('audio/')) return;
+      if (!file) return;
+      const looksAudio = file.type.startsWith('audio/') || /\.(wav|mp3|m4a|aac|ogg|aiff|flac)$/i.test(file.name || '');
+      if (!looksAudio) {
+        setStatus('Please choose an audio file (WAV/MP3/M4A/AAC/OGG/AIFF/FLAC).');
+        return;
+      }
       audioFile = file;
       loadAudio(file).catch(err => setStatus(`Error: ${err.message}`));
     }
