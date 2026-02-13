@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MJ Master AI — Smart Mastering Studio</title>
+  <title>MJ Master AI — LANDR-Inspired Mastering Studio</title>
   <style>
     :root {
       --bg: #0b1020;
@@ -32,12 +32,28 @@
 
     .wrap { max-width: 1080px; margin: 0 auto; }
     .hero {
-      background: linear-gradient(135deg, rgba(109,139,255,.2), rgba(55,213,214,.15));
+      background: linear-gradient(135deg, rgba(109,139,255,.18), rgba(55,213,214,.10));
       border: 1px solid rgba(255,255,255,.12);
       border-radius: 18px;
       padding: 20px;
       margin-bottom: 18px;
       backdrop-filter: blur(6px);
+    }
+
+    .hero-badges {
+      margin-top: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .hero-badges span {
+      font-size: .78rem;
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 999px;
+      padding: 5px 10px;
+      color: #dce6ff;
+      background: rgba(255,255,255,.04);
     }
 
     h1 { margin: 0 0 6px; font-size: clamp(1.5rem, 3vw, 2.4rem); }
@@ -94,6 +110,11 @@
       color: #d9e4ff;
       border: 1px solid rgba(255,255,255,.16);
     }
+    button.danger {
+      background: #4a1f2a;
+      color: #ffdbe3;
+      border: 1px solid rgba(255,255,255,.16);
+    }
     button:disabled { opacity: .55; cursor: not-allowed; }
 
     .meter {
@@ -120,15 +141,24 @@
   <div class="wrap">
     <section class="hero">
       <h1>🎛️ MJ Master AI</h1>
-      <p>Original AI-style mastering web app (upload → analyze → master → A/B compare → export WAV).</p>
+      <p>LANDR-inspired flow: upload your song, choose style + loudness, preview, then export your mastered WAV.</p>
+      <div class="hero-badges">
+        <span>Fast A/B preview</span>
+        <span>iPhone-friendly upload</span>
+        <span>One-click mastering</span>
+      </div>
     </section>
 
     <section class="grid">
       <article class="card">
         <div id="dropZone" class="drop">
           <strong>Drop audio here</strong><br>
-          <span class="small">or click to select (WAV/MP3/M4A/OGG)</span>
-          <input id="fileInput" type="file" accept="audio/*" hidden>
+          <span class="small">or tap the button below (WAV/MP3/M4A/AAC/OGG)</span>
+          <input id="fileInput" type="file" accept="audio/*,.wav,.mp3,.m4a,.aac,.ogg,.aiff,.flac" hidden>
+        </div>
+
+        <div class="row" style="margin-bottom:12px;">
+          <button id="browseBtn" class="secondary">📁 Choose Audio File</button>
         </div>
 
         <div class="row">
@@ -170,11 +200,13 @@
         <div class="row" style="margin-top:10px;">
           <button id="playOriginal" class="secondary" disabled>▶ Play Original</button>
           <button id="playMaster" class="secondary" disabled>▶ Play Master</button>
+          <button id="stopBtn" class="danger" disabled>⏹ Stop</button>
           <button id="downloadBtn" disabled>⬇ Download Master WAV</button>
         </div>
 
         <div style="margin-top:12px;"><strong>Status:</strong> <span id="status">Waiting for audio...</span></div>
         <div class="meter"><div id="progress" class="fill"></div></div>
+        <div class="small">iPhone tip: use <strong>Choose Audio File</strong> and pick from Files, Voice Memos export, or iCloud Drive.</div>
 
         <canvas id="waveCanvas" width="900" height="120"></canvas>
       </article>
@@ -202,6 +234,7 @@
   <script>
     const el = {
       fileInput: document.getElementById('fileInput'),
+      browseBtn: document.getElementById('browseBtn'),
       drop: document.getElementById('dropZone'),
       style: document.getElementById('style'),
       targetLufs: document.getElementById('targetLufs'),
@@ -213,6 +246,7 @@
       masterBtn: document.getElementById('masterBtn'),
       playOriginal: document.getElementById('playOriginal'),
       playMaster: document.getElementById('playMaster'),
+      stopBtn: document.getElementById('stopBtn'),
       downloadBtn: document.getElementById('downloadBtn'),
       status: document.getElementById('status'),
       progress: document.getElementById('progress'),
@@ -229,6 +263,7 @@
     let inputBuffer = null;
     let masteredBuffer = null;
     let audioCtx = null;
+    let currentSource = null;
 
     const setStatus = (text) => el.status.textContent = text;
     const setProgress = (n) => el.progress.style.width = `${Math.max(0, Math.min(100, n))}%`;
@@ -353,12 +388,30 @@
       merge.connect(offline.destination);
     }
 
+    function stopPlayback() {
+      if (currentSource) {
+        try { currentSource.stop(); } catch (_) {}
+        currentSource.disconnect();
+        currentSource = null;
+      }
+      el.stopBtn.disabled = true;
+    }
+
     function playBuffer(buffer) {
       if (!buffer) return;
       initAudio();
+      stopPlayback();
       const src = audioCtx.createBufferSource();
       src.buffer = buffer;
       src.connect(audioCtx.destination);
+      src.onended = () => {
+        if (currentSource === src) {
+          currentSource = null;
+          el.stopBtn.disabled = true;
+        }
+      };
+      currentSource = src;
+      el.stopBtn.disabled = false;
       src.start();
     }
 
@@ -407,6 +460,7 @@
       const arr = await file.arrayBuffer();
       inputBuffer = await audioCtx.decodeAudioData(arr.slice(0));
       masteredBuffer = null;
+      stopPlayback();
       drawWave(inputBuffer);
       setStatus(`Loaded: ${file.name}`);
       setProgress(0);
@@ -424,6 +478,7 @@
     }
 
     el.drop.addEventListener('click', () => el.fileInput.click());
+    el.browseBtn.addEventListener('click', () => el.fileInput.click());
     el.fileInput.addEventListener('change', e => bindFile(e.target.files[0]));
     ['dragenter', 'dragover'].forEach(evt => el.drop.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); }));
     el.drop.addEventListener('drop', e => { e.preventDefault(); bindFile(e.dataTransfer.files[0]); });
@@ -481,6 +536,7 @@
 
     el.playOriginal.addEventListener('click', () => playBuffer(inputBuffer));
     el.playMaster.addEventListener('click', () => playBuffer(masteredBuffer));
+    el.stopBtn.addEventListener('click', stopPlayback);
 
     el.downloadBtn.addEventListener('click', () => {
       if (!masteredBuffer) return;
