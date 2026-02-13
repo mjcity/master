@@ -1,0 +1,197 @@
+Wellness Mental Health Counseling Services
+Website Growth Plan + Ready-to-Paste Website Copy
+Prepared for: Ope Famule
+Prepared by: MJ + Assistant
+Date: Thu, Feb 12, 2026
+
+============================================================
+HIGH-IMPACT GROWTH RECOMMENDATIONS
+============================================================
+
+1) Make booking frictionless
+- Add a clear “Book Consultation” button in the top header and repeated throughout the site.
+- Connect one scheduler (SimplePractice/Calendly/etc.).
+- Keep one primary CTA sitewide.
+
+2) Improve trust and clarity on homepage
+- Clearly show: who she helps, where she serves, insurance accepted, online-only, and response time.
+- Add trust blocks: credentials (LMHC), years of experience, specialties, testimonials (if compliant), FAQs.
+
+3) Fix copy and credibility issues
+- Clean up wording, typos, repeated labels, and capitalization inconsistencies.
+- Professional copy increases trust and conversion.
+
+4) SEO for local therapy intent
+Create service pages targeting search intent:
+- Online therapist in New York
+- Anxiety therapy NYC
+- Depression counseling New York
+- LMHC telehealth New York
+
+5) Google Business Profile + citations
+- Fully optimize Google Business Profile (services, photos, posts, Q&A, booking link).
+- Keep listings consistent across Psychology Today, Zocdoc (if used), Healthgrades, Yelp, etc.
+
+============================================================
+90-DAY GROWTH PLAN
+============================================================
+
+Month 1 (Foundation)
+- Rewrite homepage for conversion.
+- Add dedicated service pages (Anxiety, Depression, Trauma, Self-esteem, Family, Teen).
+- Add FAQ + insurance/payment page.
+- Install analytics + conversion tracking for calls, forms, and bookings.
+
+Month 2 (Traffic)
+- Publish 4 educational blog posts targeting client pain points.
+- Add short educational videos/Reels with links back to booking page.
+- Start follow-up sequence for inquiries that do not book same day.
+
+Month 3 (Scale)
+- Launch paid search campaign for high-intent NY keywords.
+- Retarget site visitors with trust-focused ads.
+- Build referral pipeline with PCPs, schools, churches, and community orgs.
+
+============================================================
+CONVERSION UPGRADES TO ADD NOW
+============================================================
+- “What to expect in first session” section
+- “Do you accept my insurance?” checker flow
+- 10-minute consult form with 5 fields max
+- Sticky mobile “Call / Book” buttons
+- Response promise (“We reply within X hours”)
+
+============================================================
+READY-TO-PASTE WEBSITE COPY
+============================================================
+
+1) HOMEPAGE (HERO)
+Headline:
+Compassionate Online Therapy for Adults, Teens, and Families in New York
+
+Subheadline:
+Feel supported, understood, and equipped with practical tools for anxiety, depression,
+trauma, relationship stress, and life transitions.
+
+Primary CTA:
+Book a Free 10-Minute Consultation
+
+Secondary CTA:
+Call 732-844-3589
+
+Trust line:
+Licensed Mental Health Counselor (LMHC) • Telehealth Across New York State • Insurance + Self-Pay Options
+
+------------------------------------------------------------
+2) ABOUT SECTION
+Heading:
+Meet Ope John-Anyaehie, LMHC
+
+Copy:
+I’m a New York State Licensed Mental Health Counselor with over 15 years of experience
+supporting individuals and families through emotional challenges and life stressors.
+I specialize in helping clients manage anxiety, depression, trauma, self-esteem concerns,
+and relationship difficulties using evidence-based approaches like CBT, DBT-informed skills,
+and mindfulness techniques.
+
+My goal is simple: help you feel emotionally stronger, more grounded, and more intentional
+in daily life—long after each session ends.
+
+CTA:
+See If We’re a Good Fit
+
+------------------------------------------------------------
+3) SERVICES SECTION
+Heading:
+Counseling Services
+
+Service cards:
+- Anxiety Therapy: Learn tools to calm racing thoughts, reduce overwhelm, and feel more in control.
+- Depression Counseling: Rebuild motivation, improve mood, and reconnect with what matters to you.
+- Trauma-Informed Therapy: Process painful experiences safely and build healthier coping strategies.
+- Self-Esteem & Confidence: Shift negative self-talk and build a stronger, more compassionate inner voice.
+- Teen Counseling: Support for emotional struggles, stress, behavior concerns, and transitions.
+- Family Support Sessions: Improve communication, reduce conflict, and strengthen relationships at home.
+
+CTA:
+Book Your First Session
+
+------------------------------------------------------------
+4) HOW IT WORKS
+Heading:
+Getting Started Is Simple
+
+1. Schedule a Free 10-Minute Consultation
+   We’ll discuss your needs, goals, and next steps.
+
+2. Choose a Time That Works for You
+   Flexible telehealth scheduling for busy lifestyles.
+
+3. Start Your Online Therapy Journey
+   Meet securely from home and begin building practical emotional tools.
+
+------------------------------------------------------------
+5) PRICING + INSURANCE
+Heading:
+Fees & Insurance
+
+- Individual Session (45 minutes): $150
+- Extended sessions available by request
+- Telehealth only (secure video sessions)
+
+Accepted Insurance:
+Oxford • UnitedHealthcare • Oscar Health • Cigna • Aetna
+
+Sliding Scale:
+Limited reduced-fee spots are available based on need.
+
+CTA:
+Check Availability
+
+------------------------------------------------------------
+6) FAQ SECTION
+Heading:
+Frequently Asked Questions
+
+Q: Do you offer in-person sessions?
+A: At this time, services are offered online only across New York State.
+
+Q: How soon can I get started?
+A: Most clients can schedule an initial consultation quickly based on availability.
+
+Q: Do you accept insurance?
+A: Yes, we accept select insurance plans and also offer self-pay options.
+
+Q: What issues do you treat?
+A: Anxiety, depression, trauma, stress, self-esteem, and relationship/family concerns.
+
+Q: What ages do you work with?
+A: Adults, teens, and families.
+
+------------------------------------------------------------
+7) CONTACT / BOOKING SECTION
+Heading:
+Ready to Take the First Step?
+
+Copy:
+You don’t have to figure this out alone. Let’s talk and create a plan that supports your
+healing and growth.
+
+Contact blocks:
+- Phone: 732-844-3589
+- Hours: Mon–Fri 9:00 AM–6:00 PM, Sat 10:00 AM–5:00 PM
+- Location Served: New York State (Telehealth)
+
+CTA:
+Book Free 10-Minute Consultation
+
+------------------------------------------------------------
+8) FOOTER
+Wellness Mental Health Counseling Services
+Ope John-Anyaehie, LMHC
+Online Therapy in New York State
+Anxiety • Depression • Trauma • Self-Esteem • Family Support
+
+============================================================
+END OF DOCUMENT
+============================================================
