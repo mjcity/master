@@ -11,6 +11,9 @@ When MJ says **"briefmjcity"**, do this exactly:
    - Click **Apply to Brief** to open the application form (this is prefill mode, not final submit)
    - Complete any gating questions/prompts (answer **Yes** where needed to access the form)
    - Fill all required application fields
+   - Visit @openike and pick a **brief-matching** sample link for each tab (do not reuse random links)
+   - Match link topic/style to brand brief (e.g., finance/education → talking/explainer clip; wellness/self-care → lifestyle/self-care clip; fashion/shoes → OOTD/style clip)
+   - Avoid obvious mismatches (e.g., makeup-only clip for unrelated finance/health brief unless no better option exists)
    - Use approved IG sample link(s) from @openike in MJ-required format: `https://www.instagram.com/p/<POST_ID>/`
    - Always include `https://` and `www` in Instagram links
    - Fill **"Highlight work in your portfolio..."** with a tailored response per brand
