@@ -14,6 +14,7 @@ When MJ says **"briefmjcity"**, do this exactly:
    - Always include `https://` and `www` in Instagram links
    - Fill **"Highlight work in your portfolio..."** with a tailored response per brand
    - Fill any extra brief-specific fields (e.g., skin type/routine/job context) from MJ instructions
+   - For product sections, select the exact required quantity (e.g., "Select 1 of 3 products") before proceeding
    - For product selection text boxes, use `Yes` (never `N/A`) unless MJ gives a specific value
    - For shoe/fashion briefs requiring size, use shoe size `7.5`
 4. **Do not submit** final applications.
