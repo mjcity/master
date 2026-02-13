@@ -10,7 +10,8 @@ When MJ says **"briefmjcity"**, do this exactly:
    - Click **Apply to Brief**
    - Complete any gating questions/prompts (answer **Yes** where needed to access the form)
    - Fill all required application fields
-   - Use approved IG sample link(s) from @openike (default: `https://www.instagram.com/p/DSDgWH1EjUY/` unless MJ gives another)
+   - Use approved IG sample link(s) from @openike in MJ-required format: `http://instagram.com/p/<POST_ID>/`
+   - Do NOT use `https://www.instagram.com/...` format in Cohley link fields unless MJ says otherwise
    - Fill **"Highlight work in your portfolio..."** with a tailored response per brand
    - Fill any extra brief-specific fields (e.g., skin type/routine/job context) from MJ instructions
 4. **Do not submit** final applications.
