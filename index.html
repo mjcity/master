@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MJ Master AI — LANDR-Inspired Mastering Studio</title>
+  <style>
+    :root{--bg:#0b1020;--bg2:#151b34;--card:#111833;--text:#eaf0ff;--muted:#9db0e4;--accent:#6d8bff;--accent2:#37d5d6;--ok:#40d48d;--warn:#ffc857;--danger:#ff6b6b}
+    *{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:radial-gradient(1200px 800px at 10% -10%,#27335f 0%,transparent 60%),radial-gradient(1000px 700px at 100% 0%,#10395a 0%,transparent 60%),linear-gradient(160deg,var(--bg),var(--bg2));color:var(--text);min-height:100vh;padding:24px}
+    .wrap{max-width:1080px;margin:0 auto}.hero{background:linear-gradient(135deg,rgba(109,139,255,.18),rgba(55,213,214,.10));border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:20px;margin-bottom:18px}.hero-badges{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px}.hero-badges span{font-size:.78rem;border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:5px 10px;color:#dce6ff;background:rgba(255,255,255,.04)}
+    .grid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}@media (max-width:900px){.grid{grid-template-columns:1fr}} .card{background:rgba(13,21,46,.8);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:16px}
+    .drop{border:2px dashed rgba(125,149,241,.5);border-radius:14px;padding:24px;text-align:center;cursor:pointer;margin-bottom:14px}.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.row>*{flex:1;min-width:140px}
+    label{display:block;font-size:.9rem;margin-bottom:6px;color:#d5e0ff}input[type="range"],select,button{width:100%;border-radius:10px;border:1px solid rgba(255,255,255,.16);background:#101a39;color:var(--text);padding:10px;font:inherit}
+    button{cursor:pointer;font-weight:700;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#041022;border:none}button.secondary{background:#1b2b58;color:#d9e4ff;border:1px solid rgba(255,255,255,.16)}button.danger{background:#4a1f2a;color:#ffdbe3;border:1px solid rgba(255,255,255,.16)}button:disabled{opacity:.55;cursor:not-allowed}
+    .meter{margin-top:10px;background:#0f1733;border:1px solid rgba(255,255,255,.1);border-radius:12px;overflow:hidden;height:12px}.fill{height:100%;width:0%;background:linear-gradient(90deg,var(--ok),var(--warn),var(--danger))}
+    .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}.stat{background:#121d40;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.1)}.k{font-size:.78rem;color:var(--muted)}.v{font-size:1.06rem;font-weight:700}
+    canvas{width:100%;height:120px;background:#0b132e;border-radius:12px;border:1px solid rgba(255,255,255,.08);margin-top:10px}.small{font-size:.82rem;color:var(--muted);margin-top:10px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <h1>🎛️ MJ Master AI</h1>
+      <p>LANDR-inspired flow: upload your song, choose style + loudness, preview, then export your mastered WAV.</p>
+      <div class="hero-badges"><span>Fast A/B preview</span><span>iPhone-friendly upload</span><span>One-click mastering</span></div>
+    </section>
+    <section class="grid">
+      <article class="card">
+        <div id="dropZone" class="drop"><strong>Drop audio here</strong><br><span class="small">or tap button below (WAV/MP3/M4A/AAC/OGG)</span><input id="fileInput" type="file" accept="audio/*,.wav,.mp3,.m4a,.aac,.ogg,.aiff,.flac" hidden></div>
+        <div class="row" style="margin-bottom:12px;"><button id="browseBtn" class="secondary">📁 Choose Audio File</button></div>
+        <div class="row"><div><label>Style</label><select id="style"><option value="balanced">Balanced</option><option value="warm">Warm</option><option value="bright">Bright</option><option value="loud">Loud</option></select></div><div><label>Target Loudness</label><select id="target"><option value="-14">-14</option><option value="-12">-12</option><option value="-10">-10</option></select></div></div>
+        <div class="row" style="margin-top:10px;"><div><label>Master Intensity <span id="intensityLabel">50%</span></label><input id="intensity" type="range" min="0" max="100" value="50"></div><div><label>Stereo Width <span id="widthLabel">25%</span></label><input id="width" type="range" min="0" max="100" value="25"></div></div>
+        <div class="row" style="margin-top:12px;"><button id="analyzeBtn" class="secondary" disabled>Analyze Track</button><button id="masterBtn" disabled>Create Master</button></div>
+        <div class="row" style="margin-top:10px;"><button id="playOriginal" class="secondary" disabled>▶ Play Original</button><button id="playMaster" class="secondary" disabled>▶ Play Master</button><button id="stopBtn" class="danger" disabled>⏹ Stop</button><button id="downloadBtn" disabled>⬇ Download Master WAV</button></div>
+        <div style="margin-top:12px;"><strong>Status:</strong> <span id="status">Waiting for audio...</span></div><div class="meter"><div id="progress" class="fill"></div></div><div class="small">iPhone tip: use Choose Audio File and pick from Files/iCloud.</div>
+        <canvas id="wave" width="900" height="120"></canvas>
+      </article>
+      <article class="card">
+        <h3 style="margin-top:0;">Track Analysis</h3>
+        <div class="stats"><div class="stat"><div class="k">Duration</div><div id="dur" class="v">—</div></div><div class="stat"><div class="k">Sample Rate</div><div id="sr" class="v">—</div></div><div class="stat"><div class="k">Peak</div><div id="peak" class="v">—</div></div><div class="stat"><div class="k">RMS</div><div id="rms" class="v">—</div></div></div>
+      </article>
+    </section>
+  </div>
+<script>
+const $=id=>document.getElementById(id);const el={file:$('fileInput'),browse:$('browseBtn'),drop:$('dropZone'),style:$('style'),target:$('target'),intensity:$('intensity'),width:$('width'),iL:$('intensityLabel'),wL:$('widthLabel'),an:$('analyzeBtn'),ma:$('masterBtn'),po:$('playOriginal'),pm:$('playMaster'),stop:$('stopBtn'),dl:$('downloadBtn'),st:$('status'),pr:$('progress'),dur:$('dur'),sr:$('sr'),peak:$('peak'),rms:$('rms'),wave:$('wave')};
+let ctx,src=null,input=null,master=null,fileName='track';const init=()=>ctx||(ctx=new(window.AudioContext||window.webkitAudioContext)());
+const setS=t=>el.st.textContent=t;const setP=n=>el.pr.style.width=Math.max(0,Math.min(100,n))+'%';
+el.intensity.oninput=()=>el.iL.textContent=el.intensity.value+'%';el.width.oninput=()=>el.wL.textContent=el.width.value+'%';
+function stop(){if(src){try{src.stop()}catch{} src.disconnect(); src=null;} el.stop.disabled=true}
+function play(buf){if(!buf)return;init();stop();src=ctx.createBufferSource();src.buffer=buf;src.connect(ctx.destination);src.onended=()=>{src=null;el.stop.disabled=true};el.stop.disabled=false;src.start()}
+function draw(buf){const c=el.wave.getContext('2d'),w=el.wave.width,h=el.wave.height;c.fillStyle='#0b132e';c.fillRect(0,0,w,h);if(!buf)return;const d=buf.getChannelData(0),step=Math.ceil(d.length/w);c.strokeStyle='#7ed6ff';c.beginPath();for(let x=0;x<w;x++){let mn=1,mx=-1;for(let i=0;i<step;i++){const v=d[x*step+i]||0;if(v<mn)mn=v;if(v>mx)mx=v}c.moveTo(x,(1+mn)*h/2);c.lineTo(x,(1+mx)*h/2)}c.stroke()}
+function stats(buf){const d=buf.getChannelData(0);let p=0,s=0;for(let i=0;i<d.length;i++){const a=Math.abs(d[i]);if(a>p)p=a;s+=d[i]*d[i]}const rms=Math.sqrt(s/d.length);return{peak:20*Math.log10(p||1e-12),rms:20*Math.log10(rms||1e-12)}}
+async function load(f){if(!f)return;init();fileName=(f.name||'track').replace(/\.[^.]+$/,'');setS('Loading...');setP(10);const ab=await f.arrayBuffer();input=await ctx.decodeAudioData(ab.slice(0));master=null;stop();draw(input);el.an.disabled=false;el.ma.disabled=false;el.po.disabled=false;el.pm.disabled=true;el.dl.disabled=true;setS('Loaded: '+f.name);setP(0)}
+function bind(f){if(!f)return;if(!(f.type||'').startsWith('audio/')){setS('Please choose an audio file.');return}load(f).catch(e=>setS('Error: '+e.message))}
+el.drop.onclick=()=>el.file.click();el.browse.onclick=()=>el.file.click();el.file.onchange=e=>bind(e.target.files[0]);['dragenter','dragover'].forEach(v=>el.drop.addEventListener(v,e=>{e.preventDefault();e.stopPropagation()}));el.drop.addEventListener('drop',e=>{e.preventDefault();bind(e.dataTransfer.files[0])});
+el.an.onclick=()=>{if(!input)return;const a=stats(input);el.dur.textContent=input.duration.toFixed(1)+' s';el.sr.textContent=input.sampleRate+' Hz';el.peak.textContent=a.peak.toFixed(1)+' dB';el.rms.textContent=a.rms.toFixed(1)+' dB';setS('Analysis complete.')};
+el.ma.onclick=async()=>{if(!input)return;setS('Creating master...');setP(20);const offline=new OfflineAudioContext({numberOfChannels:input.numberOfChannels,length:input.length,sampleRate:input.sampleRate});const s=offline.createBufferSource();s.buffer=input;const g=offline.createGain();const inten=Number(el.intensity.value)/100;const width=Number(el.width.value)/100;g.gain.value=1+inten*0.35;const comp=offline.createDynamicsCompressor();comp.threshold.value=-18+(-6*inten);comp.ratio.value=2.5+inten*2;const bi=offline.createBiquadFilter();bi.type='highshelf';bi.frequency.value=5500;bi.gain.value=el.style.value==='bright'?3:el.style.value==='warm'?-1:1;const lim=offline.createDynamicsCompressor();lim.threshold.value=-1.2;lim.knee.value=0;lim.ratio.value=20;s.connect(bi);bi.connect(comp);comp.connect(g);g.connect(lim);lim.connect(offline.destination);s.start();setP(60);master=await offline.startRendering();draw(master);el.pm.disabled=false;el.dl.disabled=false;setS('Master complete.');setP(100);setTimeout(()=>setP(0),600)};
+el.po.onclick=()=>play(input);el.pm.onclick=()=>play(master);el.stop.onclick=stop;
+function wav(buf){const ch=buf.numberOfChannels,sr=buf.sampleRate,len=buf.length*ch,out=new ArrayBuffer(44+len*2),v=new DataView(out);let p=0;const ws=s=>{for(let i=0;i<s.length;i++)v.setUint8(p++,s.charCodeAt(i))};ws('RIFF');v.setUint32(p,36+len*2,true);p+=4;ws('WAVEfmt ');v.setUint32(p,16,true);p+=4;v.setUint16(p,1,true);p+=2;v.setUint16(p,ch,true);p+=2;v.setUint32(p,sr,true);p+=4;v.setUint32(p,sr*ch*2,true);p+=4;v.setUint16(p,ch*2,true);p+=2;v.setUint16(p,16,true);p+=2;ws('data');v.setUint32(p,len*2,true);p+=4;let o=0;for(let i=0;i<buf.length;i++)for(let c=0;c<ch;c++){const s=Math.max(-1,Math.min(1,buf.getChannelData(c)[i]||0));v.setInt16(p+o,s<0?s*0x8000:s*0x7fff,true);o+=2}return new Blob([out],{type:'audio/wav'})}
+el.dl.onclick=()=>{if(!master)return;const a=document.createElement('a');a.href=URL.createObjectURL(wav(master));a.download=fileName+'-mastered.wav';a.click();URL.revokeObjectURL(a.href)};
+</script>
+</body>
+</html>
