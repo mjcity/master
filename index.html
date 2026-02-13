@@ -5,16 +5,136 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MJ Master AI — LANDR-Inspired Mastering Studio</title>
   <style>
-    :root{--bg:#0b1020;--bg2:#151b34;--card:#111833;--text:#eaf0ff;--muted:#9db0e4;--accent:#6d8bff;--accent2:#37d5d6;--ok:#40d48d;--warn:#ffc857;--danger:#ff6b6b}
-    *{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:radial-gradient(1200px 800px at 10% -10%,#27335f 0%,transparent 60%),radial-gradient(1000px 700px at 100% 0%,#10395a 0%,transparent 60%),linear-gradient(160deg,var(--bg),var(--bg2));color:var(--text);min-height:100vh;padding:24px}
-    .wrap{max-width:1080px;margin:0 auto}.hero{background:linear-gradient(135deg,rgba(109,139,255,.18),rgba(55,213,214,.10));border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:20px;margin-bottom:18px}.hero-badges{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px}.hero-badges span{font-size:.78rem;border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:5px 10px;color:#dce6ff;background:rgba(255,255,255,.04)}
-    .grid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}@media (max-width:900px){.grid{grid-template-columns:1fr}} .card{background:rgba(13,21,46,.8);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:16px}
-    .drop{border:2px dashed rgba(125,149,241,.5);border-radius:14px;padding:24px;text-align:center;cursor:pointer;margin-bottom:14px}.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.row>*{flex:1;min-width:140px}
-    label{display:block;font-size:.9rem;margin-bottom:6px;color:#d5e0ff}input[type="range"],select,button{width:100%;border-radius:10px;border:1px solid rgba(255,255,255,.16);background:#101a39;color:var(--text);padding:10px;font:inherit}
-    button{cursor:pointer;font-weight:700;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#041022;border:none}button.secondary{background:#1b2b58;color:#d9e4ff;border:1px solid rgba(255,255,255,.16)}button.danger{background:#4a1f2a;color:#ffdbe3;border:1px solid rgba(255,255,255,.16)}button:disabled{opacity:.55;cursor:not-allowed}
-    .meter{margin-top:10px;background:#0f1733;border:1px solid rgba(255,255,255,.1);border-radius:12px;overflow:hidden;height:12px}.fill{height:100%;width:0%;background:linear-gradient(90deg,var(--ok),var(--warn),var(--danger))}
-    .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}.stat{background:#121d40;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.1)}.k{font-size:.78rem;color:var(--muted)}.v{font-size:1.06rem;font-weight:700}
-    canvas{width:100%;height:120px;background:#0b132e;border-radius:12px;border:1px solid rgba(255,255,255,.08);margin-top:10px}.small{font-size:.82rem;color:var(--muted);margin-top:10px}
+    :root {
+      --bg: #0b1020;
+      --bg2: #151b34;
+      --card: #111833;
+      --text: #eaf0ff;
+      --muted: #9db0e4;
+      --accent: #6d8bff;
+      --accent2: #37d5d6;
+      --ok: #40d48d;
+      --warn: #ffc857;
+      --danger: #ff6b6b;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(1200px 800px at 10% -10%, #27335f 0%, transparent 60%),
+                  radial-gradient(1000px 700px at 100% 0%, #10395a 0%, transparent 60%),
+                  linear-gradient(160deg, var(--bg), var(--bg2));
+      color: var(--text);
+      min-height: 100vh;
+      padding: 24px;
+    }
+
+    .wrap { max-width: 1080px; margin: 0 auto; }
+    .hero {
+      background: linear-gradient(135deg, rgba(109,139,255,.18), rgba(55,213,214,.10));
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 18px;
+      padding: 20px;
+      margin-bottom: 18px;
+      backdrop-filter: blur(6px);
+    }
+
+    .hero-badges {
+      margin-top: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .hero-badges span {
+      font-size: .78rem;
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 999px;
+      padding: 5px 10px;
+      color: #dce6ff;
+      background: rgba(255,255,255,.04);
+    }
+
+    h1 { margin: 0 0 6px; font-size: clamp(1.5rem, 3vw, 2.4rem); }
+    p { margin: 0; color: var(--muted); }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 16px;
+    }
+    @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+
+    .card {
+      background: rgba(13, 21, 46, .8);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    .drop {
+      border: 2px dashed rgba(125, 149, 241, .5);
+      border-radius: 14px;
+      padding: 24px;
+      text-align: center;
+      cursor: pointer;
+      transition: .2s ease;
+      margin-bottom: 14px;
+    }
+    .drop:hover { border-color: var(--accent2); background: rgba(255,255,255,.02); }
+
+    .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+    .row > * { flex: 1; min-width: 140px; }
+
+    label { display: block; font-size: .9rem; margin-bottom: 6px; color: #d5e0ff; }
+    input[type="range"], select, button {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: #101a39;
+      color: var(--text);
+      padding: 10px;
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #041022;
+      border: none;
+    }
+    button.secondary {
+      background: #1b2b58;
+      color: #d9e4ff;
+      border: 1px solid rgba(255,255,255,.16);
+    }
+    button.danger {
+      background: #4a1f2a;
+      color: #ffdbe3;
+      border: 1px solid rgba(255,255,255,.16);
+    }
+    button:disabled { opacity: .55; cursor: not-allowed; }
+
+    .meter {
+      margin-top: 10px;
+      background: #0f1733;
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 12px;
+      overflow: hidden;
+      height: 12px;
+    }
+    .fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--ok), var(--warn), var(--danger)); }
+
+    .stats { display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; margin-top: 12px; }
+    .stat { background: #121d40; padding: 10px; border-radius: 10px; border: 1px solid rgba(255,255,255,.1); }
+    .stat .k { font-size: .78rem; color: var(--muted); }
+    .stat .v { font-size: 1.06rem; font-weight: 700; }
+
+    canvas { width: 100%; height: 120px; background: #0b132e; border-radius: 12px; border: 1px solid rgba(255,255,255,.08); margin-top: 10px; }
+    .small { font-size: .82rem; color: var(--muted); margin-top: 10px; }
+    .ok { color: var(--ok); font-weight: 700; }
   </style>
 </head>
 <body>
@@ -22,42 +142,448 @@
     <section class="hero">
       <h1>🎛️ MJ Master AI</h1>
       <p>LANDR-inspired flow: upload your song, choose style + loudness, preview, then export your mastered WAV.</p>
-      <div class="hero-badges"><span>Fast A/B preview</span><span>iPhone-friendly upload</span><span>One-click mastering</span></div>
+      <div class="hero-badges">
+        <span>Fast A/B preview</span>
+        <span>iPhone-friendly upload</span>
+        <span>One-click mastering</span>
+      </div>
     </section>
+
     <section class="grid">
       <article class="card">
-        <div id="dropZone" class="drop"><strong>Drop audio here</strong><br><span class="small">or tap button below (WAV/MP3/M4A/AAC/OGG)</span><input id="fileInput" type="file" accept="audio/*,.wav,.mp3,.m4a,.aac,.ogg,.aiff,.flac" hidden></div>
-        <div class="row" style="margin-bottom:12px;"><button id="browseBtn" class="secondary">📁 Choose Audio File</button></div>
-        <div class="row"><div><label>Style</label><select id="style"><option value="balanced">Balanced</option><option value="warm">Warm</option><option value="bright">Bright</option><option value="loud">Loud</option></select></div><div><label>Target Loudness</label><select id="target"><option value="-14">-14</option><option value="-12">-12</option><option value="-10">-10</option></select></div></div>
-        <div class="row" style="margin-top:10px;"><div><label>Master Intensity <span id="intensityLabel">50%</span></label><input id="intensity" type="range" min="0" max="100" value="50"></div><div><label>Stereo Width <span id="widthLabel">25%</span></label><input id="width" type="range" min="0" max="100" value="25"></div></div>
-        <div class="row" style="margin-top:12px;"><button id="analyzeBtn" class="secondary" disabled>Analyze Track</button><button id="masterBtn" disabled>Create Master</button></div>
-        <div class="row" style="margin-top:10px;"><button id="playOriginal" class="secondary" disabled>▶ Play Original</button><button id="playMaster" class="secondary" disabled>▶ Play Master</button><button id="stopBtn" class="danger" disabled>⏹ Stop</button><button id="downloadBtn" disabled>⬇ Download Master WAV</button></div>
-        <div style="margin-top:12px;"><strong>Status:</strong> <span id="status">Waiting for audio...</span></div><div class="meter"><div id="progress" class="fill"></div></div><div class="small">iPhone tip: use Choose Audio File and pick from Files/iCloud.</div>
-        <canvas id="wave" width="900" height="120"></canvas>
+        <div id="dropZone" class="drop">
+          <strong>Drop audio here</strong><br>
+          <span class="small">or tap the button below (WAV/MP3/M4A/AAC/OGG)</span>
+          <input id="fileInput" type="file" accept="audio/*,.wav,.mp3,.m4a,.aac,.ogg,.aiff,.flac" hidden>
+        </div>
+
+        <div class="row" style="margin-bottom:12px;">
+          <button id="browseBtn" class="secondary">📁 Choose Audio File</button>
+        </div>
+
+        <div class="row">
+          <div>
+            <label>Style</label>
+            <select id="style">
+              <option value="balanced">Balanced</option>
+              <option value="warm">Warm</option>
+              <option value="bright">Bright</option>
+              <option value="loud">Loud</option>
+            </select>
+          </div>
+          <div>
+            <label>Target Loudness (LUFS-ish)</label>
+            <select id="targetLufs">
+              <option value="-14">-14 (streaming safe)</option>
+              <option value="-12">-12 (punchy)</option>
+              <option value="-10">-10 (very loud)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row" style="margin-top:10px;">
+          <div>
+            <label>Master Intensity <span id="intensityLabel">50%</span></label>
+            <input id="intensity" type="range" min="0" max="100" value="50">
+          </div>
+          <div>
+            <label>Stereo Width <span id="widthLabel">25%</span></label>
+            <input id="width" type="range" min="0" max="100" value="25">
+          </div>
+        </div>
+
+        <div class="row" style="margin-top:12px;">
+          <button id="analyzeBtn" class="secondary" disabled>Analyze Track</button>
+          <button id="masterBtn" disabled>Create Master</button>
+        </div>
+
+        <div class="row" style="margin-top:10px;">
+          <button id="playOriginal" class="secondary" disabled>▶ Play Original</button>
+          <button id="playMaster" class="secondary" disabled>▶ Play Master</button>
+          <button id="stopBtn" class="danger" disabled>⏹ Stop</button>
+          <button id="downloadBtn" disabled>⬇ Download Master WAV</button>
+        </div>
+
+        <div style="margin-top:12px;"><strong>Status:</strong> <span id="status">Waiting for audio...</span></div>
+        <div class="meter"><div id="progress" class="fill"></div></div>
+        <div class="small">iPhone tip: use <strong>Choose Audio File</strong> and pick from Files, Voice Memos export, or iCloud Drive.</div>
+
+        <canvas id="waveCanvas" width="900" height="120"></canvas>
       </article>
+
       <article class="card">
         <h3 style="margin-top:0;">Track Analysis</h3>
-        <div class="stats"><div class="stat"><div class="k">Duration</div><div id="dur" class="v">—</div></div><div class="stat"><div class="k">Sample Rate</div><div id="sr" class="v">—</div></div><div class="stat"><div class="k">Peak</div><div id="peak" class="v">—</div></div><div class="stat"><div class="k">RMS</div><div id="rms" class="v">—</div></div></div>
+        <div class="stats">
+          <div class="stat"><div class="k">Duration</div><div id="duration" class="v">—</div></div>
+          <div class="stat"><div class="k">Sample Rate</div><div id="sampleRate" class="v">—</div></div>
+          <div class="stat"><div class="k">Peak (dBFS)</div><div id="peak" class="v">—</div></div>
+          <div class="stat"><div class="k">RMS (dBFS)</div><div id="rms" class="v">—</div></div>
+          <div class="stat"><div class="k">Dynamic Range</div><div id="dr" class="v">—</div></div>
+          <div class="stat"><div class="k">Headroom Suggestion</div><div id="headroom" class="v">—</div></div>
+        </div>
+
+        <p class="small">
+          This is a clean, original mastering prototype using browser DSP (EQ, compression, saturation, limiting, stereo widening).
+          It is <strong>not</strong> a copy of proprietary products.
+        </p>
+        <p class="small ok">Tip: best input is a clean premaster peaking around -6dB to -3dB.</p>
       </article>
     </section>
   </div>
-<script>
-const $=id=>document.getElementById(id);const el={file:$('fileInput'),browse:$('browseBtn'),drop:$('dropZone'),style:$('style'),target:$('target'),intensity:$('intensity'),width:$('width'),iL:$('intensityLabel'),wL:$('widthLabel'),an:$('analyzeBtn'),ma:$('masterBtn'),po:$('playOriginal'),pm:$('playMaster'),stop:$('stopBtn'),dl:$('downloadBtn'),st:$('status'),pr:$('progress'),dur:$('dur'),sr:$('sr'),peak:$('peak'),rms:$('rms'),wave:$('wave')};
-let ctx,src=null,input=null,master=null,fileName='track';const init=()=>ctx||(ctx=new(window.AudioContext||window.webkitAudioContext)());
-const setS=t=>el.st.textContent=t;const setP=n=>el.pr.style.width=Math.max(0,Math.min(100,n))+'%';
-el.intensity.oninput=()=>el.iL.textContent=el.intensity.value+'%';el.width.oninput=()=>el.wL.textContent=el.width.value+'%';
-function stop(){if(src){try{src.stop()}catch{} src.disconnect(); src=null;} el.stop.disabled=true}
-function play(buf){if(!buf)return;init();stop();src=ctx.createBufferSource();src.buffer=buf;src.connect(ctx.destination);src.onended=()=>{src=null;el.stop.disabled=true};el.stop.disabled=false;src.start()}
-function draw(buf){const c=el.wave.getContext('2d'),w=el.wave.width,h=el.wave.height;c.fillStyle='#0b132e';c.fillRect(0,0,w,h);if(!buf)return;const d=buf.getChannelData(0),step=Math.ceil(d.length/w);c.strokeStyle='#7ed6ff';c.beginPath();for(let x=0;x<w;x++){let mn=1,mx=-1;for(let i=0;i<step;i++){const v=d[x*step+i]||0;if(v<mn)mn=v;if(v>mx)mx=v}c.moveTo(x,(1+mn)*h/2);c.lineTo(x,(1+mx)*h/2)}c.stroke()}
-function stats(buf){const d=buf.getChannelData(0);let p=0,s=0;for(let i=0;i<d.length;i++){const a=Math.abs(d[i]);if(a>p)p=a;s+=d[i]*d[i]}const rms=Math.sqrt(s/d.length);return{peak:20*Math.log10(p||1e-12),rms:20*Math.log10(rms||1e-12)}}
-async function load(f){if(!f)return;init();fileName=(f.name||'track').replace(/\.[^.]+$/,'');setS('Loading...');setP(10);const ab=await f.arrayBuffer();input=await ctx.decodeAudioData(ab.slice(0));master=null;stop();draw(input);el.an.disabled=false;el.ma.disabled=false;el.po.disabled=false;el.pm.disabled=true;el.dl.disabled=true;setS('Loaded: '+f.name);setP(0)}
-function bind(f){if(!f)return;if(!(f.type||'').startsWith('audio/')){setS('Please choose an audio file.');return}load(f).catch(e=>setS('Error: '+e.message))}
-el.drop.onclick=()=>el.file.click();el.browse.onclick=()=>el.file.click();el.file.onchange=e=>bind(e.target.files[0]);['dragenter','dragover'].forEach(v=>el.drop.addEventListener(v,e=>{e.preventDefault();e.stopPropagation()}));el.drop.addEventListener('drop',e=>{e.preventDefault();bind(e.dataTransfer.files[0])});
-el.an.onclick=()=>{if(!input)return;const a=stats(input);el.dur.textContent=input.duration.toFixed(1)+' s';el.sr.textContent=input.sampleRate+' Hz';el.peak.textContent=a.peak.toFixed(1)+' dB';el.rms.textContent=a.rms.toFixed(1)+' dB';setS('Analysis complete.')};
-el.ma.onclick=async()=>{if(!input)return;setS('Creating master...');setP(20);const offline=new OfflineAudioContext({numberOfChannels:input.numberOfChannels,length:input.length,sampleRate:input.sampleRate});const s=offline.createBufferSource();s.buffer=input;const g=offline.createGain();const inten=Number(el.intensity.value)/100;const width=Number(el.width.value)/100;g.gain.value=1+inten*0.35;const comp=offline.createDynamicsCompressor();comp.threshold.value=-18+(-6*inten);comp.ratio.value=2.5+inten*2;const bi=offline.createBiquadFilter();bi.type='highshelf';bi.frequency.value=5500;bi.gain.value=el.style.value==='bright'?3:el.style.value==='warm'?-1:1;const lim=offline.createDynamicsCompressor();lim.threshold.value=-1.2;lim.knee.value=0;lim.ratio.value=20;s.connect(bi);bi.connect(comp);comp.connect(g);g.connect(lim);lim.connect(offline.destination);s.start();setP(60);master=await offline.startRendering();draw(master);el.pm.disabled=false;el.dl.disabled=false;setS('Master complete.');setP(100);setTimeout(()=>setP(0),600)};
-el.po.onclick=()=>play(input);el.pm.onclick=()=>play(master);el.stop.onclick=stop;
-function wav(buf){const ch=buf.numberOfChannels,sr=buf.sampleRate,len=buf.length*ch,out=new ArrayBuffer(44+len*2),v=new DataView(out);let p=0;const ws=s=>{for(let i=0;i<s.length;i++)v.setUint8(p++,s.charCodeAt(i))};ws('RIFF');v.setUint32(p,36+len*2,true);p+=4;ws('WAVEfmt ');v.setUint32(p,16,true);p+=4;v.setUint16(p,1,true);p+=2;v.setUint16(p,ch,true);p+=2;v.setUint32(p,sr,true);p+=4;v.setUint32(p,sr*ch*2,true);p+=4;v.setUint16(p,ch*2,true);p+=2;v.setUint16(p,16,true);p+=2;ws('data');v.setUint32(p,len*2,true);p+=4;let o=0;for(let i=0;i<buf.length;i++)for(let c=0;c<ch;c++){const s=Math.max(-1,Math.min(1,buf.getChannelData(c)[i]||0));v.setInt16(p+o,s<0?s*0x8000:s*0x7fff,true);o+=2}return new Blob([out],{type:'audio/wav'})}
-el.dl.onclick=()=>{if(!master)return;const a=document.createElement('a');a.href=URL.createObjectURL(wav(master));a.download=fileName+'-mastered.wav';a.click();URL.revokeObjectURL(a.href)};
-</script>
+
+  <script>
+    const el = {
+      fileInput: document.getElementById('fileInput'),
+      browseBtn: document.getElementById('browseBtn'),
+      drop: document.getElementById('dropZone'),
+      style: document.getElementById('style'),
+      targetLufs: document.getElementById('targetLufs'),
+      intensity: document.getElementById('intensity'),
+      width: document.getElementById('width'),
+      intensityLabel: document.getElementById('intensityLabel'),
+      widthLabel: document.getElementById('widthLabel'),
+      analyzeBtn: document.getElementById('analyzeBtn'),
+      masterBtn: document.getElementById('masterBtn'),
+      playOriginal: document.getElementById('playOriginal'),
+      playMaster: document.getElementById('playMaster'),
+      stopBtn: document.getElementById('stopBtn'),
+      downloadBtn: document.getElementById('downloadBtn'),
+      status: document.getElementById('status'),
+      progress: document.getElementById('progress'),
+      duration: document.getElementById('duration'),
+      sampleRate: document.getElementById('sampleRate'),
+      peak: document.getElementById('peak'),
+      rms: document.getElementById('rms'),
+      dr: document.getElementById('dr'),
+      headroom: document.getElementById('headroom'),
+      canvas: document.getElementById('waveCanvas')
+    };
+
+    let audioFile = null;
+    let inputBuffer = null;
+    let masteredBuffer = null;
+    let audioCtx = null;
+    let currentSource = null;
+    let htmlPlayer = null;
+
+    const setStatus = (text) => el.status.textContent = text;
+    const setProgress = (n) => el.progress.style.width = `${Math.max(0, Math.min(100, n))}%`;
+
+    el.intensity.addEventListener('input', () => el.intensityLabel.textContent = `${el.intensity.value}%`);
+    el.width.addEventListener('input', () => el.widthLabel.textContent = `${el.width.value}%`);
+
+    const initAudio = () => { if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)(); };
+
+    function fmtDb(v) { return Number.isFinite(v) ? `${v.toFixed(1)} dB` : '—'; }
+
+    function drawWave(buffer) {
+      const ctx = el.canvas.getContext('2d');
+      const w = el.canvas.width, h = el.canvas.height;
+      ctx.clearRect(0,0,w,h);
+      ctx.fillStyle = '#0b132e'; ctx.fillRect(0,0,w,h);
+      if (!buffer) return;
+      const data = buffer.getChannelData(0);
+      const step = Math.ceil(data.length / w);
+      ctx.strokeStyle = '#7ed6ff';
+      ctx.beginPath();
+      for (let x=0; x<w; x++) {
+        let min=1, max=-1;
+        for (let i=0; i<step; i++) {
+          const v = data[x*step+i] || 0;
+          if (v<min) min=v;
+          if (v>max) max=v;
+        }
+        const y1 = (1+min)*h/2;
+        const y2 = (1+max)*h/2;
+        ctx.moveTo(x, y1);
+        ctx.lineTo(x, y2);
+      }
+      ctx.stroke();
+    }
+
+    function analyzeBuffer(buffer) {
+      const ch = buffer.getChannelData(0);
+      let peak = 0, sumSq = 0;
+      for (let i=0; i<ch.length; i++) {
+        const a = Math.abs(ch[i]);
+        if (a > peak) peak = a;
+        sumSq += ch[i]*ch[i];
+      }
+      const rms = Math.sqrt(sumSq / ch.length);
+      const peakDb = 20 * Math.log10(peak || 1e-12);
+      const rmsDb = 20 * Math.log10(rms || 1e-12);
+      const dr = peakDb - rmsDb;
+      return { peakDb, rmsDb, dr };
+    }
+
+    function applyMastering(offline, src, options) {
+      const input = offline.createGain();
+      src.connect(input);
+
+      const low = offline.createBiquadFilter();
+      low.type = 'lowshelf'; low.frequency.value = 140;
+      const high = offline.createBiquadFilter();
+      high.type = 'highshelf'; high.frequency.value = 6500;
+      const presence = offline.createBiquadFilter();
+      presence.type = 'peaking'; presence.frequency.value = 2800; presence.Q.value = 0.9;
+
+      const comp = offline.createDynamicsCompressor();
+      comp.threshold.value = -18;
+      comp.knee.value = 18;
+      comp.ratio.value = 2.8;
+      comp.attack.value = 0.003;
+      comp.release.value = 0.2;
+
+      const sat = offline.createWaveShaper();
+      const curve = new Float32Array(65536);
+      const drive = 1 + options.intensity * 1.2;
+      for (let i=0; i<curve.length; i++) {
+        const x = (i * 2 / (curve.length - 1)) - 1;
+        curve[i] = Math.tanh(x * drive);
+      }
+      sat.curve = curve;
+      sat.oversample = '2x';
+
+      const makeup = offline.createGain();
+      makeup.gain.value = options.makeupGain;
+
+      // pseudo limiter via second compressor stage
+      const limiter = offline.createDynamicsCompressor();
+      limiter.threshold.value = -1.2;
+      limiter.knee.value = 0;
+      limiter.ratio.value = 20;
+      limiter.attack.value = 0.001;
+      limiter.release.value = 0.05;
+
+      // simple stereo widen: L += side*amount, R -= side*amount
+      const split = offline.createChannelSplitter(2);
+      const merge = offline.createChannelMerger(2);
+      const lGain = offline.createGain();
+      const rGain = offline.createGain();
+      const lSide = offline.createGain();
+      const rSide = offline.createGain();
+      const width = options.width;
+
+      input.connect(low); low.connect(presence); presence.connect(high);
+
+      // style tuning
+      if (options.style === 'warm') { low.gain.value = 2.2; high.gain.value = 0.5; presence.gain.value = 0.8; }
+      if (options.style === 'bright') { low.gain.value = 0.6; high.gain.value = 2.6; presence.gain.value = 1.8; }
+      if (options.style === 'loud') { low.gain.value = 1.2; high.gain.value = 1.4; presence.gain.value = 1.3; comp.ratio.value = 3.8; }
+      if (options.style === 'balanced') { low.gain.value = 1.2; high.gain.value = 1.2; presence.gain.value = 1.0; }
+
+      high.connect(comp); comp.connect(sat); sat.connect(makeup); makeup.connect(limiter);
+
+      limiter.connect(split);
+      split.connect(lGain, 0); split.connect(rGain, 1);
+      split.connect(lSide, 1); split.connect(rSide, 0);
+      lGain.gain.value = 1 + width;
+      rGain.gain.value = 1 + width;
+      lSide.gain.value = -width;
+      rSide.gain.value = -width;
+      lGain.connect(merge, 0, 0);
+      lSide.connect(merge, 0, 0);
+      rGain.connect(merge, 0, 1);
+      rSide.connect(merge, 0, 1);
+
+      merge.connect(offline.destination);
+    }
+
+    function stopPlayback() {
+      if (currentSource) {
+        try { currentSource.stop(); } catch (_) {}
+        currentSource.disconnect();
+        currentSource = null;
+      }
+      if (htmlPlayer) {
+        try { htmlPlayer.pause(); } catch (_) {}
+        htmlPlayer.src = '';
+        htmlPlayer = null;
+      }
+      el.stopBtn.disabled = true;
+    }
+
+    async function playBuffer(buffer) {
+      if (!buffer) return;
+      initAudio();
+      stopPlayback();
+
+      try {
+        if (audioCtx.state !== 'running') await audioCtx.resume();
+
+        const src = audioCtx.createBufferSource();
+        src.buffer = buffer;
+        src.connect(audioCtx.destination);
+        src.onended = () => {
+          if (currentSource === src) {
+            currentSource = null;
+            el.stopBtn.disabled = true;
+          }
+        };
+        currentSource = src;
+        el.stopBtn.disabled = false;
+        src.start();
+        return;
+      } catch (_) {
+        // iOS/Safari fallback
+      }
+
+      try {
+        const wavBlob = encodeWAV(buffer);
+        htmlPlayer = new Audio(URL.createObjectURL(wavBlob));
+        htmlPlayer.playsInline = true;
+        htmlPlayer.onended = () => {
+          if (htmlPlayer) {
+            URL.revokeObjectURL(htmlPlayer.src);
+            htmlPlayer = null;
+          }
+          el.stopBtn.disabled = true;
+        };
+        await htmlPlayer.play();
+        el.stopBtn.disabled = false;
+      } catch (err) {
+        setStatus(`Playback blocked on this phone. Tap Play again (${err.message || 'audio policy'})`);
+      }
+    }
+
+    function interleavedPCM(buffer) {
+      const numChannels = buffer.numberOfChannels;
+      const length = buffer.length * numChannels;
+      const result = new Float32Array(length);
+      let offset = 0;
+      for (let i=0; i<buffer.length; i++) {
+        for (let ch=0; ch<numChannels; ch++) result[offset++] = buffer.getChannelData(ch)[i] || 0;
+      }
+      return result;
+    }
+
+    function encodeWAV(buffer) {
+      const numChannels = buffer.numberOfChannels;
+      const sampleRate = buffer.sampleRate;
+      const pcm = interleavedPCM(buffer);
+      const bytesPerSample = 2;
+      const blockAlign = numChannels * bytesPerSample;
+      const byteRate = sampleRate * blockAlign;
+      const dataSize = pcm.length * bytesPerSample;
+      const out = new ArrayBuffer(44 + dataSize);
+      const view = new DataView(out);
+      let p = 0;
+      const wstr = s => { for (let i=0;i<s.length;i++) view.setUint8(p++, s.charCodeAt(i)); };
+      wstr('RIFF'); view.setUint32(p, 36 + dataSize, true); p += 4;
+      wstr('WAVE'); wstr('fmt '); view.setUint32(p, 16, true); p += 4;
+      view.setUint16(p, 1, true); p += 2;
+      view.setUint16(p, numChannels, true); p += 2;
+      view.setUint32(p, sampleRate, true); p += 4;
+      view.setUint32(p, byteRate, true); p += 4;
+      view.setUint16(p, blockAlign, true); p += 2;
+      view.setUint16(p, 16, true); p += 2;
+      wstr('data'); view.setUint32(p, dataSize, true); p += 4;
+      for (let i=0; i<pcm.length; i++, p+=2) {
+        const s = Math.max(-1, Math.min(1, pcm[i]));
+        view.setInt16(p, s < 0 ? s * 0x8000 : s * 0x7fff, true);
+      }
+      return new Blob([out], { type: 'audio/wav' });
+    }
+
+    async function loadAudio(file) {
+      initAudio();
+      setStatus('Loading audio...'); setProgress(10);
+      const arr = await file.arrayBuffer();
+      inputBuffer = await audioCtx.decodeAudioData(arr.slice(0));
+      masteredBuffer = null;
+      stopPlayback();
+      drawWave(inputBuffer);
+      setStatus(`Loaded: ${file.name}`);
+      setProgress(0);
+      el.analyzeBtn.disabled = false;
+      el.masterBtn.disabled = false;
+      el.playOriginal.disabled = false;
+      el.playMaster.disabled = true;
+      el.downloadBtn.disabled = true;
+    }
+
+    function bindFile(file) {
+      if (!file) return;
+      const looksAudio = file.type.startsWith('audio/') || /\.(wav|mp3|m4a|aac|ogg|aiff|flac)$/i.test(file.name || '');
+      if (!looksAudio) {
+        setStatus('Please choose an audio file (WAV/MP3/M4A/AAC/OGG/AIFF/FLAC).');
+        return;
+      }
+      audioFile = file;
+      loadAudio(file).catch(err => setStatus(`Error: ${err.message}`));
+    }
+
+    el.drop.addEventListener('click', () => el.fileInput.click());
+    el.browseBtn.addEventListener('click', () => el.fileInput.click());
+    el.fileInput.addEventListener('change', e => bindFile(e.target.files[0]));
+    ['dragenter', 'dragover'].forEach(evt => el.drop.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); }));
+    el.drop.addEventListener('drop', e => { e.preventDefault(); bindFile(e.dataTransfer.files[0]); });
+
+    el.analyzeBtn.addEventListener('click', () => {
+      if (!inputBuffer) return;
+      const a = analyzeBuffer(inputBuffer);
+      el.duration.textContent = `${inputBuffer.duration.toFixed(1)} s`;
+      el.sampleRate.textContent = `${inputBuffer.sampleRate} Hz`;
+      el.peak.textContent = fmtDb(a.peakDb);
+      el.rms.textContent = fmtDb(a.rmsDb);
+      el.dr.textContent = `${a.dr.toFixed(1)} dB`;
+      el.headroom.textContent = a.peakDb > -1 ? 'Too hot — lower pre-gain' : a.peakDb > -3 ? 'Okay' : 'Good for mastering';
+      setStatus('Analysis complete.');
+    });
+
+    el.masterBtn.addEventListener('click', async () => {
+      if (!inputBuffer) return;
+      setStatus('Creating master...'); setProgress(20);
+
+      const intensity = Number(el.intensity.value) / 100;
+      const width = Number(el.width.value) / 100 * 0.35;
+      const target = Number(el.targetLufs.value);
+
+      const a = analyzeBuffer(inputBuffer);
+      const targetRms = target + 2.5; // rough mapping
+      const gainDb = Math.max(-6, Math.min(12, targetRms - a.rmsDb));
+      const makeupGain = Math.pow(10, (gainDb * (0.45 + intensity * 0.55)) / 20);
+
+      const offline = new OfflineAudioContext({
+        numberOfChannels: inputBuffer.numberOfChannels,
+        length: inputBuffer.length,
+        sampleRate: inputBuffer.sampleRate
+      });
+
+      const src = offline.createBufferSource();
+      src.buffer = inputBuffer;
+      applyMastering(offline, src, {
+        style: el.style.value,
+        intensity,
+        width,
+        makeupGain
+      });
+
+      src.start(0);
+      setProgress(55);
+      masteredBuffer = await offline.startRendering();
+      setProgress(100);
+      drawWave(masteredBuffer);
+      setStatus('Master complete. A/B and download are ready.');
+      el.playMaster.disabled = false;
+      el.downloadBtn.disabled = false;
+      setTimeout(() => setProgress(0), 600);
+    });
+
+    el.playOriginal.addEventListener('click', () => playBuffer(inputBuffer));
+    el.playMaster.addEventListener('click', () => playBuffer(masteredBuffer));
+    el.stopBtn.addEventListener('click', stopPlayback);
+
+    el.downloadBtn.addEventListener('click', () => {
+      if (!masteredBuffer) return;
+      const blob = encodeWAV(masteredBuffer);
+      const a = document.createElement('a');
+      const base = (audioFile?.name || 'track').replace(/\.[^.]+$/, '');
+      a.href = URL.createObjectURL(blob);
+      a.download = `${base}-mastered.wav`;
+      a.click();
+      URL.revokeObjectURL(a.href);
+    });
+  </script>
 </body>
 </html>
