@@ -71,8 +71,17 @@
     }
 
     .icon {
-      font-size: 1.2rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
       margin-right: 8px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #ff4fa1, #7c4dff, #3fa9f5);
+      color: #fff;
+      font-size: 1rem;
+      box-shadow: 0 6px 14px rgba(124, 77, 255, 0.25);
     }
 
     ul, ol { padding-left: 20px; }
@@ -213,6 +222,62 @@
       color: var(--muted);
     }
 
+    .media-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .media-btn {
+      border: 0;
+      border-radius: 10px;
+      padding: 9px 12px;
+      font-weight: 700;
+      color: #fff;
+      cursor: pointer;
+      background: linear-gradient(135deg, #ff4fa1, #7c4dff 55%, #3fa9f5);
+      box-shadow: 0 8px 16px rgba(124, 77, 255, 0.22);
+    }
+
+    .media-list {
+      border: 2px dashed #e8defe;
+      border-radius: 12px;
+      background: #fff;
+      padding: 10px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .media-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid #f0eaff;
+      border-radius: 10px;
+      padding: 8px;
+    }
+
+    .media-item img,
+    .media-item video {
+      width: 52px;
+      height: 52px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid #ebe2ff;
+    }
+
+    .remove-btn {
+      border: 1px solid #ffd2e8;
+      background: #fff5fb;
+      color: #b02f6c;
+      border-radius: 8px;
+      padding: 6px 8px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
     footer {
       text-align: center;
       margin: 30px 0 10px;
@@ -311,6 +376,23 @@
         <input class="input" id="spendInput" type="number" min="0" step="0.01" placeholder="0.00" />
         <label class="mini">Notes</label>
         <textarea id="dayNotes" placeholder="Example: Posted wig try-on at 7pm. Good comments. Return deadline Friday."></textarea>
+
+        <label class="mini">Phone camera + mic + uploads (for calendar day content)</label>
+        <div class="media-tools">
+          <button class="media-btn" id="enableCamMic" type="button">Enable Camera + Mic</button>
+          <button class="media-btn" id="addPhoto" type="button">Take/Add Photo</button>
+          <button class="media-btn" id="addVideo" type="button">Take/Add Video</button>
+          <button class="media-btn" id="addFile" type="button">Add File</button>
+        </div>
+
+        <input id="photoInput" type="file" accept="image/*" capture="environment" hidden />
+        <input id="videoInput" type="file" accept="video/*" capture="environment" hidden />
+        <input id="fileInput" type="file" accept="image/*,video/*,audio/*,.pdf,.doc,.docx,.txt,.csv" hidden />
+
+        <div class="media-list" id="mediaList">
+          <div class="mini">No uploads for this day yet.</div>
+        </div>
+
         <button class="btn" id="saveDay">Save Day</button>
       </div>
       <p class="mini">Tip: Sunday = batch filming day. Friday = Keep or Return verdict day.</p>
@@ -370,7 +452,15 @@ Also include one weekly batch-filming checklist and one simple way to recycle ea
       dayNotes: document.getElementById("dayNotes"),
       postsMonth: document.getElementById("postsMonth"),
       filmMonth: document.getElementById("filmMonth"),
-      budgetUsed: document.getElementById("budgetUsed")
+      budgetUsed: document.getElementById("budgetUsed"),
+      mediaList: document.getElementById("mediaList"),
+      enableCamMic: document.getElementById("enableCamMic"),
+      photoInput: document.getElementById("photoInput"),
+      videoInput: document.getElementById("videoInput"),
+      fileInput: document.getElementById("fileInput"),
+      addPhoto: document.getElementById("addPhoto"),
+      addVideo: document.getElementById("addVideo"),
+      addFile: document.getElementById("addFile")
     };
 
     function dateKey(y, m, d) {
@@ -382,7 +472,7 @@ Also include one weekly batch-filming checklist and one simple way to recycle ea
     }
 
     function getEntry(key) {
-      return state.data[key] || { posted: false, filmed: false, returned: false, spend: 0, notes: "" };
+      return state.data[key] || { posted: false, filmed: false, returned: false, spend: 0, notes: "", media: [] };
     }
 
     function renderLabels() {
@@ -472,20 +562,110 @@ Also include one weekly batch-filming checklist and one simple way to recycle ea
       el.didReturn.checked = !!entry.returned;
       el.spendInput.value = Number(entry.spend || 0) ? Number(entry.spend).toFixed(2) : "";
       el.dayNotes.value = entry.notes || "";
+      renderMediaList(entry.media || []);
     }
 
     function saveSelectedDay() {
       if (!state.selectedDateKey) return;
+      const currentMedia = getEntry(state.selectedDateKey).media || [];
       state.data[state.selectedDateKey] = {
         posted: el.didPost.checked,
         filmed: el.didFilm.checked,
         returned: el.didReturn.checked,
         spend: Number(el.spendInput.value || 0),
-        notes: el.dayNotes.value.trim()
+        notes: el.dayNotes.value.trim(),
+        media: currentMedia
       };
       saveState();
       renderCalendar();
       loadSelectedDay();
+    }
+
+    function renderMediaList(media = []) {
+      if (!media.length) {
+        el.mediaList.innerHTML = '<div class="mini">No uploads for this day yet.</div>';
+        return;
+      }
+
+      el.mediaList.innerHTML = "";
+      media.forEach((item, i) => {
+        const row = document.createElement("div");
+        row.className = "media-item";
+
+        const preview = document.createElement("div");
+        preview.style.display = "flex";
+        preview.style.alignItems = "center";
+        preview.style.gap = "10px";
+
+        if ((item.type || "").startsWith("image/")) {
+          const img = document.createElement("img");
+          img.src = item.data;
+          img.alt = item.name;
+          preview.appendChild(img);
+        } else if ((item.type || "").startsWith("video/")) {
+          const vid = document.createElement("video");
+          vid.src = item.data;
+          vid.muted = true;
+          preview.appendChild(vid);
+        } else {
+          const badge = document.createElement("div");
+          badge.className = "icon";
+          badge.textContent = "📎";
+          preview.appendChild(badge);
+        }
+
+        const info = document.createElement("div");
+        info.innerHTML = `<div><strong>${item.name}</strong></div><div class="mini">${item.type || "file"}</div>`;
+        preview.appendChild(info);
+
+        const remove = document.createElement("button");
+        remove.className = "remove-btn";
+        remove.type = "button";
+        remove.textContent = "Remove";
+        remove.addEventListener("click", () => {
+          const entry = getEntry(state.selectedDateKey);
+          entry.media = (entry.media || []).filter((_, idx) => idx !== i);
+          state.data[state.selectedDateKey] = entry;
+          saveState();
+          renderMediaList(entry.media);
+        });
+
+        row.appendChild(preview);
+        row.appendChild(remove);
+        el.mediaList.appendChild(row);
+      });
+    }
+
+    function addFilesToDay(fileList) {
+      if (!state.selectedDateKey || !fileList?.length) return;
+      const entry = getEntry(state.selectedDateKey);
+      entry.media = entry.media || [];
+
+      [...fileList].forEach(file => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          entry.media.push({
+            name: file.name,
+            type: file.type,
+            size: file.size,
+            data: reader.result
+          });
+          state.data[state.selectedDateKey] = entry;
+          saveState();
+          renderMediaList(entry.media);
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    async function enableCameraMic() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+        stream.getTracks().forEach(track => track.stop());
+        alert("Camera + mic access granted for this browser.");
+      } catch (err) {
+        alert("Camera/mic access was blocked. You can allow it in browser settings.");
+      }
     }
 
     function refreshStats() {
@@ -523,6 +703,15 @@ Also include one weekly batch-filming checklist and one simple way to recycle ea
     });
 
     document.getElementById("saveDay").addEventListener("click", saveSelectedDay);
+
+    el.enableCamMic.addEventListener("click", enableCameraMic);
+    el.addPhoto.addEventListener("click", () => el.photoInput.click());
+    el.addVideo.addEventListener("click", () => el.videoInput.click());
+    el.addFile.addEventListener("click", () => el.fileInput.click());
+
+    el.photoInput.addEventListener("change", e => addFilesToDay(e.target.files));
+    el.videoInput.addEventListener("change", e => addFilesToDay(e.target.files));
+    el.fileInput.addEventListener("change", e => addFilesToDay(e.target.files));
 
     renderLabels();
     renderCalendar();
