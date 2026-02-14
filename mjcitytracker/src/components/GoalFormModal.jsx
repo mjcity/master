@@ -1,0 +1,14 @@
+import { useEffect, useState } from 'react';
+import { FaXmark } from 'react-icons/fa6';
+
+const defaultGoal = { title:'', description:'', category:'Personal', progress:0, dueDate:'', completed:false };
+
+export default function GoalFormModal({ open, onClose, onSubmit, initialGoal, userId }) {
+  const [form, setForm] = useState(defaultGoal);
+  useEffect(()=>{ setForm(initialGoal || defaultGoal); }, [initialGoal, open]);
+  if(!open) return null;
+
+  const submit = (e) => { e.preventDefault(); if(!form.title.trim()) return; onSubmit({...form, title:form.title.trim(), description:form.description.trim(), progress:Number(form.progress), userId}); };
+
+  return <div className="fixed inset-0 z-50 grid place-items-center bg-slate-900/40 p-4"><form onSubmit={submit} className="w-full max-w-lg rounded-2xl bg-white p-5 shadow-soft"><div className="mb-4 flex items-center justify-between"><h2 className="text-lg font-bold">{initialGoal?'Edit Goal':'Create Goal'}</h2><button type="button" onClick={onClose} className="rounded-lg p-1 text-slate-500 hover:bg-slate-100"><FaXmark/></button></div><div className="space-y-3"><div><label className="mb-1 block text-sm text-slate-600">Title</label><input value={form.title} onChange={(e)=>setForm(p=>({...p,title:e.target.value}))} className="w-full rounded-lg border border-slate-200 px-3 py-2" required/></div><div><label className="mb-1 block text-sm text-slate-600">Description</label><textarea value={form.description} onChange={(e)=>setForm(p=>({...p,description:e.target.value}))} className="w-full rounded-lg border border-slate-200 px-3 py-2" rows="3"/></div><div className="grid grid-cols-1 gap-3 sm:grid-cols-3"><div><label className="mb-1 block text-sm text-slate-600">Category</label><select value={form.category} onChange={(e)=>setForm(p=>({...p,category:e.target.value}))} className="w-full rounded-lg border border-slate-200 px-3 py-2"><option>Personal</option><option>Career</option><option>Health</option><option>Finance</option><option>Learning</option></select></div><div><label className="mb-1 block text-sm text-slate-600">Progress %</label><input type="number" min="0" max="100" value={form.progress} onChange={(e)=>setForm(p=>({...p,progress:e.target.value}))} className="w-full rounded-lg border border-slate-200 px-3 py-2"/></div><div><label className="mb-1 block text-sm text-slate-600">Due Date</label><input type="date" value={form.dueDate} onChange={(e)=>setForm(p=>({...p,dueDate:e.target.value}))} className="w-full rounded-lg border border-slate-200 px-3 py-2"/></div></div></div><div className="mt-5 flex justify-end gap-2"><button type="button" onClick={onClose} className="rounded-lg border border-slate-200 px-4 py-2 text-sm">Cancel</button><button type="submit" className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700">{initialGoal?'Save Changes':'Create Goal'}</button></div></form></div>;
+}
