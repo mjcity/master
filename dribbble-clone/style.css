@@ -36,4 +36,7 @@ textarea{min-height:96px;resize:vertical}.form-grid{display:grid;grid-template-c
 .remove-btn{border:1px solid #e6bad0;background:#fff2f8;color:#9e2b63;border-radius:8px;padding:6px 8px;font-size:12px;font-weight:700;cursor:pointer}
 .hook-builder{display:flex;gap:8px}.hook-list{display:grid;gap:8px;margin:8px 0 12px}.hook-item{display:flex;justify-content:space-between;align-items:center;border:1px solid #ececf2;padding:8px;border-radius:8px;font-size:13px;background:#fafaff}
 
-@media(max-width:980px){.hero h1{font-size:40px}.grid-4{grid-template-columns:repeat(2,1fr)}.grid-3{grid-template-columns:1fr}.stats-grid{grid-template-columns:repeat(2,1fr)}.studio-kpis{grid-template-columns:repeat(2,1fr)}.form-grid{grid-template-columns:1fr}nav,.actions .login{display:none}}
+.insta-section{text-align:center}.insta-note{max-width:640px;margin:0 auto 16px;color:#666}.insta-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;align-items:start}
+.insta-grid .instagram-media{min-width:0 !important;width:100% !important;margin:0 !important;border-radius:14px !important;box-shadow:0 10px 24px rgba(0,0,0,.08) !important}
+
+@media(max-width:980px){.hero h1{font-size:40px}.grid-4{grid-template-columns:repeat(2,1fr)}.grid-3{grid-template-columns:1fr}.stats-grid{grid-template-columns:repeat(2,1fr)}.studio-kpis{grid-template-columns:repeat(2,1fr)}.form-grid{grid-template-columns:1fr}.insta-grid{grid-template-columns:1fr}nav,.actions .login{display:none}}
