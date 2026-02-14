@@ -3,758 +3,186 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Glow-Up Creator Plan 2026</title>
+  <title>Ope Creator HQ</title>
   <style>
     :root {
-      --bg1: #fff0f7;
-      --bg2: #eef9ff;
-      --card: #ffffff;
-      --pink: #ff4fa1;
-      --purple: #7c4dff;
-      --blue: #3fa9f5;
-      --text: #2c2240;
-      --muted: #6f628d;
-      --good: #13b67a;
-      --warn: #ff9f1c;
+      --bg:#070b16; --bg2:#0f1730; --card:rgba(255,255,255,.06); --line:rgba(255,255,255,.16);
+      --text:#ecf2ff; --muted:#9fb0d6; --good:#33d08f; --warn:#ffb347; --pri:#7c5cff; --sec:#27d0d8;
     }
+    *{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text);
+      background:radial-gradient(1200px 600px at 90% -20%, rgba(124,92,255,.30), transparent 55%),
+      radial-gradient(900px 600px at -10% 0%, rgba(39,208,216,.22), transparent 60%),
+      linear-gradient(155deg,var(--bg),var(--bg2)); line-height:1.55;}
+    .wrap{max-width:1140px;margin:0 auto;padding:20px}
+    .glass{background:var(--card);border:1px solid var(--line);backdrop-filter:blur(8px);border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,.30)}
+    .hero{padding:28px;display:grid;grid-template-columns:1.4fr 1fr;gap:18px;align-items:stretch}
+    .hero h1{margin:0 0 10px;font-size:clamp(1.7rem,4.3vw,3rem);letter-spacing:-.02em}
+    .sub{color:var(--muted)}
+    .pill{display:inline-block;margin:6px 6px 0 0;border:1px solid var(--line);background:rgba(255,255,255,.05);padding:6px 11px;border-radius:999px;font-size:.84rem;font-weight:700}
+    .social-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+    .social-btn{display:inline-flex;gap:8px;align-items:center;text-decoration:none;color:#e6eeff;border:1px solid var(--line);background:rgba(255,255,255,.06);padding:8px 14px;border-radius:999px;font-weight:700}
+    .hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .kpi{padding:14px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.04)}
+    .kpi .label{font-size:.8rem;color:var(--muted)} .kpi .v{font-size:1.3rem;font-weight:800}
+    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:16px}
+    .card{padding:16px}.card h3{margin:0 0 10px}.muted{color:var(--muted)}
+    .icon{display:inline-flex;width:30px;height:30px;border-radius:10px;align-items:center;justify-content:center;margin-right:8px;background:linear-gradient(135deg,var(--pri),var(--sec));}
 
-    * { box-sizing: border-box; }
+    .planner{margin-top:16px;padding:18px}
+    .dashboard{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin:10px 0 16px}
+    .stat{padding:12px;border:1px solid var(--line);border-radius:13px;background:rgba(255,255,255,.04)}
+    .stat .label{font-size:.82rem;color:var(--muted)} .stat .value{font-size:1.2rem;font-weight:800}
 
-    body {
-      margin: 0;
-      font-family: "Poppins", "Segoe UI", Roboto, Arial, sans-serif;
-      color: var(--text);
-      background: linear-gradient(135deg, var(--bg1), var(--bg2));
-      line-height: 1.6;
-    }
+    .calendar-head{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+    .btn{border:1px solid var(--line);background:rgba(255,255,255,.07);color:#dce8ff;padding:8px 12px;border-radius:10px;font-weight:700;cursor:pointer}
+    .calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+    .day-label{text-align:center;font-size:.78rem;color:var(--muted);font-weight:700;padding:6px 0}
+    .day{min-height:92px;border:1px solid var(--line);border-radius:12px;padding:8px;background:rgba(255,255,255,.05);cursor:pointer}
+    .day.faded{opacity:.45}.day.today{border-color:#a679ff}.day-number{font-weight:800;font-size:.9rem}
+    .dots{display:flex;gap:4px;margin-top:8px;flex-wrap:wrap}.dot{width:8px;height:8px;border-radius:50%;background:#4c5f94}
+    .dot.posted{background:var(--good)} .dot.filmed{background:var(--sec)} .dot.returned{background:var(--warn)}
 
-    .wrap {
-      max-width: 1040px;
-      margin: 0 auto;
-      padding: 24px;
-    }
+    .edit-row{display:grid;gap:10px;grid-template-columns:1fr;margin-top:12px}
+    .input,textarea{width:100%;border:1px solid var(--line);border-radius:12px;padding:10px;font:inherit;background:rgba(255,255,255,.06);color:var(--text)}
+    textarea{min-height:90px;resize:vertical}.checks{display:flex;gap:14px;flex-wrap:wrap;margin:4px 0;color:var(--text);font-weight:600}
+    .mini{font-size:.88rem;color:var(--muted)}
 
-    .hero {
-      background: radial-gradient(circle at top right, #ffd1ea 0%, #f6e4ff 48%, #e6f7ff 100%);
-      border: 3px solid #ffffff;
-      border-radius: 24px;
-      padding: 28px;
-      box-shadow: 0 12px 30px rgba(124, 77, 255, 0.15);
-      margin-bottom: 20px;
-    }
-
-    h1, h2, h3 { margin-top: 0; }
-
-    h1 {
-      font-size: clamp(1.8rem, 3vw, 2.8rem);
-      margin-bottom: 10px;
-    }
-
-    .spark {
-      color: var(--pink);
-      font-weight: 700;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 16px;
-      margin-bottom: 20px;
-    }
-
-    .card {
-      background: var(--card);
-      border-radius: 18px;
-      padding: 18px;
-      box-shadow: 0 8px 20px rgba(63, 169, 245, 0.12);
-      border: 2px solid #f4f1ff;
-    }
-
-    .icon {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 30px;
-      height: 30px;
-      margin-right: 8px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, #ff4fa1, #7c4dff, #3fa9f5);
-      color: #fff;
-      font-size: 1rem;
-      box-shadow: 0 6px 14px rgba(124, 77, 255, 0.25);
-    }
-
-    ul, ol { padding-left: 20px; }
-
-    .tag {
-      display: inline-block;
-      background: #fff;
-      border: 2px solid #ffe0f2;
-      color: var(--purple);
-      border-radius: 999px;
-      padding: 6px 12px;
-      margin: 4px 6px 0 0;
-      font-size: 0.9rem;
-      font-weight: 600;
-    }
-
-    .social-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 14px;
-    }
-
-    .social-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      text-decoration: none;
-      border: 2px solid #e8defe;
-      border-radius: 999px;
-      padding: 8px 14px;
-      background: #fff;
-      color: var(--purple);
-      font-weight: 700;
-    }
-
-    .social-btn:hover {
-      background: #f9f6ff;
-    }
-
-    .prompt {
-      background: #1f1635;
-      color: #f8f3ff;
-      padding: 18px;
-      border-radius: 16px;
-      white-space: pre-wrap;
-      font-size: 0.95rem;
-      border: 2px solid #4f2aa8;
-    }
-
-    .good { color: var(--good); font-weight: 700; }
-    .warn { color: var(--warn); font-weight: 700; }
-
-    .dashboard {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 12px;
-      margin: 14px 0 20px;
-    }
-
-    .stat {
-      border-radius: 14px;
-      padding: 14px;
-      background: #fff;
-      border: 2px solid #f2edff;
-    }
-
-    .stat .label { color: var(--muted); font-size: .85rem; }
-    .stat .value { font-size: 1.4rem; font-weight: 700; }
-
-    .calendar-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 10px;
-    }
-
-    .btn {
-      border: 2px solid #e8defe;
-      background: #fff;
-      color: var(--purple);
-      padding: 8px 12px;
-      border-radius: 10px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    .btn:hover { background: #f9f6ff; }
-
-    .calendar-grid {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 8px;
-    }
-
-    .day-label {
-      text-align: center;
-      font-size: .8rem;
-      color: var(--muted);
-      font-weight: 700;
-      padding: 6px 0;
-    }
-
-    .day {
-      min-height: 94px;
-      border: 2px solid #f2edff;
-      border-radius: 12px;
-      padding: 8px;
-      background: #fff;
-      position: relative;
-      cursor: pointer;
-    }
-
-    .day.faded { opacity: 0.45; }
-    .day.today { border-color: var(--pink); }
-
-    .day-number { font-weight: 700; font-size: .9rem; }
-    .dots { display: flex; gap: 4px; margin-top: 8px; flex-wrap: wrap; }
-
-    .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #d3c8f7;
-    }
-
-    .dot.posted { background: var(--good); }
-    .dot.filmed { background: var(--blue); }
-    .dot.returned { background: var(--warn); }
-
-    .edit-row {
-      display: grid;
-      gap: 10px;
-      grid-template-columns: 1fr;
-      margin-top: 14px;
-    }
-
-    .input, textarea {
-      width: 100%;
-      border: 2px solid #e8defe;
-      border-radius: 12px;
-      padding: 10px;
-      font: inherit;
-      background: #fff;
-    }
-
-    textarea { min-height: 90px; resize: vertical; }
-
-    .checks {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin: 4px 0;
-      color: var(--text);
-      font-weight: 600;
-    }
-
-    .mini {
-      font-size: .88rem;
-      color: var(--muted);
-    }
-
-    .media-tools {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 4px;
-    }
-
-    .media-btn {
-      border: 0;
-      border-radius: 10px;
-      padding: 9px 12px;
-      font-weight: 700;
-      color: #fff;
-      cursor: pointer;
-      background: linear-gradient(135deg, #ff4fa1, #7c4dff 55%, #3fa9f5);
-      box-shadow: 0 8px 16px rgba(124, 77, 255, 0.22);
-    }
-
-    .media-list {
-      border: 2px dashed #e8defe;
-      border-radius: 12px;
-      background: #fff;
-      padding: 10px;
-      display: grid;
-      gap: 10px;
-    }
-
-    .media-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      border: 1px solid #f0eaff;
-      border-radius: 10px;
-      padding: 8px;
-    }
-
-    .media-item img,
-    .media-item video {
-      width: 52px;
-      height: 52px;
-      object-fit: cover;
-      border-radius: 8px;
-      border: 1px solid #ebe2ff;
-    }
-
-    .remove-btn {
-      border: 1px solid #ffd2e8;
-      background: #fff5fb;
-      color: #b02f6c;
-      border-radius: 8px;
-      padding: 6px 8px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    footer {
-      text-align: center;
-      margin: 30px 0 10px;
-      color: var(--muted);
-      font-size: 0.9rem;
-    }
+    .media-tools{display:flex;flex-wrap:wrap;gap:10px}.media-btn{border:0;border-radius:10px;padding:9px 12px;font-weight:800;color:#031225;cursor:pointer;background:linear-gradient(135deg,#a679ff,#27d0d8 55%,#7c5cff)}
+    .media-list{border:1px dashed var(--line);border-radius:12px;background:rgba(255,255,255,.04);padding:10px;display:grid;gap:10px}
+    .media-item{display:flex;justify-content:space-between;align-items:center;gap:10px;border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:8px}
+    .media-item img,.media-item video{width:52px;height:52px;object-fit:cover;border-radius:8px;border:1px solid rgba(255,255,255,.2)}
+    .remove-btn{border:1px solid #7a3654;background:#381d2a;color:#ffd8ea;border-radius:8px;padding:6px 8px;font-weight:700;cursor:pointer}
+    footer{text-align:center;margin:24px 0 10px;color:var(--muted);font-size:.9rem}
+    @media (max-width:860px){.hero{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
   <div class="wrap">
-    <section class="hero">
-      <h1>💄✨ Ope's 2026 Bedroom Influencer Plan</h1>
-      <p><strong>Brand voice:</strong> God first, motherhood, intentional living, and real family moments with glam + confidence.</p>
-      <p><strong>Goal:</strong> Post <span class="spark">5 times per week</span> with minimal effort, small space setup, and a strict budget of <strong>$60/month</strong>.</p>
+    <section class="glass hero">
       <div>
-        <span class="tag">Makeup</span>
-        <span class="tag">Clothes</span>
-        <span class="tag">Wigs</span>
-        <span class="tag">Mom Life</span>
-        <span class="tag">Intentional Living</span>
-        <span class="tag">Mini Reviews</span>
+        <h1>ðâ¨ Ope Creator HQ 2026</h1>
+        <p><strong>Brand voice:</strong> God first, motherhood, intentional living, and real family moments with glam + confidence.</p>
+        <p class="sub"><strong>Goal:</strong> Post 5x/week, track spend, and keep everything simple from one room setup.</p>
+        <div>
+          <span class="pill">Makeup</span><span class="pill">Clothes</span><span class="pill">Wigs</span><span class="pill">Mom Life</span><span class="pill">Mini Reviews</span>
+        </div>
+        <div class="social-row">
+          <a class="social-btn" href="https://www.instagram.com/openike/" target="_blank" rel="noopener noreferrer">ð¸ Instagram @openike</a>
+          <a class="social-btn" href="https://www.youtube.com/@opesfamily4586" target="_blank" rel="noopener noreferrer">â¶ï¸ YouTube @opesfamily4586</a>
+        </div>
       </div>
-      <div class="social-row">
-        <a class="social-btn" href="https://www.instagram.com/openike/" target="_blank" rel="noopener noreferrer">📸 Instagram @openike</a>
-        <a class="social-btn" href="https://www.youtube.com/@opesfamily4586" target="_blank" rel="noopener noreferrer">▶️ YouTube @opesfamily4586</a>
+      <div class="hero-stats">
+        <div class="kpi"><div class="label">Monthly Budget</div><div class="v">$60</div></div>
+        <div class="kpi"><div class="label">Target Posts</div><div class="v">22</div></div>
+        <div class="kpi"><div class="label">Setup</div><div class="v">1 Room</div></div>
+        <div class="kpi"><div class="label">Style</div><div class="v">Premium</div></div>
       </div>
     </section>
 
     <section class="cards">
-      <article class="card">
-        <h2><span class="icon">🎯</span>Niche (Easy + Repeatable)</h2>
-        <p><strong>“Budget Glam in a Small Bedroom”</strong></p>
-        <ul>
-          <li>Quick makeup tests (wear test, transfer test)</li>
-          <li>Outfit styling with one mirror angle</li>
-          <li>Wig install + final look reveals</li>
-          <li>“Keep or Return?” product verdicts</li>
-        </ul>
-      </article>
-
-      <article class="card">
-        <h2><span class="icon">🛍️</span>Budget Rules</h2>
-        <ul>
-          <li>Monthly product cap: <strong>$60</strong></li>
-          <li>Buy from return-friendly stores only</li>
-          <li>Keep 1 “hero item” each month, return the rest</li>
-          <li>Track spend + return deadlines in notes</li>
-        </ul>
-      </article>
-
-      <article class="card">
-        <h2><span class="icon">🏠</span>Bedroom Setup (Low Effort)</h2>
-        <ul>
-          <li>1 corner + plain curtain/backdrop</li>
-          <li>Ring light + phone tripod</li>
-          <li>3 filming angles saved in camera app</li>
-          <li>Bin system: “To Film / Filmed / Return”</li>
-        </ul>
-      </article>
+      <article class="glass card"><h3><span class="icon">ð¯</span>Niche</h3><p><strong>Budget Glam in a Small Bedroom</strong></p><ul><li>Quick makeup tests</li><li>Outfit styling + mirror angle</li><li>Wig install + reveal</li><li>Keep or Return verdicts</li></ul></article>
+      <article class="glass card"><h3><span class="icon">ðï¸</span>Budget Rules</h3><ul><li>Cap: <strong>$60/month</strong></li><li>Return-friendly stores only</li><li>Keep one hero item monthly</li><li>Track deadlines in notes</li></ul></article>
+      <article class="glass card"><h3><span class="icon">ð </span>Bedroom Setup</h3><ul><li>Curtain/backdrop corner</li><li>Ring light + tripod</li><li>3 saved filming angles</li><li>To Film / Filmed / Return bins</li></ul></article>
     </section>
 
-    <section class="card" style="margin-bottom:16px;">
-      <h2><span class="icon">📅</span>Interactive Calendar + Success Tracker</h2>
-      <p class="mini">Click a day to add notes, mark posted/filmed/returned, and log spend. Data saves automatically in this browser.</p>
-
+    <section class="glass planner">
+      <h2><span class="icon">ð</span>Interactive Calendar + Content Tracker</h2>
+      <p class="mini">Everything below stays functional: calendar, save day, spend tracking, camera/mic permission, uploads.</p>
       <div class="dashboard">
-        <div class="stat">
-          <div class="label">Posts This Month</div>
-          <div class="value" id="postsMonth">0</div>
-        </div>
-        <div class="stat">
-          <div class="label">Filming Days</div>
-          <div class="value" id="filmMonth">0</div>
-        </div>
-        <div class="stat">
-          <div class="label">Budget Used</div>
-          <div class="value" id="budgetUsed">$0.00</div>
-        </div>
-        <div class="stat">
-          <div class="label">Monthly Target</div>
-          <div class="value">22 Posts</div>
-        </div>
+        <div class="stat"><div class="label">Posts This Month</div><div class="value" id="postsMonth">0</div></div>
+        <div class="stat"><div class="label">Filming Days</div><div class="value" id="filmMonth">0</div></div>
+        <div class="stat"><div class="label">Budget Used</div><div class="value" id="budgetUsed">$0.00</div></div>
+        <div class="stat"><div class="label">Monthly Target</div><div class="value">22 Posts</div></div>
       </div>
 
       <div class="calendar-head">
-        <button class="btn" id="prevMonth">← Prev</button>
+        <button class="btn" id="prevMonth">â Prev</button>
         <h3 id="monthTitle" style="margin:0;"></h3>
-        <button class="btn" id="nextMonth">Next →</button>
+        <button class="btn" id="nextMonth">Next â</button>
       </div>
-
       <div class="calendar-grid" id="calendarLabels"></div>
       <div class="calendar-grid" id="calendarGrid"></div>
 
       <div class="edit-row">
         <h3 id="selectedDateTitle">Select a date</h3>
         <div class="checks">
-          <label><input type="checkbox" id="didPost" /> ✅ Posted</label>
-          <label><input type="checkbox" id="didFilm" /> 🎬 Filmed</label>
-          <label><input type="checkbox" id="didReturn" /> 📦 Returned item</label>
+          <label><input type="checkbox" id="didPost" /> â Posted</label>
+          <label><input type="checkbox" id="didFilm" /> ð¬ Filmed</label>
+          <label><input type="checkbox" id="didReturn" /> ð¦ Returned item</label>
         </div>
         <label class="mini">Spend for this day ($)</label>
         <input class="input" id="spendInput" type="number" min="0" step="0.01" placeholder="0.00" />
         <label class="mini">Notes</label>
-        <textarea id="dayNotes" placeholder="Example: Posted wig try-on at 7pm. Good comments. Return deadline Friday."></textarea>
+        <textarea id="dayNotes" placeholder="Example: Posted wig try-on at 7pm. Return deadline Friday."></textarea>
 
-        <label class="mini">Phone camera + mic + uploads (for calendar day content)</label>
+        <label class="mini">Phone camera + mic + uploads</label>
         <div class="media-tools">
           <button class="media-btn" id="enableCamMic" type="button">Enable Camera + Mic</button>
           <button class="media-btn" id="addPhoto" type="button">Take/Add Photo</button>
           <button class="media-btn" id="addVideo" type="button">Take/Add Video</button>
           <button class="media-btn" id="addFile" type="button">Add File</button>
         </div>
-
         <input id="photoInput" type="file" accept="image/*" capture="environment" hidden />
         <input id="videoInput" type="file" accept="video/*" capture="environment" hidden />
         <input id="fileInput" type="file" accept="image/*,video/*,audio/*,.pdf,.doc,.docx,.txt,.csv" hidden />
-
-        <div class="media-list" id="mediaList">
-          <div class="mini">No uploads for this day yet.</div>
-        </div>
-
+        <div class="media-list" id="mediaList"><div class="mini">No uploads for this day yet.</div></div>
         <button class="btn" id="saveDay">Save Day</button>
       </div>
-      <p class="mini">Tip: Sunday = batch filming day. Friday = Keep or Return verdict day.</p>
     </section>
 
-    <section class="card" style="margin-bottom:16px;">
-      <h2><span class="icon">📅</span>Weekly Posting Plan (5 Posts)</h2>
-      <ol>
-        <li><strong>Monday:</strong> “First Impression”</li>
-        <li><strong>Tuesday:</strong> “Mini Tutorial”</li>
-        <li><strong>Wednesday:</strong> “Outfit + Wig Combo”</li>
-        <li><strong>Thursday:</strong> “Wear Test Update”</li>
-        <li><strong>Friday:</strong> “Keep or Return?” verdict</li>
-      </ol>
-      <p class="good">✅ Batch all filming in one 2-hour session on Sunday.</p>
-      <p class="warn">⚠️ Keep monthly spend under $60 by returning non-keeper items weekly.</p>
-    </section>
-
-    <section class="card">
-      <h2><span class="icon">🧠</span>Copy/Paste Prompt for Content Ideas</h2>
-      <div class="prompt">I am a beginner beauty/lifestyle creator in 2026. I create content in a small bedroom with minimal setup. I can spend only $60 per month on products, and I may need to return many items. I focus on makeup, clothes, wigs, and quick product reviews.
-
-Give me a 30-day content plan with 5 posts per week. Keep each idea low-effort, short-form video friendly, and easy to film in one room. For each post, include:
-1) Hook line
-2) 3-shot filming outline
-3) Caption idea
-4) Hashtag set
-5) “Keep or Return?” angle when relevant
-
-Also include one weekly batch-filming checklist and one simple way to recycle each video into a second post.</div>
-    </section>
-
-    <section class="card" style="margin-top:16px;">
-      <h2><span class="icon">🤝</span>Connect with Ope</h2>
-      <p class="mini">For brand partnerships, collabs, and community updates, send people to her channels first.</p>
-      <div class="social-row">
-        <a class="social-btn" href="https://www.instagram.com/openike/" target="_blank" rel="noopener noreferrer">📸 @openike</a>
-        <a class="social-btn" href="https://www.youtube.com/@opesfamily4586" target="_blank" rel="noopener noreferrer">▶️ @opesfamily4586</a>
+    <section class="glass card" style="margin-top:16px; padding:18px;">
+      <h2><span class="icon">📸</span>Most recent posts from @openike</h2>
+      <p class="mini">Live Instagram embeds for subscribers and brand partners.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;align-items:start;">
+        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DUGIi61kSgf/" data-instgrm-version="14" style="background:#fff;border:0;border-radius:12px; margin:0 auto; max-width:540px; min-width:280px; width:100%;"></blockquote>
+        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DT1hkEMDK_E/" data-instgrm-version="14" style="background:#fff;border:0;border-radius:12px; margin:0 auto; max-width:540px; min-width:280px; width:100%;"></blockquote>
+        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DTmVvQgjCEC/" data-instgrm-version="14" style="background:#fff;border:0;border-radius:12px; margin:0 auto; max-width:540px; min-width:280px; width:100%;"></blockquote>
+      </div>
+      <div style="margin-top:12px;">
+        <a class="social-btn" href="https://www.instagram.com/openike/" target="_blank" rel="noopener noreferrer">Open full Instagram profile</a>
       </div>
     </section>
 
-    <footer>
-      Made with 💖 for Ope — colorful, simple, and interactive.
-    </footer>
+    <footer>Made with ð for Ope â redesigned, but fully functional.</footer>
   </div>
 
   <script>
     const storageKey = "glowup_calendar_data_v1";
-    const state = {
-      current: new Date(),
-      selectedDateKey: null,
-      data: JSON.parse(localStorage.getItem(storageKey) || "{}")
-    };
-
+    const state = { current: new Date(), selectedDateKey: null, data: JSON.parse(localStorage.getItem(storageKey) || "{}") };
     const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-
-    const el = {
-      monthTitle: document.getElementById("monthTitle"),
-      labels: document.getElementById("calendarLabels"),
-      grid: document.getElementById("calendarGrid"),
-      selectedDateTitle: document.getElementById("selectedDateTitle"),
-      didPost: document.getElementById("didPost"),
-      didFilm: document.getElementById("didFilm"),
-      didReturn: document.getElementById("didReturn"),
-      spendInput: document.getElementById("spendInput"),
-      dayNotes: document.getElementById("dayNotes"),
-      postsMonth: document.getElementById("postsMonth"),
-      filmMonth: document.getElementById("filmMonth"),
-      budgetUsed: document.getElementById("budgetUsed"),
-      mediaList: document.getElementById("mediaList"),
-      enableCamMic: document.getElementById("enableCamMic"),
-      photoInput: document.getElementById("photoInput"),
-      videoInput: document.getElementById("videoInput"),
-      fileInput: document.getElementById("fileInput"),
-      addPhoto: document.getElementById("addPhoto"),
-      addVideo: document.getElementById("addVideo"),
-      addFile: document.getElementById("addFile")
-    };
-
-    function dateKey(y, m, d) {
-      return `${y}-${String(m + 1).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
-    }
-
-    function saveState() {
-      localStorage.setItem(storageKey, JSON.stringify(state.data));
-    }
-
-    function getEntry(key) {
-      return state.data[key] || { posted: false, filmed: false, returned: false, spend: 0, notes: "", media: [] };
-    }
-
-    function renderLabels() {
-      el.labels.innerHTML = "";
-      dayNames.forEach(name => {
-        const d = document.createElement("div");
-        d.className = "day-label";
-        d.textContent = name;
-        el.labels.appendChild(d);
-      });
-    }
-
-    function renderCalendar() {
-      const year = state.current.getFullYear();
-      const month = state.current.getMonth();
-      const first = new Date(year, month, 1);
-      const startDay = first.getDay();
-      const daysInMonth = new Date(year, month + 1, 0).getDate();
-      const daysInPrev = new Date(year, month, 0).getDate();
-
-      el.monthTitle.textContent = state.current.toLocaleDateString(undefined, { month: "long", year: "numeric" });
-      el.grid.innerHTML = "";
-
-      const today = new Date();
-      const cells = [];
-
-      for (let i = 0; i < startDay; i++) {
-        const dayNum = daysInPrev - startDay + i + 1;
-        cells.push({ y: year, m: month - 1, d: dayNum, faded: true });
-      }
-
-      for (let d = 1; d <= daysInMonth; d++) {
-        cells.push({ y: year, m: month, d, faded: false });
-      }
-
-      while (cells.length < 42) {
-        const d = cells.length - (startDay + daysInMonth) + 1;
-        cells.push({ y: year, m: month + 1, d, faded: true });
-      }
-
-      cells.forEach(({ y, m, d, faded }) => {
-        const realDate = new Date(y, m, d);
-        const key = dateKey(realDate.getFullYear(), realDate.getMonth(), realDate.getDate());
-        const entry = getEntry(key);
-
-        const cell = document.createElement("div");
-        cell.className = "day" + (faded ? " faded" : "");
-
-        if (
-          realDate.getFullYear() === today.getFullYear() &&
-          realDate.getMonth() === today.getMonth() &&
-          realDate.getDate() === today.getDate()
-        ) {
-          cell.classList.add("today");
-        }
-
-        cell.innerHTML = `
-          <div class="day-number">${realDate.getDate()}</div>
-          <div class="dots">
-            <span class="dot ${entry.posted ? "posted" : ""}" title="Posted"></span>
-            <span class="dot ${entry.filmed ? "filmed" : ""}" title="Filmed"></span>
-            <span class="dot ${entry.returned ? "returned" : ""}" title="Returned"></span>
-          </div>
-        `;
-
-        cell.addEventListener("click", () => {
-          state.selectedDateKey = key;
-          loadSelectedDay();
-        });
-
-        el.grid.appendChild(cell);
-      });
-
-      if (!state.selectedDateKey) {
-        state.selectedDateKey = dateKey(today.getFullYear(), today.getMonth(), today.getDate());
-      }
-
-      refreshStats();
-    }
-
-    function loadSelectedDay() {
-      if (!state.selectedDateKey) return;
-      const entry = getEntry(state.selectedDateKey);
-      el.selectedDateTitle.textContent = `Editing: ${state.selectedDateKey}`;
-      el.didPost.checked = !!entry.posted;
-      el.didFilm.checked = !!entry.filmed;
-      el.didReturn.checked = !!entry.returned;
-      el.spendInput.value = Number(entry.spend || 0) ? Number(entry.spend).toFixed(2) : "";
-      el.dayNotes.value = entry.notes || "";
-      renderMediaList(entry.media || []);
-    }
-
-    function saveSelectedDay() {
-      if (!state.selectedDateKey) return;
-      const currentMedia = getEntry(state.selectedDateKey).media || [];
-      state.data[state.selectedDateKey] = {
-        posted: el.didPost.checked,
-        filmed: el.didFilm.checked,
-        returned: el.didReturn.checked,
-        spend: Number(el.spendInput.value || 0),
-        notes: el.dayNotes.value.trim(),
-        media: currentMedia
-      };
-      saveState();
-      renderCalendar();
-      loadSelectedDay();
-    }
-
-    function renderMediaList(media = []) {
-      if (!media.length) {
-        el.mediaList.innerHTML = '<div class="mini">No uploads for this day yet.</div>';
-        return;
-      }
-
-      el.mediaList.innerHTML = "";
-      media.forEach((item, i) => {
-        const row = document.createElement("div");
-        row.className = "media-item";
-
-        const preview = document.createElement("div");
-        preview.style.display = "flex";
-        preview.style.alignItems = "center";
-        preview.style.gap = "10px";
-
-        if ((item.type || "").startsWith("image/")) {
-          const img = document.createElement("img");
-          img.src = item.data;
-          img.alt = item.name;
-          preview.appendChild(img);
-        } else if ((item.type || "").startsWith("video/")) {
-          const vid = document.createElement("video");
-          vid.src = item.data;
-          vid.muted = true;
-          preview.appendChild(vid);
-        } else {
-          const badge = document.createElement("div");
-          badge.className = "icon";
-          badge.textContent = "📎";
-          preview.appendChild(badge);
-        }
-
-        const info = document.createElement("div");
-        info.innerHTML = `<div><strong>${item.name}</strong></div><div class="mini">${item.type || "file"}</div>`;
-        preview.appendChild(info);
-
-        const remove = document.createElement("button");
-        remove.className = "remove-btn";
-        remove.type = "button";
-        remove.textContent = "Remove";
-        remove.addEventListener("click", () => {
-          const entry = getEntry(state.selectedDateKey);
-          entry.media = (entry.media || []).filter((_, idx) => idx !== i);
-          state.data[state.selectedDateKey] = entry;
-          saveState();
-          renderMediaList(entry.media);
-        });
-
-        row.appendChild(preview);
-        row.appendChild(remove);
-        el.mediaList.appendChild(row);
-      });
-    }
-
-    function addFilesToDay(fileList) {
-      if (!state.selectedDateKey || !fileList?.length) return;
-      const entry = getEntry(state.selectedDateKey);
-      entry.media = entry.media || [];
-
-      [...fileList].forEach(file => {
-        const reader = new FileReader();
-        reader.onload = () => {
-          entry.media.push({
-            name: file.name,
-            type: file.type,
-            size: file.size,
-            data: reader.result
-          });
-          state.data[state.selectedDateKey] = entry;
-          saveState();
-          renderMediaList(entry.media);
-        };
-        reader.readAsDataURL(file);
-      });
-    }
-
-    async function enableCameraMic() {
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-        stream.getTracks().forEach(track => track.stop());
-        alert("Camera + mic access granted for this browser.");
-      } catch (err) {
-        alert("Camera/mic access was blocked. You can allow it in browser settings.");
-      }
-    }
-
-    function refreshStats() {
-      const year = state.current.getFullYear();
-      const month = state.current.getMonth();
-      let posts = 0;
-      let films = 0;
-      let spend = 0;
-
-      Object.entries(state.data).forEach(([k, v]) => {
-        const [yy, mm] = k.split("-").map(Number);
-        if (yy === year && mm === month + 1) {
-          if (v.posted) posts += 1;
-          if (v.filmed) films += 1;
-          spend += Number(v.spend || 0);
-        }
-      });
-
-      el.postsMonth.textContent = posts;
-      el.filmMonth.textContent = films;
-      el.budgetUsed.textContent = `$${spend.toFixed(2)}`;
-      el.budgetUsed.style.color = spend > 60 ? "#d7263d" : "var(--text)";
-    }
-
-    document.getElementById("prevMonth").addEventListener("click", () => {
-      state.current = new Date(state.current.getFullYear(), state.current.getMonth() - 1, 1);
-      renderCalendar();
-      loadSelectedDay();
-    });
-
-    document.getElementById("nextMonth").addEventListener("click", () => {
-      state.current = new Date(state.current.getFullYear(), state.current.getMonth() + 1, 1);
-      renderCalendar();
-      loadSelectedDay();
-    });
-
-    document.getElementById("saveDay").addEventListener("click", saveSelectedDay);
-
-    el.enableCamMic.addEventListener("click", enableCameraMic);
-    el.addPhoto.addEventListener("click", () => el.photoInput.click());
-    el.addVideo.addEventListener("click", () => el.videoInput.click());
-    el.addFile.addEventListener("click", () => el.fileInput.click());
-
-    el.photoInput.addEventListener("change", e => addFilesToDay(e.target.files));
-    el.videoInput.addEventListener("change", e => addFilesToDay(e.target.files));
-    el.fileInput.addEventListener("change", e => addFilesToDay(e.target.files));
-
-    renderLabels();
-    renderCalendar();
-    loadSelectedDay();
+    const el = { monthTitle: document.getElementById("monthTitle"), labels: document.getElementById("calendarLabels"), grid: document.getElementById("calendarGrid"), selectedDateTitle: document.getElementById("selectedDateTitle"), didPost: document.getElementById("didPost"), didFilm: document.getElementById("didFilm"), didReturn: document.getElementById("didReturn"), spendInput: document.getElementById("spendInput"), dayNotes: document.getElementById("dayNotes"), postsMonth: document.getElementById("postsMonth"), filmMonth: document.getElementById("filmMonth"), budgetUsed: document.getElementById("budgetUsed"), mediaList: document.getElementById("mediaList"), enableCamMic: document.getElementById("enableCamMic"), photoInput: document.getElementById("photoInput"), videoInput: document.getElementById("videoInput"), fileInput: document.getElementById("fileInput"), addPhoto: document.getElementById("addPhoto"), addVideo: document.getElementById("addVideo"), addFile: document.getElementById("addFile") };
+    function dateKey(y,m,d){ return `${y}-${String(m+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`; }
+    function saveState(){ localStorage.setItem(storageKey, JSON.stringify(state.data)); }
+    function getEntry(key){ return state.data[key] || { posted:false, filmed:false, returned:false, spend:0, notes:"", media:[] }; }
+    function renderLabels(){ el.labels.innerHTML=""; dayNames.forEach(name=>{ const d=document.createElement("div"); d.className="day-label"; d.textContent=name; el.labels.appendChild(d); }); }
+    function renderCalendar(){ const year=state.current.getFullYear(), month=state.current.getMonth(); const first=new Date(year,month,1); const startDay=first.getDay(); const daysInMonth=new Date(year,month+1,0).getDate(); const daysInPrev=new Date(year,month,0).getDate(); el.monthTitle.textContent=state.current.toLocaleDateString(undefined,{month:"long",year:"numeric"}); el.grid.innerHTML=""; const today=new Date(); const cells=[];
+      for(let i=0;i<startDay;i++){ const dayNum=daysInPrev-startDay+i+1; cells.push({y:year,m:month-1,d:dayNum,faded:true}); }
+      for(let d=1;d<=daysInMonth;d++) cells.push({y:year,m:month,d,faded:false});
+      while(cells.length<42){ const d=cells.length-(startDay+daysInMonth)+1; cells.push({y:year,m:month+1,d,faded:true}); }
+      cells.forEach(({y,m,d,faded})=>{ const realDate=new Date(y,m,d); const key=dateKey(realDate.getFullYear(),realDate.getMonth(),realDate.getDate()); const entry=getEntry(key); const cell=document.createElement("div"); cell.className="day"+(faded?" faded":""); if(realDate.getFullYear()===today.getFullYear()&&realDate.getMonth()===today.getMonth()&&realDate.getDate()===today.getDate()) cell.classList.add("today");
+        cell.innerHTML=`<div class="day-number">${realDate.getDate()}</div><div class="dots"><span class="dot ${entry.posted?"posted":""}" title="Posted"></span><span class="dot ${entry.filmed?"filmed":""}" title="Filmed"></span><span class="dot ${entry.returned?"returned":""}" title="Returned"></span></div>`;
+        cell.addEventListener("click",()=>{ state.selectedDateKey=key; loadSelectedDay(); }); el.grid.appendChild(cell); });
+      if(!state.selectedDateKey) state.selectedDateKey=dateKey(today.getFullYear(),today.getMonth(),today.getDate()); refreshStats(); }
+    function loadSelectedDay(){ if(!state.selectedDateKey) return; const entry=getEntry(state.selectedDateKey); el.selectedDateTitle.textContent=`Editing: ${state.selectedDateKey}`; el.didPost.checked=!!entry.posted; el.didFilm.checked=!!entry.filmed; el.didReturn.checked=!!entry.returned; el.spendInput.value=Number(entry.spend||0)?Number(entry.spend).toFixed(2):""; el.dayNotes.value=entry.notes||""; renderMediaList(entry.media||[]); }
+    function saveSelectedDay(){ if(!state.selectedDateKey) return; const currentMedia=getEntry(state.selectedDateKey).media||[]; state.data[state.selectedDateKey]={ posted:el.didPost.checked, filmed:el.didFilm.checked, returned:el.didReturn.checked, spend:Number(el.spendInput.value||0), notes:el.dayNotes.value.trim(), media:currentMedia }; saveState(); renderCalendar(); loadSelectedDay(); }
+    function renderMediaList(media=[]){ if(!media.length){ el.mediaList.innerHTML='<div class="mini">No uploads for this day yet.</div>'; return; } el.mediaList.innerHTML=""; media.forEach((item,i)=>{ const row=document.createElement("div"); row.className="media-item"; const preview=document.createElement("div"); preview.style.display="flex"; preview.style.alignItems="center"; preview.style.gap="10px";
+      if((item.type||"").startsWith("image/")){ const img=document.createElement("img"); img.src=item.data; img.alt=item.name; preview.appendChild(img); }
+      else if((item.type||"").startsWith("video/")){ const vid=document.createElement("video"); vid.src=item.data; vid.muted=true; preview.appendChild(vid); }
+      else { const badge=document.createElement("div"); badge.className="icon"; badge.textContent="ð"; preview.appendChild(badge); }
+      const info=document.createElement("div"); info.innerHTML=`<div><strong>${item.name}</strong></div><div class="mini">${item.type||"file"}</div>`; preview.appendChild(info);
+      const remove=document.createElement("button"); remove.className="remove-btn"; remove.type="button"; remove.textContent="Remove"; remove.addEventListener("click",()=>{ const entry=getEntry(state.selectedDateKey); entry.media=(entry.media||[]).filter((_,idx)=>idx!==i); state.data[state.selectedDateKey]=entry; saveState(); renderMediaList(entry.media); });
+      row.appendChild(preview); row.appendChild(remove); el.mediaList.appendChild(row);
+    }); }
+    function addFilesToDay(fileList){ if(!state.selectedDateKey||!fileList?.length) return; const entry=getEntry(state.selectedDateKey); entry.media=entry.media||[]; [...fileList].forEach(file=>{ const reader=new FileReader(); reader.onload=()=>{ entry.media.push({name:file.name,type:file.type,size:file.size,data:reader.result}); state.data[state.selectedDateKey]=entry; saveState(); renderMediaList(entry.media); }; reader.readAsDataURL(file); }); }
+    async function enableCameraMic(){ try{ const stream=await navigator.mediaDevices.getUserMedia({video:true,audio:true}); stream.getTracks().forEach(track=>track.stop()); alert("Camera + mic access granted for this browser."); } catch(err){ alert("Camera/mic access was blocked. You can allow it in browser settings."); } }
+    function refreshStats(){ const year=state.current.getFullYear(), month=state.current.getMonth(); let posts=0, films=0, spend=0; Object.entries(state.data).forEach(([k,v])=>{ const [yy,mm]=k.split("-").map(Number); if(yy===year&&mm===month+1){ if(v.posted) posts+=1; if(v.filmed) films+=1; spend+=Number(v.spend||0); }}); el.postsMonth.textContent=posts; el.filmMonth.textContent=films; el.budgetUsed.textContent=`$${spend.toFixed(2)}`; el.budgetUsed.style.color=spend>60?"#d7263d":"var(--text)"; }
+    document.getElementById("prevMonth").addEventListener("click",()=>{ state.current=new Date(state.current.getFullYear(),state.current.getMonth()-1,1); renderCalendar(); loadSelectedDay(); });
+    document.getElementById("nextMonth").addEventListener("click",()=>{ state.current=new Date(state.current.getFullYear(),state.current.getMonth()+1,1); renderCalendar(); loadSelectedDay(); });
+    document.getElementById("saveDay").addEventListener("click",saveSelectedDay);
+    el.enableCamMic.addEventListener("click",enableCameraMic); el.addPhoto.addEventListener("click",()=>el.photoInput.click()); el.addVideo.addEventListener("click",()=>el.videoInput.click()); el.addFile.addEventListener("click",()=>el.fileInput.click());
+    el.photoInput.addEventListener("change",e=>addFilesToDay(e.target.files)); el.videoInput.addEventListener("change",e=>addFilesToDay(e.target.files)); el.fileInput.addEventListener("change",e=>addFilesToDay(e.target.files));
+    renderLabels(); renderCalendar(); loadSelectedDay();
   </script>
+  <script async src="https://www.instagram.com/embed.js"></script>
 </body>
 </html>
