@@ -44,7 +44,7 @@ export default function Header({ onAdd, onToggleMobileMenu, title = 'Mjcitytrack
           </button>
 
           {profileOpen && (
-            <div className="absolute right-0 z-20 mt-2 w-56 rounded-xl border border-slate-200 bg-white p-2 shadow-soft">
+            <div className="absolute left-0 z-30 mt-2 w-56 max-w-[calc(100vw-2rem)] rounded-xl border border-slate-200 bg-white p-2 shadow-soft md:left-auto md:right-0">
               <Link
                 to="/settings"
                 onClick={() => setProfileOpen(false)}
