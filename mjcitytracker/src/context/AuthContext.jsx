@@ -93,6 +93,24 @@ export function AuthProvider({ children }) {
     saveCurrentUser(safe);
   };
 
+  const changePassword = async ({ currentPassword, newPassword }) => {
+    if (!newPassword || newPassword.length < 8) throw new Error('New password must be at least 8 characters');
+
+    if (supabaseEnabled) {
+      const { error } = await supabase.auth.updateUser({ password: newPassword });
+      if (error) throw error;
+      return;
+    }
+
+    const users = loadUsers();
+    const idx = users.findIndex((u) => u.id === currentUser?.id);
+    if (idx === -1) throw new Error('User not found');
+    if (users[idx].password !== currentPassword) throw new Error('Current password is incorrect');
+
+    users[idx] = { ...users[idx], password: newPassword };
+    saveUsers(users);
+  };
+
   const logout = async () => {
     if (supabaseEnabled) await supabase.auth.signOut();
     setCurrentUser(null);
@@ -100,7 +118,7 @@ export function AuthProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={useMemo(() => ({ currentUser, signup, login, logout, authLoading, supabaseEnabled }), [currentUser, authLoading])}>
+    <AuthContext.Provider value={useMemo(() => ({ currentUser, signup, login, changePassword, logout, authLoading, supabaseEnabled }), [currentUser, authLoading])}>
       {children}
     </AuthContext.Provider>
   );
