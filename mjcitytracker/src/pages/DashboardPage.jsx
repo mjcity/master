@@ -33,7 +33,7 @@ export default function DashboardPage(){
 
   const categories=useMemo(()=>[...new Set(goals.map(g=>g.category))],[goals]);
 
-  const handleSubmit=(goalData)=>{ if(editingGoal) updateGoal(editingGoal.id,goalData); else createGoal(goalData); setEditingGoal(null); setOpenModal(false); };
+  const handleSubmit=async (goalData)=>{ if(editingGoal) await updateGoal(editingGoal.id,goalData); else await createGoal(goalData); setEditingGoal(null); setOpenModal(false); };
   const openCreate=()=>{ setEditingGoal(null); setOpenModal(true); };
   const openEdit=(goal)=>{ setEditingGoal(goal); setOpenModal(true); };
   const toggleComplete=(goal)=> updateGoal(goal.id,{completed:!goal.completed,progress:!goal.completed?100:Math.min(goal.progress,99)});

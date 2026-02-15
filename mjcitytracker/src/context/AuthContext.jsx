@@ -1,12 +1,70 @@
-import { createContext, useMemo, useState } from 'react';
+import { createContext, useEffect, useMemo, useState } from 'react';
 import { loadUsers, saveUsers, getCurrentUser, saveCurrentUser, clearCurrentUser } from '../utils/storage';
+import { supabase, supabaseEnabled } from '../lib/supabase';
 
 export const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(getCurrentUser());
+  const [authLoading, setAuthLoading] = useState(supabaseEnabled);
 
-  const signup = ({ name, email, password }) => {
+  useEffect(() => {
+    if (!supabaseEnabled) return;
+
+    let mounted = true;
+
+    const init = async () => {
+      const { data } = await supabase.auth.getUser();
+      if (!mounted) return;
+      const u = data?.user;
+      if (u) {
+        const safe = { id: u.id, name: u.user_metadata?.name || u.email?.split('@')[0] || 'User', email: u.email };
+        setCurrentUser(safe);
+        saveCurrentUser(safe);
+      } else {
+        setCurrentUser(null);
+        clearCurrentUser();
+      }
+      setAuthLoading(false);
+    };
+
+    init();
+
+    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
+      const u = session?.user;
+      if (u) {
+        const safe = { id: u.id, name: u.user_metadata?.name || u.email?.split('@')[0] || 'User', email: u.email };
+        setCurrentUser(safe);
+        saveCurrentUser(safe);
+      } else {
+        setCurrentUser(null);
+        clearCurrentUser();
+      }
+    });
+
+    return () => {
+      mounted = false;
+      sub.subscription.unsubscribe();
+    };
+  }, []);
+
+  const signup = async ({ name, email, password }) => {
+    if (supabaseEnabled) {
+      const { data, error } = await supabase.auth.signUp({
+        email: email.trim().toLowerCase(),
+        password,
+        options: { data: { name: name.trim() } }
+      });
+      if (error) throw error;
+      const u = data.user;
+      if (u) {
+        const safe = { id: u.id, name: name.trim(), email: email.trim().toLowerCase() };
+        setCurrentUser(safe);
+        saveCurrentUser(safe);
+      }
+      return;
+    }
+
     const users = loadUsers();
     if (users.some((u) => u.email.toLowerCase() === email.toLowerCase())) throw new Error('Email already in use');
     const user = { id: crypto.randomUUID(), name: name.trim(), email: email.trim().toLowerCase(), password };
@@ -16,7 +74,17 @@ export function AuthProvider({ children }) {
     saveCurrentUser(safe);
   };
 
-  const login = ({ email, password }) => {
+  const login = async ({ email, password }) => {
+    if (supabaseEnabled) {
+      const { data, error } = await supabase.auth.signInWithPassword({ email: email.trim().toLowerCase(), password });
+      if (error) throw error;
+      const u = data.user;
+      const safe = { id: u.id, name: u.user_metadata?.name || u.email?.split('@')[0] || 'User', email: u.email };
+      setCurrentUser(safe);
+      saveCurrentUser(safe);
+      return;
+    }
+
     const users = loadUsers();
     const user = users.find((u) => u.email === email.trim().toLowerCase() && u.password === password);
     if (!user) throw new Error('Invalid credentials');
@@ -25,7 +93,15 @@ export function AuthProvider({ children }) {
     saveCurrentUser(safe);
   };
 
-  const logout = () => { setCurrentUser(null); clearCurrentUser(); };
+  const logout = async () => {
+    if (supabaseEnabled) await supabase.auth.signOut();
+    setCurrentUser(null);
+    clearCurrentUser();
+  };
 
-  return <AuthContext.Provider value={useMemo(() => ({ currentUser, signup, login, logout }), [currentUser])}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={useMemo(() => ({ currentUser, signup, login, logout, authLoading, supabaseEnabled }), [currentUser, authLoading])}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
