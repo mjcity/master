@@ -53,7 +53,7 @@ export default function GoalFormModal({ open, onClose, onSubmit, initialGoal, us
 
   return (
     <div className="fixed inset-0 z-50 grid place-items-center bg-slate-900/40 p-4">
-      <form onSubmit={submit} className="w-full max-w-lg rounded-2xl bg-white p-5 shadow-soft">
+      <form onSubmit={submit} className="max-h-[85vh] w-full max-w-lg overflow-y-auto rounded-2xl bg-white p-5 shadow-soft">
         <div className="mb-4 flex items-center justify-between">
           <h2 className="text-lg font-bold">{initialGoal ? 'Edit Goal' : 'Create Goal'}</h2>
           <button type="button" onClick={onClose} className="rounded-lg p-1 text-slate-500 hover:bg-slate-100"><FaXmark /></button>
@@ -83,7 +83,7 @@ export default function GoalFormModal({ open, onClose, onSubmit, initialGoal, us
             </div>
             <div>
               <label className="mb-1 block text-sm text-slate-600">Due Date</label>
-              <input type="date" value={form.dueDate} onChange={(e) => setForm((p) => ({ ...p, dueDate: e.target.value }))} className="w-full rounded-lg border border-slate-200 px-3 py-2" />
+              <input type="date" value={form.dueDate} onChange={(e) => setForm((p) => ({ ...p, dueDate: e.target.value }))} className="h-11 w-full appearance-none rounded-lg border border-slate-200 bg-white px-3 py-2" />
             </div>
           </div>
 

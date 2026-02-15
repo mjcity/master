@@ -1,5 +1,5 @@
 import { createContext, useEffect, useMemo, useState } from 'react';
-import { loadGoals, saveGoals } from '../utils/storage';
+import { loadGoals, saveGoals, seedGoals } from '../utils/storage';
 import { supabase, supabaseEnabled } from '../lib/supabase';
 
 export const GoalContext = createContext(null);
@@ -42,7 +42,7 @@ export function GoalProvider({ children }) {
           createdAt: new Date(g.created_at).getTime(),
           media: g.media || null
         }));
-        setGoals(mapped);
+        setGoals([...mapped, ...seedGoals]);
       }
       setGoalsLoading(false);
     };
@@ -92,6 +92,11 @@ export function GoalProvider({ children }) {
   };
 
   const updateGoal = async (id, updates) => {
+    if (id?.startsWith('seed-')) {
+      setGoals((prev) => prev.map((g) => (g.id === id ? { ...g, ...updates } : g)));
+      return;
+    }
+
     if (supabaseEnabled) {
       const payload = {};
       if ('title' in updates) payload.title = updates.title;
@@ -126,6 +131,11 @@ export function GoalProvider({ children }) {
   };
 
   const deleteGoal = async (id) => {
+    if (id?.startsWith('seed-')) {
+      setGoals((prev) => prev.filter((g) => g.id !== id));
+      return;
+    }
+
     if (supabaseEnabled) {
       const { error } = await supabase.from('goals').delete().eq('id', id);
       if (error) throw error;
