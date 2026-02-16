@@ -24,6 +24,27 @@ const palettes = [
     panel: 'bg-white/45 border-white/40',
     input: 'bg-white/70 border-white/55 text-slate-900 placeholder:text-slate-600',
     button: 'bg-slate-900 text-white border-slate-900/40 hover:bg-slate-800'
+  },
+  {
+    card: 'from-rose-300 to-red-400 text-slate-950 border-rose-200/60',
+    chip: 'bg-white/55 text-slate-900',
+    panel: 'bg-white/45 border-white/40',
+    input: 'bg-white/70 border-white/55 text-slate-900 placeholder:text-slate-600',
+    button: 'bg-slate-900 text-white border-slate-900/40 hover:bg-slate-800'
+  },
+  {
+    card: 'from-fuchsia-300 to-pink-400 text-slate-950 border-fuchsia-200/60',
+    chip: 'bg-white/55 text-slate-900',
+    panel: 'bg-white/45 border-white/40',
+    input: 'bg-white/70 border-white/55 text-slate-900 placeholder:text-slate-600',
+    button: 'bg-slate-900 text-white border-slate-900/40 hover:bg-slate-800'
+  },
+  {
+    card: 'from-emerald-300 to-green-400 text-slate-950 border-emerald-200/60',
+    chip: 'bg-white/55 text-slate-900',
+    panel: 'bg-white/45 border-white/40',
+    input: 'bg-white/70 border-white/55 text-slate-900 placeholder:text-slate-600',
+    button: 'bg-slate-900 text-white border-slate-900/40 hover:bg-slate-800'
   }
 ];
 
