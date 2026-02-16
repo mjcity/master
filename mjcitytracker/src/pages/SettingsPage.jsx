@@ -2,6 +2,8 @@ import { useRef, useState } from 'react';
 import Layout from '../components/Layout';
 import { useAuth } from '../hooks/useAuth';
 
+const iosInputStyle = { color: '#0f172a', WebkitTextFillColor: '#0f172a', opacity: 1 };
+
 export default function SettingsPage() {
   const { currentUser, updateProfile, changePassword, supabaseEnabled } = useAuth();
 
@@ -81,7 +83,7 @@ export default function SettingsPage() {
     <Layout title="Settings" subtitle="Profile, password, and device permissions" showAdd={false}>
       <div className="grid gap-4 lg:grid-cols-2">
         <div id="account" className="rounded-2xl border border-slate-200 bg-white p-5 text-slate-900 shadow-soft">
-          <h3 className="text-lg font-bold">Personal Details</h3>
+          <h3 className="text-lg font-bold text-slate-900">Personal Details</h3>
 
           <div className="mt-4 flex flex-col items-center">
             <div className="h-28 w-28 overflow-hidden rounded-full border-4 border-slate-300 bg-slate-100">
@@ -91,37 +93,37 @@ export default function SettingsPage() {
           </div>
 
           <div className="mt-4 space-y-3">
-            <input value={profile.name} onChange={(e) => setProfile((p) => ({ ...p, name: e.target.value }))} placeholder="Name" className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400 [-webkit-text-fill-color:#0f172a]" />
-            <input value={profile.sex} onChange={(e) => setProfile((p) => ({ ...p, sex: e.target.value }))} placeholder="Sex" className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400 [-webkit-text-fill-color:#0f172a]" />
-            <input value={profile.age} onChange={(e) => setProfile((p) => ({ ...p, age: e.target.value }))} placeholder="Age" className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400 [-webkit-text-fill-color:#0f172a]" />
+            <input style={iosInputStyle} value={profile.name} onChange={(e) => setProfile((p) => ({ ...p, name: e.target.value }))} placeholder="Name" className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400" />
+            <input style={iosInputStyle} value={profile.sex} onChange={(e) => setProfile((p) => ({ ...p, sex: e.target.value }))} placeholder="Sex" className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400" />
+            <input style={iosInputStyle} value={profile.age} onChange={(e) => setProfile((p) => ({ ...p, age: e.target.value }))} placeholder="Age" className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400" />
             <div>
-              <p className="text-xs font-semibold text-slate-600">Center photo horizontally</p>
+              <p className="text-xs font-semibold text-slate-700">Center photo horizontally</p>
               <input type="range" min="0" max="100" value={profile.avatarPosX} onChange={(e) => setProfile((p) => ({ ...p, avatarPosX: Number(e.target.value) }))} className="w-full" />
-              <p className="text-xs font-semibold text-slate-600">Center photo vertically</p>
+              <p className="text-xs font-semibold text-slate-700">Center photo vertically</p>
               <input type="range" min="0" max="100" value={profile.avatarPosY} onChange={(e) => setProfile((p) => ({ ...p, avatarPosY: Number(e.target.value) }))} className="w-full" />
             </div>
             <button onClick={saveProfile} className="rounded-lg bg-brand-600 px-4 py-2 text-white">Save Profile</button>
-            {profileMsg && <p className="text-sm text-slate-600">{profileMsg}</p>}
+            {profileMsg && <p className="text-sm text-slate-700">{profileMsg}</p>}
           </div>
 
           <form onSubmit={submitPasswordChange} className="mt-6 space-y-3 border-t border-slate-200 pt-4">
-            <h4 className="font-bold">Change Password</h4>
-            {!supabaseEnabled && <input type="password" value={pwForm.currentPassword} onChange={(e) => setPwForm((s) => ({ ...s, currentPassword: e.target.value }))} className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400 [-webkit-text-fill-color:#0f172a]" placeholder="Current password" required />}
-            <input type="password" value={pwForm.newPassword} onChange={(e) => setPwForm((s) => ({ ...s, newPassword: e.target.value }))} className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400 [-webkit-text-fill-color:#0f172a]" placeholder="New password" required />
-            <input type="password" value={pwForm.confirmPassword} onChange={(e) => setPwForm((s) => ({ ...s, confirmPassword: e.target.value }))} className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400 [-webkit-text-fill-color:#0f172a]" placeholder="Confirm new password" required />
+            <h4 className="font-bold text-slate-900">Change Password</h4>
+            {!supabaseEnabled && <input style={iosInputStyle} type="password" value={pwForm.currentPassword} onChange={(e) => setPwForm((s) => ({ ...s, currentPassword: e.target.value }))} className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400" placeholder="Current password" required />}
+            <input style={iosInputStyle} type="password" value={pwForm.newPassword} onChange={(e) => setPwForm((s) => ({ ...s, newPassword: e.target.value }))} className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400" placeholder="New password" required />
+            <input style={iosInputStyle} type="password" value={pwForm.confirmPassword} onChange={(e) => setPwForm((s) => ({ ...s, confirmPassword: e.target.value }))} className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400" placeholder="Confirm new password" required />
             <button type="submit" disabled={pwLoading} className="rounded-lg bg-slate-900 px-4 py-2 text-white">{pwLoading ? 'Updating...' : 'Change password'}</button>
-            {pwStatus && <p className="text-sm text-slate-600">{pwStatus}</p>}
+            {pwStatus && <p className="text-sm text-slate-700">{pwStatus}</p>}
           </form>
         </div>
 
         <div className="rounded-2xl border border-slate-200 bg-white p-5 text-slate-900 shadow-soft">
-          <h3 className="text-lg font-bold">Phone Media Access</h3>
-          <p className="mt-1 text-sm text-slate-500">Enable camera, microphone, album, and files for progress updates.</p>
+          <h3 className="text-lg font-bold text-slate-900">Phone Media Access</h3>
+          <p className="mt-1 text-sm text-slate-600">Enable camera, microphone, album, and files for progress updates.</p>
           <div className="mt-4 flex flex-wrap gap-2">
             <button onClick={requestCameraMic} className="rounded-lg bg-brand-600 px-4 py-2 text-white">Allow Camera + Mic</button>
             <button onClick={stopStream} className="rounded-lg border border-slate-300 px-4 py-2">Stop</button>
           </div>
-          <p className="mt-3 text-sm text-slate-600">{status}</p>
+          <p className="mt-3 text-sm text-slate-700">{status}</p>
           <video ref={videoRef} autoPlay muted playsInline className="mt-4 w-full rounded-xl bg-slate-900" />
           {streamOn && <p className="mt-2 text-xs text-emerald-600">Live preview enabled</p>}
         </div>
