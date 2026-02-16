@@ -97,16 +97,17 @@ export default function DashboardPage(){
         <span className="mt-1 rounded-full bg-white/60 px-3 py-1 text-xs font-bold">{recapOpen ? 'Collapse' : 'Expand'}</span>
       </div>
 
-      <div className={`grid transition-all duration-500 ${recapOpen ? 'mt-4 grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}>
-        <div className="overflow-hidden">
-          <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
-            <RecapStat label="Goals" value={weeklyRecap.total} />
-            <RecapStat label="Completed" value={weeklyRecap.completed} />
-            <RecapStat label="Avg Progress" value={`${weeklyRecap.avgProgress}%`} />
-            <RecapStat label="Check-ins" value={weeklyRecap.checkIns} />
-          </div>
-          <p className="mt-3 rounded-xl bg-white/45 px-3 py-2 text-sm font-semibold">Top performer: {weeklyRecap.topGoal}</p>
+      <div
+        className="overflow-hidden transition-all duration-500"
+        style={{ maxHeight: recapOpen ? 320 : 0, opacity: recapOpen ? 1 : 0, marginTop: recapOpen ? 16 : 0 }}
+      >
+        <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+          <RecapStat label="Goals" value={weeklyRecap.total} />
+          <RecapStat label="Completed" value={weeklyRecap.completed} />
+          <RecapStat label="Avg Progress" value={`${weeklyRecap.avgProgress}%`} />
+          <RecapStat label="Check-ins" value={weeklyRecap.checkIns} />
         </div>
+        <p className="mt-3 rounded-xl bg-white/45 px-3 py-2 text-sm font-semibold">Top performer: {weeklyRecap.topGoal}</p>
       </div>
     </button>
 
