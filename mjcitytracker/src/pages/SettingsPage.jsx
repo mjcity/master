@@ -80,7 +80,7 @@ export default function SettingsPage() {
   return (
     <Layout title="Settings" subtitle="Profile, password, and device permissions" showAdd={false}>
       <div className="grid gap-4 lg:grid-cols-2">
-        <div id="account" className="rounded-2xl border border-slate-200 bg-white p-5 shadow-soft">
+        <div id="account" className="rounded-2xl border border-slate-200 bg-white p-5 text-slate-900 shadow-soft">
           <h3 className="text-lg font-bold">Personal Details</h3>
 
           <div className="mt-4 flex flex-col items-center">
@@ -91,9 +91,9 @@ export default function SettingsPage() {
           </div>
 
           <div className="mt-4 space-y-3">
-            <input value={profile.name} onChange={(e) => setProfile((p) => ({ ...p, name: e.target.value }))} placeholder="Name" className="w-full rounded-lg border border-slate-300 px-3 py-2" />
-            <input value={profile.sex} onChange={(e) => setProfile((p) => ({ ...p, sex: e.target.value }))} placeholder="Sex" className="w-full rounded-lg border border-slate-300 px-3 py-2" />
-            <input value={profile.age} onChange={(e) => setProfile((p) => ({ ...p, age: e.target.value }))} placeholder="Age" className="w-full rounded-lg border border-slate-300 px-3 py-2" />
+            <input value={profile.name} onChange={(e) => setProfile((p) => ({ ...p, name: e.target.value }))} placeholder="Name" className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400" />
+            <input value={profile.sex} onChange={(e) => setProfile((p) => ({ ...p, sex: e.target.value }))} placeholder="Sex" className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400" />
+            <input value={profile.age} onChange={(e) => setProfile((p) => ({ ...p, age: e.target.value }))} placeholder="Age" className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400" />
             <div>
               <p className="text-xs font-semibold text-slate-600">Center photo horizontally</p>
               <input type="range" min="0" max="100" value={profile.avatarPosX} onChange={(e) => setProfile((p) => ({ ...p, avatarPosX: Number(e.target.value) }))} className="w-full" />
@@ -106,15 +106,15 @@ export default function SettingsPage() {
 
           <form onSubmit={submitPasswordChange} className="mt-6 space-y-3 border-t border-slate-200 pt-4">
             <h4 className="font-bold">Change Password</h4>
-            {!supabaseEnabled && <input type="password" value={pwForm.currentPassword} onChange={(e) => setPwForm((s) => ({ ...s, currentPassword: e.target.value }))} className="w-full rounded-lg border border-slate-300 px-3 py-2" placeholder="Current password" required />}
-            <input type="password" value={pwForm.newPassword} onChange={(e) => setPwForm((s) => ({ ...s, newPassword: e.target.value }))} className="w-full rounded-lg border border-slate-300 px-3 py-2" placeholder="New password" required />
-            <input type="password" value={pwForm.confirmPassword} onChange={(e) => setPwForm((s) => ({ ...s, confirmPassword: e.target.value }))} className="w-full rounded-lg border border-slate-300 px-3 py-2" placeholder="Confirm new password" required />
+            {!supabaseEnabled && <input type="password" value={pwForm.currentPassword} onChange={(e) => setPwForm((s) => ({ ...s, currentPassword: e.target.value }))} className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400" placeholder="Current password" required />}
+            <input type="password" value={pwForm.newPassword} onChange={(e) => setPwForm((s) => ({ ...s, newPassword: e.target.value }))} className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400" placeholder="New password" required />
+            <input type="password" value={pwForm.confirmPassword} onChange={(e) => setPwForm((s) => ({ ...s, confirmPassword: e.target.value }))} className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400" placeholder="Confirm new password" required />
             <button type="submit" disabled={pwLoading} className="rounded-lg bg-slate-900 px-4 py-2 text-white">{pwLoading ? 'Updating...' : 'Change password'}</button>
             {pwStatus && <p className="text-sm text-slate-600">{pwStatus}</p>}
           </form>
         </div>
 
-        <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-soft">
+        <div className="rounded-2xl border border-slate-200 bg-white p-5 text-slate-900 shadow-soft">
           <h3 className="text-lg font-bold">Phone Media Access</h3>
           <p className="mt-1 text-sm text-slate-500">Enable camera, microphone, album, and files for progress updates.</p>
           <div className="mt-4 flex flex-wrap gap-2">
