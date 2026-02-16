@@ -1,0 +1,20 @@
+{
+  "mjcitytracker": {
+    "repo": "https://github.com/mjcity/mjcitytracker.git",
+    "branch": "main",
+    "deploy": "repo-pages",
+    "liveUrl": "https://mjcity.github.io/mjcitytracker/"
+  },
+  "habit-crusher": {
+    "repo": "https://github.com/mjcity/habit-crusher.git",
+    "branch": "main",
+    "deploy": "docs-pages",
+    "liveUrl": "https://mjcity.github.io/habit-crusher/"
+  },
+  "carbuz": {
+    "repo": "https://github.com/mjcity/carbuz.git",
+    "branch": "main",
+    "deploy": "repo-pages",
+    "liveUrl": "https://mjcity.github.io/carbuz/"
+  }
+}
