@@ -1,8 +1,16 @@
+import { useState } from 'react';
 import { FaCalendarDays, FaCheck, FaPenToSquare, FaTrashCan } from 'react-icons/fa6';
 import ProgressBar from './ProgressBar';
 import { formatDate, isOverdue } from '../utils/date';
 
-export default function GoalCard({ goal, onEdit, onDelete, onToggleComplete, onQuickProgress }) {
+export default function GoalCard({ goal, onEdit, onDelete, onToggleComplete, onQuickProgress, onToggleSubtask, onAddSubtask, onAddJournal, onSetWeeklyStatus }) {
+  const [subtaskText, setSubtaskText] = useState('');
+  const [journalText, setJournalText] = useState('');
+
+  const subtasks = goal.media?.subtasks || [];
+  const streak = Number(goal.media?.streakCount || 0);
+  const tokens = Number(goal.media?.freezeTokens || 0);
+
   return <article className="card-hover rounded-2xl border border-slate-200 bg-white p-4">
     <div className="mb-3 flex items-start justify-between gap-3"><div><h3 className="font-semibold text-slate-900">{goal.title}</h3><p className="mt-1 text-sm text-slate-500">{goal.description}</p></div><span className="rounded-full bg-slate-100 px-2 py-1 text-xs font-medium text-slate-600">{goal.category}</span></div>
 
@@ -16,9 +24,39 @@ export default function GoalCard({ goal, onEdit, onDelete, onToggleComplete, onQ
       </div>
     )}
 
+    <div className="mb-2 text-xs font-semibold text-slate-600">Streak: {streak} days · Freeze tokens: {tokens}</div>
+    <div className="mb-2 flex items-center gap-2 text-xs">
+      <span className="text-slate-500">Week bucket:</span>
+      <select value={goal.media?.weeklyStatus || 'thisWeek'} onChange={(e) => onSetWeeklyStatus(goal.id, e.target.value)} className="rounded border border-slate-200 px-2 py-1">
+        <option value="thisWeek">This week</option>
+        <option value="nextWeek">Next week</option>
+        <option value="blocked">Blocked</option>
+      </select>
+    </div>
+
     <div className="mb-3 space-y-1"><div className="flex items-center justify-between text-sm"><span className="text-slate-500">Progress</span><span className="font-medium text-slate-700">{goal.progress}%</span></div><ProgressBar value={goal.progress}/></div>
     <div className="mb-4 flex items-center justify-between text-xs text-slate-500"><div className="flex items-center gap-1"><FaCalendarDays/> {formatDate(goal.dueDate)}</div>{isOverdue(goal.dueDate)&&!goal.completed?<span className="rounded-full bg-rose-100 px-2 py-1 text-rose-700">Overdue</span>:goal.completed?<span className="rounded-full bg-emerald-100 px-2 py-1 text-emerald-700">Completed</span>:null}</div>
     <div className="mb-3 flex items-center gap-2 py-1"><input type="range" min="0" max="100" value={goal.progress} onChange={(e)=>onQuickProgress(goal.id, Number(e.target.value))} className="w-full cursor-pointer accent-blue-600 [touch-action:pan-x]"/></div>
+
+    <div className="mb-3 rounded-xl border border-slate-200 p-2">
+      <p className="mb-1 text-xs font-semibold text-slate-600">Milestones / Subtasks</p>
+      <div className="space-y-1">
+        {subtasks.map((s) => <label key={s.id} className="flex items-center gap-2 text-sm"><input type="checkbox" checked={!!s.done} onChange={() => onToggleSubtask(goal.id, s.id)} /> {s.text}</label>)}
+      </div>
+      <div className="mt-2 flex gap-2">
+        <input value={subtaskText} onChange={(e) => setSubtaskText(e.target.value)} placeholder="Add subtask" className="w-full rounded border border-slate-200 px-2 py-1 text-sm" />
+        <button onClick={() => { onAddSubtask(goal.id, subtaskText); setSubtaskText(''); }} className="rounded border border-slate-300 px-2 py-1 text-xs">Add</button>
+      </div>
+    </div>
+
+    <div className="mb-3 rounded-xl border border-slate-200 p-2">
+      <p className="mb-1 text-xs font-semibold text-slate-600">Progress Journal</p>
+      <div className="flex gap-2">
+        <input value={journalText} onChange={(e) => setJournalText(e.target.value)} placeholder="Quick check-in" className="w-full rounded border border-slate-200 px-2 py-1 text-sm" />
+        <button onClick={() => { onAddJournal(goal.id, { note: journalText }); setJournalText(''); }} className="rounded border border-slate-300 px-2 py-1 text-xs">Log</button>
+      </div>
+    </div>
+
     <div className="flex flex-wrap gap-2">
       <button onClick={()=>onToggleComplete(goal)} className="flex items-center gap-1 rounded-lg border border-slate-200 px-2 py-1 text-xs text-slate-700 hover:bg-slate-50"><FaCheck/> {goal.completed?'Set Active':'Complete'}</button>
       <button onClick={()=>onEdit(goal)} className="flex items-center gap-1 rounded-lg border border-slate-200 px-2 py-1 text-xs text-slate-700 hover:bg-slate-50"><FaPenToSquare/> Edit</button>
