@@ -4,16 +4,16 @@ import Sidebar from './Sidebar';
 import Header from './Header';
 
 const mobileItemClass = ({ isActive }) =>
-  `block rounded-xl px-3 py-2 text-sm ${isActive ? 'bg-slate-800 text-white' : 'text-slate-700 hover:bg-slate-100'}`;
+  `block rounded-xl px-3 py-2 text-sm ${isActive ? 'bg-cyan-500/20 text-cyan-200 border border-cyan-300/30' : 'text-slate-200 hover:bg-white/10'}`;
 
 export default function Layout({ children, onAdd, title, subtitle, showAdd = true }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-slate-100 text-slate-900">
+    <div className="min-h-screen text-slate-100">
       <div className="mx-auto flex max-w-7xl gap-4 p-4 md:p-6">
         <Sidebar />
-        <div className="relative flex min-h-[85vh] flex-1 flex-col overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-soft">
+        <div className="relative flex min-h-[85vh] flex-1 flex-col overflow-hidden rounded-3xl border border-white/10 bg-slate-900/70 shadow-[0_24px_55px_rgba(2,6,23,0.65)] backdrop-blur-xl">
           <Header
             onAdd={onAdd}
             title={title}
@@ -23,7 +23,7 @@ export default function Layout({ children, onAdd, title, subtitle, showAdd = tru
           />
 
           {mobileMenuOpen && (
-            <div className="border-b border-slate-200 bg-white p-3 md:hidden">
+            <div className="border-b border-white/10 bg-slate-900/95 p-3 md:hidden">
               <nav className="grid gap-2">
                 <NavLink to="/dashboard" className={mobileItemClass} onClick={() => setMobileMenuOpen(false)}>Dashboard</NavLink>
                 <NavLink to="/progress" className={mobileItemClass} onClick={() => setMobileMenuOpen(false)}>Progress</NavLink>

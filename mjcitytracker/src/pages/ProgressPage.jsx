@@ -39,9 +39,9 @@ export default function ProgressPage() {
 
 function Stat({ label, value }) {
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-soft">
-      <p className="text-sm text-slate-500">{label}</p>
-      <p className="mt-1 text-2xl font-black text-slate-900">{value}</p>
+    <div className="rounded-2xl border border-white/10 bg-slate-900/60 p-5 shadow-[0_10px_25px_rgba(2,6,23,0.5)]">
+      <p className="text-sm text-slate-300">{label}</p>
+      <p className="mt-1 text-2xl font-black text-slate-100">{value}</p>
     </div>
   );
 }

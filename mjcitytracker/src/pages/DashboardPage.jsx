@@ -60,7 +60,7 @@ export default function DashboardPage(){
   const toggleComplete=(goal)=> updateGoal(goal.id,{completed:!goal.completed,progress:!goal.completed?100:Math.min(goal.progress,99)});
 
   return <Layout onAdd={openCreate} title="Dashboard" subtitle="Your goals, deadlines, and daily focus">
-    <div className="mb-4 rounded-2xl border border-blue-200 bg-blue-50 p-4 text-sm text-blue-900">{coachTip}</div>
+    <div className="mb-4 rounded-2xl border border-cyan-300/30 bg-cyan-500/15 p-4 text-sm text-cyan-100">{coachTip}</div>
 
     <div className="mb-4 grid gap-3 md:grid-cols-3">
       <Board title="This Week" items={weeklyBoard.thisWeek} />
@@ -70,11 +70,11 @@ export default function DashboardPage(){
 
     <FiltersBar filter={filter} setFilter={setFilter} sort={sort} setSort={setSort} categories={categories}/>
 
-    {userGoals.length===0?<div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-10 text-center text-slate-500">No goals found. Create your first goal.</div>:<div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">{userGoals.map((goal)=><GoalCard key={goal.id} goal={goal} onEdit={openEdit} onDelete={deleteGoal} onToggleComplete={toggleComplete} onQuickProgress={(id,progress)=>updateGoal(id,{progress,completed:progress>=100})} onToggleSubtask={toggleSubtask} onAddSubtask={addSubtask} onAddJournal={addJournalEntry} onSetWeeklyStatus={setWeeklyStatus} />)}</div>}
+    {userGoals.length===0?<div className="rounded-2xl border border-dashed border-white/20 bg-slate-900/50 p-10 text-center text-slate-300">No goals found. Create your first goal.</div>:<div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">{userGoals.map((goal)=><GoalCard key={goal.id} goal={goal} onEdit={openEdit} onDelete={deleteGoal} onToggleComplete={toggleComplete} onQuickProgress={(id,progress)=>updateGoal(id,{progress,completed:progress>=100})} onToggleSubtask={toggleSubtask} onAddSubtask={addSubtask} onAddJournal={addJournalEntry} onSetWeeklyStatus={setWeeklyStatus} />)}</div>}
 
-    <div className="mt-5 rounded-2xl border border-slate-200 bg-white p-4">
-      <h3 className="mb-3 text-lg font-bold">Proof Timeline</h3>
-      {!proofTimeline.length ? <p className="text-sm text-slate-500">No proof media entries yet.</p> : <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">{proofTimeline.map((p)=><div key={p.id} className="rounded-xl border border-slate-200 p-2"><p className="text-xs font-semibold text-slate-500">{p.date} · {p.goalTitle}</p>{p.media.type?.startsWith('video/') ? <video src={p.media.dataUrl} controls className="mt-1 max-h-36 w-full rounded bg-black"/> : <img src={p.media.dataUrl} alt="proof" className="mt-1 max-h-36 w-full rounded object-cover"/>}</div>)}</div>}
+    <div className="mt-5 rounded-2xl border border-white/10 bg-slate-900/55 p-4">
+      <h3 className="mb-3 text-lg font-bold text-slate-100">Proof Timeline</h3>
+      {!proofTimeline.length ? <p className="text-sm text-slate-300">No proof media entries yet.</p> : <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">{proofTimeline.map((p)=><div key={p.id} className="rounded-xl border border-white/10 bg-slate-800/50 p-2"><p className="text-xs font-semibold text-slate-300">{p.date} · {p.goalTitle}</p>{p.media.type?.startsWith('video/') ? <video src={p.media.dataUrl} controls className="mt-1 max-h-36 w-full rounded bg-black"/> : <img src={p.media.dataUrl} alt="proof" className="mt-1 max-h-36 w-full rounded object-cover"/>}</div>)}</div>}
     </div>
 
     <GoalFormModal open={openModal} onClose={()=>{setOpenModal(false);setEditingGoal(null);}} onSubmit={handleSubmit} initialGoal={editingGoal} userId={currentUser.id}/>
@@ -82,11 +82,11 @@ export default function DashboardPage(){
 }
 
 function Board({ title, items }) {
-  return <div className="rounded-2xl border border-slate-200 bg-white p-3">
-    <h4 className="font-bold">{title}</h4>
-    <p className="mb-2 text-xs text-slate-500">{items.length} goals</p>
+  return <div className="rounded-2xl border border-white/10 bg-slate-900/55 p-3">
+    <h4 className="font-bold text-slate-100">{title}</h4>
+    <p className="mb-2 text-xs text-slate-300">{items.length} goals</p>
     <div className="space-y-1 text-sm">
-      {items.slice(0, 4).map((i) => <div key={i.id} className="rounded bg-slate-50 px-2 py-1">{i.title}</div>)}
+      {items.slice(0, 4).map((i) => <div key={i.id} className="rounded bg-white/5 px-2 py-1 text-slate-100">{i.title}</div>)}
       {!items.length && <p className="text-slate-400">None</p>}
     </div>
   </div>;
