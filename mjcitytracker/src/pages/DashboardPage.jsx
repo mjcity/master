@@ -83,10 +83,17 @@ export default function DashboardPage(){
       <span className="rounded-full border border-white/15 bg-white/5 px-3 py-2">😴 Rest</span>
     </div>
 
-    <button
-      type="button"
+    <div
+      role="button"
+      tabIndex={0}
       onClick={() => setRecapOpen((v) => !v)}
-      className={`mb-4 w-full rounded-[28px] border border-cyan-200/40 bg-[#67d3ff] p-5 text-left text-slate-950 transition-all duration-500 ${recapOpen ? 'shadow-[0_16px_28px_rgba(14,116,144,0.35)]' : ''}`}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          setRecapOpen((v) => !v);
+        }
+      }}
+      className={`mb-4 w-full cursor-pointer rounded-[28px] border border-cyan-200/40 bg-[#67d3ff] p-5 text-left text-slate-950 transition-all duration-500 ${recapOpen ? 'shadow-[0_16px_28px_rgba(14,116,144,0.35)]' : ''}`}
     >
       <div className="flex items-start justify-between gap-3">
         <div>
@@ -109,7 +116,7 @@ export default function DashboardPage(){
         </div>
         <p className="mt-3 rounded-xl bg-white/45 px-3 py-2 text-sm font-semibold">Top performer: {weeklyRecap.topGoal}</p>
       </div>
-    </button>
+    </div>
 
     <div className={`transition-all duration-500 ${recapOpen ? 'translate-y-1 scale-[0.99] opacity-90' : 'translate-y-0 scale-100 opacity-100'}`}>
       <div className="mb-4 rounded-2xl border border-cyan-300/30 bg-cyan-500/15 p-4 text-sm text-cyan-100">{coachTip}</div>
