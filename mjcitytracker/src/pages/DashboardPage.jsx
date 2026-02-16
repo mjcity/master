@@ -60,6 +60,18 @@ export default function DashboardPage(){
   const toggleComplete=(goal)=> updateGoal(goal.id,{completed:!goal.completed,progress:!goal.completed?100:Math.min(goal.progress,99)});
 
   return <Layout onAdd={openCreate} title="Dashboard" subtitle="Your goals, deadlines, and daily focus">
+    <div className="mb-3 flex flex-wrap items-center gap-2 text-xs">
+      <span className="rounded-full border border-white/15 bg-white/5 px-3 py-2">🚶 Walk 30 min</span>
+      <span className="rounded-full border border-white/15 bg-white/5 px-3 py-2">🧘 Stretch 10 min</span>
+      <span className="rounded-full border border-white/15 bg-white/5 px-3 py-2">😴 Rest</span>
+    </div>
+
+    <div className="mb-4 rounded-[28px] border border-cyan-200/40 bg-[#67d3ff] p-5 text-slate-950">
+      <p className="mb-1 inline-flex rounded-full bg-black px-2 py-1 text-xs font-bold text-white">NEW · Weekly</p>
+      <h3 className="text-5xl font-black tracking-tight">{new Date().toLocaleDateString('en-US', { month: 'short' })} {new Date().getDate()}–{new Date().getDate() + 6}</h3>
+      <p className="mt-2 text-sm font-semibold opacity-80">My Activity Recaps</p>
+    </div>
+
     <div className="mb-4 rounded-2xl border border-cyan-300/30 bg-cyan-500/15 p-4 text-sm text-cyan-100">{coachTip}</div>
 
     <div className="mb-4 grid gap-3 md:grid-cols-3">
