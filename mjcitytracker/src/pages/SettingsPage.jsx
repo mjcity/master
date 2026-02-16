@@ -87,7 +87,7 @@ export default function SettingsPage() {
 
           <div className="mt-4 flex flex-col items-center">
             <div className="h-28 w-28 overflow-hidden rounded-full border-4 border-slate-300 bg-slate-100">
-              {profile.avatarUrl ? <img src={profile.avatarUrl} alt="Profile" className="h-full w-full object-cover" style={{ objectPosition: `${profile.avatarPosX}% ${profile.avatarPosY}%` }} /> : null}
+              {profile.avatarUrl ? <img src={profile.avatarUrl} alt="Profile" className="h-full w-full scale-125 object-cover" style={{ objectPosition: `${profile.avatarPosX}% ${profile.avatarPosY}%` }} /> : null}
             </div>
             <label className="mt-3 cursor-pointer text-sm font-bold text-brand-600">Edit Photo<input type="file" accept="image/*" className="hidden" onChange={(e) => onPickAvatar(e.target.files?.[0])} /></label>
           </div>
@@ -97,10 +97,10 @@ export default function SettingsPage() {
             <input style={iosInputStyle} value={profile.sex} onChange={(e) => setProfile((p) => ({ ...p, sex: e.target.value }))} placeholder="Sex" className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400" />
             <input style={iosInputStyle} value={profile.age} onChange={(e) => setProfile((p) => ({ ...p, age: e.target.value }))} placeholder="Age" className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400" />
             <div>
-              <p className="text-xs font-semibold text-slate-700">Center photo horizontally</p>
-              <input type="range" min="0" max="100" value={profile.avatarPosX} onChange={(e) => setProfile((p) => ({ ...p, avatarPosX: Number(e.target.value) }))} className="w-full" />
-              <p className="text-xs font-semibold text-slate-700">Center photo vertically</p>
-              <input type="range" min="0" max="100" value={profile.avatarPosY} onChange={(e) => setProfile((p) => ({ ...p, avatarPosY: Number(e.target.value) }))} className="w-full" />
+              <p className="text-xs font-semibold text-slate-700">Center photo horizontally ({profile.avatarPosX}%)</p>
+              <input type="range" min="0" max="100" step="1" value={profile.avatarPosX} onChange={(e) => setProfile((p) => ({ ...p, avatarPosX: Number(e.target.value) }))} className="w-full" />
+              <p className="text-xs font-semibold text-slate-700">Center photo vertically ({profile.avatarPosY}%)</p>
+              <input type="range" min="0" max="100" step="1" value={profile.avatarPosY} onChange={(e) => setProfile((p) => ({ ...p, avatarPosY: Number(e.target.value) }))} className="w-full" />
             </div>
             <button onClick={saveProfile} className="rounded-lg bg-brand-600 px-4 py-2 text-white">Save Profile</button>
             {profileMsg && <p className="text-sm text-slate-700">{profileMsg}</p>}
