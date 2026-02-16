@@ -111,24 +111,26 @@ export default function DashboardPage(){
       </div>
     </button>
 
-    <div className="mb-4 rounded-2xl border border-cyan-300/30 bg-cyan-500/15 p-4 text-sm text-cyan-100">{coachTip}</div>
+    <div className={`transition-all duration-500 ${recapOpen ? 'translate-y-1 scale-[0.99] opacity-90' : 'translate-y-0 scale-100 opacity-100'}`}>
+      <div className="mb-4 rounded-2xl border border-cyan-300/30 bg-cyan-500/15 p-4 text-sm text-cyan-100">{coachTip}</div>
 
-    <div className="mb-4 grid gap-3 md:grid-cols-3">
-      <Board title="This Week" tone="cyan" items={weeklyBoard.thisWeek} />
-      <Board title="Next Week" tone="blue" items={weeklyBoard.nextWeek} />
-      <Board title="Blocked" tone="orange" items={weeklyBoard.blocked} />
-    </div>
-
-    <FiltersBar filter={filter} setFilter={setFilter} sort={sort} setSort={setSort} categories={categories}/>
-
-    {userGoals.length===0?<div className="rounded-2xl border border-dashed border-white/20 bg-slate-900/50 p-10 text-center text-slate-300">No goals found. Create your first goal.</div>:<div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">{userGoals.map((goal)=><GoalCard key={goal.id} goal={goal} onEdit={openEdit} onDelete={deleteGoal} onToggleComplete={toggleComplete} onQuickProgress={(id,progress)=>updateGoal(id,{progress,completed:progress>=100})} onToggleSubtask={toggleSubtask} onAddSubtask={addSubtask} onAddJournal={addJournalEntry} onSetWeeklyStatus={setWeeklyStatus} />)}</div>}
-
-    <div className="mt-5 rounded-[28px] border border-white/15 bg-gradient-to-br from-fuchsia-300 via-pink-300 to-rose-300 p-4 text-slate-950 shadow-[0_14px_28px_rgba(2,6,23,0.35)]">
-      <div className="mb-3 flex items-center justify-between">
-        <h3 className="text-lg font-black">Proof Timeline</h3>
-        <span className="rounded-full bg-black px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-white">Gallery</span>
+      <div className="mb-4 grid gap-3 md:grid-cols-3">
+        <Board title="This Week" tone="cyan" items={weeklyBoard.thisWeek} />
+        <Board title="Next Week" tone="blue" items={weeklyBoard.nextWeek} />
+        <Board title="Blocked" tone="orange" items={weeklyBoard.blocked} />
       </div>
-      {!proofTimeline.length ? <p className="text-sm font-semibold text-slate-900/70">No proof media entries yet.</p> : <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">{proofTimeline.map((p, i)=><div key={p.id} className={`rounded-2xl border border-white/50 p-2 ${i % 3 === 0 ? 'bg-cyan-100/80' : i % 3 === 1 ? 'bg-emerald-100/80' : 'bg-orange-100/80'}`}><p className="text-xs font-bold text-slate-800">{p.date} · {p.goalTitle}</p>{p.media.type?.startsWith('video/') ? <video src={p.media.dataUrl} controls className="mt-1 max-h-36 w-full rounded-xl bg-black"/> : <img src={p.media.dataUrl} alt="proof" className="mt-1 max-h-36 w-full rounded-xl object-cover"/>}</div>)}</div>}
+
+      <FiltersBar filter={filter} setFilter={setFilter} sort={sort} setSort={setSort} categories={categories}/>
+
+      {userGoals.length===0?<div className="rounded-2xl border border-dashed border-white/20 bg-slate-900/50 p-10 text-center text-slate-300">No goals found. Create your first goal.</div>:<div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">{userGoals.map((goal)=><GoalCard key={goal.id} goal={goal} onEdit={openEdit} onDelete={deleteGoal} onToggleComplete={toggleComplete} onQuickProgress={(id,progress)=>updateGoal(id,{progress,completed:progress>=100})} onToggleSubtask={toggleSubtask} onAddSubtask={addSubtask} onAddJournal={addJournalEntry} onSetWeeklyStatus={setWeeklyStatus} />)}</div>}
+
+      <div className="mt-5 rounded-[28px] border border-white/15 bg-gradient-to-br from-fuchsia-300 via-pink-300 to-rose-300 p-4 text-slate-950 shadow-[0_14px_28px_rgba(2,6,23,0.35)]">
+        <div className="mb-3 flex items-center justify-between">
+          <h3 className="text-lg font-black">Proof Timeline</h3>
+          <span className="rounded-full bg-black px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-white">Gallery</span>
+        </div>
+        {!proofTimeline.length ? <p className="text-sm font-semibold text-slate-900/70">No proof media entries yet.</p> : <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">{proofTimeline.map((p, i)=><div key={p.id} className={`rounded-2xl border border-white/50 p-2 ${i % 3 === 0 ? 'bg-cyan-100/80' : i % 3 === 1 ? 'bg-emerald-100/80' : 'bg-orange-100/80'}`}><p className="text-xs font-bold text-slate-800">{p.date} · {p.goalTitle}</p>{p.media.type?.startsWith('video/') ? <video src={p.media.dataUrl} controls className="mt-1 max-h-36 w-full rounded-xl bg-black"/> : <img src={p.media.dataUrl} alt="proof" className="mt-1 max-h-36 w-full rounded-xl object-cover"/>}</div>)}</div>}
+      </div>
     </div>
 
     <GoalFormModal open={openModal} onClose={()=>{setOpenModal(false);setEditingGoal(null);}} onSubmit={handleSubmit} initialGoal={editingGoal} userId={currentUser.id}/>
