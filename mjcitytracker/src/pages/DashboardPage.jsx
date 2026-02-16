@@ -13,6 +13,7 @@ export default function DashboardPage(){
   const [editingGoal,setEditingGoal]=useState(null);
   const [filter,setFilter]=useState({category:'all',status:'all',dueDate:''});
   const [sort,setSort]=useState('created');
+  const [recapOpen, setRecapOpen] = useState(false);
 
   const mine = useMemo(() => goals.filter((g)=>g.userId===currentUser.id||g.userId==='seed'), [goals, currentUser.id]);
 
@@ -54,6 +55,22 @@ export default function DashboardPage(){
     .sort((a, b) => String(b.date).localeCompare(String(a.date)))
     .slice(0, 10), [mine]);
 
+  const weeklyRecap = useMemo(() => {
+    const today = new Date();
+    const start = new Date(today);
+    const day = (start.getDay() + 6) % 7;
+    start.setDate(start.getDate() - day);
+    const startKey = start.toISOString().slice(0, 10);
+
+    const total = mine.length;
+    const completed = mine.filter((g) => g.completed).length;
+    const avgProgress = total ? Math.round(mine.reduce((sum, g) => sum + Number(g.progress || 0), 0) / total) : 0;
+    const checkIns = mine.reduce((sum, g) => sum + (g.media?.journal || []).filter((j) => (j.date || '') >= startKey).length, 0);
+    const topGoal = [...mine].sort((a, b) => Number(b.progress || 0) - Number(a.progress || 0))[0];
+
+    return { total, completed, avgProgress, checkIns, topGoal: topGoal?.title || 'No goals yet' };
+  }, [mine]);
+
   const handleSubmit=async (goalData)=>{ if(editingGoal) await updateGoal(editingGoal.id,goalData); else await createGoal(goalData); setEditingGoal(null); setOpenModal(false); };
   const openCreate=()=>{ setEditingGoal(null); setOpenModal(true); };
   const openEdit=(goal)=>{ setEditingGoal(goal); setOpenModal(true); };
@@ -66,11 +83,32 @@ export default function DashboardPage(){
       <span className="rounded-full border border-white/15 bg-white/5 px-3 py-2">😴 Rest</span>
     </div>
 
-    <div className="mb-4 rounded-[28px] border border-cyan-200/40 bg-[#67d3ff] p-5 text-slate-950">
-      <p className="mb-1 inline-flex rounded-full bg-black px-2 py-1 text-xs font-bold text-white">NEW · Weekly</p>
-      <h3 className="text-5xl font-black tracking-tight">{new Date().toLocaleDateString('en-US', { month: 'short' })} {new Date().getDate()}–{new Date().getDate() + 6}</h3>
-      <p className="mt-2 text-sm font-semibold opacity-80">My Activity Recaps</p>
-    </div>
+    <button
+      type="button"
+      onClick={() => setRecapOpen((v) => !v)}
+      className={`mb-4 w-full rounded-[28px] border border-cyan-200/40 bg-[#67d3ff] p-5 text-left text-slate-950 transition-all duration-500 ${recapOpen ? 'shadow-[0_16px_28px_rgba(14,116,144,0.35)]' : ''}`}
+    >
+      <div className="flex items-start justify-between gap-3">
+        <div>
+          <p className="mb-1 inline-flex rounded-full bg-black px-2 py-1 text-xs font-bold text-white">NEW · Weekly</p>
+          <h3 className="text-5xl font-black tracking-tight">{new Date().toLocaleDateString('en-US', { month: 'short' })} {new Date().getDate()}–{new Date().getDate() + 6}</h3>
+          <p className="mt-2 text-sm font-semibold opacity-80">My Activity Recaps</p>
+        </div>
+        <span className="mt-1 rounded-full bg-white/60 px-3 py-1 text-xs font-bold">{recapOpen ? 'Collapse' : 'Expand'}</span>
+      </div>
+
+      <div className={`grid transition-all duration-500 ${recapOpen ? 'mt-4 grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}>
+        <div className="overflow-hidden">
+          <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+            <RecapStat label="Goals" value={weeklyRecap.total} />
+            <RecapStat label="Completed" value={weeklyRecap.completed} />
+            <RecapStat label="Avg Progress" value={`${weeklyRecap.avgProgress}%`} />
+            <RecapStat label="Check-ins" value={weeklyRecap.checkIns} />
+          </div>
+          <p className="mt-3 rounded-xl bg-white/45 px-3 py-2 text-sm font-semibold">Top performer: {weeklyRecap.topGoal}</p>
+        </div>
+      </div>
+    </button>
 
     <div className="mb-4 rounded-2xl border border-cyan-300/30 bg-cyan-500/15 p-4 text-sm text-cyan-100">{coachTip}</div>
 
@@ -94,6 +132,13 @@ export default function DashboardPage(){
 
     <GoalFormModal open={openModal} onClose={()=>{setOpenModal(false);setEditingGoal(null);}} onSubmit={handleSubmit} initialGoal={editingGoal} userId={currentUser.id}/>
   </Layout>;
+}
+
+function RecapStat({ label, value }) {
+  return <div className="rounded-xl bg-white/45 px-3 py-2">
+    <p className="text-[11px] font-bold uppercase tracking-wide text-slate-700">{label}</p>
+    <p className="text-xl font-black text-slate-900">{value}</p>
+  </div>;
 }
 
 function Board({ title, items, tone = 'cyan' }) {
