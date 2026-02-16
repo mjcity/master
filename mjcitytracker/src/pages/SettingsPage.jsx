@@ -91,9 +91,9 @@ export default function SettingsPage() {
           </div>
 
           <div className="mt-4 space-y-3">
-            <input value={profile.name} onChange={(e) => setProfile((p) => ({ ...p, name: e.target.value }))} placeholder="Name" className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400" />
-            <input value={profile.sex} onChange={(e) => setProfile((p) => ({ ...p, sex: e.target.value }))} placeholder="Sex" className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400" />
-            <input value={profile.age} onChange={(e) => setProfile((p) => ({ ...p, age: e.target.value }))} placeholder="Age" className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400" />
+            <input value={profile.name} onChange={(e) => setProfile((p) => ({ ...p, name: e.target.value }))} placeholder="Name" className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400 [-webkit-text-fill-color:#0f172a]" />
+            <input value={profile.sex} onChange={(e) => setProfile((p) => ({ ...p, sex: e.target.value }))} placeholder="Sex" className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400 [-webkit-text-fill-color:#0f172a]" />
+            <input value={profile.age} onChange={(e) => setProfile((p) => ({ ...p, age: e.target.value }))} placeholder="Age" className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400 [-webkit-text-fill-color:#0f172a]" />
             <div>
               <p className="text-xs font-semibold text-slate-600">Center photo horizontally</p>
               <input type="range" min="0" max="100" value={profile.avatarPosX} onChange={(e) => setProfile((p) => ({ ...p, avatarPosX: Number(e.target.value) }))} className="w-full" />
@@ -106,9 +106,9 @@ export default function SettingsPage() {
 
           <form onSubmit={submitPasswordChange} className="mt-6 space-y-3 border-t border-slate-200 pt-4">
             <h4 className="font-bold">Change Password</h4>
-            {!supabaseEnabled && <input type="password" value={pwForm.currentPassword} onChange={(e) => setPwForm((s) => ({ ...s, currentPassword: e.target.value }))} className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400" placeholder="Current password" required />}
-            <input type="password" value={pwForm.newPassword} onChange={(e) => setPwForm((s) => ({ ...s, newPassword: e.target.value }))} className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400" placeholder="New password" required />
-            <input type="password" value={pwForm.confirmPassword} onChange={(e) => setPwForm((s) => ({ ...s, confirmPassword: e.target.value }))} className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400" placeholder="Confirm new password" required />
+            {!supabaseEnabled && <input type="password" value={pwForm.currentPassword} onChange={(e) => setPwForm((s) => ({ ...s, currentPassword: e.target.value }))} className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400 [-webkit-text-fill-color:#0f172a]" placeholder="Current password" required />}
+            <input type="password" value={pwForm.newPassword} onChange={(e) => setPwForm((s) => ({ ...s, newPassword: e.target.value }))} className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400 [-webkit-text-fill-color:#0f172a]" placeholder="New password" required />
+            <input type="password" value={pwForm.confirmPassword} onChange={(e) => setPwForm((s) => ({ ...s, confirmPassword: e.target.value }))} className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400 [-webkit-text-fill-color:#0f172a]" placeholder="Confirm new password" required />
             <button type="submit" disabled={pwLoading} className="rounded-lg bg-slate-900 px-4 py-2 text-white">{pwLoading ? 'Updating...' : 'Change password'}</button>
             {pwStatus && <p className="text-sm text-slate-600">{pwStatus}</p>}
           </form>
