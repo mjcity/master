@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaBars, FaCirclePlus, FaRightFromBracket, FaUser } from 'react-icons/fa6';
+import { FaBars, FaCirclePlus, FaRightFromBracket } from 'react-icons/fa6';
 import { useAuth } from '../hooks/useAuth';
 
 export default function Header({ onAdd, onToggleMobileMenu, title = 'Mjcitytrack', subtitle = 'Track goals and level up daily', showAdd = true }) {
@@ -36,7 +36,11 @@ export default function Header({ onAdd, onToggleMobileMenu, title = 'Mjcitytrack
             className="flex items-center gap-2 rounded-xl border border-slate-200 px-3 py-2 hover:bg-slate-50"
             aria-label="Open profile menu"
           >
-            <FaUser className="text-slate-500" />
+            <div className="h-7 w-7 overflow-hidden rounded-full border border-slate-300 bg-slate-100">
+              {currentUser?.avatarUrl ? (
+                <img src={currentUser.avatarUrl} alt="Profile" className="h-full w-full object-cover" style={{ objectPosition: `${Number(currentUser?.avatarPosX ?? 50)}% ${Number(currentUser?.avatarPosY ?? 50)}%` }} />
+              ) : null}
+            </div>
             <div className="hidden text-left md:block">
               <p className="text-sm font-medium leading-tight">{currentUser?.name}</p>
               <p className="text-xs leading-tight text-slate-500">{currentUser?.email}</p>
