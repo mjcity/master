@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import Layout from '../components/Layout';
 import FiltersBar from '../components/FiltersBar';
 import GoalCard from '../components/GoalCard';
@@ -103,14 +103,33 @@ function Board({ title, items, tone = 'cyan' }) {
     orange: 'from-orange-300 to-amber-400 text-slate-950'
   };
 
-  return <div className={`relative overflow-hidden rounded-[28px] border border-white/15 bg-gradient-to-br p-4 ${tones[tone] || tones.cyan}`}>
+  const ref = useRef(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) setVisible(true);
+    }, { threshold: 0.35 });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  return <div ref={ref} className={`relative overflow-hidden rounded-[28px] border border-white/15 bg-gradient-to-br p-4 ${tones[tone] || tones.cyan}`}>
     <div className="absolute -right-2 -bottom-6 text-[120px] font-black leading-none text-black/10">{items.length || 0}</div>
     <div className="relative z-10">
       <p className="mb-1 inline-flex rounded-full bg-black px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-white">{items.length ? 'Active' : 'Empty'}</p>
       <h4 className="text-2xl font-black">{title}</h4>
       <p className="mb-2 text-xs font-semibold text-slate-900/70">{items.length} goals</p>
-      <div className="space-y-1 text-sm">
-        {items.slice(0, 3).map((i) => <div key={i.id} className="rounded-xl bg-white/45 px-2 py-1 font-semibold text-slate-900">{i.title}</div>)}
+      <div className="space-y-2 text-sm">
+        {items.slice(0, 3).map((i, idx) => {
+          const width = Math.max(20, Math.min(100, Number(i.progress || 0)));
+          return <div key={i.id} className="relative overflow-hidden rounded-xl bg-white/35 px-2 py-2 font-semibold text-slate-900">
+            <div className="absolute inset-y-0 left-0 rounded-xl bg-white/40 transition-all duration-700" style={{ width: visible ? `${width}%` : '0%', transitionDelay: `${idx * 120}ms` }} />
+            <span className="relative z-10">{i.title}</span>
+          </div>;
+        })}
         {!items.length && <p className="font-semibold text-slate-900/70">No goals yet</p>}
       </div>
     </div>
