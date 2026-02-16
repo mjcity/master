@@ -75,9 +75,9 @@ export default function DashboardPage(){
     <div className="mb-4 rounded-2xl border border-cyan-300/30 bg-cyan-500/15 p-4 text-sm text-cyan-100">{coachTip}</div>
 
     <div className="mb-4 grid gap-3 md:grid-cols-3">
-      <Board title="This Week" items={weeklyBoard.thisWeek} />
-      <Board title="Next Week" items={weeklyBoard.nextWeek} />
-      <Board title="Blocked" items={weeklyBoard.blocked} />
+      <Board title="This Week" tone="cyan" items={weeklyBoard.thisWeek} />
+      <Board title="Next Week" tone="blue" items={weeklyBoard.nextWeek} />
+      <Board title="Blocked" tone="orange" items={weeklyBoard.blocked} />
     </div>
 
     <FiltersBar filter={filter} setFilter={setFilter} sort={sort} setSort={setSort} categories={categories}/>
@@ -93,13 +93,23 @@ export default function DashboardPage(){
   </Layout>;
 }
 
-function Board({ title, items }) {
-  return <div className="rounded-2xl border border-white/10 bg-slate-900/55 p-3">
-    <h4 className="font-bold text-slate-100">{title}</h4>
-    <p className="mb-2 text-xs text-slate-300">{items.length} goals</p>
-    <div className="space-y-1 text-sm">
-      {items.slice(0, 4).map((i) => <div key={i.id} className="rounded bg-white/5 px-2 py-1 text-slate-100">{i.title}</div>)}
-      {!items.length && <p className="text-slate-400">None</p>}
+function Board({ title, items, tone = 'cyan' }) {
+  const tones = {
+    cyan: 'from-cyan-300 to-sky-400 text-slate-950',
+    blue: 'from-indigo-300 to-blue-400 text-slate-950',
+    orange: 'from-orange-300 to-amber-400 text-slate-950'
+  };
+
+  return <div className={`relative overflow-hidden rounded-[28px] border border-white/15 bg-gradient-to-br p-4 ${tones[tone] || tones.cyan}`}>
+    <div className="absolute -right-2 -bottom-6 text-[120px] font-black leading-none text-black/10">{items.length || 0}</div>
+    <div className="relative z-10">
+      <p className="mb-1 inline-flex rounded-full bg-black px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-white">{items.length ? 'Active' : 'Empty'}</p>
+      <h4 className="text-2xl font-black">{title}</h4>
+      <p className="mb-2 text-xs font-semibold text-slate-900/70">{items.length} goals</p>
+      <div className="space-y-1 text-sm">
+        {items.slice(0, 3).map((i) => <div key={i.id} className="rounded-xl bg-white/45 px-2 py-1 font-semibold text-slate-900">{i.title}</div>)}
+        {!items.length && <p className="font-semibold text-slate-900/70">No goals yet</p>}
+      </div>
     </div>
   </div>;
 }
