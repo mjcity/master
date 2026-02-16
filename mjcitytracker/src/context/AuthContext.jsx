@@ -25,18 +25,27 @@ export function AuthProvider({ children }) {
     let mounted = true;
 
     const init = async () => {
-      const { data } = await supabase.auth.getUser();
-      if (!mounted) return;
-      const u = data?.user;
-      if (u) {
-        const safe = buildSafeUser(u);
-        setCurrentUser(safe);
-        saveCurrentUser(safe);
-      } else {
+      try {
+        const timeout = new Promise((resolve) => setTimeout(() => resolve({ data: { user: null }, timeout: true }), 6000));
+        const res = await Promise.race([supabase.auth.getUser(), timeout]);
+        if (!mounted) return;
+
+        const u = res?.data?.user;
+        if (u) {
+          const safe = buildSafeUser(u);
+          setCurrentUser(safe);
+          saveCurrentUser(safe);
+        } else {
+          setCurrentUser(null);
+          clearCurrentUser();
+        }
+      } catch {
+        if (!mounted) return;
         setCurrentUser(null);
         clearCurrentUser();
+      } finally {
+        if (mounted) setAuthLoading(false);
       }
-      setAuthLoading(false);
     };
 
     init();
