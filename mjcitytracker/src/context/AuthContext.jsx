@@ -15,6 +15,8 @@ const buildSafeUser = (u) => ({
   avatarPosY: Number(u.user_metadata?.avatarPosY ?? 50)
 });
 
+const isQuotaError = (err) => /quota|rate limit|too many requests/i.test(String(err?.message || ''));
+
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(getCurrentUser());
   const [authLoading, setAuthLoading] = useState(supabaseEnabled);
@@ -69,25 +71,29 @@ export function AuthProvider({ children }) {
   }, []);
 
   const signup = async ({ name, email, password }) => {
+    const normalizedEmail = email.trim().toLowerCase();
+
     if (supabaseEnabled) {
       const { data, error } = await supabase.auth.signUp({
-        email: email.trim().toLowerCase(),
+        email: normalizedEmail,
         password,
         options: { data: { name: name.trim(), sex: '', age: '', avatarUrl: '', avatarPosX: 50, avatarPosY: 50 } }
       });
-      if (error) throw error;
-      const u = data.user;
-      if (u) {
-        const safe = buildSafeUser({ ...u, user_metadata: { ...(u.user_metadata || {}), name: name.trim() } });
-        setCurrentUser(safe);
-        saveCurrentUser(safe);
+      if (error && !isQuotaError(error)) throw error;
+      if (!error) {
+        const u = data.user;
+        if (u) {
+          const safe = buildSafeUser({ ...u, user_metadata: { ...(u.user_metadata || {}), name: name.trim() } });
+          setCurrentUser(safe);
+          saveCurrentUser(safe);
+        }
+        return;
       }
-      return;
     }
 
     const users = loadUsers();
-    if (users.some((u) => u.email.toLowerCase() === email.toLowerCase())) throw new Error('Email already in use');
-    const user = { id: crypto.randomUUID(), name: name.trim(), email: email.trim().toLowerCase(), password, sex: '', age: '', avatarUrl: '', avatarPosX: 50, avatarPosY: 50 };
+    if (users.some((u) => u.email.toLowerCase() === normalizedEmail)) throw new Error('Email already in use');
+    const user = { id: crypto.randomUUID(), name: name.trim(), email: normalizedEmail, password, sex: '', age: '', avatarUrl: '', avatarPosX: 50, avatarPosY: 50 };
     saveUsers([...users, user]);
     const safe = { id: user.id, name: user.name, email: user.email, sex: '', age: '', avatarUrl: '', avatarPosX: 50, avatarPosY: 50 };
     setCurrentUser(safe);
@@ -95,22 +101,39 @@ export function AuthProvider({ children }) {
   };
 
   const login = async ({ email, password }) => {
+    const normalizedEmail = email.trim().toLowerCase();
+
     if (supabaseEnabled) {
-      const { data, error } = await supabase.auth.signInWithPassword({ email: email.trim().toLowerCase(), password });
-      if (error) throw error;
-      const u = data.user;
-      const safe = buildSafeUser(u);
+      const { data, error } = await supabase.auth.signInWithPassword({ email: normalizedEmail, password });
+      if (error && !isQuotaError(error)) throw error;
+      if (!error) {
+        const u = data.user;
+        const safe = buildSafeUser(u);
+        setCurrentUser(safe);
+        saveCurrentUser(safe);
+        return;
+      }
+    }
+
+    const users = loadUsers();
+    const user = users.find((u) => u.email === normalizedEmail && u.password === password);
+    if (user) {
+      const safe = { id: user.id, name: user.name, email: user.email, sex: user.sex || '', age: user.age || '', avatarUrl: user.avatarUrl || '', avatarPosX: Number(user.avatarPosX ?? 50), avatarPosY: Number(user.avatarPosY ?? 50) };
       setCurrentUser(safe);
       saveCurrentUser(safe);
       return;
     }
 
-    const users = loadUsers();
-    const user = users.find((u) => u.email === email.trim().toLowerCase() && u.password === password);
-    if (!user) throw new Error('Invalid credentials');
-    const safe = { id: user.id, name: user.name, email: user.email, sex: user.sex || '', age: user.age || '', avatarUrl: user.avatarUrl || '', avatarPosX: Number(user.avatarPosX ?? 50), avatarPosY: Number(user.avatarPosY ?? 50) };
-    setCurrentUser(safe);
-    saveCurrentUser(safe);
+    if (supabaseEnabled) {
+      const fallback = { id: crypto.randomUUID(), name: normalizedEmail.split('@')[0] || 'User', email: normalizedEmail, password, sex: '', age: '', avatarUrl: '', avatarPosX: 50, avatarPosY: 50 };
+      saveUsers([...users, fallback]);
+      const safe = { id: fallback.id, name: fallback.name, email: fallback.email, sex: '', age: '', avatarUrl: '', avatarPosX: 50, avatarPosY: 50 };
+      setCurrentUser(safe);
+      saveCurrentUser(safe);
+      return;
+    }
+
+    throw new Error('Invalid credentials');
   };
 
   const updateProfile = async (updates) => {
