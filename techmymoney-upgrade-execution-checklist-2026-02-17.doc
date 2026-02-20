@@ -1,0 +1,146 @@
+<html><head><meta charset="utf-8"><title>TechMyMoney Upgrade Execution Checklist</title></head><body>
+<h1>TechMyMoney Upgrade Execution Checklist (Blue/Green)</h1>
+<p><b>Date:</b> 2026-02-17<br><b>Prepared for:</b> mjcity0076@gmail.com, michael@techmymoney.com</p>
+
+<h2>Downtime Estimate</h2>
+<ul>
+<li><b>Expected user-impact window:</b> 10-30 minutes (during final content freeze + DNS cutover)</li>
+<li><b>DNS propagation variance:</b> 5 minutes to 4 hours depending on resolver cache</li>
+<li><b>Rollback window:</b> immediate (switch DNS back to old VM) if issues appear</li>
+</ul>
+
+<h2>Preflight (No Downtime)</h2>
+<ol>
+<li>Record current live state
+<pre>
+# From your admin machine
+nslookup techmymoney.com
+nslookup www.techmymoney.com
+curl -I https://www.techmymoney.com
+</pre>
+</li>
+<li>Create recovery snapshot on old VM (<b>wordpress-1-vm</b>)
+<pre>
+# On old VM
+TS=$(date +%Y%m%d-%H%M%S)
+mkdir -p ~/rollback-safety-$TS
+sudo cp /var/www/html/wp-config.php ~/rollback-safety-$TS/
+sudo tar -C /var/www/html -czf ~/rollback-safety-$TS/wp-content-$TS.tar.gz wp-content
+mysqldump -u root -p bitnami_wordpress > ~/rollback-safety-$TS/db-$TS.sql
+</pre>
+</li>
+<li>Build new VM (Bitnami WordPress latest) in same region/zone family</li>
+<li>Reserve/confirm static external IP for new VM</li>
+</ol>
+
+<h2>Stage New VM (No Downtime)</h2>
+<ol>
+<li>Verify services
+<pre>
+sudo /opt/bitnami/ctlscript.sh status
+</pre>
+</li>
+<li>Copy site files from old VM to new VM
+<pre>
+# Run from old VM (or intermediary host with SSH access)
+rsync -avz --progress /var/www/html/wp-content/ USER@NEW_VM_IP:/tmp/wp-content/
+</pre>
+</li>
+<li>Import database dump to new VM
+<pre>
+# On new VM
+mysql -u root -p bitnami_wordpress < /path/to/db.sql
+</pre>
+</li>
+<li>Set ownership/permissions on new VM
+<pre>
+sudo chown -R bitnami:daemon /opt/bitnami/wordpress
+sudo find /opt/bitnami/wordpress -type d -exec chmod 775 {} \;
+sudo find /opt/bitnami/wordpress -type f -exec chmod 664 {} \;
+</pre>
+</li>
+<li>Update WP URL if needed (staging check)
+<pre>
+wp option get home --allow-root
+wp option get siteurl --allow-root
+</pre>
+</li>
+</ol>
+
+<h2>Compatibility Gate (Must Pass Before Cutover)</h2>
+<ul>
+<li>Homepage loads</li>
+<li>Top navigation/category pages load</li>
+<li>At least 3 recent posts render correctly</li>
+<li>wp-admin login works</li>
+<li>Plugin critical paths work (forms, cache, SEO, analytics)</li>
+<li>Media loads from wp-content/uploads</li>
+<li>HTTPS works and cert valid for techmymoney.com + www</li>
+<li>No fatal PHP errors in logs</li>
+</ul>
+
+<h3>Validation commands</h3>
+<pre>
+curl -I http://NEW_VM_IP
+curl -I https://www.techmymoney.com
+sudo tail -n 200 /opt/bitnami/apache2/logs/error_log
+sudo tail -n 200 /opt/bitnami/php/var/log/www-error.log
+</pre>
+
+<h2>Cutover Procedure (Downtime Window Starts)</h2>
+<ol>
+<li>Content freeze announcement (10-15 min)</li>
+<li>Final delta sync from old VM
+<pre>
+# Old VM
+mysqldump -u root -p bitnami_wordpress > /tmp/final.sql
+rsync -avz --delete /var/www/html/wp-content/ USER@NEW_VM_IP:/tmp/wp-content/
+</pre>
+</li>
+<li>Import final DB delta on new VM</li>
+<li>Switch DNS A records in Squarespace
+<ul>
+<li>@ -> NEW_VM_IP</li>
+<li>www -> NEW_VM_IP</li>
+</ul>
+</li>
+<li>Verify authoritative DNS
+<pre>
+for ns in ns-cloud-c1.googledomains.com ns-cloud-c2.googledomains.com ns-cloud-c3.googledomains.com ns-cloud-c4.googledomains.com; do
+  echo "-- $ns"; dig +short @$ns techmymoney.com A; dig +short @$ns www.techmymoney.com A;
+done
+</pre>
+</li>
+</ol>
+
+<h2>Post-Cutover Validation (First 30 Minutes)</h2>
+<ol>
+<li>Homepage + wp-login + wp-admin checks</li>
+<li>Create one test post (draft) + media upload test</li>
+<li>Verify server logs for fatal errors</li>
+<li>Check SSL and redirect behavior</li>
+<li>Monitor for 30 minutes</li>
+</ol>
+
+<h2>Rollback Plan (If anything fails)</h2>
+<ol>
+<li>Immediately revert Squarespace A records to old VM IP</li>
+<li>Confirm authoritative DNS</li>
+<li>Re-test homepage/wp-admin</li>
+<li>Keep new VM for debugging, do not delete immediately</li>
+</ol>
+
+<h2>Cost-Control Cleanup</h2>
+<ul>
+<li>After 24-48h stable on new VM, stop old VM</li>
+<li>After 7 days stable, snapshot old VM then delete</li>
+</ul>
+
+<h2>Notes from Previous Incident</h2>
+<ul>
+<li>Avoid rapid DNS toggles; they create stale-cache confusion.</li>
+<li>Use authoritative nameserver checks as source of truth.</li>
+<li>Apply one change at a time with timestamped logs.</li>
+</ul>
+
+</body></html>

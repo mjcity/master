@@ -6,53 +6,60 @@
   <title>Ope Creator HQ</title>
   <style>
     :root {
-      --bg:#070b16; --bg2:#0f1730; --card:rgba(255,255,255,.06); --line:rgba(255,255,255,.16);
-      --text:#ecf2ff; --muted:#9fb0d6; --good:#33d08f; --warn:#ffb347; --pri:#7c5cff; --sec:#27d0d8;
+      --bg:#eaf2ff; --bg2:#dbe8ff; --line:rgba(30,62,122,.18); --text:#112244; --muted:#43608f;
+      --good:#20c997; --warn:#f59f44; --pri:#5f7cff; --sec:#4dd8ff;
     }
-    *{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text);
-      background:radial-gradient(1200px 600px at 90% -20%, rgba(124,92,255,.30), transparent 55%),
-      radial-gradient(900px 600px at -10% 0%, rgba(39,208,216,.22), transparent 60%),
-      linear-gradient(155deg,var(--bg),var(--bg2)); line-height:1.55;}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text);
+      background:
+      radial-gradient(1200px 650px at 95% -10%, rgba(255,70,140,.18), transparent 55%),
+      radial-gradient(1000px 700px at -10% 0%, rgba(77,216,255,.22), transparent 60%),
+      linear-gradient(160deg,var(--bg),var(--bg2)); line-height:1.55;}
     .wrap{max-width:1140px;margin:0 auto;padding:20px}
-    .glass{background:var(--card);border:1px solid var(--line);backdrop-filter:blur(8px);border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,.30)}
+    .glass{background:rgba(255,255,255,.78);border:1px solid var(--line);backdrop-filter:blur(8px);border-radius:28px;box-shadow:0 16px 38px rgba(29,61,123,.16)}
     .hero{padding:28px;display:grid;grid-template-columns:1.4fr 1fr;gap:18px;align-items:stretch}
     .hero h1{margin:0 0 10px;font-size:clamp(1.7rem,4.3vw,3rem);letter-spacing:-.02em}
     .sub{color:var(--muted)}
-    .pill{display:inline-block;margin:6px 6px 0 0;border:1px solid var(--line);background:rgba(255,255,255,.05);padding:6px 11px;border-radius:999px;font-size:.84rem;font-weight:700}
+    .pill{display:inline-block;margin:6px 6px 0 0;border:1px solid var(--line);background:rgba(255,255,255,.65);padding:6px 11px;border-radius:999px;font-size:.84rem;font-weight:700;color:#10254d}
     .social-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
-    .social-btn{display:inline-flex;gap:8px;align-items:center;text-decoration:none;color:#e6eeff;border:1px solid var(--line);background:rgba(255,255,255,.06);padding:8px 14px;border-radius:999px;font-weight:700}
+    .social-btn{display:inline-flex;gap:8px;align-items:center;text-decoration:none;color:#0e2853;border:1px solid rgba(22,61,124,.28);background:rgba(255,255,255,.8);padding:8px 14px;border-radius:999px;font-weight:800}
     .hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-    .kpi{padding:14px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.04)}
-    .kpi .label{font-size:.8rem;color:var(--muted)} .kpi .v{font-size:1.3rem;font-weight:800}
+    .kpi{padding:14px;border-radius:18px;border:1px solid var(--line);background:linear-gradient(135deg,rgba(82,208,255,.3),rgba(255,102,163,.25));color:#031328}
+    .kpi .label{font-size:.8rem;color:#16345f} .kpi .v{font-size:1.3rem;font-weight:800}
     .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:16px}
-    .card{padding:16px}.card h3{margin:0 0 10px}.muted{color:var(--muted)}
+    .card{padding:18px;border-radius:28px;color:#031328;background:linear-gradient(145deg,#8ce9ff,#77b7ff)}
+    .cards .card:nth-child(2){background:linear-gradient(145deg,#ffb86e,#ff8fab)}
+    .cards .card:nth-child(3){background:linear-gradient(145deg,#95f5b8,#66d4ff)}
+    .card h3{margin:0 0 10px}.muted{color:var(--muted)}
     .icon{display:inline-flex;width:30px;height:30px;border-radius:10px;align-items:center;justify-content:center;margin-right:8px;background:linear-gradient(135deg,var(--pri),var(--sec));}
 
-    .planner{margin-top:16px;padding:18px}
+    .planner{margin-top:16px;padding:18px;background:linear-gradient(180deg,rgba(116,196,255,.35),rgba(255,167,204,.28))}
     .dashboard{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin:10px 0 16px}
-    .stat{padding:12px;border:1px solid var(--line);border-radius:13px;background:rgba(255,255,255,.04)}
-    .stat .label{font-size:.82rem;color:var(--muted)} .stat .value{font-size:1.2rem;font-weight:800}
+    .stat{padding:12px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.72)}
+    .stat .label{font-size:.82rem;color:#37588d} .stat .value{font-size:1.2rem;font-weight:800;color:#10254d}
 
     .calendar-head{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
-    .btn{border:1px solid var(--line);background:rgba(255,255,255,.07);color:#dce8ff;padding:8px 12px;border-radius:10px;font-weight:700;cursor:pointer}
+    .btn{border:1px solid rgba(20,58,118,.28);background:rgba(255,255,255,.85);color:#10254d;padding:9px 13px;border-radius:12px;font-weight:800;cursor:pointer}
+    .btn:disabled{opacity:1;background:rgba(255,255,255,.65);color:#8ea3c8}
     .calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
-    .day-label{text-align:center;font-size:.78rem;color:var(--muted);font-weight:700;padding:6px 0}
-    .day{min-height:92px;border:1px solid var(--line);border-radius:12px;padding:8px;background:rgba(255,255,255,.05);cursor:pointer}
-    .day.faded{opacity:.45}.day.today{border-color:#a679ff}.day-number{font-weight:800;font-size:.9rem}
-    .dots{display:flex;gap:4px;margin-top:8px;flex-wrap:wrap}.dot{width:8px;height:8px;border-radius:50%;background:#4c5f94}
+    .day-label{text-align:center;font-size:.78rem;color:#d4def3;font-weight:700;padding:6px 0}
+    .day{min-height:92px;border:1px solid var(--line);border-radius:14px;padding:8px;background:rgba(255,255,255,.11);cursor:pointer}
+    .day.faded{opacity:.45}.day.today{border-color:#ffd166}.day-number{font-weight:800;font-size:.9rem}
+    .dots{display:flex;gap:4px;margin-top:8px;flex-wrap:wrap}.dot{width:8px;height:8px;border-radius:50%;background:#6f84b8}
     .dot.posted{background:var(--good)} .dot.filmed{background:var(--sec)} .dot.returned{background:var(--warn)}
 
     .edit-row{display:grid;gap:10px;grid-template-columns:1fr;margin-top:12px}
-    .input,textarea{width:100%;border:1px solid var(--line);border-radius:12px;padding:10px;font:inherit;background:rgba(255,255,255,.06);color:var(--text)}
+    .input,textarea{width:100%;border:1px solid var(--line);border-radius:14px;padding:10px;font:inherit;background:rgba(255,255,255,.86);color:#10254d}
+    .input::placeholder, textarea::placeholder{color:#6d84ae}
     textarea{min-height:90px;resize:vertical}.checks{display:flex;gap:14px;flex-wrap:wrap;margin:4px 0;color:var(--text);font-weight:600}
-    .mini{font-size:.88rem;color:var(--muted)}
+    .mini{font-size:.88rem;color:#3a588b;font-weight:600}
 
-    .media-tools{display:flex;flex-wrap:wrap;gap:10px}.media-btn{border:0;border-radius:10px;padding:9px 12px;font-weight:800;color:#031225;cursor:pointer;background:linear-gradient(135deg,#a679ff,#27d0d8 55%,#7c5cff)}
-    .media-list{border:1px dashed var(--line);border-radius:12px;background:rgba(255,255,255,.04);padding:10px;display:grid;gap:10px}
-    .media-item{display:flex;justify-content:space-between;align-items:center;gap:10px;border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:8px}
-    .media-item img,.media-item video{width:52px;height:52px;object-fit:cover;border-radius:8px;border:1px solid rgba(255,255,255,.2)}
-    .remove-btn{border:1px solid #7a3654;background:#381d2a;color:#ffd8ea;border-radius:8px;padding:6px 8px;font-weight:700;cursor:pointer}
-    footer{text-align:center;margin:24px 0 10px;color:var(--muted);font-size:.9rem}
+    .media-tools{display:flex;flex-wrap:wrap;gap:10px}.media-btn{border:0;border-radius:12px;padding:9px 12px;font-weight:800;color:#031225;cursor:pointer;background:linear-gradient(135deg,#ff8ab5,#72e4ff 55%,#9cffbe)}
+    .media-list{border:1px dashed var(--line);border-radius:14px;background:rgba(255,255,255,.1);padding:10px;display:grid;gap:10px}
+    .media-item{display:flex;justify-content:space-between;align-items:center;gap:10px;border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:8px}
+    .media-item img,.media-item video{width:52px;height:52px;object-fit:cover;border-radius:8px;border:1px solid rgba(255,255,255,.3)}
+    .remove-btn{border:1px solid #a23f67;background:#5f2c43;color:#ffd8ea;border-radius:8px;padding:6px 8px;font-weight:700;cursor:pointer}
+    footer{text-align:center;margin:24px 0 10px;color:#37588d;font-size:.95rem;font-weight:700}
     @media (max-width:860px){.hero{grid-template-columns:1fr}}
   </style>
 </head>
@@ -60,15 +67,15 @@
   <div class="wrap">
     <section class="glass hero">
       <div>
-        <h1>ðâ¨ Ope Creator HQ 2026</h1>
+        <h1>💄✨ Ope Creator HQ 2026</h1>
         <p><strong>Brand voice:</strong> God first, motherhood, intentional living, and real family moments with glam + confidence.</p>
         <p class="sub"><strong>Goal:</strong> Post 5x/week, track spend, and keep everything simple from one room setup.</p>
         <div>
           <span class="pill">Makeup</span><span class="pill">Clothes</span><span class="pill">Wigs</span><span class="pill">Mom Life</span><span class="pill">Mini Reviews</span>
         </div>
         <div class="social-row">
-          <a class="social-btn" href="https://www.instagram.com/openike/" target="_blank" rel="noopener noreferrer">ð¸ Instagram @openike</a>
-          <a class="social-btn" href="https://www.youtube.com/@opesfamily4586" target="_blank" rel="noopener noreferrer">â¶ï¸ YouTube @opesfamily4586</a>
+          <a class="social-btn" href="https://www.instagram.com/openike/" target="_blank" rel="noopener noreferrer">📸 Instagram @openike</a>
+          <a class="social-btn" href="https://www.youtube.com/@opesfamily4586" target="_blank" rel="noopener noreferrer">▶️ YouTube @opesfamily4586</a>
         </div>
       </div>
       <div class="hero-stats">
@@ -80,13 +87,13 @@
     </section>
 
     <section class="cards">
-      <article class="glass card"><h3><span class="icon">ð¯</span>Niche</h3><p><strong>Budget Glam in a Small Bedroom</strong></p><ul><li>Quick makeup tests</li><li>Outfit styling + mirror angle</li><li>Wig install + reveal</li><li>Keep or Return verdicts</li></ul></article>
-      <article class="glass card"><h3><span class="icon">ðï¸</span>Budget Rules</h3><ul><li>Cap: <strong>$60/month</strong></li><li>Return-friendly stores only</li><li>Keep one hero item monthly</li><li>Track deadlines in notes</li></ul></article>
-      <article class="glass card"><h3><span class="icon">ð </span>Bedroom Setup</h3><ul><li>Curtain/backdrop corner</li><li>Ring light + tripod</li><li>3 saved filming angles</li><li>To Film / Filmed / Return bins</li></ul></article>
+      <article class="glass card"><h3><span class="icon">🎯</span>Niche</h3><p><strong>Budget Glam in a Small Bedroom</strong></p><ul><li>Quick makeup tests</li><li>Outfit styling + mirror angle</li><li>Wig install + reveal</li><li>Keep or Return verdicts</li></ul></article>
+      <article class="glass card"><h3><span class="icon">🛍️</span>Budget Rules</h3><ul><li>Cap: <strong>$60/month</strong></li><li>Return-friendly stores only</li><li>Keep one hero item monthly</li><li>Track deadlines in notes</li></ul></article>
+      <article class="glass card"><h3><span class="icon">🏠</span>Bedroom Setup</h3><ul><li>Curtain/backdrop corner</li><li>Ring light + tripod</li><li>3 saved filming angles</li><li>To Film / Filmed / Return bins</li></ul></article>
     </section>
 
     <section class="glass planner">
-      <h2><span class="icon">ð</span>Interactive Calendar + Content Tracker</h2>
+      <h2><span class="icon">📅</span>Interactive Calendar + Content Tracker</h2>
       <p class="mini">Everything below stays functional: calendar, save day, spend tracking, camera/mic permission, uploads.</p>
       <div class="dashboard">
         <div class="stat"><div class="label">Posts This Month</div><div class="value" id="postsMonth">0</div></div>
@@ -96,9 +103,9 @@
       </div>
 
       <div class="calendar-head">
-        <button class="btn" id="prevMonth">â Prev</button>
+        <button class="btn" id="prevMonth">← Prev</button>
         <h3 id="monthTitle" style="margin:0;"></h3>
-        <button class="btn" id="nextMonth">Next â</button>
+        <button class="btn" id="nextMonth">Next →</button>
       </div>
       <div class="calendar-grid" id="calendarLabels"></div>
       <div class="calendar-grid" id="calendarGrid"></div>
@@ -106,9 +113,9 @@
       <div class="edit-row">
         <h3 id="selectedDateTitle">Select a date</h3>
         <div class="checks">
-          <label><input type="checkbox" id="didPost" /> â Posted</label>
-          <label><input type="checkbox" id="didFilm" /> ð¬ Filmed</label>
-          <label><input type="checkbox" id="didReturn" /> ð¦ Returned item</label>
+          <label><input type="checkbox" id="didPost" /> ✅ Posted</label>
+          <label><input type="checkbox" id="didFilm" /> 🎬 Filmed</label>
+          <label><input type="checkbox" id="didReturn" /> 📦 Returned item</label>
         </div>
         <label class="mini">Spend for this day ($)</label>
         <input class="input" id="spendInput" type="number" min="0" step="0.01" placeholder="0.00" />
@@ -130,20 +137,17 @@
       </div>
     </section>
 
-    <section class="glass card" style="margin-top:16px; padding:18px;">
-      <h2><span class="icon">📸</span>Most recent posts from @openike</h2>
-      <p class="mini">Live Instagram embeds for subscribers and brand partners.</p>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;align-items:start;">
-        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DUGIi61kSgf/" data-instgrm-version="14" style="background:#fff;border:0;border-radius:12px; margin:0 auto; max-width:540px; min-width:280px; width:100%;"></blockquote>
-        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DT1hkEMDK_E/" data-instgrm-version="14" style="background:#fff;border:0;border-radius:12px; margin:0 auto; max-width:540px; min-width:280px; width:100%;"></blockquote>
-        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DTmVvQgjCEC/" data-instgrm-version="14" style="background:#fff;border:0;border-radius:12px; margin:0 auto; max-width:540px; min-width:280px; width:100%;"></blockquote>
-      </div>
-      <div style="margin-top:12px;">
+    <section class="glass card" style="margin-top:16px; padding:18px; background:linear-gradient(145deg,#ffd7e8,#c9e7ff);">
+      <h2><span class="icon">📸</span>Latest from @openike</h2>
+      <p class="mini" style="color:#294574">Instagram embeds can fail in some mobile browsers. This feed block stays reliable and can be refreshed daily.</p>
+      <div id="igFeed" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;align-items:start;"></div>
+      <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
         <a class="social-btn" href="https://www.instagram.com/openike/" target="_blank" rel="noopener noreferrer">Open full Instagram profile</a>
+        <a class="social-btn" href="https://www.instagram.com/openike/reels/" target="_blank" rel="noopener noreferrer">View latest reels</a>
       </div>
     </section>
 
-    <footer>Made with ð for Ope â redesigned, but fully functional.</footer>
+    <footer>Made with 💖 for Ope — redesigned, but fully functional.</footer>
   </div>
 
   <script>
@@ -168,7 +172,7 @@
     function renderMediaList(media=[]){ if(!media.length){ el.mediaList.innerHTML='<div class="mini">No uploads for this day yet.</div>'; return; } el.mediaList.innerHTML=""; media.forEach((item,i)=>{ const row=document.createElement("div"); row.className="media-item"; const preview=document.createElement("div"); preview.style.display="flex"; preview.style.alignItems="center"; preview.style.gap="10px";
       if((item.type||"").startsWith("image/")){ const img=document.createElement("img"); img.src=item.data; img.alt=item.name; preview.appendChild(img); }
       else if((item.type||"").startsWith("video/")){ const vid=document.createElement("video"); vid.src=item.data; vid.muted=true; preview.appendChild(vid); }
-      else { const badge=document.createElement("div"); badge.className="icon"; badge.textContent="ð"; preview.appendChild(badge); }
+      else { const badge=document.createElement("div"); badge.className="icon"; badge.textContent="📎"; preview.appendChild(badge); }
       const info=document.createElement("div"); info.innerHTML=`<div><strong>${item.name}</strong></div><div class="mini">${item.type||"file"}</div>`; preview.appendChild(info);
       const remove=document.createElement("button"); remove.className="remove-btn"; remove.type="button"; remove.textContent="Remove"; remove.addEventListener("click",()=>{ const entry=getEntry(state.selectedDateKey); entry.media=(entry.media||[]).filter((_,idx)=>idx!==i); state.data[state.selectedDateKey]=entry; saveState(); renderMediaList(entry.media); });
       row.appendChild(preview); row.appendChild(remove); el.mediaList.appendChild(row);
@@ -181,8 +185,31 @@
     document.getElementById("saveDay").addEventListener("click",saveSelectedDay);
     el.enableCamMic.addEventListener("click",enableCameraMic); el.addPhoto.addEventListener("click",()=>el.photoInput.click()); el.addVideo.addEventListener("click",()=>el.videoInput.click()); el.addFile.addEventListener("click",()=>el.fileInput.click());
     el.photoInput.addEventListener("change",e=>addFilesToDay(e.target.files)); el.videoInput.addEventListener("change",e=>addFilesToDay(e.target.files)); el.fileInput.addEventListener("change",e=>addFilesToDay(e.target.files));
+
+    const igFeedData = [
+      { title: 'This is my very realistic Valentine Day as a mom of 4', url: 'https://www.instagram.com/openike/reel/DUwqX42jP3X/', image: 'https://scontent-lga3-1.cdninstagram.com/v/t51.71878-15/628369702_934406792272958_5864159618741831069_n.jpg?stp=cmp1_dst-jpg_e35_s640x640_tt6&_nc_cat=111&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=YNlMPx_2nWsQ7kNvwHeWOW1&_nc_oc=AdnYeI84jmNfAmFYQ5R6wPxYwM0zny1xHo7WMrFVIzbDkOppMIPp7vBN0MqJhoe8ar4&_nc_zt=23&_nc_ht=scontent-lga3-1.cdninstagram.com&_nc_gid=0j8SjH3iCQpoNfBu_FJNmA&oh=00_Afs6MGQ5Vw6GbF-t5yKq22k-XaA8tynfL4a_t6JD1g4nLw&oe=699CE5F4' },
+      { title: 'There’s just something about a red lip on Valentine’s Day', url: 'https://www.instagram.com/openike/reel/DUr4Mx5jbVH/', image: 'https://scontent-lga3-1.cdninstagram.com/v/t51.71878-15/632278180_1633742664300353_2126559716697415026_n.jpg?stp=cmp1_dst-jpg_e35_s640x640_tt6&_nc_cat=102&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=S63s3NV1qQ8Q7kNvwGQMB7B&_nc_oc=AdmVQtSAgT7nbVtHsFNM8l9CwG3UGtQSTQtfx6LpAdV7ldH36SPSZmopC9xxKsz9G5A&_nc_zt=23&_nc_ht=scontent-lga3-1.cdninstagram.com&_nc_gid=EMAIRwDS5qcCvq8Qj791Ag&oh=00_AftrnKq9kKkLZrdCPbTpSluCUfDHOwA5DtPFamyrVTkAVw&oe=699CC4DB' },
+      { title: 'Just vibe with whatever you love ❤️', url: 'https://www.instagram.com/openike/reel/DUZLqIvkmFp/', image: 'https://scontent-lga3-1.cdninstagram.com/v/t51.71878-15/625056605_1414078890446401_4362267764966710824_n.jpg?stp=cmp1_dst-jpg_e35_s640x640_tt6&_nc_cat=102&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=scxhTerm2awQ7kNvwGBzIiJ&_nc_oc=AdmD5teW_ThWU6nc1URJFL5Ven78RR9FX-zqizqpzHPe3n08qzITFAFSGX7d42LOMX0&_nc_zt=23&_nc_ht=scontent-lga3-1.cdninstagram.com&_nc_gid=wzq66wa2hTMPn0zf5a29UQ&oh=00_Afs_L8PNFMBjBzzZ4pelQvl_RLGLAKNnbk7m_GDMn06WeQ&oe=699CB5DC' }
+    ];
+    const igFeed = document.getElementById('igFeed');
+    if (igFeed) {
+      igFeed.innerHTML = igFeedData.map((item, i) => {
+        const postUrl = item.url.replace(/\/$/, '');
+        const thumbUrl = item.image || `${postUrl}/media/?size=l`;
+        const bg = i===0?'linear-gradient(145deg,#84e1ff,#6fb9ff)':i===1?'linear-gradient(145deg,#ffa8c5,#ff8f76)':'linear-gradient(145deg,#b7f7ca,#8ee8ff)';
+        return `
+        <div style="border:1px solid rgba(30,62,122,.2);border-radius:18px;padding:12px;background:${bg};box-shadow:0 8px 20px rgba(27,52,101,.15)">
+          <strong style="font-size:1.05rem;color:#0d2347;display:block;margin-bottom:8px;">${item.title}</strong>
+          <a href="${postUrl}" target="_blank" rel="noopener noreferrer" style="display:block;text-decoration:none;">
+            <img src="${thumbUrl}" alt="${item.title}" style="width:100%;min-height:240px;max-height:420px;object-fit:cover;border:0;border-radius:12px;background:rgba(255,255,255,.72)" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';" />
+            <div style="display:none;min-height:240px;border-radius:12px;background:rgba(255,255,255,.55);place-items:center;font-weight:800;color:#163764;">Tap to view this reel on Instagram</div>
+          </a>
+          <a href="${postUrl}" target="_blank" rel="noopener noreferrer" style="display:inline-block;margin-top:8px;text-decoration:none;color:#0d2347;font-weight:800;">Open on Instagram →</a>
+        </div>`;
+      }).join('');
+    }
+
     renderLabels(); renderCalendar(); loadSelectedDay();
   </script>
-  <script async src="https://www.instagram.com/embed.js"></script>
 </body>
 </html>

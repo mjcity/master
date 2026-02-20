@@ -2,15 +2,17 @@
 
 _Learn about the person you're helping. Update this as you go._
 
-- **Name:** MJ
-- **What to call them:** MJ
+- **Name:** Michael John-Anyaehie
+- **What to call them:** Mj
 - **Pronouns:** _(optional)_
 - **Timezone:** America/New_York
-- **Notes:** Just began initial setup conversation.
+- **Notes:** Artist name is Mjcity. Husband to Ope (@openike Onaopemipo John-Anyaehie), father of 4 (Ayo, Timothy, Faith, Zachariah). Singer-songwriter, tech/gadget lover, NYC Peace Officer. Runner; paused since ankle surgery (Oct 2025).
 
 ## Context
 
-_(What do they care about? What projects are they working on? What annoys them? What makes them laugh? Build this over time.)_
+- Owns website: https://www.techmymoney.com
+- Owns YouTube channel: https://youtube.com/@techmymoneytmm
+- Strong preference for polished, mobile-first UI quality and live production pushes.
 
 ---
 
