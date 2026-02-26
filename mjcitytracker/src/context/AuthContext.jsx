@@ -1,8 +1,19 @@
 import { createContext, useEffect, useMemo, useState } from 'react';
-import { loadUsers, saveUsers, getCurrentUser, saveCurrentUser, clearCurrentUser } from '../utils/storage';
+import { loadUsers, saveUsers, getCurrentUser, saveCurrentUser } from '../utils/storage';
 import { supabase, supabaseEnabled } from '../lib/supabase';
 
 export const AuthContext = createContext(null);
+
+const guestUser = {
+  id: 'guest-local-user',
+  name: 'Mjcity',
+  email: 'guest@local',
+  sex: '',
+  age: '',
+  avatarUrl: '',
+  avatarPosX: 50,
+  avatarPosY: 50
+};
 
 const buildSafeUser = (u) => ({
   id: u.id,
@@ -18,7 +29,7 @@ const buildSafeUser = (u) => ({
 const isQuotaError = (err) => /quota|rate limit|too many requests/i.test(String(err?.message || ''));
 
 export function AuthProvider({ children }) {
-  const [currentUser, setCurrentUser] = useState(getCurrentUser());
+  const [currentUser, setCurrentUser] = useState(getCurrentUser() || guestUser);
   const [authLoading, setAuthLoading] = useState(supabaseEnabled);
 
   useEffect(() => {
@@ -38,13 +49,13 @@ export function AuthProvider({ children }) {
           setCurrentUser(safe);
           saveCurrentUser(safe);
         } else {
-          setCurrentUser(null);
-          clearCurrentUser();
+          setCurrentUser(guestUser);
+          saveCurrentUser(guestUser);
         }
       } catch {
         if (!mounted) return;
-        setCurrentUser(null);
-        clearCurrentUser();
+        setCurrentUser(guestUser);
+        saveCurrentUser(guestUser);
       } finally {
         if (mounted) setAuthLoading(false);
       }
@@ -59,8 +70,8 @@ export function AuthProvider({ children }) {
         setCurrentUser(safe);
         saveCurrentUser(safe);
       } else {
-        setCurrentUser(null);
-        clearCurrentUser();
+        setCurrentUser(guestUser);
+        saveCurrentUser(guestUser);
       }
     });
 
@@ -190,8 +201,8 @@ export function AuthProvider({ children }) {
 
   const logout = async () => {
     if (supabaseEnabled) await supabase.auth.signOut();
-    setCurrentUser(null);
-    clearCurrentUser();
+    setCurrentUser(guestUser);
+    saveCurrentUser(guestUser);
   };
 
   return (

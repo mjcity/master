@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { FaBullseye, FaChartLine, FaCamera, FaMicrophone, FaFolderOpen } from 'react-icons/fa6';
+import { FaBullseye, FaChartLine, FaCamera, FaFolderOpen } from 'react-icons/fa6';
 
 export default function LandingPage() {
   return (
@@ -19,8 +19,7 @@ export default function LandingPage() {
         </p>
 
         <div className="mt-8 flex flex-wrap gap-3">
-          <Link to="/signup" className="rounded-xl bg-brand-500 px-5 py-3 font-semibold hover:bg-brand-600">Get Started</Link>
-          <Link to="/login" className="rounded-xl border border-slate-500 px-5 py-3 font-semibold hover:bg-slate-800">Login</Link>
+          <Link to="/dashboard" className="rounded-xl bg-brand-500 px-5 py-3 font-semibold hover:bg-brand-600">Get Started</Link>
         </div>
 
         <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
