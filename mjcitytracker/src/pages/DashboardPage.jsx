@@ -3,6 +3,8 @@ import Layout from '../components/Layout';
 import FiltersBar from '../components/FiltersBar';
 import GoalCard from '../components/GoalCard';
 import GoalFormModal from '../components/GoalFormModal';
+import GoalDetailDrawer from '../components/GoalDetailDrawer';
+import ConsistencyHeatmap from '../components/ConsistencyHeatmap';
 import { useGoals } from '../hooks/useGoals';
 import { useAuth } from '../hooks/useAuth';
 
@@ -14,6 +16,7 @@ export default function DashboardPage(){
   const [filter,setFilter]=useState({category:'all',status:'all',dueDate:''});
   const [sort,setSort]=useState('created');
   const [recapOpen, setRecapOpen] = useState(false);
+  const [detailGoal, setDetailGoal] = useState(null);
 
   const mine = useMemo(() => goals.filter((g)=>g.userId===currentUser.id||g.userId==='seed'), [goals, currentUser.id]);
 
@@ -54,6 +57,35 @@ export default function DashboardPage(){
     .flatMap((g) => (g.media?.journal || []).filter((j) => j.media?.dataUrl).map((j) => ({ ...j, goalTitle: g.title })))
     .sort((a, b) => String(b.date).localeCompare(String(a.date)))
     .slice(0, 10), [mine]);
+
+  const reminders = useMemo(() => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const list = [];
+    mine.forEach((g) => {
+      if (g.completed) return;
+      if (g.dueDate) {
+        const due = new Date(g.dueDate);
+        due.setHours(0, 0, 0, 0);
+        const daysLeft = Math.floor((due - today) / 86400000);
+        if (daysLeft < 0) list.push({ id: `${g.id}-overdue`, level: 'high', text: `${g.title} is overdue. Finish one subtask today.` });
+        else if (daysLeft <= 2) list.push({ id: `${g.id}-soon`, level: 'med', text: `${g.title} is due in ${daysLeft} day${daysLeft === 1 ? '' : 's'}.` });
+      }
+
+      const lastCheckin = (g.media?.journal || [])[0]?.date;
+      if (!lastCheckin) {
+        list.push({ id: `${g.id}-nocheck`, level: 'med', text: `No check-in yet for ${g.title}. Add a quick update now.` });
+      } else {
+        const lc = new Date(lastCheckin);
+        lc.setHours(0, 0, 0, 0);
+        const idleDays = Math.floor((today - lc) / 86400000);
+        if (idleDays >= 3) list.push({ id: `${g.id}-idle`, level: 'low', text: `${g.title} has been idle for ${idleDays} days.` });
+      }
+    });
+
+    return list.slice(0, 6);
+  }, [mine]);
 
   const weeklyRecap = useMemo(() => {
     const today = new Date();
@@ -121,6 +153,21 @@ export default function DashboardPage(){
     <div className={`transition-all duration-500 ${recapOpen ? 'translate-y-1 scale-[0.99] opacity-90' : 'translate-y-0 scale-100 opacity-100'}`}>
       <div className="mb-4 rounded-2xl border border-cyan-300/30 bg-cyan-500/15 p-4 text-sm text-cyan-100">{coachTip}</div>
 
+      <div className="mb-4 grid gap-3 lg:grid-cols-3">
+        <div className="rounded-[28px] border border-white/15 bg-slate-900/65 p-4 lg:col-span-2">
+          <div className="mb-3 flex items-center justify-between">
+            <h3 className="text-lg font-black">Smart Reminders</h3>
+            <span className="text-xs text-slate-400">Auto-prioritized</span>
+          </div>
+          {!reminders.length ? <p className="text-sm text-slate-300">No urgent reminders. You’re on track.</p> : (
+            <ul className="space-y-2 text-sm">
+              {reminders.map((r) => <li key={r.id} className={`rounded-xl border px-3 py-2 ${r.level === 'high' ? 'border-rose-400/40 bg-rose-500/10 text-rose-100' : r.level === 'med' ? 'border-amber-300/35 bg-amber-500/10 text-amber-100' : 'border-cyan-300/30 bg-cyan-500/10 text-cyan-100'}`}>{r.text}</li>)}
+            </ul>
+          )}
+        </div>
+        <ConsistencyHeatmap goals={mine} />
+      </div>
+
       <div className="mb-4 grid gap-3 md:grid-cols-3">
         <Board title="This Week" tone="cyan" items={weeklyBoard.thisWeek} />
         <Board title="Next Week" tone="blue" items={weeklyBoard.nextWeek} />
@@ -129,7 +176,7 @@ export default function DashboardPage(){
 
       <FiltersBar filter={filter} setFilter={setFilter} sort={sort} setSort={setSort} categories={categories}/>
 
-      {userGoals.length===0?<div className="rounded-2xl border border-dashed border-white/20 bg-slate-900/50 p-10 text-center text-slate-300">No goals found. Create your first goal.</div>:<div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">{userGoals.map((goal)=><GoalCard key={goal.id} goal={goal} onEdit={openEdit} onDelete={deleteGoal} onToggleComplete={toggleComplete} onQuickProgress={(id,progress)=>updateGoal(id,{progress,completed:progress>=100})} onToggleSubtask={toggleSubtask} onAddSubtask={addSubtask} onAddJournal={addJournalEntry} onSetWeeklyStatus={setWeeklyStatus} />)}</div>}
+      {userGoals.length===0?<div className="rounded-2xl border border-dashed border-white/20 bg-slate-900/50 p-10 text-center text-slate-300">No goals found. Create your first goal.</div>:<div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">{userGoals.map((goal)=><GoalCard key={goal.id} goal={goal} onEdit={openEdit} onDelete={deleteGoal} onToggleComplete={toggleComplete} onQuickProgress={(id,progress)=>updateGoal(id,{progress,completed:progress>=100})} onToggleSubtask={toggleSubtask} onAddSubtask={addSubtask} onAddJournal={addJournalEntry} onSetWeeklyStatus={setWeeklyStatus} onOpenDetails={setDetailGoal} />)}</div>}
 
       <div className="mt-5 rounded-[28px] border border-white/15 bg-gradient-to-br from-fuchsia-300 via-pink-300 to-rose-300 p-4 text-slate-950 shadow-[0_14px_28px_rgba(2,6,23,0.35)]">
         <div className="mb-3 flex items-center justify-between">
@@ -141,6 +188,7 @@ export default function DashboardPage(){
     </div>
 
     <GoalFormModal open={openModal} onClose={()=>{setOpenModal(false);setEditingGoal(null);}} onSubmit={handleSubmit} initialGoal={editingGoal} userId={currentUser.id}/>
+    <GoalDetailDrawer goal={detailGoal} open={!!detailGoal} onClose={() => setDetailGoal(null)} />
   </Layout>;
 }
 

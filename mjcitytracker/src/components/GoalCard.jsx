@@ -55,7 +55,7 @@ function pickPalette(goal) {
   return palettes[hash % palettes.length];
 }
 
-export default function GoalCard({ goal, onEdit, onDelete, onToggleComplete, onQuickProgress, onToggleSubtask, onAddSubtask, onAddJournal, onSetWeeklyStatus }) {
+export default function GoalCard({ goal, onEdit, onDelete, onToggleComplete, onQuickProgress, onToggleSubtask, onAddSubtask, onAddJournal, onSetWeeklyStatus, onOpenDetails }) {
   const [subtaskText, setSubtaskText] = useState('');
   const [journalText, setJournalText] = useState('');
 
@@ -64,7 +64,7 @@ export default function GoalCard({ goal, onEdit, onDelete, onToggleComplete, onQ
   const tokens = Number(goal.media?.freezeTokens || 0);
   const tone = useMemo(() => pickPalette(goal), [goal]);
 
-  return <article className={`card-hover relative overflow-hidden rounded-[30px] border bg-gradient-to-br p-4 shadow-[0_18px_35px_rgba(2,6,23,0.35)] ${tone.card}`}>
+  return <article onClick={() => onOpenDetails?.(goal)} className={`card-hover relative overflow-hidden rounded-[30px] border bg-gradient-to-br p-4 shadow-[0_18px_35px_rgba(2,6,23,0.35)] ${tone.card}`}>
     <div className="pointer-events-none absolute -right-3 -bottom-8 text-[130px] font-black leading-none text-black/10">{goal.progress}</div>
 
     <div className="relative z-10 mb-3 flex items-start justify-between gap-3">
@@ -90,7 +90,7 @@ export default function GoalCard({ goal, onEdit, onDelete, onToggleComplete, onQ
       <span className={`rounded-full px-3 py-1 font-semibold ${tone.chip}`}>Freeze: {tokens}</span>
       <div className="ml-auto flex items-center gap-2">
         <span className="font-semibold text-slate-900/80">Week:</span>
-        <select value={goal.media?.weeklyStatus || 'thisWeek'} onChange={(e) => onSetWeeklyStatus(goal.id, e.target.value)} className={`rounded-xl border px-2 py-1 ${tone.input}`}>
+        <select value={goal.media?.weeklyStatus || 'thisWeek'} onClick={(e) => e.stopPropagation()} onChange={(e) => onSetWeeklyStatus(goal.id, e.target.value)} className={`rounded-xl border px-2 py-1 ${tone.input}`}>
           <option value="thisWeek">This week</option>
           <option value="nextWeek">Next week</option>
           <option value="blocked">Blocked</option>
@@ -126,7 +126,7 @@ export default function GoalCard({ goal, onEdit, onDelete, onToggleComplete, onQ
       />
     </div>
 
-    <div className={`mb-3 rounded-2xl border p-3 ${tone.panel}`}>
+    <div onClick={(e) => e.stopPropagation()} className={`mb-3 rounded-2xl border p-3 ${tone.panel}`}>
       <p className="mb-2 text-base font-bold text-slate-900">Milestones / Subtasks</p>
       <div className="space-y-1 text-slate-900">
         {subtasks.map((s) => <label key={s.id} className="flex items-center gap-2 text-sm"><input type="checkbox" checked={!!s.done} onChange={() => onToggleSubtask(goal.id, s.id)} /> {s.text}</label>)}
@@ -137,7 +137,7 @@ export default function GoalCard({ goal, onEdit, onDelete, onToggleComplete, onQ
       </div>
     </div>
 
-    <div className={`mb-3 rounded-2xl border p-3 ${tone.panel}`}>
+    <div onClick={(e) => e.stopPropagation()} className={`mb-3 rounded-2xl border p-3 ${tone.panel}`}>
       <p className="mb-2 text-base font-bold text-slate-900">Progress Journal</p>
       <div className="flex gap-2">
         <input value={journalText} onChange={(e) => setJournalText(e.target.value)} placeholder="Quick check-in" className={`w-full rounded-xl border px-3 py-2 text-sm ${tone.input}`} />
@@ -145,7 +145,7 @@ export default function GoalCard({ goal, onEdit, onDelete, onToggleComplete, onQ
       </div>
     </div>
 
-    <div className="flex flex-wrap gap-2">
+    <div onClick={(e) => e.stopPropagation()} className="flex flex-wrap gap-2">
       <button onClick={()=>onToggleComplete(goal)} className="flex items-center gap-1 rounded-xl border border-slate-900/25 bg-slate-900 px-3 py-2 text-sm font-semibold text-white hover:bg-slate-800"><FaCheck/> {goal.completed?'Set Active':'Complete'}</button>
       <button onClick={()=>onEdit(goal)} className="flex items-center gap-1 rounded-xl border border-slate-900/25 bg-slate-900 px-3 py-2 text-sm font-semibold text-white hover:bg-slate-800"><FaPenToSquare/> Edit</button>
       <button onClick={()=>onDelete(goal.id)} className="flex items-center gap-1 rounded-xl border border-rose-700/35 bg-rose-600/20 px-3 py-2 text-sm font-semibold text-rose-900 hover:bg-rose-600/30"><FaTrashCan/> Delete</button>
