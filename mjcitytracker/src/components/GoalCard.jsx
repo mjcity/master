@@ -111,7 +111,20 @@ export default function GoalCard({ goal, onEdit, onDelete, onToggleComplete, onQ
       {isOverdue(goal.dueDate)&&!goal.completed?<span className="rounded-full bg-rose-600/20 px-3 py-1 text-rose-900">Overdue</span>:goal.completed?<span className="rounded-full bg-emerald-600/20 px-3 py-1 text-emerald-900">Completed</span>:null}
     </div>
 
-    <div className="mb-4 flex items-center gap-2 py-1"><input type="range" min="0" max="100" value={goal.progress} onChange={(e)=>onQuickProgress(goal.id, Number(e.target.value))} className="w-full cursor-pointer accent-cyan-500 [touch-action:pan-x]"/></div>
+    <div className="mb-4 flex items-center gap-2 py-2" onPointerDown={(e) => e.stopPropagation()} onTouchStart={(e) => e.stopPropagation()}>
+      <input
+        type="range"
+        min="0"
+        max="100"
+        step="1"
+        value={goal.progress}
+        onInput={(e) => onQuickProgress(goal.id, Number(e.currentTarget.value))}
+        onChange={(e) => onQuickProgress(goal.id, Number(e.currentTarget.value))}
+        className="h-3 w-full cursor-pointer accent-cyan-500"
+        style={{ touchAction: 'none' }}
+        aria-label={`Adjust progress for ${goal.title}`}
+      />
+    </div>
 
     <div className={`mb-3 rounded-2xl border p-3 ${tone.panel}`}>
       <p className="mb-2 text-base font-bold text-slate-900">Milestones / Subtasks</p>
