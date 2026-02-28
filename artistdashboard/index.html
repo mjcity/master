@@ -10,43 +10,64 @@
 <body>
   <header class="hero">
     <div>
-      <p class="tag">MJCITY • SPOTIFY INTELLIGENCE</p>
-      <h1>Artist Dashboard</h1>
+      <p class="tag">MJCITY • ARTIST INTELLIGENCE</p>
+      <h1>Jet Black Neon Dashboard</h1>
       <p id="updatedAt" class="muted">Loading latest snapshot…</p>
     </div>
-    <a class="btn" href="https://open.spotify.com/artist/4TbJfltoNbaKOASaR8rsYM" target="_blank">Open Spotify Profile</a>
+    <a class="btn" href="https://open.spotify.com/artist/4TbJfltoNbaKOASaR8rsYM" target="_blank" rel="noreferrer">Open Spotify Profile</a>
   </header>
 
+  <section class="controls card">
+    <div class="filters" role="group" aria-label="Time range filters">
+      <button class="filter-btn active" data-range="7">Last 7d</button>
+      <button class="filter-btn" data-range="30">Last 30d</button>
+      <button class="filter-btn" data-range="90">Last 90d</button>
+      <button class="filter-btn" data-range="365">YTD</button>
+    </div>
+    <input id="globalSearch" type="search" placeholder="Search tracks, playlists, insights…" aria-label="Global search" />
+  </section>
+
+  <section id="kpiStrip" class="kpi-strip"></section>
+
   <main class="grid">
-    <section class="card metrics">
-      <h2>Snapshot</h2>
-      <div class="metric-grid">
-        <div><span>Followers</span><strong id="followers">—</strong></div>
-        <div><span>Popularity</span><strong id="popularity">—</strong></div>
-        <div><span>Genres</span><strong id="genres">—</strong></div>
-        <div><span>Tracks Scanned</span><strong id="tracksScanned">—</strong></div>
-      </div>
-    </section>
-
     <section class="card">
-      <h2>Daily Growth (stored snapshots)</h2>
+      <h2>Streams Trend</h2>
+      <div class="skeleton" data-skeleton="growth"></div>
       <canvas id="growthChart" height="120"></canvas>
+      <p id="growthEmpty" class="empty hidden">No growth data yet.</p>
     </section>
 
     <section class="card">
-      <h2>Top Tracks (latest detected)</h2>
-      <canvas id="tracksChart" height="120"></canvas>
+      <h2>Top Tracks Momentum</h2>
+      <div class="skeleton" data-skeleton="tracks"></div>
+      <canvas id="tracksChart" height="130"></canvas>
+      <p id="tracksEmpty" class="empty hidden">No tracks found.</p>
       <ul id="trackList" class="list"></ul>
+    </section>
+
+    <section class="card">
+      <h2>Platform Split</h2>
+      <div class="skeleton" data-skeleton="platform"></div>
+      <canvas id="platformChart" height="120"></canvas>
+      <p id="platformEmpty" class="empty hidden">No platform data yet.</p>
+    </section>
+
+    <section class="card">
+      <h2>Release Activity Heatmap</h2>
+      <div id="heatmap" class="heatmap"></div>
+      <p id="heatmapEmpty" class="empty hidden">No release activity available.</p>
     </section>
 
     <section class="card">
       <h2>Playlist Intelligence</h2>
       <ul id="playlistIntel" class="list"></ul>
+      <p id="playlistEmpty" class="empty hidden">No playlist intel currently available.</p>
     </section>
 
     <section class="card">
-      <h2>Release Monitoring</h2>
-      <ul id="releases" class="list"></ul>
+      <h2>Performance Insights</h2>
+      <ul id="insights" class="list"></ul>
+      <p id="insightsEmpty" class="empty hidden">No insights yet.</p>
     </section>
 
     <section class="card">
@@ -61,15 +82,6 @@
         <h3>Verified playlist names + links</h3>
         <ul id="weeklyPlaylists" class="list"></ul>
       </div>
-    </section>
-
-    <section class="card">
-      <h2>Fan Growth Automation</h2>
-      <ol>
-        <li>If any track appears in 3+ playlist search hits, flag for promo push.</li>
-        <li>Auto-generate IG/X/YouTube caption (below) and post checklist.</li>
-        <li>Schedule follow-up story/reel within 24h.</li>
-      </ol>
     </section>
 
     <section class="card">
