@@ -28,16 +28,69 @@ tok = requests.post(
 ).json()['access_token']
 H = {'Authorization': f'Bearer {tok}'}
 
-artist = requests.get(f'https://api.spotify.com/v1/artists/{ARTIST_ID}', headers=H, timeout=20).json()
-tracks_resp = requests.get(
-    'https://api.spotify.com/v1/search',
-    headers=H,
-    params={'q': 'Mjcity', 'type': 'track', 'limit': 10, 'market': 'US'},
-    timeout=20,
-).json()
-items = tracks_resp.get('tracks', {}).get('items', [])
-tracks = [t for t in items if any(a.get('id') == ARTIST_ID for a in t.get('artists', []))]
+artist_resp = requests.get(f'https://api.spotify.com/v1/artists/{ARTIST_ID}', headers=H, timeout=20)
+artist = artist_resp.json() if artist_resp.status_code == 200 else {}
 
+# Top tracks endpoint may be blocked for some apps; fallback to search tracks.
+top_tracks = []
+top_tracks_source = 'artist_top_tracks'
+top_resp = requests.get(
+    f'https://api.spotify.com/v1/artists/{ARTIST_ID}/top-tracks',
+    headers=H,
+    params={'market': 'US'},
+    timeout=20,
+)
+if top_resp.status_code == 200:
+    top_tracks = top_resp.json().get('tracks', [])
+else:
+    top_tracks_source = 'search_fallback'
+    tracks_resp = requests.get(
+        'https://api.spotify.com/v1/search',
+        headers=H,
+        params={'q': 'Mjcity', 'type': 'track', 'limit': 20, 'market': 'US'},
+        timeout=20,
+    ).json()
+    items = tracks_resp.get('tracks', {}).get('items', [])
+    top_tracks = [t for t in items if any(a.get('id') == ARTIST_ID for a in t.get('artists', []))]
+
+# Releases via artist albums
+albums_resp = requests.get(
+    f'https://api.spotify.com/v1/artists/{ARTIST_ID}/albums',
+    headers=H,
+    params={'include_groups': 'album,single', 'limit': 30, 'market': 'US'},
+    timeout=20,
+)
+albums = albums_resp.json().get('items', []) if albums_resp.status_code == 200 else []
+seen_album = set()
+release_monitor = []
+for a in albums:
+    aid = a.get('id')
+    if not aid or aid in seen_album:
+        continue
+    seen_album.add(aid)
+    release_monitor.append({
+        'name': a.get('name'),
+        'release_date': a.get('release_date'),
+        'type': a.get('album_type'),
+        'url': (a.get('external_urls') or {}).get('spotify')
+    })
+release_monitor = sorted(release_monitor, key=lambda x: x.get('release_date') or '', reverse=True)[:10]
+
+# Related artists
+related_resp = requests.get(
+    f'https://api.spotify.com/v1/artists/{ARTIST_ID}/related-artists',
+    headers=H,
+    timeout=20,
+)
+related = related_resp.json().get('artists', []) if related_resp.status_code == 200 else []
+related_artists = [{
+    'name': r.get('name'),
+    'id': r.get('id'),
+    'popularity': r.get('popularity'),
+    'url': (r.get('external_urls') or {}).get('spotify')
+} for r in related[:8]]
+
+tracks = top_tracks[:10]
 track_ids = {t.get('id'): t.get('name') for t in tracks if t.get('id')}
 playlist_intel = []
 verified_placements = []
@@ -113,13 +166,14 @@ if HISTORY.exists():
     hist = json.loads(HISTORY.read_text())
 hist = [h for h in hist if h.get('date') != record['date']]
 hist.append(record)
-hist = sorted(hist, key=lambda x: x.get('date'))[-30:]
+hist = sorted(hist, key=lambda x: x.get('date'))[-365:]
 HISTORY.write_text(json.dumps(hist, indent=2))
 
+lead_track = tracks[0]['name'] if tracks else 'Latest track'
 smart_captions = [
-    f"New heat on deck 🎧 {tracks[0]['name']} is live now. Stream it and tell me your favorite line. #Mjcity" if tracks else 'New music loading…',
-    f"Appreciate every listener rocking with Mjcity. Keep running it up! 🚀",
-    f"Playlist curators: open to placements for Afro-pop energy — link in bio."
+    f"New heat on deck 🎧 {lead_track} is live now. Stream it and tell me your favorite line. #Mjcity",
+    "Appreciate every listener rocking with Mjcity. Keep running it up! 🚀",
+    "Playlist curators: open to placements for Afro-pop energy — link in bio."
 ]
 
 weekly_report = (
@@ -127,9 +181,7 @@ weekly_report = (
     f"{sum(x.get('search_hits', 0) for x in playlist_intel)} playlist search hits, "
     f"{len(verified_placements)} verified placements."
 )
-catalog_health = (
-    'Catalog trend: Recent singles are active; push newest 2 tracks with short-form video and playlist outreach.'
-)
+catalog_health = 'Catalog trend: push your newest 2 releases with short-form video and playlist outreach.'
 
 latest = {
     'generated_at': now.strftime('%Y-%m-%d %H:%M %Z'),
@@ -141,14 +193,18 @@ latest = {
         'genres': artist.get('genres', []),
         'spotify_url': (artist.get('external_urls') or {}).get('spotify'),
     },
+    'top_tracks_source': top_tracks_source,
     'tracks': [
         {
             'name': t.get('name'),
             'release_date': (t.get('album') or {}).get('release_date'),
+            'album': (t.get('album') or {}).get('name'),
             'url': (t.get('external_urls') or {}).get('spotify'),
         }
         for t in tracks
     ],
+    'release_monitor': release_monitor,
+    'related_artists': related_artists,
     'playlist_intel': playlist_intel,
     'verified_placements': verified_placements,
     'smart_captions': smart_captions,

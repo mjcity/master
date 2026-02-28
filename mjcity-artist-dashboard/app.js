@@ -148,6 +148,7 @@ function renderInsights(data) {
   const verified = data.verified_placements || [];
   const bullets = [
     `${tracks.length} active tracks detected in the latest scan.`,
+    `Top track source: ${data.top_tracks_source || 'unknown'}.`,
     `${playlist.reduce((a, x) => a + (x.search_hits || 0), 0)} playlist search hits found — outreach opportunity high.`,
     `${verified.length} verified placements confirmed this cycle.`,
     `Best push candidates: ${(tracks.slice(0,2).map(t => t.name).join(' + ') || 'No tracks yet')}.`
@@ -188,6 +189,24 @@ function renderListsOnly() {
     li.textContent = c;
     captions.appendChild(li);
   });
+
+  const releases = document.getElementById('releases');
+  releases.innerHTML = '';
+  (data.release_monitor || []).filter(r => `${r.name} ${r.release_date}`.toLowerCase().includes(q)).forEach(r => {
+    const li = document.createElement('li');
+    li.innerHTML = `<a href="${r.url}" target="_blank">${r.name}</a> (${r.release_date || 'n/a'}) • ${r.type || 'release'}`;
+    releases.appendChild(li);
+  });
+
+  const related = document.getElementById('relatedArtists');
+  related.innerHTML = '';
+  (data.related_artists || []).filter(r => `${r.name}`.toLowerCase().includes(q)).forEach(r => {
+    const li = document.createElement('li');
+    li.innerHTML = `<a href="${r.url}" target="_blank">${r.name}</a> • popularity: ${r.popularity ?? '—'}`;
+    related.appendChild(li);
+  });
+  if (!related.children.length) document.getElementById('relatedEmpty').classList.remove('hidden');
+  else document.getElementById('relatedEmpty').classList.add('hidden');
 
   const weekly = document.getElementById('weeklyPlaylists');
   weekly.innerHTML = '';

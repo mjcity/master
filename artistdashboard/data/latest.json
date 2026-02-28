@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-28 16:42 EST",
+  "generated_at": "2026-02-28 17:33 EST",
   "artist_snapshot": {
     "name": "Mjcity",
     "id": "4TbJfltoNbaKOASaR8rsYM",
@@ -8,151 +8,19 @@
     "genres": [],
     "spotify_url": "https://open.spotify.com/artist/4TbJfltoNbaKOASaR8rsYM"
   },
-  "tracks": [
-    {
-      "name": "Let Me In",
-      "release_date": "2025-10-20",
-      "url": "https://open.spotify.com/track/4TDYn3rBDRHZwjowB3Dvcn"
-    },
-    {
-      "name": "In Your DM",
-      "release_date": "2026-02-07",
-      "url": "https://open.spotify.com/track/3EUG9ERGhYLcrkmVyHfHq8"
-    },
-    {
-      "name": "King Birthday",
-      "release_date": "2026-01-02",
-      "url": "https://open.spotify.com/track/4TV3CGZx0dAbbUuiUydRRU"
-    },
-    {
-      "name": "On DND",
-      "release_date": "2025-12-29",
-      "url": "https://open.spotify.com/track/1ZRt228N5SR8zIhwUAtXxl"
-    },
-    {
-      "name": "All of My Light",
-      "release_date": "2025-08-31",
-      "url": "https://open.spotify.com/track/745zuMIEtmagjamsBRFeje"
-    }
-  ],
-  "playlist_intel": [
-    {
-      "track": "Let Me In",
-      "search_hits": 5,
-      "sample_playlists": [
-        {
-          "name": "Late Night City Vibes ",
-          "url": "https://open.spotify.com/playlist/0MpQk1QRrDMfsKDI00h4iA"
-        },
-        {
-          "name": "I Put On For My City",
-          "url": "https://open.spotify.com/playlist/4w9U21lvRHbKBlIej3CBl7"
-        },
-        {
-          "name": "LATE NIGHT CITY LIGHTS VIBE",
-          "url": "https://open.spotify.com/playlist/5rkPgglTxbzp6pJeaIGcXJ"
-        },
-        {
-          "name": "Latin Nights & City Lights",
-          "url": "https://open.spotify.com/playlist/5JOdoX6TL0hIf0WY0AVoqK"
-        },
-        {
-          "name": "soda city funk",
-          "url": "https://open.spotify.com/playlist/1odmmZozjUkQvm49UPRU10"
-        }
-      ],
-      "verified_count": 0,
-      "verified_playlists": []
-    },
-    {
-      "track": "In Your DM",
-      "search_hits": 1,
-      "sample_playlists": [
-        {
-          "name": "DM  + CG 012226",
-          "url": "https://open.spotify.com/playlist/2YqDJNYbGkxYJSWNCS40hV"
-        }
-      ],
-      "verified_count": 0,
-      "verified_playlists": []
-    },
-    {
-      "track": "King Birthday",
-      "search_hits": 1,
-      "sample_playlists": [
-        {
-          "name": "King City",
-          "url": "https://open.spotify.com/playlist/0CVa5fxy5P354RkbkobPRL"
-        }
-      ],
-      "verified_count": 0,
-      "verified_playlists": []
-    },
-    {
-      "track": "On DND",
-      "search_hits": 5,
-      "sample_playlists": [
-        {
-          "name": "I Put On For My City",
-          "url": "https://open.spotify.com/playlist/4w9U21lvRHbKBlIej3CBl7"
-        },
-        {
-          "name": "on DND",
-          "url": "https://open.spotify.com/playlist/768zZI81OpzmoCBuyzi0Yo"
-        },
-        {
-          "name": "On fye (slowed reverb)",
-          "url": "https://open.spotify.com/playlist/2vPURuEijaRHZqerfBkGoY"
-        },
-        {
-          "name": "On bd gd crips",
-          "url": "https://open.spotify.com/playlist/2BrIgthsIyeCFr0EDZLcVC"
-        },
-        {
-          "name": "On da way to \ud83d\udcaf\ud83d\udd25\ud83d\udd25",
-          "url": "https://open.spotify.com/playlist/1JxMe5vPd6BzgXROBHogPJ"
-        }
-      ],
-      "verified_count": 0,
-      "verified_playlists": []
-    },
-    {
-      "track": "All of My Light",
-      "search_hits": 5,
-      "sample_playlists": [
-        {
-          "name": "City Lights",
-          "url": "https://open.spotify.com/playlist/3wqyx3JsuUAHoyqF6B3JEw"
-        },
-        {
-          "name": "Songs of City Light",
-          "url": "https://open.spotify.com/playlist/2cu3GjaQ1Uj4OsjfrQIGTK"
-        },
-        {
-          "name": "City Lights Worship",
-          "url": "https://open.spotify.com/playlist/1Z7aBZ2egcWFK0yaVCDUwD"
-        },
-        {
-          "name": "My Light",
-          "url": "https://open.spotify.com/playlist/6mRAZ6wVN6eRpGQnDpmvPI"
-        },
-        {
-          "name": "One City Worship 2025",
-          "url": "https://open.spotify.com/playlist/3Zj9OwrwhJxsg80z1xiRM0"
-        }
-      ],
-      "verified_count": 0,
-      "verified_playlists": []
-    }
-  ],
+  "top_tracks_source": "search_fallback",
+  "tracks": [],
+  "release_monitor": [],
+  "related_artists": [],
+  "playlist_intel": [],
   "verified_placements": [],
   "smart_captions": [
-    "New heat on deck \ud83c\udfa7 Let Me In is live now. Stream it and tell me your favorite line. #Mjcity",
+    "New heat on deck \ud83c\udfa7 Latest track is live now. Stream it and tell me your favorite line. #Mjcity",
     "Appreciate every listener rocking with Mjcity. Keep running it up! \ud83d\ude80",
     "Playlist curators: open to placements for Afro-pop energy \u2014 link in bio."
   ],
-  "weekly_report": "This week: 5 active tracks detected, 17 playlist search hits, 0 verified placements.",
-  "catalog_health": "Catalog trend: Recent singles are active; push newest 2 tracks with short-form video and playlist outreach.",
+  "weekly_report": "This week: 0 active tracks detected, 0 playlist search hits, 0 verified placements.",
+  "catalog_health": "Catalog trend: push your newest 2 releases with short-form video and playlist outreach.",
   "history": [
     {
       "date": "2026-02-28",
