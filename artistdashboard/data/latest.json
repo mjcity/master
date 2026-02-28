@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-28 17:44 EST",
+  "generated_at": "2026-02-28 17:46 EST",
   "artist_snapshot": {
     "name": "Mjcity",
     "id": "4TbJfltoNbaKOASaR8rsYM",
@@ -9,17 +9,225 @@
     "spotify_url": "https://open.spotify.com/artist/4TbJfltoNbaKOASaR8rsYM"
   },
   "top_tracks_source": "search_fallback",
-  "tracks": [],
-  "release_monitor": [],
+  "tracks": [
+    {
+      "name": "Let Me In",
+      "release_date": "2025-10-20",
+      "album": "Let Me In",
+      "url": "https://open.spotify.com/track/4TDYn3rBDRHZwjowB3Dvcn"
+    },
+    {
+      "name": "In Your DM",
+      "release_date": "2026-02-07",
+      "album": "In Your DM",
+      "url": "https://open.spotify.com/track/3EUG9ERGhYLcrkmVyHfHq8"
+    },
+    {
+      "name": "King Birthday",
+      "release_date": "2026-01-02",
+      "album": "King Birthday",
+      "url": "https://open.spotify.com/track/4TV3CGZx0dAbbUuiUydRRU"
+    },
+    {
+      "name": "On DND",
+      "release_date": "2025-12-29",
+      "album": "On DND",
+      "url": "https://open.spotify.com/track/1ZRt228N5SR8zIhwUAtXxl"
+    },
+    {
+      "name": "All of My Light",
+      "release_date": "2025-08-31",
+      "album": "All of My Light",
+      "url": "https://open.spotify.com/track/745zuMIEtmagjamsBRFeje"
+    }
+  ],
+  "release_monitor": [
+    {
+      "name": "In Your DM",
+      "release_date": "2026-02-07",
+      "type": "single",
+      "url": "https://open.spotify.com/album/77IwzPYyigt4zemCq3SOAO"
+    },
+    {
+      "name": "Butterflies Like Me",
+      "release_date": "2026-02-02",
+      "type": "single",
+      "url": "https://open.spotify.com/album/31n9LgH0vE22i57OlqlMrr"
+    },
+    {
+      "name": "Your Night",
+      "release_date": "2026-01-18",
+      "type": "single",
+      "url": "https://open.spotify.com/album/3HCxrc8TPFNZaiOx4yzBhD"
+    },
+    {
+      "name": "Soft Life",
+      "release_date": "2026-01-11",
+      "type": "single",
+      "url": "https://open.spotify.com/album/0eoNoIfqqgA0C4ym87Ga6I"
+    },
+    {
+      "name": "King Birthday",
+      "release_date": "2026-01-02",
+      "type": "single",
+      "url": "https://open.spotify.com/album/5UoBt5DMNuJpfTIuooX9HL"
+    },
+    {
+      "name": "On DND",
+      "release_date": "2025-12-29",
+      "type": "single",
+      "url": "https://open.spotify.com/album/58rdhNjEUTCz1zkB0VHwvY"
+    },
+    {
+      "name": "How To Be Loved",
+      "release_date": "2025-12-17",
+      "type": "single",
+      "url": "https://open.spotify.com/album/6tWt4PzYsQvAfvN0Ls5Nvl"
+    },
+    {
+      "name": "Shawty Glazing Me",
+      "release_date": "2025-11-28",
+      "type": "single",
+      "url": "https://open.spotify.com/album/70NGL9WspKUEextTCIoCRC"
+    },
+    {
+      "name": "Closure",
+      "release_date": "2025-11-24",
+      "type": "single",
+      "url": "https://open.spotify.com/album/4VdywGpQG0gmSmYvX7nTxQ"
+    },
+    {
+      "name": "No Tears Allowed",
+      "release_date": "2025-07-31",
+      "type": "album",
+      "url": "https://open.spotify.com/album/22OSgPFMZoB2uf6RUjgIv3"
+    }
+  ],
   "related_artists": [],
-  "playlist_intel": [],
+  "playlist_intel": [
+    {
+      "track": "Let Me In",
+      "search_hits": 5,
+      "sample_playlists": [
+        {
+          "name": "Big City Greens",
+          "url": "https://open.spotify.com/playlist/4V5F3d3Vv1UUIagxgjKntQ"
+        },
+        {
+          "name": "I Put On For My City",
+          "url": "https://open.spotify.com/playlist/4w9U21lvRHbKBlIej3CBl7"
+        },
+        {
+          "name": "LATE NIGHT CITY LIGHTS VIBE",
+          "url": "https://open.spotify.com/playlist/5rkPgglTxbzp6pJeaIGcXJ"
+        },
+        {
+          "name": "Latin Nights & City Lights",
+          "url": "https://open.spotify.com/playlist/5JOdoX6TL0hIf0WY0AVoqK"
+        },
+        {
+          "name": "New Jack City Soundtrack",
+          "url": "https://open.spotify.com/playlist/3OzysMVidq78HAtOCuJMZj"
+        }
+      ],
+      "verified_count": 0,
+      "verified_playlists": []
+    },
+    {
+      "track": "In Your DM",
+      "search_hits": 5,
+      "sample_playlists": [
+        {
+          "name": "In yo city",
+          "url": "https://open.spotify.com/playlist/0QLDVDyAjPKjpplbRPSqak"
+        },
+        {
+          "name": "C U in da city",
+          "url": "https://open.spotify.com/playlist/0uLrV0cRYPkTqchqVSZB3H"
+        },
+        {
+          "name": "Gt.City Jams",
+          "url": "https://open.spotify.com/playlist/01R0qaKi2mRZzmgLJMCaYU"
+        },
+        {
+          "name": "In Da City",
+          "url": "https://open.spotify.com/playlist/1COjG6onnpivAYJ1NdO4Qp"
+        },
+        {
+          "name": "Mctity",
+          "url": "https://open.spotify.com/playlist/4WUbpBKaQqAfBouzRtx1qH"
+        }
+      ],
+      "verified_count": 0,
+      "verified_playlists": []
+    },
+    {
+      "track": "King Birthday",
+      "search_hits": 0,
+      "sample_playlists": [],
+      "verified_count": 0,
+      "verified_playlists": []
+    },
+    {
+      "track": "On DND",
+      "search_hits": 4,
+      "sample_playlists": [
+        {
+          "name": "I Put On For My City",
+          "url": "https://open.spotify.com/playlist/4w9U21lvRHbKBlIej3CBl7"
+        },
+        {
+          "name": "Dnd City Music",
+          "url": "https://open.spotify.com/playlist/2TFBgFKaVx2ynzyScErxss"
+        },
+        {
+          "name": "on DND",
+          "url": "https://open.spotify.com/playlist/3vxjN8vYHBntmKMBhU8Pz1"
+        },
+        {
+          "name": "on DND",
+          "url": "https://open.spotify.com/playlist/768zZI81OpzmoCBuyzi0Yo"
+        }
+      ],
+      "verified_count": 0,
+      "verified_playlists": []
+    },
+    {
+      "track": "All of My Light",
+      "search_hits": 5,
+      "sample_playlists": [
+        {
+          "name": "City Light Vegas Playlist",
+          "url": "https://open.spotify.com/playlist/4nx9LKRKVVgKFkE32j5mXc"
+        },
+        {
+          "name": "My light ",
+          "url": "https://open.spotify.com/playlist/1HyrKOlkVAsYCEBrmpZ0lt"
+        },
+        {
+          "name": "City Lights Worship",
+          "url": "https://open.spotify.com/playlist/1Z7aBZ2egcWFK0yaVCDUwD"
+        },
+        {
+          "name": "Citylight Lincoln Worship",
+          "url": "https://open.spotify.com/playlist/3MOvv0V6bzqVk1ARerr9ye"
+        },
+        {
+          "name": "My Lighthouse",
+          "url": "https://open.spotify.com/playlist/6bvs8IfxDKrYGtgf4JdYXe"
+        }
+      ],
+      "verified_count": 0,
+      "verified_playlists": []
+    }
+  ],
   "verified_placements": [],
   "smart_captions": [
-    "New heat on deck \ud83c\udfa7 Latest track is live now. Stream it and tell me your favorite line. #Mjcity",
+    "New heat on deck \ud83c\udfa7 Let Me In is live now. Stream it and tell me your favorite line. #Mjcity",
     "Appreciate every listener rocking with Mjcity. Keep running it up! \ud83d\ude80",
     "Playlist curators: open to placements for Afro-pop energy \u2014 link in bio."
   ],
-  "weekly_report": "This week: 0 active tracks detected, 0 playlist search hits, 0 verified placements.",
+  "weekly_report": "This week: 5 active tracks detected, 19 playlist search hits, 0 verified placements.",
   "catalog_health": "Catalog trend: push your newest 2 releases with short-form video and playlist outreach.",
   "history": [
     {

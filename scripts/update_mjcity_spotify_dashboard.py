@@ -48,7 +48,7 @@ else:
     tracks_resp = requests.get(
         'https://api.spotify.com/v1/search',
         headers=H,
-        params={'q': 'Mjcity', 'type': 'track', 'limit': 20, 'market': 'US'},
+        params={'q': 'Mjcity', 'type': 'track', 'limit': 10, 'market': 'US'},
         timeout=20,
     ).json()
     items = tracks_resp.get('tracks', {}).get('items', [])
@@ -58,7 +58,7 @@ else:
 albums_resp = requests.get(
     f'https://api.spotify.com/v1/artists/{ARTIST_ID}/albums',
     headers=H,
-    params={'include_groups': 'album,single', 'limit': 30, 'market': 'US'},
+    params={'include_groups': 'album,single', 'limit': 10, 'market': 'US'},
     timeout=20,
 )
 albums = albums_resp.json().get('items', []) if albums_resp.status_code == 200 else []
