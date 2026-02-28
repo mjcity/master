@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-28 17:33 EST",
+  "generated_at": "2026-02-28 17:39 EST",
   "artist_snapshot": {
     "name": "Mjcity",
     "id": "4TbJfltoNbaKOASaR8rsYM",
@@ -27,5 +27,53 @@
       "followers": null,
       "popularity": null
     }
-  ]
+  ],
+  "spotify_for_artists": {
+    "captured_at": "2026-02-28 17:37 EST",
+    "listening_now": 0,
+    "last_28_days": {
+      "monthly_listeners": {
+        "value": 216,
+        "delta_pct": -21.5
+      },
+      "streams": {
+        "value": 1105,
+        "delta_pct": 7.6
+      }
+    },
+    "audience_segments": {
+      "monthly_active_listeners": {
+        "value": 105,
+        "delta_pct": -13.2
+      },
+      "new_active_listeners": {
+        "value": 32,
+        "delta_pct": -38.5
+      },
+      "super_listeners": {
+        "value": 8,
+        "delta_pct": 60.0
+      }
+    },
+    "top_songs_last_7_days": [
+      {
+        "name": "King Birthday",
+        "streams": 177
+      },
+      {
+        "name": "Let Me In",
+        "streams": 145
+      },
+      {
+        "name": "In Your DM",
+        "streams": 28
+      }
+    ],
+    "top_playlists_last_7_days": [
+      {
+        "name": "Radio",
+        "streams": 88
+      }
+    ]
+  }
 }

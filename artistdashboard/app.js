@@ -54,27 +54,30 @@ function render() {
 function renderKpis(data) {
   const strip = document.getElementById('kpiStrip');
   const hist = (data.history || []).slice(-state.range);
+  const s4a = data.spotify_for_artists || {};
   const followers = (data.artist_snapshot || {}).followers || 0;
   const popularity = (data.artist_snapshot || {}).popularity || 0;
   const tracks = (data.tracks || []).length;
   const searchHits = (data.playlist_intel || []).reduce((a, x) => a + (x.search_hits || 0), 0);
   const verified = (data.verified_placements || []).length;
+  const monthlyListeners = (s4a.last_28_days || {}).monthly_listeners?.value || 0;
+  const streams28 = (s4a.last_28_days || {}).streams?.value || 0;
 
   const prev = hist.length > 1 ? (hist[hist.length - 2].followers || 0) : followers;
   const growthPct = prev ? (((followers - prev) / prev) * 100) : 0;
 
   const cards = [
+    { label: 'Monthly Listeners', value: numberOrDash(monthlyListeners), delta: (s4a.last_28_days || {}).monthly_listeners?.delta_pct || 0 },
+    { label: 'Streams (28d)', value: numberOrDash(streams28), delta: (s4a.last_28_days || {}).streams?.delta_pct || 0 },
     { label: 'Followers', value: numberOrDash(followers), delta: growthPct },
-    { label: 'Popularity', value: numberOrDash(popularity), delta: popularity ? popularity / 10 : 0 },
     { label: 'Tracks', value: tracks, delta: tracks ? 4 : 0 },
-    { label: 'Search Hits', value: searchHits, delta: searchHits ? 6 : 0 },
     { label: 'Verified Placements', value: verified, delta: verified ? 3 : -2 },
   ];
 
   strip.innerHTML = '';
   cards.forEach((c, i) => {
     const cls = c.delta >= 0 ? 'up' : 'down';
-    const icon = ['🎧', '⚡', '🎵', '📡', '✅'][i] || '•';
+    const icon = ['👥', '📈', '🎧', '🎵', '✅'][i] || '•';
     const spark = sparklineSvg(hist.map((h, idx) => (h.followers || 0) + idx * (i + 1)));
     const div = document.createElement('article');
     div.className = 'kpi';
@@ -207,6 +210,25 @@ function renderListsOnly() {
   });
   if (!related.children.length) document.getElementById('relatedEmpty').classList.remove('hidden');
   else document.getElementById('relatedEmpty').classList.add('hidden');
+
+  const s4a = data.spotify_for_artists || {};
+  const s4aList = document.getElementById('s4aMetrics');
+  s4aList.innerHTML = '';
+  const lines = [
+    `Listening now: ${s4a.listening_now ?? '—'}`,
+    `Monthly active listeners: ${numberOrDash((s4a.audience_segments || {}).monthly_active_listeners?.value)} (${((s4a.audience_segments || {}).monthly_active_listeners?.delta_pct ?? 0)}%)`,
+    `New active listeners: ${numberOrDash((s4a.audience_segments || {}).new_active_listeners?.value)} (${((s4a.audience_segments || {}).new_active_listeners?.delta_pct ?? 0)}%)`,
+    `Super listeners: ${numberOrDash((s4a.audience_segments || {}).super_listeners?.value)} (${((s4a.audience_segments || {}).super_listeners?.delta_pct ?? 0)}%)`
+  ];
+  const topSongs = (s4a.top_songs_last_7_days || []).map(s => `Top song: ${s.name} (${s.streams} streams)`).slice(0,3);
+  const topPlaylists = (s4a.top_playlists_last_7_days || []).map(p => `Top playlist: ${p.name} (${p.streams} streams)`);
+  [...lines, ...topSongs, ...topPlaylists].forEach(txt => {
+    const li = document.createElement('li');
+    li.textContent = txt;
+    s4aList.appendChild(li);
+  });
+  if (!s4aList.children.length) document.getElementById('s4aEmpty').classList.remove('hidden');
+  else document.getElementById('s4aEmpty').classList.add('hidden');
 
   const weekly = document.getElementById('weeklyPlaylists');
   weekly.innerHTML = '';

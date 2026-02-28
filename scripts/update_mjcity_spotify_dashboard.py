@@ -11,6 +11,7 @@ OUT_DIR = ROOT / 'mjcity-artist-dashboard' / 'data'
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 LATEST = OUT_DIR / 'latest.json'
 HISTORY = OUT_DIR / 'history.json'
+S4A = OUT_DIR / 's4a_latest.json'
 ARTIST_ID = '4TbJfltoNbaKOASaR8rsYM'
 
 cfg = json.loads(CFG.read_text())
@@ -183,6 +184,13 @@ weekly_report = (
 )
 catalog_health = 'Catalog trend: push your newest 2 releases with short-form video and playlist outreach.'
 
+s4a = {}
+if S4A.exists():
+    try:
+        s4a = json.loads(S4A.read_text())
+    except Exception:
+        s4a = {}
+
 latest = {
     'generated_at': now.strftime('%Y-%m-%d %H:%M %Z'),
     'artist_snapshot': {
@@ -211,6 +219,7 @@ latest = {
     'weekly_report': weekly_report,
     'catalog_health': catalog_health,
     'history': hist,
+    'spotify_for_artists': s4a,
 }
 LATEST.write_text(json.dumps(latest, indent=2))
 print('updated dashboard data')
