@@ -5,6 +5,9 @@ ROOT=/home/michael/.openclaw/workspace
 cd "$ROOT"
 python scripts/update_mjcity_spotify_dashboard.py
 
+BUILD_ID="$(date +%s)"
+perl -0777 -i -pe 's/style\.css\?v=\d+/style.css?v='"$BUILD_ID"'/g; s/app\.js\?v=\d+/app.js?v='"$BUILD_ID"'/g' "$ROOT/mjcity-artist-dashboard/index.html"
+
 mkdir -p "$ROOT/artistdashboard/data"
 cp -f "$ROOT/mjcity-artist-dashboard/index.html" "$ROOT/artistdashboard/index.html"
 cp -f "$ROOT/mjcity-artist-dashboard/style.css" "$ROOT/artistdashboard/style.css"
