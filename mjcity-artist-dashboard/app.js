@@ -61,16 +61,17 @@ function renderKpis(data) {
   const tracks = (data.tracks || []).length;
   const searchHits = (data.playlist_intel || []).reduce((a, x) => a + (x.search_hits || 0), 0);
   const verified = (data.verified_placements || []).length;
-  const monthlyListeners = (s4a.last_28_days || {}).monthly_listeners?.value || 0;
-  const streams28 = (s4a.last_28_days || {}).streams?.value || 0;
+  const om = s4a.overview_metrics || {};
+  const monthlyListeners = om.listeners?.value ?? 0;
+  const streams28 = om.streams?.value ?? 0;
 
   const prev = hist.length > 1 ? (hist[hist.length - 2].followers || 0) : followers;
   const growthPct = prev ? (((followers - prev) / prev) * 100) : 0;
 
   const cards = [
-    { label: 'Monthly Listeners', value: numberOrDash(monthlyListeners), delta: (s4a.last_28_days || {}).monthly_listeners?.delta_pct || 0 },
-    { label: 'Streams (28d)', value: numberOrDash(streams28), delta: (s4a.last_28_days || {}).streams?.delta_pct || 0 },
-    { label: 'Followers', value: numberOrDash(followers), delta: growthPct },
+    { label: 'Monthly Listeners', value: numberOrDash(monthlyListeners), delta: om.listeners?.delta_pct ?? 0 },
+    { label: 'Streams (28d)', value: numberOrDash(streams28), delta: om.streams?.delta_pct ?? 0 },
+    { label: 'Followers', value: numberOrDash((om.followers?.value ?? followers)), delta: om.followers?.delta_pct ?? growthPct },
     { label: 'Tracks', value: tracks, delta: tracks ? 4 : 0 },
     { label: 'Verified Placements', value: verified, delta: verified ? 3 : -2 },
   ];
