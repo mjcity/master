@@ -34,7 +34,7 @@ async function run() {
   const pi = document.getElementById('playlistIntel');
   (data.playlist_intel || []).forEach(p => {
     const li = document.createElement('li');
-    li.innerHTML = `<strong>${p.track}</strong> — ${p.hits || 0} hits`;
+    li.innerHTML = `<strong>${p.track}</strong> — search hits: ${p.search_hits || 0} • verified: ${p.verified_count || 0}`;
     pi.appendChild(li);
   });
 
@@ -54,16 +54,14 @@ async function run() {
 
   document.getElementById('weeklyReport').textContent = data.weekly_report || 'No weekly report yet.';
   const weeklyPlaylists = document.getElementById('weeklyPlaylists');
-  (data.playlist_intel || []).forEach((row) => {
-    (row.sample_playlists || []).forEach((p) => {
-      const li = document.createElement('li');
-      li.innerHTML = `<strong>${row.track}:</strong> <a href="${p.url}" target="_blank">${p.name}</a>`;
-      weeklyPlaylists.appendChild(li);
-    });
+  (data.verified_placements || []).forEach((p) => {
+    const li = document.createElement('li');
+    li.innerHTML = `<strong>${p.track}:</strong> <a href="${p.url}" target="_blank">${p.name}</a>`;
+    weeklyPlaylists.appendChild(li);
   });
   if (!weeklyPlaylists.children.length) {
     const li = document.createElement('li');
-    li.textContent = 'No playlist links available yet in current snapshot.';
+    li.textContent = 'No verified playlist placements in the current snapshot.';
     weeklyPlaylists.appendChild(li);
   }
 

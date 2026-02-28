@@ -38,7 +38,10 @@ tracks_resp = requests.get(
 items = tracks_resp.get('tracks', {}).get('items', [])
 tracks = [t for t in items if any(a.get('id') == ARTIST_ID for a in t.get('artists', []))]
 
+track_ids = {t.get('id'): t.get('name') for t in tracks if t.get('id')}
 playlist_intel = []
+verified_placements = []
+
 for t in tracks[:5]:
     q = f"{t.get('name', '')} Mjcity"
     pls_resp = requests.get(
@@ -47,8 +50,56 @@ for t in tracks[:5]:
         params={'q': q, 'type': 'playlist', 'limit': 5, 'market': 'US'},
         timeout=20,
     ).json()
-    pls = pls_resp.get('playlists', {}).get('items', [])
-    playlist_intel.append({'track': t.get('name'), 'hits': len([p for p in pls if p])})
+    pls = [p for p in pls_resp.get('playlists', {}).get('items', []) if p]
+
+    row = {
+        'track': t.get('name'),
+        'search_hits': len(pls),
+        'sample_playlists': [
+            {'name': p.get('name'), 'url': (p.get('external_urls') or {}).get('spotify')}
+            for p in pls
+        ][:5],
+        'verified_count': 0,
+        'verified_playlists': []
+    }
+
+    for p in pls:
+        pid = p.get('id')
+        if not pid:
+            continue
+        resp = requests.get(
+            f'https://api.spotify.com/v1/playlists/{pid}/tracks',
+            headers=H,
+            params={'fields': 'items(track(id)),next', 'limit': 100},
+            timeout=20,
+        )
+        if resp.status_code != 200:
+            continue
+        data = resp.json()
+        matched = False
+        while True:
+            for it in data.get('items', []):
+                tid = ((it or {}).get('track') or {}).get('id')
+                if tid in track_ids:
+                    matched = True
+                    break
+            if matched:
+                break
+            nxt = data.get('next')
+            if not nxt:
+                break
+            n = requests.get(nxt, headers=H, timeout=20)
+            if n.status_code != 200:
+                break
+            data = n.json()
+
+        if matched:
+            pv = {'name': p.get('name'), 'url': (p.get('external_urls') or {}).get('spotify')}
+            row['verified_playlists'].append(pv)
+            verified_placements.append({'track': t.get('name'), **pv})
+
+    row['verified_count'] = len(row['verified_playlists'])
+    playlist_intel.append(row)
 
 now = datetime.now(ZoneInfo('America/New_York'))
 record = {
@@ -73,7 +124,8 @@ smart_captions = [
 
 weekly_report = (
     f"This week: {len(tracks)} active tracks detected, "
-    f"{sum(x.get('hits', 0) for x in playlist_intel)} playlist search hits across latest songs."
+    f"{sum(x.get('search_hits', 0) for x in playlist_intel)} playlist search hits, "
+    f"{len(verified_placements)} verified placements."
 )
 catalog_health = (
     'Catalog trend: Recent singles are active; push newest 2 tracks with short-form video and playlist outreach.'
@@ -98,6 +150,7 @@ latest = {
         for t in tracks
     ],
     'playlist_intel': playlist_intel,
+    'verified_placements': verified_placements,
     'smart_captions': smart_captions,
     'weekly_report': weekly_report,
     'catalog_health': catalog_health,
