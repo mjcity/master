@@ -1,5 +1,5 @@
 {
-  "captured_at": "2026-02-28 17:56 EST",
+  "captured_at": "2026-02-28 18:01 EST",
   "period": "last_28_days",
   "listening_now": 0,
   "overview_metrics": {
@@ -18,35 +18,64 @@
     "new_active_listeners": { "value": 32, "delta_pct": -38.5 },
     "super_listeners": { "value": 8, "delta_pct": 60.0 }
   },
-  "top_locations_monthly_active_share": ["Spain", "France", "United Kingdom"],
-  "daily_listeners": [
-    { "date": "2026-01-31", "listeners": 8 },
-    { "date": "2026-02-01", "listeners": 9 },
-    { "date": "2026-02-02", "listeners": 9 },
-    { "date": "2026-02-03", "listeners": 8 },
-    { "date": "2026-02-04", "listeners": 5 },
-    { "date": "2026-02-05", "listeners": 17 },
-    { "date": "2026-02-06", "listeners": 14 },
-    { "date": "2026-02-07", "listeners": 12 },
-    { "date": "2026-02-08", "listeners": 8 },
-    { "date": "2026-02-09", "listeners": 8 },
-    { "date": "2026-02-10", "listeners": 12 },
-    { "date": "2026-02-11", "listeners": 8 },
-    { "date": "2026-02-12", "listeners": 7 },
-    { "date": "2026-02-13", "listeners": 10 },
-    { "date": "2026-02-14", "listeners": 10 },
-    { "date": "2026-02-15", "listeners": 8 },
-    { "date": "2026-02-16", "listeners": 14 },
-    { "date": "2026-02-17", "listeners": 10 },
-    { "date": "2026-02-18", "listeners": 9 },
-    { "date": "2026-02-19", "listeners": 12 },
-    { "date": "2026-02-20", "listeners": 16 },
-    { "date": "2026-02-21", "listeners": 22 },
-    { "date": "2026-02-22", "listeners": 16 },
-    { "date": "2026-02-23", "listeners": 14 },
-    { "date": "2026-02-24", "listeners": 19 },
-    { "date": "2026-02-25", "listeners": 34 },
-    { "date": "2026-02-26", "listeners": 31 },
-    { "date": "2026-02-27", "listeners": 9 }
+  "demographics": {
+    "gender": {
+      "female": { "pct": 41, "listeners": 89 },
+      "male": { "pct": 54, "listeners": 117 },
+      "non_binary": { "pct": 0, "listeners": 0 },
+      "not_specified": { "pct": 5, "listeners": 10 }
+    },
+    "age_buckets": [
+      { "range": "<18", "pct": 1, "female": 2, "male": 0, "non_binary": 0, "not_specified": 1 },
+      { "range": "18-24", "pct": 10, "female": 10, "male": 12, "non_binary": 0, "not_specified": 1 },
+      { "range": "25-34", "pct": 29, "female": 28, "male": 32, "non_binary": 0, "not_specified": 2 },
+      { "range": "35-44", "pct": 33, "female": 30, "male": 36, "non_binary": 0, "not_specified": 5 },
+      { "range": "45-54", "pct": 15, "female": 11, "male": 20, "non_binary": 0, "not_specified": 1 },
+      { "range": "55-64", "pct": 9, "female": 6, "male": 13, "non_binary": 0, "not_specified": 0 },
+      { "range": "65+", "pct": 3, "female": 2, "male": 4, "non_binary": 0, "not_specified": 0 }
+    ]
+  },
+  "location": {
+    "top_countries": [
+      { "country": "United States", "listeners": 138, "active_pct": 44.9, "active_listeners": 62 },
+      { "country": "Brazil", "listeners": 17, "active_pct": 17.6, "active_listeners": 3 },
+      { "country": "Germany", "listeners": 7, "active_pct": 42.9, "active_listeners": 3 },
+      { "country": "Canada", "listeners": 7, "active_pct": 71.4, "active_listeners": 5 },
+      { "country": "United Kingdom", "listeners": 6, "active_pct": 83.3, "active_listeners": 5 },
+      { "country": "France", "listeners": 6, "active_pct": 83.3, "active_listeners": 5 },
+      { "country": "South Africa", "listeners": 4, "active_pct": 50.0, "active_listeners": 2 },
+      { "country": "Netherlands", "listeners": 4, "active_pct": 75.0, "active_listeners": 3 },
+      { "country": "Spain", "listeners": 4, "active_pct": 100.0, "active_listeners": 4 },
+      { "country": "Nigeria", "listeners": 3, "active_pct": 66.7, "active_listeners": 2 }
+    ],
+    "top_cities": [
+      { "city": "Milwaukee", "region": "United States, WI", "listeners": 4 },
+      { "city": "Houston", "region": "United States, TX", "listeners": 4 },
+      { "city": "São Paulo", "region": "Brazil, SP", "listeners": 4 },
+      { "city": "Staten Island", "region": "United States, NY", "listeners": 4 },
+      { "city": "San Antonio", "region": "United States, TX", "listeners": 3 },
+      { "city": "Lagos", "region": "Nigeria, LA", "listeners": 3 },
+      { "city": "Dallas", "region": "United States, TX", "listeners": 3 },
+      { "city": "Portland", "region": "United States, OR", "listeners": 3 },
+      { "city": "Philadelphia", "region": "United States, PA", "listeners": 3 },
+      { "city": "Chicago", "region": "United States, IL", "listeners": 3 }
+    ]
+  },
+  "release_engagement": {
+    "release": "In Your DM",
+    "released": "2026-02-07",
+    "day": 21,
+    "monthly_active_listeners": 105,
+    "engaged_listeners": 5,
+    "engaged_pct": 4.8,
+    "daily_engaged_series": [0,1,1,2,3,4,4,4,4,4,4,4,5,5,5,5,5,5,5,5,5]
+  },
+  "top_songs_last_7_days": [
+    { "name": "King Birthday", "streams": 177 },
+    { "name": "Let Me In", "streams": 145 },
+    { "name": "In Your DM", "streams": 28 }
+  ],
+  "top_playlists_last_7_days": [
+    { "name": "Radio", "streams": 88 }
   ]
 }

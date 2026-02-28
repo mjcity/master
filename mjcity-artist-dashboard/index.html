@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mjcity Artist Dashboard</title>
-  <link rel="stylesheet" href="./style.css?v=1772318652" />
+  <link rel="stylesheet" href="./style.css?v=1772319799" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -77,6 +77,24 @@
     </section>
 
     <section class="card">
+      <h2>Audience Demographics</h2>
+      <canvas id="genderChart" height="120"></canvas>
+      <canvas id="ageChart" height="120"></canvas>
+    </section>
+
+    <section class="card">
+      <h2>Audience Location</h2>
+      <ul id="topCountries" class="list"></ul>
+      <ul id="topCities" class="list"></ul>
+    </section>
+
+    <section class="card">
+      <h2>Release Engagement</h2>
+      <p id="releaseEngagementSummary"></p>
+      <canvas id="releaseEngagementChart" height="120"></canvas>
+    </section>
+
+    <section class="card">
       <h2>Performance Insights</h2>
       <ul id="insights" class="list"></ul>
       <p id="insightsEmpty" class="empty hidden">No insights yet.</p>
@@ -102,6 +120,6 @@
     </section>
   </main>
 
-  <script src="./app.js?v=1772318652"></script>
+  <script src="./app.js?v=1772319799"></script>
 </body>
 </html>
