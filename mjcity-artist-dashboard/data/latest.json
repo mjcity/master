@@ -1,0 +1,74 @@
+{
+  "generated_at": "2026-02-28 15:04 EST",
+  "artist_snapshot": {
+    "name": "Mjcity",
+    "id": "4TbJfltoNbaKOASaR8rsYM",
+    "followers": null,
+    "popularity": null,
+    "genres": [],
+    "spotify_url": "https://open.spotify.com/artist/4TbJfltoNbaKOASaR8rsYM"
+  },
+  "tracks": [
+    {
+      "name": "Let Me In",
+      "release_date": "2025-10-20",
+      "url": "https://open.spotify.com/track/4TDYn3rBDRHZwjowB3Dvcn"
+    },
+    {
+      "name": "In Your DM",
+      "release_date": "2026-02-07",
+      "url": "https://open.spotify.com/track/3EUG9ERGhYLcrkmVyHfHq8"
+    },
+    {
+      "name": "King Birthday",
+      "release_date": "2026-01-02",
+      "url": "https://open.spotify.com/track/4TV3CGZx0dAbbUuiUydRRU"
+    },
+    {
+      "name": "On DND",
+      "release_date": "2025-12-29",
+      "url": "https://open.spotify.com/track/1ZRt228N5SR8zIhwUAtXxl"
+    },
+    {
+      "name": "All of My Light",
+      "release_date": "2025-08-31",
+      "url": "https://open.spotify.com/track/745zuMIEtmagjamsBRFeje"
+    }
+  ],
+  "playlist_intel": [
+    {
+      "track": "Let Me In",
+      "hits": 5
+    },
+    {
+      "track": "In Your DM",
+      "hits": 4
+    },
+    {
+      "track": "King Birthday",
+      "hits": 1
+    },
+    {
+      "track": "On DND",
+      "hits": 4
+    },
+    {
+      "track": "All of My Light",
+      "hits": 5
+    }
+  ],
+  "smart_captions": [
+    "New heat on deck \ud83c\udfa7 Let Me In is live now. Stream it and tell me your favorite line. #Mjcity",
+    "Appreciate every listener rocking with Mjcity. Keep running it up! \ud83d\ude80",
+    "Playlist curators: open to placements for Afro-pop energy \u2014 link in bio."
+  ],
+  "weekly_report": "This week: 5 active tracks detected, 19 playlist search hits across latest songs.",
+  "catalog_health": "Catalog trend: Recent singles are active; push newest 2 tracks with short-form video and playlist outreach.",
+  "history": [
+    {
+      "date": "2026-02-28",
+      "followers": null,
+      "popularity": null
+    }
+  ]
+}
