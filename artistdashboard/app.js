@@ -1,5 +1,5 @@
 let state = { data: null, range: 30, query: '' };
-let growthChart, tracksChart, platformChart;
+let growthChart, tracksChart, platformChart, genderChart, ageChart, releaseChart;
 
 async function run() {
   const res = await fetch('./data/latest.json?_=' + Date.now());
@@ -43,6 +43,7 @@ function render() {
   renderPlatformSplit(data);
   renderHeatmap(data);
   renderInsights(data);
+  renderAudienceExtras(data);
   renderListsOnly();
 
   document.getElementById('weeklyReport').textContent = data.weekly_report || 'No weekly report yet.';
@@ -160,6 +161,56 @@ function renderInsights(data) {
     const li = document.createElement('li');
     li.textContent = b;
     insights.appendChild(li);
+  });
+}
+
+function renderAudienceExtras(data) {
+  const s4a = data.spotify_for_artists || {};
+
+  const g = (s4a.demographics || {}).gender || {};
+  const gLabels = ['Female', 'Male', 'Non-binary', 'Not specified'];
+  const gVals = [g.female?.pct || 0, g.male?.pct || 0, g.non_binary?.pct || 0, g.not_specified?.pct || 0];
+  if (genderChart) genderChart.destroy();
+  genderChart = new Chart(document.getElementById('genderChart'), {
+    type: 'doughnut',
+    data: { labels: gLabels, datasets: [{ data: gVals, backgroundColor: ['#ff2daa', '#00e5ff', '#a855f7', '#34d399'] }] },
+    options: { plugins: { legend: { labels: { color: '#e2e8f0' } } } }
+  });
+
+  const age = (s4a.demographics || {}).age_buckets || [];
+  if (ageChart) ageChart.destroy();
+  ageChart = new Chart(document.getElementById('ageChart'), {
+    type: 'bar',
+    data: { labels: age.map(a => a.range), datasets: [{ label: '% listeners', data: age.map(a => a.pct || 0), backgroundColor: '#a855f7' }] },
+    options: { plugins: { legend: { labels: { color: '#e2e8f0' } } }, scales: { x: { ticks: { color: '#cbd5e1' } }, y: { ticks: { color: '#cbd5e1' } } } }
+  });
+
+  const countries = document.getElementById('topCountries');
+  countries.innerHTML = '';
+  ((s4a.location || {}).top_countries || []).slice(0, 10).forEach(c => {
+    const li = document.createElement('li');
+    li.textContent = `${c.country}: ${c.listeners} listeners • ${c.active_pct}% active`;
+    countries.appendChild(li);
+  });
+
+  const cities = document.getElementById('topCities');
+  cities.innerHTML = '';
+  ((s4a.location || {}).top_cities || []).slice(0, 10).forEach(c => {
+    const li = document.createElement('li');
+    li.textContent = `${c.city} (${c.region}) — ${c.listeners}`;
+    cities.appendChild(li);
+  });
+
+  const re = s4a.release_engagement || {};
+  document.getElementById('releaseEngagementSummary').textContent = re.release
+    ? `${re.release}: ${re.engaged_listeners}/${re.monthly_active_listeners} monthly active listeners engaged (${re.engaged_pct}%) by day ${re.day}.`
+    : 'No release engagement snapshot yet.';
+  if (releaseChart) releaseChart.destroy();
+  const series = re.daily_engaged_series || [];
+  releaseChart = new Chart(document.getElementById('releaseEngagementChart'), {
+    type: 'line',
+    data: { labels: series.map((_, i) => `D${i+1}`), datasets: [{ label: 'Engaged listeners', data: series, borderColor: '#34d399', backgroundColor: 'rgba(52,211,153,.2)', fill: true, tension: .25 }] },
+    options: { plugins: { legend: { labels: { color: '#e2e8f0' } } }, scales: { x: { ticks: { color: '#cbd5e1' } }, y: { ticks: { color: '#cbd5e1' } } } }
   });
 }
 
