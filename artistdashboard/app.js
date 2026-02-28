@@ -53,6 +53,28 @@ async function run() {
   });
 
   document.getElementById('weeklyReport').textContent = data.weekly_report || 'No weekly report yet.';
+  const weeklyPlaylists = document.getElementById('weeklyPlaylists');
+  (data.playlist_intel || []).forEach((row) => {
+    (row.sample_playlists || []).forEach((p) => {
+      const li = document.createElement('li');
+      li.innerHTML = `<strong>${row.track}:</strong> <a href="${p.url}" target="_blank">${p.name}</a>`;
+      weeklyPlaylists.appendChild(li);
+    });
+  });
+  if (!weeklyPlaylists.children.length) {
+    const li = document.createElement('li');
+    li.textContent = 'No playlist links available yet in current snapshot.';
+    weeklyPlaylists.appendChild(li);
+  }
+
+  const weeklyToggle = document.getElementById('weeklyToggle');
+  const weeklyPanel = document.getElementById('weeklyPanel');
+  weeklyToggle.addEventListener('click', () => {
+    const isOpen = weeklyPanel.classList.toggle('collapsed') === false;
+    weeklyToggle.setAttribute('aria-expanded', String(isOpen));
+    weeklyToggle.textContent = `${isOpen ? '▼' : '▶'} Weekly Artist Report`;
+  });
+
   document.getElementById('catalogHealth').textContent = data.catalog_health || 'No catalog health data yet.';
 }
 

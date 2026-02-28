@@ -55,8 +55,12 @@
     </section>
 
     <section class="card">
-      <h2>Weekly Artist Report</h2>
-      <p id="weeklyReport"></p>
+      <button id="weeklyToggle" class="collapse-btn" type="button" aria-expanded="false">▶ Weekly Artist Report</button>
+      <div id="weeklyPanel" class="collapsed">
+        <p id="weeklyReport"></p>
+        <h3>Playlist names + links</h3>
+        <ul id="weeklyPlaylists" class="list"></ul>
+      </div>
     </section>
 
     <section class="card">
