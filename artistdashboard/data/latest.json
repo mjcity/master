@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-28 17:46 EST",
+  "generated_at": "2026-02-28 17:56 EST",
   "artist_snapshot": {
     "name": "Mjcity",
     "id": "4TbJfltoNbaKOASaR8rsYM",
@@ -237,23 +237,47 @@
     }
   ],
   "spotify_for_artists": {
-    "captured_at": "2026-02-28 17:37 EST",
+    "captured_at": "2026-02-28 17:56 EST",
+    "period": "last_28_days",
     "listening_now": 0,
-    "last_28_days": {
-      "monthly_listeners": {
+    "overview_metrics": {
+      "listeners": {
         "value": 216,
-        "delta_pct": -21.5
+        "delta_pct": -21.5,
+        "previous": 275
+      },
+      "monthly_active_listeners": {
+        "value": 105,
+        "delta_pct": -13.2
       },
       "streams": {
         "value": 1105,
         "delta_pct": 7.6
+      },
+      "streams_per_listener": {
+        "value": 5.1,
+        "delta_pct": 37.0
+      },
+      "saves": {
+        "value": 30,
+        "delta_pct": -30.2
+      },
+      "playlist_adds": {
+        "value": 56,
+        "delta_pct": -30.0
+      },
+      "followers": {
+        "value": 76,
+        "delta_pct": 7.0
       }
     },
     "audience_segments": {
       "monthly_active_listeners": {
         "value": 105,
-        "delta_pct": -13.2
+        "share_of_monthly_listeners_pct": 49
       },
+      "streams_share_from_monthly_active_pct": 89,
+      "streams_per_listener_monthly_active": 9.3,
       "new_active_listeners": {
         "value": 32,
         "delta_pct": -38.5
@@ -263,24 +287,123 @@
         "delta_pct": 60.0
       }
     },
-    "top_songs_last_7_days": [
-      {
-        "name": "King Birthday",
-        "streams": 177
-      },
-      {
-        "name": "Let Me In",
-        "streams": 145
-      },
-      {
-        "name": "In Your DM",
-        "streams": 28
-      }
+    "top_locations_monthly_active_share": [
+      "Spain",
+      "France",
+      "United Kingdom"
     ],
-    "top_playlists_last_7_days": [
+    "daily_listeners": [
       {
-        "name": "Radio",
-        "streams": 88
+        "date": "2026-01-31",
+        "listeners": 8
+      },
+      {
+        "date": "2026-02-01",
+        "listeners": 9
+      },
+      {
+        "date": "2026-02-02",
+        "listeners": 9
+      },
+      {
+        "date": "2026-02-03",
+        "listeners": 8
+      },
+      {
+        "date": "2026-02-04",
+        "listeners": 5
+      },
+      {
+        "date": "2026-02-05",
+        "listeners": 17
+      },
+      {
+        "date": "2026-02-06",
+        "listeners": 14
+      },
+      {
+        "date": "2026-02-07",
+        "listeners": 12
+      },
+      {
+        "date": "2026-02-08",
+        "listeners": 8
+      },
+      {
+        "date": "2026-02-09",
+        "listeners": 8
+      },
+      {
+        "date": "2026-02-10",
+        "listeners": 12
+      },
+      {
+        "date": "2026-02-11",
+        "listeners": 8
+      },
+      {
+        "date": "2026-02-12",
+        "listeners": 7
+      },
+      {
+        "date": "2026-02-13",
+        "listeners": 10
+      },
+      {
+        "date": "2026-02-14",
+        "listeners": 10
+      },
+      {
+        "date": "2026-02-15",
+        "listeners": 8
+      },
+      {
+        "date": "2026-02-16",
+        "listeners": 14
+      },
+      {
+        "date": "2026-02-17",
+        "listeners": 10
+      },
+      {
+        "date": "2026-02-18",
+        "listeners": 9
+      },
+      {
+        "date": "2026-02-19",
+        "listeners": 12
+      },
+      {
+        "date": "2026-02-20",
+        "listeners": 16
+      },
+      {
+        "date": "2026-02-21",
+        "listeners": 22
+      },
+      {
+        "date": "2026-02-22",
+        "listeners": 16
+      },
+      {
+        "date": "2026-02-23",
+        "listeners": 14
+      },
+      {
+        "date": "2026-02-24",
+        "listeners": 19
+      },
+      {
+        "date": "2026-02-25",
+        "listeners": 34
+      },
+      {
+        "date": "2026-02-26",
+        "listeners": 31
+      },
+      {
+        "date": "2026-02-27",
+        "listeners": 9
       }
     ]
   }
