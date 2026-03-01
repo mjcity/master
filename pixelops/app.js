@@ -19,9 +19,18 @@ const agents = [
   mkAgent('Stack','Research','stack',3)
 ];
 
+function makeId(){
+  try {
+    if (globalThis.crypto && typeof globalThis.crypto.randomUUID === 'function') {
+      return globalThis.crypto.randomUUID().slice(0, 8);
+    }
+  } catch {}
+  return Math.random().toString(36).slice(2, 10);
+}
+
 function mkAgent(name, role, texture, i){
   return {
-    id: crypto.randomUUID().slice(0,8),
+    id: makeId(),
     name, role, texture,
     status:'idle',
     tx: 4 + i,
