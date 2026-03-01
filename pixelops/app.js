@@ -236,6 +236,9 @@ async function pollEvents(){
 }
 
 function init(){
+  if (window.__pixelopsBooted) return;
+  window.__pixelopsBooted = true;
+
   const script=document.createElement('script');
   script.src='https://cdn.jsdelivr.net/npm/phaser@3.70.0/dist/phaser.min.js';
   script.onload=()=>{
@@ -261,17 +264,17 @@ function init(){
   setInterval(pollEvents, 3000);
 }
 
-init();
-
-// Defensive bootstrap for stubborn browsers/caches
-window.addEventListener('DOMContentLoaded', () => {
+function ensureBoot(){
   try {
+    if (!window.__pixelopsBooted) init();
     if (document.querySelectorAll('#desks .desk').length === 0) renderPanels();
     if (document.querySelectorAll('#feed li').length === 0) log('Bootstrapped');
   } catch {}
-});
-setTimeout(() => {
-  try {
-    if (document.querySelectorAll('#desks .desk').length === 0) renderPanels();
-  } catch {}
-}, 1200);
+}
+
+// multi-pass boot for stubborn browsers / cached partial loads
+ensureBoot();
+window.addEventListener('DOMContentLoaded', ensureBoot);
+window.addEventListener('load', ensureBoot);
+setTimeout(ensureBoot, 600);
+setTimeout(ensureBoot, 1500);
