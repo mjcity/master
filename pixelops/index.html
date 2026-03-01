@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>PixelOps Live</title>
+  <link rel="stylesheet" href="./style.css?v=1" />
+</head>
+<body>
+  <header>
+    <h1>PixelOps Live</h1>
+    <p>Assign agents to desks and watch them work.</p>
+    <button id="addAgent">+ Agent</button>
+  </header>
+
+  <main>
+    <section class="left">
+      <div class="panel">
+        <h2>Desks (projects)</h2>
+        <div id="desks" class="desks"></div>
+      </div>
+      <div class="panel">
+        <h2>Agents</h2>
+        <div id="agents" class="agents"></div>
+      </div>
+      <div class="panel">
+        <h2>Event Feed</h2>
+        <ul id="feed"></ul>
+      </div>
+    </section>
+
+    <section class="right panel">
+      <h2>Office Floor</h2>
+      <canvas id="office" width="900" height="520"></canvas>
+      <p class="hint">Tip: click an agent card then click a desk to assign. Double-click agent to cycle status.</p>
+    </section>
+  </main>
+
+  <script src="./app.js?v=1"></script>
+</body>
+</html>
