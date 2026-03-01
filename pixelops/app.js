@@ -128,11 +128,11 @@ class OfficeScene extends Phaser.Scene {
   create(){
     const map=this.make.tilemap({key:'office'});
     const tileset=map.addTilesetImage('office_tiles','office_tiles');
-    map.createLayer('Ground',tileset,0,0);
-    map.createLayer('Walls',tileset,0,0);
-    map.createLayer('Objects',tileset,0,0);
-    const collision=map.createLayer('Collision',tileset,0,0);
-    collision.setCollisionByExclusion([-1,0]);
+    this.groundLayer = map.createLayer('Ground',tileset,0,0);
+    this.wallsLayer = map.createLayer('Walls',tileset,0,0);
+    this.objectsLayer = map.createLayer('Objects',tileset,0,0);
+    this.collisionLayer = map.createLayer('Collision',tileset,0,0);
+    this.collisionLayer.setCollisionByExclusion([-1,0]);
 
     this.physics.world.setBounds(0,0,map.widthInPixels,map.heightInPixels);
     this.createAnimations();
@@ -146,8 +146,9 @@ class OfficeScene extends Phaser.Scene {
 
   createAnimations(){
     const ranges = {
+      // preserve provided frame rows/timing layout across 24-frame strip
       idle: {start:0,end:3,rate:6},
-      walk: {start:4,end:11,rate:12},
+      walk: {start:4,end:11,rate:10},
       type: {start:12,end:15,rate:8},
       read: {start:16,end:19,rate:7},
       done: {start:20,end:23,rate:6}
@@ -175,7 +176,8 @@ class OfficeScene extends Phaser.Scene {
       a.ty = Math.round(sp.y / TILE);
       playAnim(a);
 
-      this.physics.add.collider(s, this.physics.world.staticBodies);
+      // wire collisions to Tiled Collision layer
+      this.physics.add.collider(s, this.collisionLayer);
       a.bubbleText=this.add.text(sp.x,sp.y-22,'',{font:'10px Arial',backgroundColor:'#111827',color:'#e5e7eb',padding:{x:4,y:2}}).setOrigin(0.5,1).setVisible(false).setDepth(20);
     });
   }
