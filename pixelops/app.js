@@ -1,5 +1,5 @@
 /* PixelOps V7 - Real tileset + sprite sheets */
-const BUILD = '16';
+const BUILD = '20';
 const MAP_KEY = `office_${BUILD}`;
 const TILE = 32;
 const statusCycle = ['idle','walk','type','read','done'];
@@ -132,6 +132,7 @@ OfficeScene = class OfficeScene extends Phaser.Scene {
   preload(){
     this.load.tilemapTiledJSON(MAP_KEY, `./assets/maps/office_map.json?v=${BUILD}`);
     this.load.image('office_tiles_32_img', `./assets/tiles/office_tiles_32.png?v=${BUILD}`);
+    this.load.image('office_tiles_32_jpg', `./assets/tiles/office_tiles_32.jpg?v=${BUILD}`);
 
     ['nova','byte','pulse','stack'].forEach(k=>{
       this.load.spritesheet(k, `./assets/characters/${k}.png`, { frameWidth: 32, frameHeight: 32 });
@@ -145,10 +146,16 @@ OfficeScene = class OfficeScene extends Phaser.Scene {
 
     let tilesetImageKey = 'office_tiles_32_img';
     if (this.isImageFullyTransparent('office_tiles_32_img')) {
-      console.warn('office_tiles_32.png is transparent/blank; using generated fallback tileset');
-      this.makeGeneratedTileset32();
-      tilesetImageKey = 'office_tiles_generated';
-      try { log('Tileset fallback active'); } catch {}
+      if (!this.isImageFullyTransparent('office_tiles_32_jpg')) {
+        console.warn('Using JPG tileset fallback from latest upload');
+        tilesetImageKey = 'office_tiles_32_jpg';
+        try { log('Using uploaded JPG tileset'); } catch {}
+      } else {
+        console.warn('office tileset is transparent/blank; using generated fallback tileset');
+        this.makeGeneratedTileset32();
+        tilesetImageKey = 'office_tiles_generated';
+        try { log('Tileset fallback active'); } catch {}
+      }
     }
 
     const tileset = map.addTilesetImage(tiledTilesetName, tilesetImageKey, 32, 32, 0, 0);
