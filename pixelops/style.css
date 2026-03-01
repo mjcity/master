@@ -4,9 +4,11 @@ header{padding:14px 16px;border-bottom:1px solid var(--line);display:flex;align-
 header h1{margin:0;font-size:1.25rem}header p{margin:0;color:var(--muted)}button{background:var(--cyan);color:#022;font-weight:700;border:none;border-radius:8px;padding:8px 10px;cursor:pointer}
 main{display:grid;grid-template-columns:360px 1fr;gap:12px;padding:12px}.panel{background:rgba(16,16,20,.94);border:1px solid var(--line);border-radius:12px;padding:10px}
 .panel h2{margin:.1rem 0 .6rem;font-size:1rem}.left{display:grid;gap:10px;align-content:start}.desks,.agents{display:grid;gap:8px}
-.desk,.agent{border:1px solid #334155;background:#0c1018;border-radius:9px;padding:8px}.desk{cursor:pointer}.desk.active{border-color:var(--cyan);box-shadow:0 0 0 1px var(--cyan) inset}
-.agent{display:flex;justify-content:space-between;align-items:center;gap:8px}.chip{font-size:.75rem;padding:2px 8px;border-radius:999px;border:1px solid #444;color:#d1d5db}
+.desk,.agent{border:1px solid #334155;background:#0c1018;border-radius:9px;padding:8px}.desk{cursor:pointer}.desk.active{border-color:var(--cyan);box-shadow:0 0 0 1px var(--cyan) inset}.desk.drop{border-color:var(--green);box-shadow:0 0 0 1px var(--green) inset}
+.agent{display:flex;justify-content:space-between;align-items:center;gap:8px;cursor:grab}.agent:active{cursor:grabbing}.chip{font-size:.75rem;padding:2px 8px;border-radius:999px;border:1px solid #444;color:#d1d5db}
 .idle{border-color:#475569}.walk{border-color:var(--purple);color:#e9d5ff}.type{border-color:var(--cyan);color:#a5f3fc}.read{border-color:var(--amber);color:#fde68a}.done{border-color:var(--green);color:#bbf7d0}
 #feed{list-style:none;margin:0;padding-left:0;max-height:180px;overflow:auto}#feed li{font-size:.85rem;color:#cbd5e1;padding:4px 0;border-bottom:1px dashed #1f2937}
+.bubble{position:absolute;pointer-events:none;background:#111827;color:#e5e7eb;border:1px solid #334155;border-radius:8px;padding:4px 7px;font-size:12px;white-space:nowrap;transform:translate(-50%,-120%);box-shadow:0 8px 20px rgba(0,0,0,.35)}
+.right{position:relative}
 .right canvas{width:100%;height:auto;background:#08090d;border:1px solid #1f2937;border-radius:10px;image-rendering:pixelated}.hint{color:var(--muted);font-size:.82rem}
 @media (max-width:980px){main{grid-template-columns:1fr}}
