@@ -257,28 +257,48 @@ function init(){
   if (window.__pixelopsBooted) return;
   window.__pixelopsBooted = true;
 
-  const script=document.createElement('script');
-  script.src='https://cdn.jsdelivr.net/npm/phaser@3.70.0/dist/phaser.min.js';
-  script.onload=()=>{
-    defineOfficeScene();
-    const oldCanvas=document.getElementById('office');
-    const parent=oldCanvas.parentElement;
-    oldCanvas.style.display='none';
-    const holder=document.createElement('div'); holder.id='phaser-holder';
-    parent.insertBefore(holder,oldCanvas);
-    new Phaser.Game({
-      type:Phaser.CANVAS,
-      width:30*TILE,
-      height:20*TILE,
-      parent:'phaser-holder',
-      pixelArt:true,
-      backgroundColor:'#08090d',
-      scale:{ mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH },
-      physics:{default:'arcade'},
-      scene:[OfficeScene]
-    });
+  const startGame = () => {
+    try {
+      defineOfficeScene();
+      const oldCanvas=document.getElementById('office');
+      const parent=oldCanvas.parentElement;
+      oldCanvas.style.display='none';
+      let holder=document.getElementById('phaser-holder');
+      if(!holder){ holder=document.createElement('div'); holder.id='phaser-holder'; parent.insertBefore(holder,oldCanvas); }
+      new Phaser.Game({
+        type:Phaser.CANVAS,
+        width:30*TILE,
+        height:20*TILE,
+        parent:'phaser-holder',
+        pixelArt:true,
+        backgroundColor:'#08090d',
+        scale:{ mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH },
+        physics:{default:'arcade'},
+        scene:[OfficeScene]
+      });
+    } catch (e) {
+      log('Engine start error');
+      console.error(e);
+    }
   };
-  document.body.appendChild(script);
+
+  const loadPhaser = (src, cb, fail) => {
+    const script=document.createElement('script');
+    script.src=src;
+    script.onload=cb;
+    script.onerror=fail;
+    document.body.appendChild(script);
+  };
+
+  if (window.Phaser) {
+    startGame();
+  } else {
+    loadPhaser('./vendor/phaser.min.js?v=1', startGame, () => {
+      loadPhaser('https://cdn.jsdelivr.net/npm/phaser@3.70.0/dist/phaser.min.js', startGame, () => {
+        log('Phaser failed to load');
+      });
+    });
+  }
 
   document.getElementById('addAgent').onclick=()=>{
     const name=prompt('Agent name?','Agent '+(agents.length+1)); if(!name) return;
