@@ -1,4 +1,6 @@
 /* PixelOps V7 - Real tileset + sprite sheets */
+const BUILD = '16';
+const MAP_KEY = `office_${BUILD}`;
 const TILE = 32;
 const statusCycle = ['idle','walk','type','read','done'];
 const desks = [
@@ -128,8 +130,8 @@ function defineOfficeScene(){
 OfficeScene = class OfficeScene extends Phaser.Scene {
   constructor(){ super('OfficeScene'); }
   preload(){
-    this.load.tilemapTiledJSON('office','./assets/maps/office_map.json');
-    this.load.image('office_tiles_32_img','./assets/tiles/office_tiles_32.png');
+    this.load.tilemapTiledJSON(MAP_KEY, `./assets/maps/office_map.json?v=${BUILD}`);
+    this.load.image('office_tiles_32_img', `./assets/tiles/office_tiles_32.png?v=${BUILD}`);
 
     ['nova','byte','pulse','stack'].forEach(k=>{
       this.load.spritesheet(k, `./assets/characters/${k}.png`, { frameWidth: 32, frameHeight: 32 });
@@ -137,7 +139,7 @@ OfficeScene = class OfficeScene extends Phaser.Scene {
   }
 
   create(){
-    const map=this.make.tilemap({key:'office'});
+    const map=this.make.tilemap({key: MAP_KEY});
     this.map = map;
     const tiledTilesetName = (map.tilesets && map.tilesets[0] && map.tilesets[0].name) ? map.tilesets[0].name : 'office_tiles_32';
     const tileset = map.addTilesetImage(tiledTilesetName, 'office_tiles_32_img', 32, 32, 0, 0);
