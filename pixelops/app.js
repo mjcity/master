@@ -123,7 +123,9 @@ function animForStatus(status){
   return 'idle';
 }
 
-class OfficeScene extends Phaser.Scene {
+let OfficeScene;
+function defineOfficeScene(){
+OfficeScene = class OfficeScene extends Phaser.Scene {
   constructor(){ super('OfficeScene'); }
   preload(){
     this.load.tilemapTiledJSON('office','./assets/maps/office_map.json');
@@ -215,6 +217,7 @@ class OfficeScene extends Phaser.Scene {
       }
     });
   }
+};
 }
 
 async function pollEvents(){
@@ -242,6 +245,7 @@ function init(){
   const script=document.createElement('script');
   script.src='https://cdn.jsdelivr.net/npm/phaser@3.70.0/dist/phaser.min.js';
   script.onload=()=>{
+    defineOfficeScene();
     const oldCanvas=document.getElementById('office');
     const parent=oldCanvas.parentElement;
     oldCanvas.style.display='none';
