@@ -7,7 +7,7 @@
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
   <title>PixelOps Live</title>
-  <link rel="stylesheet" href="./style.css?v=12" />
+  <link rel="stylesheet" href="./style.css?v=13" />
 </head>
 <body>
   <header>
@@ -39,6 +39,20 @@
     </section>
   </main>
 
-  <script src="./app.js?v=12"></script>
+  <script src="./app.js?v=13"></script>
+  <script>
+    (function(){
+      function nudge(){
+        try {
+          var desks = document.querySelectorAll('#desks .desk').length;
+          if(desks===0 && typeof window.init==='function') window.init();
+          if(desks===0 && typeof window.renderPanels==='function') window.renderPanels();
+        } catch(e) {}
+      }
+      window.addEventListener('load', nudge);
+      setTimeout(nudge, 400);
+      setTimeout(nudge, 1400);
+    })();
+  </script>
 </body>
 </html>
