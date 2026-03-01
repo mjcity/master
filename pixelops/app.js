@@ -139,7 +139,12 @@ OfficeScene = class OfficeScene extends Phaser.Scene {
   create(){
     const map=this.make.tilemap({key:'office'});
     this.map = map;
-    const tileset=map.addTilesetImage('office_tiles_32','office_tiles_32_img');
+    const tiledTilesetName = (map.tilesets && map.tilesets[0] && map.tilesets[0].name) ? map.tilesets[0].name : 'office_tiles_32';
+    const tileset = map.addTilesetImage(tiledTilesetName, 'office_tiles_32_img', 32, 32, 0, 0);
+    if (!tileset) {
+      console.error('Tileset bind failed', { tiledTilesetName, mapTilesets: map.tilesets });
+      return;
+    }
     this.groundLayer = map.getLayer('Ground') ? map.createLayer('Ground',tileset,0,0) : null;
     this.wallsLayer = map.getLayer('Walls') ? map.createLayer('Walls',tileset,0,0) : null;
     this.objectsLayer = map.getLayer('Objects') ? map.createLayer('Objects',tileset,0,0) : null;
