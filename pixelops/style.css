@@ -1,16 +1,13 @@
-:root{--bg:#060606;--panel:#101014;--line:#2a2a30;--text:#e5e7eb;--muted:#94a3b8;--cyan:#00E5FF;--purple:#A855F7;--green:#34D399;--pink:#FF2DAA;--amber:#FBBF24}
-*{box-sizing:border-box}body{margin:0;background:linear-gradient(135deg,#050505,#0d0d11);color:var(--text);font-family:Inter,system-ui,sans-serif}
-header{padding:14px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-header h1{margin:0;font-size:1.25rem}header p{margin:0;color:var(--muted)}button{background:var(--cyan);color:#022;font-weight:700;border:none;border-radius:8px;padding:8px 10px;cursor:pointer}
-main{display:grid;grid-template-columns:360px 1fr;gap:12px;padding:12px}.panel{background:rgba(16,16,20,.94);border:1px solid var(--line);border-radius:12px;padding:10px}
-.panel h2{margin:.1rem 0 .6rem;font-size:1rem}.left{display:grid;gap:10px;align-content:start}.desks,.agents{display:grid;gap:8px}
-.desk,.agent{border:1px solid #334155;background:#0c1018;border-radius:9px;padding:8px}.desk{cursor:pointer}.desk.active{border-color:var(--cyan);box-shadow:0 0 0 1px var(--cyan) inset}.desk.drop{border-color:var(--green);box-shadow:0 0 0 1px var(--green) inset}
-.agent{display:flex;justify-content:space-between;align-items:center;gap:8px;cursor:grab}.agent:active{cursor:grabbing}.chip{font-size:.75rem;padding:2px 8px;border-radius:999px;border:1px solid #444;color:#d1d5db}
-.idle{border-color:#475569}.walk{border-color:var(--purple);color:#e9d5ff}.type{border-color:var(--cyan);color:#a5f3fc}.read{border-color:var(--amber);color:#fde68a}.done{border-color:var(--green);color:#bbf7d0}
-#feed{list-style:none;margin:0;padding-left:0;max-height:180px;overflow:auto}#feed li{font-size:.85rem;color:#cbd5e1;padding:4px 0;border-bottom:1px dashed #1f2937}
-.bubble{position:absolute;pointer-events:none;background:#111827;color:#e5e7eb;border:1px solid #334155;border-radius:8px;padding:4px 7px;font-size:12px;white-space:nowrap;transform:translate(-50%,-120%);box-shadow:0 8px 20px rgba(0,0,0,.35)}
-.right{position:relative}
-.right canvas{width:100% !important;height:auto !important;max-width:100%;background:#08090d;border:1px solid #1f2937;border-radius:10px;image-rendering:pixelated}.hint{color:var(--muted);font-size:.82rem}
-#phaser-holder{width:100%;max-width:100%;overflow:hidden;border-radius:10px}
-#phaser-holder canvas{display:block;width:100% !important;height:auto !important;image-rendering:pixelated}
-@media (max-width:980px){main{grid-template-columns:1fr}}
+:root{--bg:#07090f;--panel:#121827;--line:#28354f;--txt:#eaf1ff;--muted:#9fb2d8;--cyan:#6ee7ff;--green:#86efac}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#07090f,#0e1320);color:var(--txt);font-family:Inter,system-ui,sans-serif}
+header{display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid var(--line)}header h1{margin:0;font-size:1.2rem}header p{margin:0;color:var(--muted)}button{border:1px solid #33507a;background:#10203a;color:#dbeafe;border-radius:8px;padding:7px 10px;cursor:pointer}
+main{display:grid;grid-template-columns:340px 1fr;gap:10px;padding:10px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px}
+aside{display:grid;gap:10px;align-content:start}.panel h2{margin:0 0 8px;font-size:.95rem;color:#b9ccf0}
+#desks,#agents{display:grid;gap:8px}.desk,.agent{background:#0f1523;border:1px solid #2b3f5d;border-radius:9px;padding:8px}.desk{cursor:pointer}.desk.active{outline:1px solid var(--cyan)}.agent{display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+.chip{font-size:.72rem;padding:2px 8px;border-radius:999px;border:1px solid #3b4f70}.idle{color:#cbd5e1}.walk{color:#c4b5fd}.type{color:#67e8f9}.read{color:#fde68a}.done{color:var(--green)}
+#feed{list-style:none;margin:0;padding-left:0;max-height:220px;overflow:auto}#feed li{padding:5px 0;border-bottom:1px dashed #22314a;color:#cfe0ff;font-size:.84rem}
+.floor-wrap{display:flex;flex-direction:column;min-width:0}.floor-wrap canvas{width:100%;height:auto;max-height:72vh;border:1px solid #243652;border-radius:10px;background:#05070d;image-rendering:pixelated;display:block}
+.hint{color:var(--muted);font-size:.8rem;margin:.45rem 0 0}
+.bubble{position:absolute;z-index:3;background:#111827;color:#e5e7eb;border:1px solid #334155;border-radius:8px;padding:3px 6px;font-size:12px;pointer-events:none;transform:translate(-50%,-120%)}
+.floor-wrap{position:relative}
+@media (max-width:980px){main{grid-template-columns:1fr} .floor-wrap canvas{max-height:58vh}}

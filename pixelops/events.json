@@ -41,6 +41,27 @@
       "deskId": "d1",
       "status": "done",
       "msg": "Deploy complete"
+    },
+    {
+      "ts": 1772374221,
+      "agent": "Nova",
+      "deskId": "d1",
+      "status": "walk",
+      "msg": "Starting 9:10 refresh"
+    },
+    {
+      "ts": 1772374268,
+      "agent": "Nova",
+      "deskId": "d1",
+      "status": "type",
+      "msg": "Updating dashboard data"
+    },
+    {
+      "ts": 1772374277,
+      "agent": "Nova",
+      "deskId": "d1",
+      "status": "done",
+      "msg": "Refresh deployed"
     }
   ]
 }

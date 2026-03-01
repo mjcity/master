@@ -1,378 +1,247 @@
-/* PixelOps V7 - Real tileset + sprite sheets */
-const BUILD = '21';
-const MAP_KEY = `office_${BUILD}`;
+const canvas = document.getElementById('office');
+const ctx = canvas.getContext('2d');
+const wrap = document.getElementById('floorWrap');
 const TILE = 32;
-const statusCycle = ['idle','walk','type','read','done'];
+const WORLD = { w: 30 * TILE, h: 20 * TILE };
+
+const images = {
+  male: loadImg('./assets/imported/char_male.jpg'),
+  gray: loadImg('./assets/imported/char_gray.jpg'),
+  female: loadImg('./assets/imported/char_female.jpg'),
+  red: loadImg('./assets/imported/char_red.jpg'),
+  office: loadImg('./assets/imported/office_items.jpg')
+};
+
 const desks = [
-  { id:'d1', name:'Artist Dashboard', dir:'/artist-dashboard', tx:6, ty:5 },
-  { id:'d2', name:'Goal Tracker', dir:'/mjcitytracker', tx:14, ty:5 },
-  { id:'d3', name:'TechMyMoney', dir:'/techmymoney', tx:22, ty:5 },
-  { id:'d4', name:'Automation', dir:'/scripts', tx:10, ty:13 },
-  { id:'d5', name:'Media Ops', dir:'/content', tx:19, ty:13 }
+  { id:'d1', name:'Artist Dashboard', x:180, y:180 },
+  { id:'d2', name:'Goal Tracker', x:420, y:180 },
+  { id:'d3', name:'TechMyMoney', x:660, y:180 },
+  { id:'d4', name:'Automation', x:300, y:430 },
+  { id:'d5', name:'Media Ops', x:560, y:430 }
+];
+
+const stateOrder = ['idle','walk','type','read','done'];
+const agents = [
+  mkAgent('Nova','Frontend','male',120,520),
+  mkAgent('Byte','Automation','gray',180,520),
+  mkAgent('Pulse','QA','female',240,520),
+  mkAgent('Echo','Research','red',300,520)
 ];
 
 let selectedAgent = null;
-let lastEventTs = 0;
+let ready = false;
 
-const agents = [
-  mkAgent('Nova','Frontend','nova',0),
-  mkAgent('Byte','Automation','byte',1),
-  mkAgent('Pulse','QA','pulse',2),
-  mkAgent('Stack','Research','stack',3)
-];
-
-function makeId(){
-  try {
-    if (globalThis.crypto && typeof globalThis.crypto.randomUUID === 'function') {
-      return globalThis.crypto.randomUUID().slice(0, 8);
-    }
-  } catch {}
-  return Math.random().toString(36).slice(2, 10);
+function loadImg(src){
+  const img = new Image();
+  img.src = src;
+  return img;
 }
 
-function mkAgent(name, role, texture, i){
-  return {
-    id: makeId(),
-    name, role, texture,
-    status:'idle',
-    tx: 4 + i,
-    ty: 14,
-    targetDesk:null,
-    sprite:null,
-    bubbleText:null,
-    bubbleUntil:0,
-  };
+function mkAgent(name, role, sheet, x, y){
+  return { id: randId(), name, role, sheet, x, y, tx:x, ty:y, state:'idle', bubble:'', bubbleUntil:0, dir:'right' };
 }
 
-function tileToPx(tx, ty){ return { x: tx*TILE + TILE/2, y: ty*TILE + TILE/2 }; }
+function randId(){ return Math.random().toString(36).slice(2, 10); }
 
 function log(msg){
-  const feed=document.getElementById('feed');
-  const li=document.createElement('li');
-  li.textContent=`${new Date().toLocaleTimeString()} • ${msg}`;
+  const feed = document.getElementById('feed');
+  const li = document.createElement('li');
+  li.textContent = `${new Date().toLocaleTimeString()} • ${msg}`;
   feed.prepend(li);
-  while(feed.children.length>40) feed.removeChild(feed.lastChild);
+  while(feed.children.length > 40) feed.removeChild(feed.lastChild);
 }
 
 function renderPanels(){
-  const dRoot=document.getElementById('desks'); dRoot.innerHTML='';
-  desks.forEach(d=>{
-    const el=document.createElement('div');
-    el.className='desk';
-    el.innerHTML=`<strong>${d.name}</strong><br><small>${d.dir}</small>`;
-    el.onclick=()=>assignToDesk(d.id);
-    el.ondragover=(e)=>{e.preventDefault(); el.classList.add('drop');};
-    el.ondragleave=()=>el.classList.remove('drop');
-    el.ondrop=(e)=>{e.preventDefault(); el.classList.remove('drop'); const aid=e.dataTransfer.getData('text/agent-id'); if(aid){ selectedAgent=aid; assignToDesk(d.id);} };
-    dRoot.appendChild(el);
+  const desksEl = document.getElementById('desks');
+  desksEl.innerHTML = '';
+  desks.forEach(d => {
+    const el = document.createElement('div');
+    el.className = 'desk';
+    el.innerHTML = `<strong>${d.name}</strong>`;
+    el.onclick = () => assignDesk(d.id);
+    desksEl.appendChild(el);
   });
 
-  const aRoot=document.getElementById('agents'); aRoot.innerHTML='';
-  agents.forEach(a=>{
-    const el=document.createElement('div');
-    el.className='agent';
-    el.draggable=true;
-    el.innerHTML=`<div><strong>${a.name}</strong><br><small>${a.role}</small></div><span class="chip ${a.status}">${a.status}</span>`;
-    el.onclick=()=>{selectedAgent=a.id; renderPanels();};
-    el.ondblclick=()=>cycleStatus(a.id);
-    el.ondragstart=(e)=>e.dataTransfer.setData('text/agent-id',a.id);
-    if(selectedAgent===a.id) el.style.outline='1px solid #00E5FF';
-    aRoot.appendChild(el);
+  const agentsEl = document.getElementById('agents');
+  agentsEl.innerHTML = '';
+  agents.forEach(a => {
+    const el = document.createElement('div');
+    el.className = 'agent';
+    el.innerHTML = `<div><strong>${a.name}</strong><br><small>${a.role}</small></div><span class="chip ${a.state}">${a.state}</span>`;
+    el.onclick = () => { selectedAgent = a.id; renderPanels(); log(`${a.name} selected`); };
+    el.ondblclick = () => cycleState(a.id);
+    if(selectedAgent === a.id) el.style.outline = '1px solid #6ee7ff';
+    agentsEl.appendChild(el);
   });
 }
 
-function assignToDesk(did){
+function assignDesk(did){
   if(!selectedAgent) return log('Select an agent first.');
-  const a=agents.find(x=>x.id===selectedAgent), d=desks.find(x=>x.id===did);
+  const a = agents.find(x => x.id === selectedAgent);
+  const d = desks.find(x => x.id === did);
   if(!a || !d) return;
-  a.targetDesk=did;
-  a.tx=d.tx; a.ty=d.ty+1.5;
-  a.status='walk';
-  speak(a, `To ${d.name}`);
-  playAnim(a);
-  renderPanels();
+  a.tx = d.x; a.ty = d.y + 24; a.state = 'walk'; a.bubble = `To ${d.name}`; a.bubbleUntil = Date.now()+1800;
   log(`${a.name} assigned to ${d.name}`);
-}
-
-function cycleStatus(id){
-  const a=agents.find(x=>x.id===id); if(!a) return;
-  a.status=statusCycle[(statusCycle.indexOf(a.status)+1)%statusCycle.length];
-  speak(a,a.status.toUpperCase());
-  playAnim(a);
   renderPanels();
-  log(`${a.name} → ${a.status}`);
 }
 
-function speak(agent, text){
-  if(!agent) return;
-  agent.bubbleUntil = Date.now() + 2200;
-  if(agent.bubbleText){
-    agent.bubbleText.setText(text).setVisible(true);
+function cycleState(id){
+  const a = agents.find(x => x.id === id); if(!a) return;
+  a.state = stateOrder[(stateOrder.indexOf(a.state)+1)%stateOrder.length];
+  a.bubble = a.state.toUpperCase(); a.bubbleUntil = Date.now()+1500;
+  renderPanels();
+}
+
+function frameRect(sheetName, state, t){
+  // Assumes 6x3 atlas style from uploaded references
+  const img = images[sheetName];
+  const cols = 6, rows = 3;
+  const fw = img.naturalWidth / cols;
+  const fh = img.naturalHeight / rows;
+
+  let row = 0;
+  if (state === 'walk') row = 1;
+  else if (state === 'type' || state === 'read' || state === 'done') row = 2;
+
+  let col = 0;
+  if (state === 'idle') col = 0;
+  else if (state === 'walk') col = 1 + (Math.floor(t/140)%4);
+  else if (state === 'type') col = 0 + (Math.floor(t/180)%2);
+  else if (state === 'read') col = 2 + (Math.floor(t/220)%2);
+  else if (state === 'done') col = 5;
+
+  return { sx: col*fw, sy: row*fh, sw: fw, sh: fh };
+}
+
+function drawOfficeBackground(){
+  // base zones
+  ctx.fillStyle = '#805030'; ctx.fillRect(0,0,WORLD.w,WORLD.h);
+  ctx.fillStyle = '#d7d7db'; ctx.fillRect(22*TILE,0,8*TILE,10*TILE);
+  ctx.fillStyle = '#2e4660'; ctx.fillRect(14*TILE,10*TILE,16*TILE,10*TILE);
+
+  // use uploaded office items sheet as décor strip + sampled items
+  const office = images.office;
+  if (office.complete) {
+    const iw = office.naturalWidth, ih = office.naturalHeight;
+    // top furniture strip
+    ctx.drawImage(office, 0, 0, iw, Math.floor(ih*0.55), 32, 32, WORLD.w-64, 180);
+    // extra icons sampled from lower row
+    ctx.drawImage(office, Math.floor(iw*0.62), Math.floor(ih*0.60), Math.floor(iw*0.3), Math.floor(ih*0.35), 70, 300, 320, 180);
+    ctx.drawImage(office, Math.floor(iw*0.20), Math.floor(ih*0.55), Math.floor(iw*0.18), Math.floor(ih*0.3), 700, 320, 180, 160);
   }
+
+  // wall borders
+  ctx.fillStyle = '#101020';
+  ctx.fillRect(0,0,WORLD.w,8); ctx.fillRect(0,0,8,WORLD.h); ctx.fillRect(WORLD.w-8,0,8,WORLD.h); ctx.fillRect(0,WORLD.h-8,WORLD.w,8);
 }
 
-function playAnim(agent){
-  if(!agent?.sprite) return;
-  const key = `${agent.texture}_${animForStatus(agent.status)}`;
-  if(agent.sprite.anims?.animationManager?.exists(key)) agent.sprite.play(key, true);
+function drawDesks(){
+  ctx.font = '12px sans-serif';
+  desks.forEach(d => {
+    ctx.fillStyle = '#704010'; ctx.fillRect(d.x-28,d.y-16,56,26);
+    ctx.fillStyle = '#9ca3af'; ctx.fillRect(d.x-10,d.y-24,20,8);
+    ctx.fillStyle = '#dbeafe'; ctx.fillText(d.name, d.x-44, d.y+34);
+  });
 }
 
-function animForStatus(status){
-  if(status==='walk') return 'walk';
-  if(status==='type') return 'type';
-  if(status==='read') return 'read';
-  if(status==='done') return 'done';
-  return 'idle';
-}
-
-let OfficeScene;
-function defineOfficeScene(){
-OfficeScene = class OfficeScene extends Phaser.Scene {
-  constructor(){ super('OfficeScene'); }
-  preload(){
-    this.load.tilemapTiledJSON(MAP_KEY, `./assets/maps/office_map.json?v=${BUILD}`);
-    this.load.image('office_tiles_32_img', `./assets/tiles/office_tiles_32.png?v=${BUILD}`);
-
-    ['nova','byte','pulse','stack'].forEach(k=>{
-      this.load.spritesheet(k, `./assets/characters/${k}.png`, { frameWidth: 32, frameHeight: 32 });
-    });
-  }
-
-  create(){
-    const map=this.make.tilemap({key: MAP_KEY});
-    this.map = map;
-    const tiledTilesetName = (map.tilesets && map.tilesets[0] && map.tilesets[0].name) ? map.tilesets[0].name : 'office_tiles_32';
-
-    let tilesetImageKey = 'office_tiles_32_img';
-    if (this.isImageFullyTransparent('office_tiles_32_img')) {
-      console.warn('office tileset is transparent/blank; using generated fallback tileset');
-      this.makeGeneratedTileset32();
-      tilesetImageKey = 'office_tiles_generated';
-      try { log('Tileset fallback active'); } catch {}
+function updateAgents(dt){
+  agents.forEach(a => {
+    const dx = a.tx - a.x, dy = a.ty - a.y;
+    const dist = Math.hypot(dx,dy);
+    if (dist > 1.5) {
+      const step = Math.min(2.8, dist*0.08);
+      a.x += (dx/dist)*step;
+      a.y += (dy/dist)*step;
+      if(a.state !== 'walk') a.state = 'walk';
+      a.dir = dx < 0 ? 'left' : 'right';
+    } else if (a.state === 'walk') {
+      a.state = 'type';
+      a.bubble = 'WORK'; a.bubbleUntil = Date.now()+1400;
     }
+  });
+}
 
-    const tileset = map.addTilesetImage(tiledTilesetName, tilesetImageKey, 32, 32, 0, 0);
-    if (!tileset) {
-      console.error('Tileset bind failed', { tiledTilesetName, mapTilesets: map.tilesets });
-      return;
+function drawAgents(t){
+  agents.forEach(a => {
+    const img = images[a.sheet];
+    if (!img.complete) return;
+    const f = frameRect(a.sheet, a.state, t);
+    const dw = 54, dh = 54;
+
+    ctx.save();
+    if (a.dir === 'left') {
+      ctx.translate(a.x, a.y);
+      ctx.scale(-1,1);
+      ctx.drawImage(img, f.sx,f.sy,f.sw,f.sh, -dw/2, -dh+8, dw, dh);
+    } else {
+      ctx.drawImage(img, f.sx,f.sy,f.sw,f.sh, a.x-dw/2, a.y-dh+8, dw, dh);
     }
-    this.groundLayer = map.getLayer('Ground') ? map.createLayer('Ground',tileset,0,0) : null;
-    this.wallsLayer = map.getLayer('Walls') ? map.createLayer('Walls',tileset,0,0) : null;
-    this.objectsLayer = map.getLayer('Objects') ? map.createLayer('Objects',tileset,0,0) : null;
-    this.collisionLayer = map.getLayer('Collision') ? map.createLayer('Collision',tileset,0,0) : null;
-    if (this.collisionLayer) this.collisionLayer.setCollisionByExclusion([-1,0]);
+    ctx.restore();
 
-    this.physics.world.setBounds(0,0,map.widthInPixels,map.heightInPixels);
-    this.textures.each(t => t.setFilter(Phaser.Textures.FilterMode.NEAREST));
-    this.createAnimations();
-    this.spawnAgents(map);
-
-    this.cameras.main.setRoundPixels(true);
-    this.cameras.main.setZoom(1);
-
-    // user zoom controls (desktop/laptop)
-    this.input.on('wheel', (_p, _go, _dx, dy) => {
-      const z = Phaser.Math.Clamp(this.cameras.main.zoom - (dy > 0 ? 0.1 : -0.1), 0.8, 3);
-      this.cameras.main.setZoom(z);
-    });
-
-    this.time.addEvent({delay:60,loop:true,callback:()=>this.tickMove()});
-  }
-
-  isImageFullyTransparent(key){
-    try {
-      const tex = this.textures.get(key);
-      if (!tex) return true;
-      const src = tex.getSourceImage();
-      const c = document.createElement('canvas');
-      c.width = src.width; c.height = src.height;
-      const cx = c.getContext('2d');
-      cx.drawImage(src, 0, 0);
-      const d = cx.getImageData(0, 0, c.width, c.height).data;
-      for (let i = 3; i < d.length; i += 4) {
-        if (d[i] !== 0) return false;
-      }
-      return true;
-    } catch {
-      return false;
+    if (Date.now() < a.bubbleUntil && a.bubble) {
+      drawBubble(a.x, a.y-48, a.bubble);
     }
-  }
+  });
+}
 
-  makeGeneratedTileset32(){
-    if (this.textures.exists('office_tiles_generated')) return;
-    const tex = this.textures.createCanvas('office_tiles_generated', 256, 256);
-    const c = tex.getContext();
-    const draw = (idx, fill, stroke='#1f2937') => {
-      const x = (idx % 8) * 32;
-      const y = Math.floor(idx / 8) * 32;
-      c.fillStyle = fill;
-      c.fillRect(x, y, 32, 32);
-      c.strokeStyle = stroke;
-      c.strokeRect(x + 0.5, y + 0.5, 31, 31);
-    };
-    // 1..5 used by map
-    draw(0, '#806030', '#704010'); // gid 1
-    draw(1, '#d0c0c0', '#f0e8e8'); // gid 2
-    draw(2, '#2E4660', '#203040'); // gid 3
-    draw(3, '#507090', '#101020'); // gid 4
-    draw(4, '#805030', '#704010'); // gid 5
-    tex.refresh();
-  }
+function drawBubble(x,y,text){
+  const pad=6;
+  ctx.font = '12px sans-serif';
+  const w = ctx.measureText(text).width + pad*2;
+  const h = 22;
+  ctx.fillStyle = '#111827'; ctx.strokeStyle='#334155';
+  ctx.beginPath();
+  roundRect(ctx, x-w/2, y-h, w, h, 7);
+  ctx.fill(); ctx.stroke();
+  ctx.fillStyle='#e5e7eb'; ctx.fillText(text, x-w/2+pad, y-7);
+}
 
-  createAnimations(){
-    const ranges = {
-      // preserve provided frame rows/timing layout across 24-frame strip
-      idle: {start:0,end:3,rate:6},
-      walk: {start:4,end:11,rate:10},
-      type: {start:12,end:15,rate:8},
-      read: {start:16,end:19,rate:7},
-      done: {start:20,end:23,rate:6}
-    };
-    ['nova','byte','pulse','stack'].forEach(tex=>{
-      Object.entries(ranges).forEach(([name,r])=>{
-        const key=`${tex}_${name}`;
-        if(this.anims.exists(key)) return;
-        this.anims.create({ key, frames: this.anims.generateFrameNumbers(tex,{start:r.start,end:r.end}), frameRate:r.rate, repeat:-1 });
-      });
-    });
-  }
+function roundRect(ctx,x,y,w,h,r){
+  ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath();
+}
 
-  spawnAgents(map){
-    const spawns = map.getObjectLayer('Spawns');
-    const spawnByName = (n, defX, defY) => (spawns?.objects || []).find(o=>o.name===n) || {x:defX,y:defY};
+function fitCanvas(){
+  const rect = wrap.getBoundingClientRect();
+  const maxW = Math.max(320, rect.width - 24);
+  const scale = Math.min(maxW / WORLD.w, 1);
+  canvas.style.width = `${Math.floor(WORLD.w * scale)}px`;
+  canvas.style.height = `${Math.floor(WORLD.h * scale)}px`;
+}
 
-    agents.forEach((a,i)=>{
-      const sp = spawnByName(`spawn_${a.texture}`, 64 + (i*28), 220);
-      const s=this.physics.add.sprite(sp.x, sp.y, a.texture, 0);
-      s.setCollideWorldBounds(true);
-      s.setDepth(10);
-      a.sprite=s;
-      a.tx = Math.round(sp.x / TILE);
-      a.ty = Math.round(sp.y / TILE);
-      playAnim(a);
-
-      // wire collisions to Tiled Collision layer
-      if (this.collisionLayer) this.physics.add.collider(s, this.collisionLayer);
-      a.bubbleText=this.add.text(sp.x,sp.y-22,'',{font:'10px Arial',backgroundColor:'#111827',color:'#e5e7eb',padding:{x:4,y:2}}).setOrigin(0.5,1).setVisible(false).setDepth(20);
-    });
-  }
-
-  tickMove(){
-    agents.forEach(a=>{
-      if(!a.sprite) return;
-      if(a.targetDesk){
-        const p=tileToPx(a.tx,a.ty);
-        const dx=p.x-a.sprite.x, dy=p.y-a.sprite.y;
-        const dist=Math.hypot(dx,dy);
-        if(dist>2){
-          a.sprite.setVelocity(dx*3.8, dy*3.8);
-          if(a.status!=='walk'){ a.status='walk'; playAnim(a); }
-        } else {
-          a.sprite.setVelocity(0,0);
-          if(a.status==='walk'){ a.status='type'; playAnim(a); speak(a,'WORK'); }
-        }
-      } else {
-        a.sprite.setVelocity(0,0);
-      }
-
-      if(a.bubbleText){
-        a.bubbleText.setPosition(a.sprite.x, a.sprite.y-20);
-        if(Date.now()>a.bubbleUntil) a.bubbleText.setVisible(false);
-      }
-    });
-  }
-};
+function loop(t){
+  ctx.clearRect(0,0,WORLD.w,WORLD.h);
+  drawOfficeBackground();
+  drawDesks();
+  updateAgents(16);
+  drawAgents(t);
+  requestAnimationFrame(loop);
 }
 
 async function pollEvents(){
-  try{
-    const r=await fetch('./events.json?_='+Date.now());
+  try {
+    const r = await fetch('./events.json?_=' + Date.now());
     if(!r.ok) return;
-    const data=await r.json();
-    (data.events||[]).forEach(e=>{
-      if((e.ts||0)<=lastEventTs) return;
-      lastEventTs = Math.max(lastEventTs, e.ts||0);
-      const a=agents.find(x=>x.name.toLowerCase()===String(e.agent||'').toLowerCase()) || agents[0];
+    const d = await r.json();
+    (d.events||[]).forEach(e => {
+      if ((e.ts||0) <= (window.__lastEv||0)) return;
+      window.__lastEv = Math.max(window.__lastEv||0, e.ts||0);
+      const a = agents.find(x => x.name.toLowerCase() === String(e.agent||'').toLowerCase()) || agents[0];
       if(!a) return;
-      if(e.status){ a.status=e.status; playAnim(a); }
-      if(e.deskId){ selectedAgent=a.id; assignToDesk(e.deskId); }
-      if(e.msg){ speak(a, e.msg.slice(0,18)); log(`${a.name}: ${e.msg}`); }
+      if (e.status) a.state = e.status;
+      if (e.deskId) { selectedAgent = a.id; assignDesk(e.deskId); }
+      if (e.msg) { a.bubble = e.msg.slice(0, 16); a.bubbleUntil = Date.now()+1800; log(`${a.name}: ${e.msg}`); }
     });
     renderPanels();
   } catch {}
 }
 
 function init(){
-  if (window.__pixelopsBooted) return;
-  window.__pixelopsBooted = true;
-
-  const startGame = () => {
-    try {
-      defineOfficeScene();
-      const oldCanvas=document.getElementById('office');
-      const parent=oldCanvas.parentElement;
-      oldCanvas.style.display='none';
-      let holder=document.getElementById('phaser-holder');
-      if(!holder){ holder=document.createElement('div'); holder.id='phaser-holder'; parent.insertBefore(holder,oldCanvas); }
-      new Phaser.Game({
-        type:Phaser.CANVAS,
-        width:30*TILE,
-        height:20*TILE,
-        parent:'phaser-holder',
-        pixelArt:true,
-        backgroundColor:'#08090d',
-        scale:{ mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH },
-        physics:{default:'arcade'},
-        scene:[OfficeScene]
-      });
-    } catch (e) {
-      log('Engine start error');
-      console.error(e);
-    }
-  };
-
-  const loadPhaser = (src, cb, fail) => {
-    const script=document.createElement('script');
-    script.src=src;
-    script.onload=cb;
-    script.onerror=fail;
-    document.body.appendChild(script);
-  };
-
-  if (window.Phaser) {
-    startGame();
-  } else {
-    loadPhaser('./vendor/phaser.min.js?v=1', startGame, () => {
-      loadPhaser('https://cdn.jsdelivr.net/npm/phaser@3.70.0/dist/phaser.min.js', startGame, () => {
-        log('Phaser failed to load');
-      });
-    });
-  }
-
-  document.getElementById('addAgent').onclick=()=>{
-    const name=prompt('Agent name?','Agent '+(agents.length+1)); if(!name) return;
-    const role=prompt('Role?','Generalist')||'Generalist';
-    const tex=['nova','byte','pulse','stack'][agents.length%4];
-    const a=mkAgent(name,role,tex,agents.length); agents.push(a);
-    renderPanels(); log(`${a.name} spawned`);
-  };
-
   renderPanels();
-  log('PixelOps v7 loaded (real assets)');
-  setInterval(pollEvents, 3000);
+  fitCanvas();
+  requestAnimationFrame(loop);
+  setInterval(pollEvents, 3500);
+  log('PixelOps rebuilt with uploaded assets');
 }
 
-function ensureBoot(){
-  try {
-    if (!window.__pixelopsBooted) init();
-    if (document.querySelectorAll('#desks .desk').length === 0) renderPanels();
-    if (document.querySelectorAll('#feed li').length === 0) log('Bootstrapped');
-  } catch {}
-}
-
-// multi-pass boot for stubborn browsers / cached partial loads
-ensureBoot();
-window.addEventListener('DOMContentLoaded', ensureBoot);
-window.addEventListener('load', ensureBoot);
-setTimeout(ensureBoot, 600);
-setTimeout(ensureBoot, 1500);
+window.addEventListener('resize', fitCanvas);
+Promise.all(Object.values(images).map(img => new Promise(res => { if (img.complete) res(); else img.onload = img.onerror = () => res(); }))).then(init);

@@ -1,1 +1,41 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PixelOps Paused</title><style>body{margin:0;font-family:Inter,system-ui;background:#070707;color:#e5e7eb;display:grid;place-items:center;min-height:100vh}main{max-width:680px;padding:24px;text-align:center;border:1px solid #334155;border-radius:12px;background:#111827}</style></head><body><main><h1>PixelOps project paused</h1><p>This project has been temporarily taken offline by the owner.</p></main></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PixelOps</title>
+  <link rel="stylesheet" href="./style.css?v=30" />
+</head>
+<body>
+  <header>
+    <h1>PixelOps</h1>
+    <p>Retro office command floor</p>
+    <button id="addAgent">+ Agent</button>
+  </header>
+
+  <main>
+    <aside>
+      <section class="panel">
+        <h2>Desks</h2>
+        <div id="desks"></div>
+      </section>
+      <section class="panel">
+        <h2>Agents</h2>
+        <div id="agents"></div>
+      </section>
+      <section class="panel">
+        <h2>Event Feed</h2>
+        <ul id="feed"></ul>
+      </section>
+    </aside>
+
+    <section class="panel floor-wrap" id="floorWrap">
+      <h2>Office Floor</h2>
+      <canvas id="office" width="960" height="640"></canvas>
+      <p class="hint">Click agent then desk to assign. Double-click agent to cycle status.</p>
+    </section>
+  </main>
+
+  <script src="./app.js?v=30"></script>
+</body>
+</html>
