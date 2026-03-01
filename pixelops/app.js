@@ -142,7 +142,16 @@ OfficeScene = class OfficeScene extends Phaser.Scene {
     const map=this.make.tilemap({key: MAP_KEY});
     this.map = map;
     const tiledTilesetName = (map.tilesets && map.tilesets[0] && map.tilesets[0].name) ? map.tilesets[0].name : 'office_tiles_32';
-    const tileset = map.addTilesetImage(tiledTilesetName, 'office_tiles_32_img', 32, 32, 0, 0);
+
+    let tilesetImageKey = 'office_tiles_32_img';
+    if (this.isImageFullyTransparent('office_tiles_32_img')) {
+      console.warn('office_tiles_32.png is transparent/blank; using generated fallback tileset');
+      this.makeGeneratedTileset32();
+      tilesetImageKey = 'office_tiles_generated';
+      try { log('Tileset fallback active'); } catch {}
+    }
+
+    const tileset = map.addTilesetImage(tiledTilesetName, tilesetImageKey, 32, 32, 0, 0);
     if (!tileset) {
       console.error('Tileset bind failed', { tiledTilesetName, mapTilesets: map.tilesets });
       return;
@@ -168,6 +177,46 @@ OfficeScene = class OfficeScene extends Phaser.Scene {
     });
 
     this.time.addEvent({delay:60,loop:true,callback:()=>this.tickMove()});
+  }
+
+  isImageFullyTransparent(key){
+    try {
+      const tex = this.textures.get(key);
+      if (!tex) return true;
+      const src = tex.getSourceImage();
+      const c = document.createElement('canvas');
+      c.width = src.width; c.height = src.height;
+      const cx = c.getContext('2d');
+      cx.drawImage(src, 0, 0);
+      const d = cx.getImageData(0, 0, c.width, c.height).data;
+      for (let i = 3; i < d.length; i += 4) {
+        if (d[i] !== 0) return false;
+      }
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  makeGeneratedTileset32(){
+    if (this.textures.exists('office_tiles_generated')) return;
+    const tex = this.textures.createCanvas('office_tiles_generated', 256, 256);
+    const c = tex.getContext();
+    const draw = (idx, fill, stroke='#1f2937') => {
+      const x = (idx % 8) * 32;
+      const y = Math.floor(idx / 8) * 32;
+      c.fillStyle = fill;
+      c.fillRect(x, y, 32, 32);
+      c.strokeStyle = stroke;
+      c.strokeRect(x + 0.5, y + 0.5, 31, 31);
+    };
+    // 1..5 used by map
+    draw(0, '#806030', '#704010'); // gid 1
+    draw(1, '#d0c0c0', '#f0e8e8'); // gid 2
+    draw(2, '#2E4660', '#203040'); // gid 3
+    draw(3, '#507090', '#101020'); // gid 4
+    draw(4, '#805030', '#704010'); // gid 5
+    tex.refresh();
   }
 
   createAnimations(){
