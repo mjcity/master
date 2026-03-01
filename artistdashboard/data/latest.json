@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-01 09:11 EST",
+  "generated_at": "2026-03-01 11:07 EST",
   "artist_snapshot": {
     "name": "Mjcity",
     "id": "4TbJfltoNbaKOASaR8rsYM",
@@ -110,24 +110,24 @@
       "search_hits": 5,
       "sample_playlists": [
         {
-          "name": "Big City Greens",
-          "url": "https://open.spotify.com/playlist/4V5F3d3Vv1UUIagxgjKntQ"
-        },
-        {
-          "name": "I Put On For My City",
-          "url": "https://open.spotify.com/playlist/4w9U21lvRHbKBlIej3CBl7"
+          "name": "big city greens songs",
+          "url": "https://open.spotify.com/playlist/30L9DzSRBZtQeQOeHFHLMk"
         },
         {
           "name": "LATE NIGHT CITY LIGHTS VIBE",
           "url": "https://open.spotify.com/playlist/5rkPgglTxbzp6pJeaIGcXJ"
         },
         {
-          "name": "Latin Nights & City Lights",
-          "url": "https://open.spotify.com/playlist/5JOdoX6TL0hIf0WY0AVoqK"
-        },
-        {
           "name": "New Jack City Soundtrack",
           "url": "https://open.spotify.com/playlist/3OzysMVidq78HAtOCuJMZj"
+        },
+        {
+          "name": "ITY",
+          "url": "https://open.spotify.com/playlist/7GSMjfNgyaWrnKTMrkrSrL"
+        },
+        {
+          "name": "Chapter V: Sin City ",
+          "url": "https://open.spotify.com/playlist/1SLiHauf9PuE41aQt9zVnX"
         }
       ],
       "verified_count": 0,
@@ -135,8 +135,29 @@
     },
     {
       "track": "In Your DM",
-      "search_hits": 0,
-      "sample_playlists": [],
+      "search_hits": 5,
+      "sample_playlists": [
+        {
+          "name": "In yo city",
+          "url": "https://open.spotify.com/playlist/0QLDVDyAjPKjpplbRPSqak"
+        },
+        {
+          "name": "C U in da city",
+          "url": "https://open.spotify.com/playlist/0uLrV0cRYPkTqchqVSZB3H"
+        },
+        {
+          "name": "Litty city ",
+          "url": "https://open.spotify.com/playlist/5btDNjhZNabEzfy6p76Wpl"
+        },
+        {
+          "name": "DM_6'S OFFICIAL STATION",
+          "url": "https://open.spotify.com/playlist/2lXNvorcogFiLmKxbYD2R0"
+        },
+        {
+          "name": "DM's Playlist",
+          "url": "https://open.spotify.com/playlist/2LnsJX7LgdhXryR6UmDiD8"
+        }
+      ],
       "verified_count": 0,
       "verified_playlists": []
     },
@@ -154,8 +175,16 @@
     },
     {
       "track": "On DND",
-      "search_hits": 3,
+      "search_hits": 4,
       "sample_playlists": [
+        {
+          "name": "I Put On For My City",
+          "url": "https://open.spotify.com/playlist/4w9U21lvRHbKBlIej3CBl7"
+        },
+        {
+          "name": "on dnd\u2026\ud83c\udf19",
+          "url": "https://open.spotify.com/playlist/5XKlBwZnOcRPdFMStxlDav"
+        },
         {
           "name": "on DND",
           "url": "https://open.spotify.com/playlist/3vxjN8vYHBntmKMBhU8Pz1"
@@ -163,10 +192,6 @@
         {
           "name": "on DND",
           "url": "https://open.spotify.com/playlist/768zZI81OpzmoCBuyzi0Yo"
-        },
-        {
-          "name": "On fye (slowed reverb)",
-          "url": "https://open.spotify.com/playlist/2vPURuEijaRHZqerfBkGoY"
         }
       ],
       "verified_count": 0,
@@ -181,20 +206,20 @@
           "url": "https://open.spotify.com/playlist/4nx9LKRKVVgKFkE32j5mXc"
         },
         {
-          "name": "City Alight Complete Playlist",
-          "url": "https://open.spotify.com/playlist/011aj7QIywBj7t89mC3D1Q"
+          "name": "City Lights Worship",
+          "url": "https://open.spotify.com/playlist/1Z7aBZ2egcWFK0yaVCDUwD"
         },
         {
-          "name": "CityLight Church Worship",
-          "url": "https://open.spotify.com/playlist/0lm0z9EhYozF7w25P4IrSX"
+          "name": "Citylight Lincoln Worship",
+          "url": "https://open.spotify.com/playlist/3MOvv0V6bzqVk1ARerr9ye"
         },
         {
-          "name": "My Light",
-          "url": "https://open.spotify.com/playlist/6mRAZ6wVN6eRpGQnDpmvPI"
+          "name": "My Lighthouse",
+          "url": "https://open.spotify.com/playlist/6bvs8IfxDKrYGtgf4JdYXe"
         },
         {
-          "name": "City Lights Worship ",
-          "url": "https://open.spotify.com/playlist/4WHaz5lMx0iK7vELIndCqz"
+          "name": "My City",
+          "url": "https://open.spotify.com/playlist/3kNtswoGuUFr5cmmnq9MPp"
         }
       ],
       "verified_count": 0,
@@ -207,7 +232,7 @@
     "Appreciate every listener rocking with Mjcity. Keep running it up! \ud83d\ude80",
     "Playlist curators: open to placements for Afro-pop energy \u2014 link in bio."
   ],
-  "weekly_report": "This week: 5 active tracks detected, 14 playlist search hits, 0 verified placements.",
+  "weekly_report": "This week: 5 active tracks detected, 20 playlist search hits, 0 verified placements.",
   "catalog_health": "Catalog trend: push your newest 2 releases with short-form video and playlist outreach.",
   "history": [
     {
