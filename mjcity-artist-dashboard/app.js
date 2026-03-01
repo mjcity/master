@@ -1,15 +1,60 @@
 let state = { data: null, range: 30, query: '' };
 let growthChart, tracksChart, platformChart, genderChart, ageChart, releaseChart;
 
+function setStatus(text, cls = '') {
+  const el = document.getElementById('statusBanner');
+  if (!el) return;
+  el.className = `status-banner ${cls}`.trim();
+  el.textContent = text;
+}
+
+async function loadData() {
+  const ctrl = new AbortController();
+  const t = setTimeout(() => ctrl.abort(), 12000);
+  try {
+    setStatus('Loading data…');
+    const res = await fetch('./data/latest.json?_=' + Date.now(), { signal: ctrl.signal, cache: 'no-store' });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    if (!data || !data.tracks) throw new Error('Malformed dashboard JSON');
+    state.data = data;
+    setStatus(`Loaded snapshot: ${data.generated_at || 'unknown time'}`, 'ok');
+    return true;
+  } catch (e) {
+    setStatus(`Data load failed (${e.message}). Showing safe fallback.`, 'error');
+    state.data = {
+      generated_at: null,
+      artist_snapshot: { name: 'Mjcity', followers: null, popularity: null, genres: [] },
+      tracks: [],
+      history: [],
+      playlist_intel: [],
+      verified_placements: [],
+      smart_captions: ['Unable to load live data. Try Retry load.'],
+      weekly_report: 'Data unavailable. Please retry.',
+      catalog_health: 'Data unavailable.'
+    };
+    return false;
+  } finally {
+    clearTimeout(t);
+  }
+}
+
 async function run() {
-  const res = await fetch('./data/latest.json?_=' + Date.now());
-  const data = await res.json();
-  state.data = data;
   bindControls();
+  await loadData();
   render();
 }
 
 function bindControls() {
+  const retry = document.getElementById('retryBtn');
+  if (retry && !retry.dataset.bound) {
+    retry.dataset.bound = '1';
+    retry.addEventListener('click', async () => {
+      await loadData();
+      render();
+    });
+  }
+
   document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));

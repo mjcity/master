@@ -15,7 +15,11 @@
     <div>
       <p class="tag">MJCITY • ARTIST INTELLIGENCE</p>
       <h1>Jet Black Neon Dashboard</h1>
-      <p id="updatedAt" class="muted">Loading latest snapshot…</p>
+      <p id="updatedAt" class="muted" aria-live="polite">Loading latest snapshot…</p>
+      <p id="statusBanner" class="status-banner" role="status" aria-live="polite">Loading data…</p>
+      <div class="status-actions">
+        <button id="retryBtn" class="mini-btn" type="button">Retry load</button>
+      </div>
     </div>
     <a class="btn" href="https://open.spotify.com/artist/4TbJfltoNbaKOASaR8rsYM" target="_blank" rel="noreferrer">Open Spotify Profile</a>
   </header>

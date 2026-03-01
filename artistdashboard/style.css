@@ -22,6 +22,12 @@ body {
 .tag { color: var(--cyan); font-size:.75rem; letter-spacing:.14em; }
 h1 { margin:.2rem 0; font-size:clamp(1.25rem,4vw,2rem); }
 .muted { color: var(--muted); margin:0; }
+.status-banner{margin:.45rem 0 0;font-size:.86rem;color:#93c5fd}
+.status-banner.error{color:#fda4af}
+.status-banner.ok{color:#86efac}
+.status-actions{margin-top:.4rem}
+.mini-btn{background:#111827;color:#e5e7eb;border:1px solid #334155;border-radius:.55rem;padding:.3rem .55rem;cursor:pointer}
+.mini-btn:hover{border-color:#00e5ff}
 .btn { background: linear-gradient(135deg, var(--cyan), #00b8ff); color:#041116; padding:.6rem .95rem; border-radius:.75rem; font-weight:700; text-decoration:none; box-shadow:0 0 0 1px rgba(0,229,255,.5), 0 0 24px rgba(0,229,255,.3); }
 
 .controls { display:flex; flex-wrap:wrap; gap:.7rem; align-items:center; margin:0 1rem; }
