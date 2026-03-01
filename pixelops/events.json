@@ -1,7 +1,46 @@
 {
   "events": [
-    {"ts": 1, "agent": "Nova", "deskId": "d1", "status": "walk", "msg": "Opening dashboard task"},
-    {"ts": 2, "agent": "Byte", "deskId": "d4", "status": "type", "msg": "Running tests"},
-    {"ts": 3, "agent": "Pulse", "deskId": "d2", "status": "read", "msg": "Reviewing UI"}
+    {
+      "ts": 1,
+      "agent": "Nova",
+      "deskId": "d1",
+      "status": "walk",
+      "msg": "Opening dashboard task"
+    },
+    {
+      "ts": 2,
+      "agent": "Byte",
+      "deskId": "d4",
+      "status": "type",
+      "msg": "Running tests"
+    },
+    {
+      "ts": 3,
+      "agent": "Pulse",
+      "deskId": "d2",
+      "status": "read",
+      "msg": "Reviewing UI"
+    },
+    {
+      "ts": 1772335065,
+      "agent": "Nova",
+      "deskId": "d1",
+      "status": "walk",
+      "msg": "Starting refresh"
+    },
+    {
+      "ts": 1772335065,
+      "agent": "Nova",
+      "deskId": "d1",
+      "status": "type",
+      "msg": "Updating charts"
+    },
+    {
+      "ts": 1772335065,
+      "agent": "Nova",
+      "deskId": "d1",
+      "status": "done",
+      "msg": "Deploy complete"
+    }
   ]
 }
