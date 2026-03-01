@@ -1,5 +1,5 @@
 /* PixelOps V7 - Real tileset + sprite sheets */
-const TILE = 16;
+const TILE = 32;
 const statusCycle = ['idle','walk','type','read','done'];
 const desks = [
   { id:'d1', name:'Artist Dashboard', dir:'/artist-dashboard', tx:6, ty:5 },
@@ -129,7 +129,7 @@ OfficeScene = class OfficeScene extends Phaser.Scene {
   constructor(){ super('OfficeScene'); }
   preload(){
     this.load.tilemapTiledJSON('office','./assets/maps/office_map.json');
-    this.load.image('office_tiles','./assets/tiles/office_tiles.png');
+    this.load.image('office_tiles_32_img','./assets/tiles/office_tiles_32.png');
 
     ['nova','byte','pulse','stack'].forEach(k=>{
       this.load.spritesheet(k, `./assets/characters/${k}.png`, { frameWidth: 32, frameHeight: 32 });
@@ -138,12 +138,13 @@ OfficeScene = class OfficeScene extends Phaser.Scene {
 
   create(){
     const map=this.make.tilemap({key:'office'});
-    const tileset=map.addTilesetImage('office_tiles','office_tiles');
-    this.groundLayer = map.createLayer('Ground',tileset,0,0);
-    this.wallsLayer = map.createLayer('Walls',tileset,0,0);
-    this.objectsLayer = map.createLayer('Objects',tileset,0,0);
-    this.collisionLayer = map.createLayer('Collision',tileset,0,0);
-    this.collisionLayer.setCollisionByExclusion([-1,0]);
+    this.map = map;
+    const tileset=map.addTilesetImage('office_tiles_32','office_tiles_32_img');
+    this.groundLayer = map.getLayer('Ground') ? map.createLayer('Ground',tileset,0,0) : null;
+    this.wallsLayer = map.getLayer('Walls') ? map.createLayer('Walls',tileset,0,0) : null;
+    this.objectsLayer = map.getLayer('Objects') ? map.createLayer('Objects',tileset,0,0) : null;
+    this.collisionLayer = map.getLayer('Collision') ? map.createLayer('Collision',tileset,0,0) : null;
+    if (this.collisionLayer) this.collisionLayer.setCollisionByExclusion([-1,0]);
 
     this.physics.world.setBounds(0,0,map.widthInPixels,map.heightInPixels);
     this.textures.each(t => t.setFilter(Phaser.Textures.FilterMode.NEAREST));
@@ -195,7 +196,7 @@ OfficeScene = class OfficeScene extends Phaser.Scene {
       playAnim(a);
 
       // wire collisions to Tiled Collision layer
-      this.physics.add.collider(s, this.collisionLayer);
+      if (this.collisionLayer) this.physics.add.collider(s, this.collisionLayer);
       a.bubbleText=this.add.text(sp.x,sp.y-22,'',{font:'10px Arial',backgroundColor:'#111827',color:'#e5e7eb',padding:{x:4,y:2}}).setOrigin(0.5,1).setVisible(false).setDepth(20);
     });
   }
@@ -260,8 +261,8 @@ function init(){
     parent.insertBefore(holder,oldCanvas);
     new Phaser.Game({
       type:Phaser.CANVAS,
-      width:36*TILE,
-      height:18*TILE,
+      width:30*TILE,
+      height:20*TILE,
       parent:'phaser-holder',
       pixelArt:true,
       backgroundColor:'#08090d',
