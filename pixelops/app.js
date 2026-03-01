@@ -262,3 +262,16 @@ function init(){
 }
 
 init();
+
+// Defensive bootstrap for stubborn browsers/caches
+window.addEventListener('DOMContentLoaded', () => {
+  try {
+    if (document.querySelectorAll('#desks .desk').length === 0) renderPanels();
+    if (document.querySelectorAll('#feed li').length === 0) log('Bootstrapped');
+  } catch {}
+});
+setTimeout(() => {
+  try {
+    if (document.querySelectorAll('#desks .desk').length === 0) renderPanels();
+  } catch {}
+}, 1200);
