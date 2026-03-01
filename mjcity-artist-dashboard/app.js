@@ -60,6 +60,7 @@ function bindControls() {
       document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       state.range = Number(btn.dataset.range);
+      setStatus(`Filter: ${btn.textContent.trim()}`);
       render();
     });
   });
@@ -78,18 +79,38 @@ function bindControls() {
   });
 }
 
+function getRangeCutoff(rangeDays) {
+  const now = new Date();
+  if (rangeDays === 365) return new Date(now.getFullYear(), 0, 1); // YTD
+  const d = new Date(now);
+  d.setDate(d.getDate() - rangeDays);
+  return d;
+}
+
+function filterTracksByRange(tracks) {
+  const cutoff = getRangeCutoff(state.range);
+  return (tracks || []).filter(t => {
+    if (!t.release_date) return true;
+    const dt = new Date(t.release_date);
+    if (Number.isNaN(dt.getTime())) return true;
+    return dt >= cutoff;
+  });
+}
+
 function render() {
   const data = state.data || {};
   document.getElementById('updatedAt').textContent = `Last update: ${data.generated_at || 'n/a'}`;
 
-  renderKpis(data);
+  const rangeTracks = filterTracksByRange(data.tracks || []);
+
+  renderKpis(data, rangeTracks);
   renderGrowth(data);
-  renderTracks(data);
-  renderPlatformSplit(data);
-  renderHeatmap(data);
-  renderInsights(data);
+  renderTracks(data, rangeTracks);
+  renderPlatformSplit(data, rangeTracks);
+  renderHeatmap(data, rangeTracks);
+  renderInsights(data, rangeTracks);
   renderAudienceExtras(data);
-  renderListsOnly();
+  renderListsOnly(rangeTracks);
 
   document.getElementById('weeklyReport').textContent = data.weekly_report || 'No weekly report yet.';
   document.getElementById('catalogHealth').textContent = data.catalog_health || 'No catalog health data yet.';
@@ -97,13 +118,13 @@ function render() {
   document.querySelectorAll('.skeleton').forEach(s => s.classList.add('hidden'));
 }
 
-function renderKpis(data) {
+function renderKpis(data, rangeTracks) {
   const strip = document.getElementById('kpiStrip');
   const hist = (data.history || []).slice(-state.range);
   const s4a = data.spotify_for_artists || {};
   const followers = (data.artist_snapshot || {}).followers || 0;
   const popularity = (data.artist_snapshot || {}).popularity || 0;
-  const tracks = (data.tracks || []).length;
+  const tracks = (rangeTracks || []).length;
   const searchHits = (data.playlist_intel || []).reduce((a, x) => a + (x.search_hits || 0), 0);
   const verified = (data.verified_placements || []).length;
   const om = s4a.overview_metrics || {};
@@ -146,8 +167,8 @@ function renderGrowth(data) {
   });
 }
 
-function renderTracks(data) {
-  const tracks = (data.tracks || []).slice(0, 12);
+function renderTracks(data, rangeTracks) {
+  const tracks = (rangeTracks || []).slice(0, 12);
   const labels = tracks.map(t => t.name);
   const vals = tracks.map((_, i, arr) => arr.length - i);
   if (!labels.length) document.getElementById('tracksEmpty').classList.remove('hidden');
@@ -159,8 +180,8 @@ function renderTracks(data) {
   });
 }
 
-function renderPlatformSplit(data) {
-  const total = (data.tracks || []).length || 1;
+function renderPlatformSplit(data, rangeTracks) {
+  const total = (rangeTracks || []).length || 1;
   const spotify = total;
   const apple = Math.max(0, Math.round(total * 0.25));
   const yt = Math.max(0, Math.round(total * 0.35));
@@ -172,9 +193,9 @@ function renderPlatformSplit(data) {
   });
 }
 
-function renderHeatmap(data) {
+function renderHeatmap(data, rangeTracks) {
   const heat = document.getElementById('heatmap');
-  const tracks = data.tracks || [];
+  const tracks = rangeTracks || [];
   heat.innerHTML = '';
   if (!tracks.length) {
     document.getElementById('heatmapEmpty').classList.remove('hidden');
@@ -190,10 +211,10 @@ function renderHeatmap(data) {
   }
 }
 
-function renderInsights(data) {
+function renderInsights(data, rangeTracks) {
   const insights = document.getElementById('insights');
   insights.innerHTML = '';
-  const tracks = data.tracks || [];
+  const tracks = rangeTracks || [];
   const playlist = data.playlist_intel || [];
   const verified = data.verified_placements || [];
   const bullets = [
@@ -260,13 +281,13 @@ function renderAudienceExtras(data) {
   });
 }
 
-function renderListsOnly() {
+function renderListsOnly(rangeTracks = null) {
   const data = state.data || {};
   const q = state.query;
 
   const trackList = document.getElementById('trackList');
   trackList.innerHTML = '';
-  (data.tracks || []).filter(t => `${t.name} ${t.release_date}`.toLowerCase().includes(q)).forEach(t => {
+  ((rangeTracks || data.tracks || [])).filter(t => `${t.name} ${t.release_date}`.toLowerCase().includes(q)).forEach(t => {
     const li = document.createElement('li');
     li.innerHTML = `<a href="${t.url}" target="_blank">${t.name}</a> • ${t.release_date || 'n/a'}`;
     trackList.appendChild(li);
