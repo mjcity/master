@@ -212,15 +212,6 @@ async function pollEvents(){
 }
 setInterval(pollEvents, 4000);
 
-setInterval(()=>{
-  const a=agents[Math.floor(Math.random()*agents.length)];
-  if(!a || !a.targetDesk) return;
-  const next = a.status==='type' ? 'read' : a.status==='read' ? 'done' : 'type';
-  a.status=next; speak(a, next.toUpperCase());
-  renderPanels();
-  log(`${a.name} is ${next} at ${(desks.find(d=>d.id===a.targetDesk)||{}).name||'desk'}`);
-}, 7000);
-
 renderPanels();
-log('PixelOps v3 loaded');
+log('PixelOps v3 loaded (event-driven mode)');
 draw();
