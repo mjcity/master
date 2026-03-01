@@ -146,11 +146,18 @@ OfficeScene = class OfficeScene extends Phaser.Scene {
     this.collisionLayer.setCollisionByExclusion([-1,0]);
 
     this.physics.world.setBounds(0,0,map.widthInPixels,map.heightInPixels);
+    this.textures.each(t => t.setFilter(Phaser.Textures.FilterMode.NEAREST));
     this.createAnimations();
     this.spawnAgents(map);
 
     this.cameras.main.setRoundPixels(true);
-    this.cameras.main.setZoom(2.2);
+    this.cameras.main.setZoom(1);
+
+    // user zoom controls (desktop/laptop)
+    this.input.on('wheel', (_p, _go, _dx, dy) => {
+      const z = Phaser.Math.Clamp(this.cameras.main.zoom - (dy > 0 ? 0.1 : -0.1), 0.8, 3);
+      this.cameras.main.setZoom(z);
+    });
 
     this.time.addEvent({delay:60,loop:true,callback:()=>this.tickMove()});
   }
@@ -251,7 +258,17 @@ function init(){
     oldCanvas.style.display='none';
     const holder=document.createElement('div'); holder.id='phaser-holder';
     parent.insertBefore(holder,oldCanvas);
-    new Phaser.Game({ type:Phaser.CANVAS, width:36*TILE, height:18*TILE, parent:'phaser-holder', pixelArt:true, backgroundColor:'#08090d', physics:{default:'arcade'}, scene:[OfficeScene] });
+    new Phaser.Game({
+      type:Phaser.CANVAS,
+      width:36*TILE,
+      height:18*TILE,
+      parent:'phaser-holder',
+      pixelArt:true,
+      backgroundColor:'#08090d',
+      scale:{ mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH },
+      physics:{default:'arcade'},
+      scene:[OfficeScene]
+    });
   };
   document.body.appendChild(script);
 

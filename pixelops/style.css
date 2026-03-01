@@ -10,5 +10,7 @@ main{display:grid;grid-template-columns:360px 1fr;gap:12px;padding:12px}.panel{b
 #feed{list-style:none;margin:0;padding-left:0;max-height:180px;overflow:auto}#feed li{font-size:.85rem;color:#cbd5e1;padding:4px 0;border-bottom:1px dashed #1f2937}
 .bubble{position:absolute;pointer-events:none;background:#111827;color:#e5e7eb;border:1px solid #334155;border-radius:8px;padding:4px 7px;font-size:12px;white-space:nowrap;transform:translate(-50%,-120%);box-shadow:0 8px 20px rgba(0,0,0,.35)}
 .right{position:relative}
-.right canvas{width:100%;height:auto;background:#08090d;border:1px solid #1f2937;border-radius:10px;image-rendering:pixelated}.hint{color:var(--muted);font-size:.82rem}
+.right canvas{width:100% !important;height:auto !important;max-width:100%;background:#08090d;border:1px solid #1f2937;border-radius:10px;image-rendering:pixelated}.hint{color:var(--muted);font-size:.82rem}
+#phaser-holder{width:100%;max-width:100%;overflow:hidden;border-radius:10px}
+#phaser-holder canvas{display:block;width:100% !important;height:auto !important;image-rendering:pixelated}
 @media (max-width:980px){main{grid-template-columns:1fr}}
