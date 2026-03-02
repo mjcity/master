@@ -1,4 +1,4 @@
-const BUILD = '35';
+const BUILD = '37';
 const canvas = document.getElementById('office');
 const ctx = canvas.getContext('2d');
 const wrap = document.getElementById('floorWrap');
@@ -22,11 +22,14 @@ const desks = [
 
 const rawAssets = {
   tiles: img(`./assets/tiles/office_tiles_32.png?v=${BUILD}`),
-  female: img(`./assets/imported/v3/char_female.jpg?v=${BUILD}`),
-  maleBrown: img(`./assets/imported/v3/char_male_brown.jpg?v=${BUILD}`),
-  maleBlack: img(`./assets/imported/v3/char_male_black.jpg?v=${BUILD}`),
-  maleGray: img(`./assets/imported/v3/char_male_gray.jpg?v=${BUILD}`),
-  officeItems: img(`./assets/imported/v3/office_items.jpg?v=${BUILD}`)
+  tilesClean: img(`./assets/imported/v4/tiles_clean.jpg?v=${BUILD}`),
+  bubbles: img(`./assets/imported/v4/bubbles.jpg?v=${BUILD}`),
+  officeLayout: img(`./assets/imported/v4/office_layout.jpg?v=${BUILD}`),
+  officeItems: img(`./assets/imported/v4/office_items_plus_brown.jpg?v=${BUILD}`),
+  female: img(`./assets/imported/v4/char_female.jpg?v=${BUILD}`),
+  maleBrown: img(`./assets/imported/v4/char_male_brown.jpg?v=${BUILD}`),
+  maleBlack: img(`./assets/imported/v4/char_male_black.jpg?v=${BUILD}`),
+  maleGray: img(`./assets/imported/v4/char_male_gray.jpg?v=${BUILD}`)
 };
 
 const sheetMeta = {
@@ -78,13 +81,23 @@ function drawLayer(name) {
 }
 
 function drawOfficeOverlay() {
-  const im = rawAssets.officeItems;
-  if (!im.complete) return;
-  const w = im.naturalWidth;
-  const h = im.naturalHeight;
-  ctx.globalAlpha = 0.22;
-  ctx.drawImage(im, 0, 0, w, h, 20, worldH - 220, worldW - 40, 180);
-  ctx.globalAlpha = 1;
+  if (rawAssets.officeLayout.complete) {
+    ctx.globalAlpha = 0.2;
+    ctx.drawImage(rawAssets.officeLayout, 0, 0, rawAssets.officeLayout.naturalWidth, rawAssets.officeLayout.naturalHeight, 16, 16, worldW - 32, 120);
+    ctx.globalAlpha = 1;
+  }
+  if (rawAssets.officeItems.complete) {
+    const w = rawAssets.officeItems.naturalWidth;
+    const h = rawAssets.officeItems.naturalHeight;
+    ctx.globalAlpha = 0.24;
+    ctx.drawImage(rawAssets.officeItems, 0, 0, w, h, 20, worldH - 230, worldW - 40, 190);
+    ctx.globalAlpha = 1;
+  }
+  if (rawAssets.tilesClean.complete) {
+    ctx.globalAlpha = 0.14;
+    ctx.drawImage(rawAssets.tilesClean, 0, 0, rawAssets.tilesClean.naturalWidth, rawAssets.tilesClean.naturalHeight, worldW - 220, 8, 210, 110);
+    ctx.globalAlpha = 1;
+  }
 }
 
 function frameFor(agent) {
@@ -130,6 +143,15 @@ function drawBubble(x, y, text) {
   const h = 24;
   const bx = x - w / 2;
   const by = y - h;
+
+  if (rawAssets.bubbles.complete) {
+    // Use your bubble atlas background (top-left rectangular bubble)
+    ctx.drawImage(rawAssets.bubbles, 0, 0, 250, 90, bx - 8, by - 10, w + 16, h + 16);
+    ctx.fillStyle = '#111827';
+    ctx.fillText(text, bx + (w - tw) / 2, by + 16);
+    return;
+  }
+
   ctx.fillStyle = 'rgba(17,24,39,0.95)';
   ctx.strokeStyle = '#334155';
   ctx.lineWidth = 1;
@@ -282,7 +304,7 @@ async function init() {
 
   renderPanels();
   fit();
-  log('PixelOps v35: your character sheets are now active');
+  log('PixelOps v37: your latest image pack is active');
   requestAnimationFrame(draw);
   setInterval(pollEvents, 3000);
 }
