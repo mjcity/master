@@ -1,4 +1,4 @@
-const BUILD = '33';
+const BUILD = '34';
 const canvas = document.getElementById('office');
 const ctx = canvas.getContext('2d');
 const wrap = document.getElementById('floorWrap');
