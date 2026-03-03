@@ -7,7 +7,7 @@
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
   <title>Mjcity Artist Dashboard</title>
-  <link rel="stylesheet" href="./style.css?v=1772381237" />
+  <link rel="stylesheet" href="./style.css?v=1772664000" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -17,6 +17,7 @@
       <h1>Jet Black Neon Dashboard</h1>
       <p id="updatedAt" class="muted" aria-live="polite">Loading latest snapshot…</p>
       <p id="statusBanner" class="status-banner" role="status" aria-live="polite">Loading data…</p>
+      <p id="dataQuality" class="status-banner">Data quality: checking…</p>
       <div class="status-actions">
         <button id="retryBtn" class="mini-btn" type="button">Retry load</button>
       </div>
@@ -32,6 +33,12 @@
       <button class="filter-btn" data-range="365">YTD</button>
     </div>
     <input id="globalSearch" type="search" placeholder="Search tracks, playlists, insights…" aria-label="Global search" />
+  </section>
+
+  <section class="mobile-summary card" id="mobileSummary">
+    <div><span class="label">Listeners</span><strong id="msListeners">—</strong></div>
+    <div><span class="label">Followers</span><strong id="msFollowers">—</strong></div>
+    <div><span class="label">Verified</span><strong id="msVerified">—</strong></div>
   </section>
 
   <section id="kpiStrip" class="kpi-strip"></section>
@@ -73,8 +80,12 @@
 
     <section class="card">
       <h2>Playlist Intelligence</h2>
+      <h3>Search candidates</h3>
       <ul id="playlistIntel" class="list"></ul>
       <p id="playlistEmpty" class="empty hidden">No playlist intel currently available.</p>
+      <h3>Verified placements</h3>
+      <ul id="verifiedPlacements" class="list"></ul>
+      <p id="verifiedEmpty" class="empty hidden">No verified placements in this snapshot.</p>
     </section>
 
     <section class="card">
@@ -122,11 +133,17 @@
     </section>
 
     <section class="card">
+      <h2>Release Monitor</h2>
+      <ul id="releases" class="list"></ul>
+      <p id="releasesEmpty" class="empty hidden">No release monitor data.</p>
+    </section>
+
+    <section class="card">
       <h2>Catalog Health Check</h2>
       <p id="catalogHealth"></p>
     </section>
   </main>
 
-  <script src="./app.js?v=1772381237"></script>
+  <script src="./app.js?v=1772664000"></script>
 </body>
 </html>

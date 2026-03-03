@@ -103,6 +103,7 @@ function render() {
 
   const rangeTracks = filterTracksByRange(data.tracks || []);
 
+  renderDataQuality(data);
   renderKpis(data, rangeTracks);
   renderGrowth(data);
   renderTracks(data, rangeTracks);
@@ -116,6 +117,17 @@ function render() {
   document.getElementById('catalogHealth').textContent = data.catalog_health || 'No catalog health data yet.';
 
   document.querySelectorAll('.skeleton').forEach(s => s.classList.add('hidden'));
+}
+
+function renderDataQuality(data) {
+  const el = document.getElementById('dataQuality');
+  if (!el) return;
+  const source = data.top_tracks_source || 'unknown';
+  const verified = (data.verified_placements || []).length;
+  const quality = source === 'search_fallback' ? 'Estimated' : 'Verified';
+  const cls = source === 'search_fallback' ? 'error' : 'ok';
+  el.className = `status-banner ${cls}`;
+  el.textContent = `Data quality: ${quality} • Top tracks source: ${source} • Verified placements: ${verified}`;
 }
 
 function renderKpis(data, rangeTracks) {
@@ -152,6 +164,13 @@ function renderKpis(data, rangeTracks) {
     div.innerHTML = `<div class="top"><span>${icon} ${c.label}</span><span class="delta ${cls}">${c.delta >= 0 ? '+' : ''}${c.delta.toFixed(1)}%</span></div><div class="value">${c.value}</div><div class="spark">${spark}</div>`;
     strip.appendChild(div);
   });
+
+  const msListeners = document.getElementById('msListeners');
+  const msFollowers = document.getElementById('msFollowers');
+  const msVerified = document.getElementById('msVerified');
+  if (msListeners) msListeners.textContent = numberOrDash(monthlyListeners);
+  if (msFollowers) msFollowers.textContent = numberOrDash(om.followers?.value ?? followers);
+  if (msVerified) msVerified.textContent = String(verified);
 }
 
 function renderGrowth(data) {
@@ -303,6 +322,18 @@ function renderListsOnly(rangeTracks = null) {
   if (!pi.children.length) document.getElementById('playlistEmpty').classList.remove('hidden');
   else document.getElementById('playlistEmpty').classList.add('hidden');
 
+  const verifiedList = document.getElementById('verifiedPlacements');
+  if (verifiedList) {
+    verifiedList.innerHTML = '';
+    (data.verified_placements || []).filter(p => `${p.track} ${p.name}`.toLowerCase().includes(q)).forEach(p => {
+      const li = document.createElement('li');
+      li.innerHTML = `<strong>${p.track}:</strong> <a href="${p.url}" target="_blank">${p.name}</a>`;
+      verifiedList.appendChild(li);
+    });
+    const verifiedEmpty = document.getElementById('verifiedEmpty');
+    if (verifiedEmpty) verifiedEmpty.classList.toggle('hidden', verifiedList.children.length > 0);
+  }
+
   const captions = document.getElementById('captions');
   captions.innerHTML = '';
   (data.smart_captions || []).filter(c => c.toLowerCase().includes(q)).forEach(c => {
@@ -312,12 +343,16 @@ function renderListsOnly(rangeTracks = null) {
   });
 
   const releases = document.getElementById('releases');
-  releases.innerHTML = '';
-  (data.release_monitor || []).filter(r => `${r.name} ${r.release_date}`.toLowerCase().includes(q)).forEach(r => {
-    const li = document.createElement('li');
-    li.innerHTML = `<a href="${r.url}" target="_blank">${r.name}</a> (${r.release_date || 'n/a'}) • ${r.type || 'release'}`;
-    releases.appendChild(li);
-  });
+  if (releases) {
+    releases.innerHTML = '';
+    (data.release_monitor || []).filter(r => `${r.name} ${r.release_date}`.toLowerCase().includes(q)).forEach(r => {
+      const li = document.createElement('li');
+      li.innerHTML = `<a href="${r.url}" target="_blank">${r.name}</a> (${r.release_date || 'n/a'}) • ${r.type || 'release'}`;
+      releases.appendChild(li);
+    });
+    const releasesEmpty = document.getElementById('releasesEmpty');
+    if (releasesEmpty) releasesEmpty.classList.toggle('hidden', releases.children.length > 0);
+  }
 
   const related = document.getElementById('relatedArtists');
   related.innerHTML = '';

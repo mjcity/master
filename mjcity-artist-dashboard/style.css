@@ -31,6 +31,9 @@ h1 { margin:.2rem 0; font-size:clamp(1.25rem,4vw,2rem); }
 .btn { background: linear-gradient(135deg, var(--cyan), #00b8ff); color:#041116; padding:.6rem .95rem; border-radius:.75rem; font-weight:700; text-decoration:none; box-shadow:0 0 0 1px rgba(0,229,255,.5), 0 0 24px rgba(0,229,255,.3); }
 
 .controls { display:flex; flex-wrap:wrap; gap:.7rem; align-items:center; margin:0 1rem; }
+.mobile-summary{display:none; grid-template-columns:repeat(3,1fr); gap:.5rem; margin:.6rem 1rem .1rem}
+.mobile-summary .label{display:block; color:var(--muted); font-size:.72rem}
+.mobile-summary strong{font-size:1.05rem}
 .filters { display:flex; gap:.4rem; flex-wrap:wrap; }
 .filter-btn { background:#121216; color:var(--text); border:1px solid #2a2a2f; border-radius:999px; padding:.35rem .65rem; cursor:pointer; transition:.2s; }
 .filter-btn:hover, .filter-btn.active { border-color:var(--purple); box-shadow:0 0 14px rgba(168,85,247,.35); }
@@ -66,4 +69,5 @@ h1 { margin:.2rem 0; font-size:clamp(1.25rem,4vw,2rem); }
 
 @media (max-width: 700px) {
   .hero { flex-direction:column; align-items:flex-start; }
+  .mobile-summary{display:grid; position:sticky; top:.25rem; z-index:4; backdrop-filter:blur(3px)}
 }
