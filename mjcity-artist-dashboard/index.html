@@ -7,7 +7,7 @@
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
   <title>Mjcity Artist Dashboard</title>
-  <link rel="stylesheet" href="./style.css?v=1772664000" />
+  <link rel="stylesheet" href="./style.css?v=1772665200" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -42,6 +42,7 @@
   </section>
 
   <section id="kpiStrip" class="kpi-strip"></section>
+  <section id="deltaStrip" class="kpi-strip"></section>
 
   <main class="grid">
     <section class="card">
@@ -119,6 +120,12 @@
     </section>
 
     <section class="card">
+      <h2>Next Best Actions</h2>
+      <ul id="actions" class="list"></ul>
+      <p id="actionsEmpty" class="empty hidden">No action recommendations yet.</p>
+    </section>
+
+    <section class="card">
       <h2>Smart Social Captions</h2>
       <ul id="captions" class="list"></ul>
     </section>
@@ -144,6 +151,6 @@
     </section>
   </main>
 
-  <script src="./app.js?v=1772664000"></script>
+  <script src="./app.js?v=1772665200"></script>
 </body>
 </html>

@@ -105,11 +105,13 @@ function render() {
 
   renderDataQuality(data);
   renderKpis(data, rangeTracks);
+  renderDeltaSnapshot(data, rangeTracks);
   renderGrowth(data);
   renderTracks(data, rangeTracks);
   renderPlatformSplit(data, rangeTracks);
   renderHeatmap(data, rangeTracks);
   renderInsights(data, rangeTracks);
+  renderActions(data, rangeTracks);
   renderAudienceExtras(data);
   renderListsOnly(rangeTracks);
 
@@ -171,6 +173,35 @@ function renderKpis(data, rangeTracks) {
   if (msListeners) msListeners.textContent = numberOrDash(monthlyListeners);
   if (msFollowers) msFollowers.textContent = numberOrDash(om.followers?.value ?? followers);
   if (msVerified) msVerified.textContent = String(verified);
+}
+
+function renderDeltaSnapshot(data, rangeTracks) {
+  const strip = document.getElementById('deltaStrip');
+  if (!strip) return;
+  const hist = data.history || [];
+  const now = hist[hist.length - 1] || {};
+  const prevDay = hist[hist.length - 2] || now;
+  const prevWeek = hist[Math.max(0, hist.length - 8)] || now;
+
+  const dayDelta = (now.followers || 0) - (prevDay.followers || 0);
+  const weekDelta = (now.followers || 0) - (prevWeek.followers || 0);
+  const tracksNow = (rangeTracks || []).length;
+  const verified = (data.verified_placements || []).length;
+
+  const items = [
+    { label: 'Followers Δ (1d)', value: `${dayDelta >= 0 ? '+' : ''}${dayDelta}` },
+    { label: 'Followers Δ (7d)', value: `${weekDelta >= 0 ? '+' : ''}${weekDelta}` },
+    { label: 'Tracks in range', value: String(tracksNow) },
+    { label: 'Verified placements', value: String(verified) }
+  ];
+
+  strip.innerHTML = '';
+  items.forEach(i => {
+    const card = document.createElement('article');
+    card.className = 'kpi';
+    card.innerHTML = `<div class="top"><span>⚡ ${i.label}</span></div><div class="value">${i.value}</div>`;
+    strip.appendChild(card);
+  });
 }
 
 function renderGrowth(data) {
@@ -248,6 +279,34 @@ function renderInsights(data, rangeTracks) {
     li.textContent = b;
     insights.appendChild(li);
   });
+}
+
+function renderActions(data, rangeTracks) {
+  const el = document.getElementById('actions');
+  if (!el) return;
+  el.innerHTML = '';
+
+  const tracks = rangeTracks || [];
+  const verified = (data.verified_placements || []).length;
+  const searchHits = (data.playlist_intel || []).reduce((a, x) => a + (x.search_hits || 0), 0);
+  const top = tracks[0]?.name || 'your latest single';
+  const actions = [
+    searchHits > verified
+      ? `Prioritize outreach this week: you have ${searchHits} playlist search hits vs ${verified} verified placements.`
+      : 'Playlist conversion is healthy — maintain current curator outreach cadence.',
+    `Create 2 short-form clips around "${top}" and post within 48 hours to support stream momentum.`,
+    'Run a fan reactivation push: DM/email your top supporters with a direct Spotify save link.',
+    'Review top cities and target one local collab or micro-event for audience growth.'
+  ];
+
+  actions.forEach((a) => {
+    const li = document.createElement('li');
+    li.textContent = a;
+    el.appendChild(li);
+  });
+
+  const empty = document.getElementById('actionsEmpty');
+  if (empty) empty.classList.toggle('hidden', el.children.length > 0);
 }
 
 function renderAudienceExtras(data) {
