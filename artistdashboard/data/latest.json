@@ -1,11 +1,13 @@
 {
-  "generated_at": "2026-03-01 11:07 EST",
+  "generated_at": "2026-03-03 09:11 EST",
   "artist_snapshot": {
     "name": "Mjcity",
     "id": "4TbJfltoNbaKOASaR8rsYM",
-    "followers": null,
-    "popularity": null,
-    "genres": [],
+    "followers": 78,
+    "popularity": 2,
+    "genres": [
+      "afropop"
+    ],
     "spotify_url": "https://open.spotify.com/artist/4TbJfltoNbaKOASaR8rsYM"
   },
   "top_tracks_source": "search_fallback",
@@ -110,24 +112,24 @@
       "search_hits": 5,
       "sample_playlists": [
         {
-          "name": "big city greens songs",
-          "url": "https://open.spotify.com/playlist/30L9DzSRBZtQeQOeHFHLMk"
+          "name": "Big City Greens",
+          "url": "https://open.spotify.com/playlist/4V5F3d3Vv1UUIagxgjKntQ"
+        },
+        {
+          "name": "I Put On For My City",
+          "url": "https://open.spotify.com/playlist/4w9U21lvRHbKBlIej3CBl7"
         },
         {
           "name": "LATE NIGHT CITY LIGHTS VIBE",
           "url": "https://open.spotify.com/playlist/5rkPgglTxbzp6pJeaIGcXJ"
         },
         {
+          "name": "Late Night Vibes & City Lights",
+          "url": "https://open.spotify.com/playlist/2i3MBRfHq6WABdYv4zXByJ"
+        },
+        {
           "name": "New Jack City Soundtrack",
           "url": "https://open.spotify.com/playlist/3OzysMVidq78HAtOCuJMZj"
-        },
-        {
-          "name": "ITY",
-          "url": "https://open.spotify.com/playlist/7GSMjfNgyaWrnKTMrkrSrL"
-        },
-        {
-          "name": "Chapter V: Sin City ",
-          "url": "https://open.spotify.com/playlist/1SLiHauf9PuE41aQt9zVnX"
         }
       ],
       "verified_count": 0,
@@ -146,16 +148,16 @@
           "url": "https://open.spotify.com/playlist/0uLrV0cRYPkTqchqVSZB3H"
         },
         {
-          "name": "Litty city ",
-          "url": "https://open.spotify.com/playlist/5btDNjhZNabEzfy6p76Wpl"
+          "name": "My city music",
+          "url": "https://open.spotify.com/playlist/4CQKooURRQjlb80zMo5OCW"
         },
         {
-          "name": "DM_6'S OFFICIAL STATION",
-          "url": "https://open.spotify.com/playlist/2lXNvorcogFiLmKxbYD2R0"
+          "name": "DM  + CG 012226",
+          "url": "https://open.spotify.com/playlist/2YqDJNYbGkxYJSWNCS40hV"
         },
         {
-          "name": "DM's Playlist",
-          "url": "https://open.spotify.com/playlist/2LnsJX7LgdhXryR6UmDiD8"
+          "name": "DWM \ud83c\udf00",
+          "url": "https://open.spotify.com/playlist/7m4SP65z9Tsi2idvGmdCYL"
         }
       ],
       "verified_count": 0,
@@ -163,13 +165,8 @@
     },
     {
       "track": "King Birthday",
-      "search_hits": 1,
-      "sample_playlists": [
-        {
-          "name": "King City",
-          "url": "https://open.spotify.com/playlist/0CVa5fxy5P354RkbkobPRL"
-        }
-      ],
+      "search_hits": 0,
+      "sample_playlists": [],
       "verified_count": 0,
       "verified_playlists": []
     },
@@ -177,10 +174,6 @@
       "track": "On DND",
       "search_hits": 4,
       "sample_playlists": [
-        {
-          "name": "I Put On For My City",
-          "url": "https://open.spotify.com/playlist/4w9U21lvRHbKBlIej3CBl7"
-        },
         {
           "name": "on dnd\u2026\ud83c\udf19",
           "url": "https://open.spotify.com/playlist/5XKlBwZnOcRPdFMStxlDav"
@@ -190,8 +183,12 @@
           "url": "https://open.spotify.com/playlist/3vxjN8vYHBntmKMBhU8Pz1"
         },
         {
-          "name": "on DND",
-          "url": "https://open.spotify.com/playlist/768zZI81OpzmoCBuyzi0Yo"
+          "name": "On fye (slowed reverb)",
+          "url": "https://open.spotify.com/playlist/2vPURuEijaRHZqerfBkGoY"
+        },
+        {
+          "name": "ITY",
+          "url": "https://open.spotify.com/playlist/7GSMjfNgyaWrnKTMrkrSrL"
         }
       ],
       "verified_count": 0,
@@ -202,24 +199,24 @@
       "search_hits": 5,
       "sample_playlists": [
         {
-          "name": "City Light Vegas Playlist",
-          "url": "https://open.spotify.com/playlist/4nx9LKRKVVgKFkE32j5mXc"
+          "name": "My light ",
+          "url": "https://open.spotify.com/playlist/1HyrKOlkVAsYCEBrmpZ0lt"
         },
         {
-          "name": "City Lights Worship",
-          "url": "https://open.spotify.com/playlist/1Z7aBZ2egcWFK0yaVCDUwD"
+          "name": "Mill City Worship Playlist 2025",
+          "url": "https://open.spotify.com/playlist/4o0vkP37Og7wFtoWQGJ7MT"
         },
         {
-          "name": "Citylight Lincoln Worship",
-          "url": "https://open.spotify.com/playlist/3MOvv0V6bzqVk1ARerr9ye"
+          "name": "Sunday Gathering Music | First City Church",
+          "url": "https://open.spotify.com/playlist/1XyIQFosNNY98vC5ZGrWXP"
         },
         {
-          "name": "My Lighthouse",
-          "url": "https://open.spotify.com/playlist/6bvs8IfxDKrYGtgf4JdYXe"
+          "name": "Mykah\u2019s Worship",
+          "url": "https://open.spotify.com/playlist/1SqPmQP46EjLWOETGKmSAx"
         },
         {
-          "name": "My City",
-          "url": "https://open.spotify.com/playlist/3kNtswoGuUFr5cmmnq9MPp"
+          "name": "City Alight and othrrs",
+          "url": "https://open.spotify.com/playlist/705pGeT4uq8r9HcL8KXAsl"
         }
       ],
       "verified_count": 0,
@@ -232,7 +229,7 @@
     "Appreciate every listener rocking with Mjcity. Keep running it up! \ud83d\ude80",
     "Playlist curators: open to placements for Afro-pop energy \u2014 link in bio."
   ],
-  "weekly_report": "This week: 5 active tracks detected, 20 playlist search hits, 0 verified placements.",
+  "weekly_report": "This week: 5 active tracks detected, 19 playlist search hits, 0 verified placements.",
   "catalog_health": "Catalog trend: push your newest 2 releases with short-form video and playlist outreach.",
   "history": [
     {
@@ -244,76 +241,81 @@
       "date": "2026-03-01",
       "followers": null,
       "popularity": null
+    },
+    {
+      "date": "2026-03-03",
+      "followers": 78,
+      "popularity": 2
     }
   ],
   "spotify_for_artists": {
-    "captured_at": "2026-03-01 09:10 EST",
+    "captured_at": "2026-03-03 09:10 EST",
     "period": "last_28_days",
     "listening_now": 0,
     "overview_metrics": {
       "listeners": {
-        "value": 216,
-        "delta_pct": -21.5,
-        "previous": 275
+        "value": 269,
+        "delta_pct": 14.0,
+        "previous": 236
       },
       "monthly_active_listeners": {
-        "value": 105,
-        "delta_pct": -13.2
+        "value": 104,
+        "delta_pct": -10.3
       },
       "streams": {
-        "value": 1105,
-        "delta_pct": 7.6
+        "value": 1162,
+        "delta_pct": 30.9
       },
       "streams_per_listener": {
-        "value": 5.1,
-        "delta_pct": 37.0
+        "value": 4.3,
+        "delta_pct": 14.8
       },
       "saves": {
-        "value": 30,
-        "delta_pct": -30.2
+        "value": 27,
+        "delta_pct": -37.2
       },
       "playlist_adds": {
-        "value": 56,
-        "delta_pct": -30.0
+        "value": 50,
+        "delta_pct": -36.7
       },
       "followers": {
-        "value": 76,
-        "delta_pct": 7.0
+        "value": 78,
+        "delta_pct": 9.9
       }
     },
     "audience_segments": {
       "monthly_active_listeners": {
-        "value": 105,
-        "share_of_monthly_listeners_pct": 49
+        "value": 104,
+        "share_of_monthly_listeners_pct": 39
       },
-      "streams_share_from_monthly_active_pct": 89,
-      "streams_per_listener_monthly_active": 9.3,
+      "streams_share_from_monthly_active_pct": 84,
+      "streams_per_listener_monthly_active": 9.4,
       "new_active_listeners": {
-        "value": 32,
-        "delta_pct": -38.5
+        "value": 31,
+        "delta_pct": -34.0
       },
       "super_listeners": {
-        "value": 8,
-        "delta_pct": 60.0
+        "value": 7,
+        "delta_pct": 40.0
       }
     },
     "demographics": {
       "gender": {
         "female": {
-          "pct": 41,
-          "listeners": 89
+          "pct": 46,
+          "listeners": 123
         },
         "male": {
-          "pct": 54,
-          "listeners": 117
+          "pct": 50,
+          "listeners": 135
         },
         "non_binary": {
           "pct": 0,
           "listeners": 0
         },
         "not_specified": {
-          "pct": 5,
-          "listeners": 10
+          "pct": 4,
+          "listeners": 11
         }
       },
       "age_buckets": [
@@ -327,49 +329,49 @@
         },
         {
           "range": "18-24",
-          "pct": 10,
-          "female": 10,
-          "male": 12,
+          "pct": 11,
+          "female": 15,
+          "male": 14,
           "non_binary": 0,
           "not_specified": 1
         },
         {
           "range": "25-34",
-          "pct": 29,
-          "female": 28,
-          "male": 32,
+          "pct": 28,
+          "female": 39,
+          "male": 35,
           "non_binary": 0,
           "not_specified": 2
         },
         {
           "range": "35-44",
-          "pct": 33,
-          "female": 30,
-          "male": 36,
+          "pct": 31,
+          "female": 36,
+          "male": 42,
           "non_binary": 0,
           "not_specified": 5
         },
         {
           "range": "45-54",
-          "pct": 15,
-          "female": 11,
-          "male": 20,
+          "pct": 17,
+          "female": 19,
+          "male": 25,
           "non_binary": 0,
-          "not_specified": 1
+          "not_specified": 2
         },
         {
           "range": "55-64",
-          "pct": 9,
-          "female": 6,
-          "male": 13,
+          "pct": 8,
+          "female": 8,
+          "male": 14,
           "non_binary": 0,
           "not_specified": 0
         },
         {
           "range": "65+",
-          "pct": 3,
-          "female": 2,
-          "male": 4,
+          "pct": 4,
+          "female": 4,
+          "male": 5,
           "non_binary": 0,
           "not_specified": 0
         }
@@ -379,14 +381,14 @@
       "top_countries": [
         {
           "country": "United States",
-          "listeners": 138,
-          "active_pct": 44.9,
-          "active_listeners": 62
+          "listeners": 189,
+          "active_pct": 33.3,
+          "active_listeners": 63
         },
         {
           "country": "Brazil",
-          "listeners": 17,
-          "active_pct": 17.6,
+          "listeners": 18,
+          "active_pct": 16.7,
           "active_listeners": 3
         },
         {
@@ -396,15 +398,15 @@
           "active_listeners": 3
         },
         {
+          "country": "United Kingdom",
+          "listeners": 7,
+          "active_pct": 85.7,
+          "active_listeners": 6
+        },
+        {
           "country": "Canada",
           "listeners": 7,
           "active_pct": 71.4,
-          "active_listeners": 5
-        },
-        {
-          "country": "United Kingdom",
-          "listeners": 6,
-          "active_pct": 83.3,
           "active_listeners": 5
         },
         {
@@ -415,33 +417,43 @@
         },
         {
           "country": "South Africa",
-          "listeners": 4,
-          "active_pct": 50.0,
+          "listeners": 5,
+          "active_pct": 40.0,
           "active_listeners": 2
         },
         {
           "country": "Netherlands",
           "listeners": 4,
-          "active_pct": 75.0,
-          "active_listeners": 3
-        },
-        {
-          "country": "Spain",
-          "listeners": 4,
-          "active_pct": 100.0,
-          "active_listeners": 4
+          "active_pct": 50.0,
+          "active_listeners": 2
         },
         {
           "country": "Nigeria",
           "listeners": 3,
           "active_pct": 66.7,
           "active_listeners": 2
+        },
+        {
+          "country": "Spain",
+          "listeners": 3,
+          "active_pct": 100.0,
+          "active_listeners": 3
         }
       ],
       "top_cities": [
         {
           "city": "Milwaukee",
           "region": "United States, WI",
+          "listeners": 6
+        },
+        {
+          "city": "San Antonio",
+          "region": "United States, TX",
+          "listeners": 4
+        },
+        {
+          "city": "Dallas",
+          "region": "United States, TX",
           "listeners": 4
         },
         {
@@ -455,38 +467,28 @@
           "listeners": 4
         },
         {
+          "city": "Chicago",
+          "region": "United States, IL",
+          "listeners": 4
+        },
+        {
           "city": "Staten Island",
           "region": "United States, NY",
           "listeners": 4
         },
         {
-          "city": "San Antonio",
-          "region": "United States, TX",
+          "city": "Rio de Janeiro",
+          "region": "Brazil, RJ",
+          "listeners": 3
+        },
+        {
+          "city": "Phoenix",
+          "region": "United States, AZ",
           "listeners": 3
         },
         {
           "city": "Lagos",
           "region": "Nigeria, LA",
-          "listeners": 3
-        },
-        {
-          "city": "Dallas",
-          "region": "United States, TX",
-          "listeners": 3
-        },
-        {
-          "city": "Portland",
-          "region": "United States, OR",
-          "listeners": 3
-        },
-        {
-          "city": "Philadelphia",
-          "region": "United States, PA",
-          "listeners": 3
-        },
-        {
-          "city": "Chicago",
-          "region": "United States, IL",
           "listeners": 3
         }
       ]
@@ -494,8 +496,8 @@
     "release_engagement": {
       "release": "In Your DM",
       "released": "2026-02-07",
-      "day": 21,
-      "monthly_active_listeners": 105,
+      "day": 24,
+      "monthly_active_listeners": 104,
       "engaged_listeners": 5,
       "engaged_pct": 4.8,
       "daily_engaged_series": [
@@ -519,27 +521,30 @@
         5,
         5,
         5,
+        5,
+        5,
+        5,
         5
       ]
     },
     "top_songs_last_7_days": [
       {
-        "name": "King Birthday",
-        "streams": 177
+        "name": "Let Me In",
+        "streams": 187
       },
       {
-        "name": "Let Me In",
-        "streams": 145
+        "name": "King Birthday",
+        "streams": 175
       },
       {
         "name": "In Your DM",
-        "streams": 28
+        "streams": 27
       }
     ],
     "top_playlists_last_7_days": [
       {
         "name": "Radio",
-        "streams": 88
+        "streams": 114
       }
     ]
   }
