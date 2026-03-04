@@ -103,12 +103,15 @@ function render() {
 
   const rangeTracks = filterTracksByRange(data.tracks || []);
 
+  renderDataQuality(data);
   renderKpis(data, rangeTracks);
+  renderDeltaSnapshot(data, rangeTracks);
   renderGrowth(data);
   renderTracks(data, rangeTracks);
   renderPlatformSplit(data, rangeTracks);
   renderHeatmap(data, rangeTracks);
   renderInsights(data, rangeTracks);
+  renderActions(data, rangeTracks);
   renderAudienceExtras(data);
   renderListsOnly(rangeTracks);
 
@@ -116,6 +119,17 @@ function render() {
   document.getElementById('catalogHealth').textContent = data.catalog_health || 'No catalog health data yet.';
 
   document.querySelectorAll('.skeleton').forEach(s => s.classList.add('hidden'));
+}
+
+function renderDataQuality(data) {
+  const el = document.getElementById('dataQuality');
+  if (!el) return;
+  const source = data.top_tracks_source || 'unknown';
+  const verified = (data.verified_placements || []).length;
+  const quality = source === 'search_fallback' ? 'Estimated' : 'Verified';
+  const cls = source === 'search_fallback' ? 'error' : 'ok';
+  el.className = `status-banner ${cls}`;
+  el.textContent = `Data quality: ${quality} • Top tracks source: ${source} • Verified placements: ${verified}`;
 }
 
 function renderKpis(data, rangeTracks) {
@@ -151,6 +165,42 @@ function renderKpis(data, rangeTracks) {
     div.className = 'kpi';
     div.innerHTML = `<div class="top"><span>${icon} ${c.label}</span><span class="delta ${cls}">${c.delta >= 0 ? '+' : ''}${c.delta.toFixed(1)}%</span></div><div class="value">${c.value}</div><div class="spark">${spark}</div>`;
     strip.appendChild(div);
+  });
+
+  const msListeners = document.getElementById('msListeners');
+  const msFollowers = document.getElementById('msFollowers');
+  const msVerified = document.getElementById('msVerified');
+  if (msListeners) msListeners.textContent = numberOrDash(monthlyListeners);
+  if (msFollowers) msFollowers.textContent = numberOrDash(om.followers?.value ?? followers);
+  if (msVerified) msVerified.textContent = String(verified);
+}
+
+function renderDeltaSnapshot(data, rangeTracks) {
+  const strip = document.getElementById('deltaStrip');
+  if (!strip) return;
+  const hist = data.history || [];
+  const now = hist[hist.length - 1] || {};
+  const prevDay = hist[hist.length - 2] || now;
+  const prevWeek = hist[Math.max(0, hist.length - 8)] || now;
+
+  const dayDelta = (now.followers || 0) - (prevDay.followers || 0);
+  const weekDelta = (now.followers || 0) - (prevWeek.followers || 0);
+  const tracksNow = (rangeTracks || []).length;
+  const verified = (data.verified_placements || []).length;
+
+  const items = [
+    { label: 'Followers Δ (1d)', value: `${dayDelta >= 0 ? '+' : ''}${dayDelta}` },
+    { label: 'Followers Δ (7d)', value: `${weekDelta >= 0 ? '+' : ''}${weekDelta}` },
+    { label: 'Tracks in range', value: String(tracksNow) },
+    { label: 'Verified placements', value: String(verified) }
+  ];
+
+  strip.innerHTML = '';
+  items.forEach(i => {
+    const card = document.createElement('article');
+    card.className = 'kpi';
+    card.innerHTML = `<div class="top"><span>⚡ ${i.label}</span></div><div class="value">${i.value}</div>`;
+    strip.appendChild(card);
   });
 }
 
@@ -231,6 +281,34 @@ function renderInsights(data, rangeTracks) {
   });
 }
 
+function renderActions(data, rangeTracks) {
+  const el = document.getElementById('actions');
+  if (!el) return;
+  el.innerHTML = '';
+
+  const tracks = rangeTracks || [];
+  const verified = (data.verified_placements || []).length;
+  const searchHits = (data.playlist_intel || []).reduce((a, x) => a + (x.search_hits || 0), 0);
+  const top = tracks[0]?.name || 'your latest single';
+  const actions = [
+    searchHits > verified
+      ? `Prioritize outreach this week: you have ${searchHits} playlist search hits vs ${verified} verified placements.`
+      : 'Playlist conversion is healthy — maintain current curator outreach cadence.',
+    `Create 2 short-form clips around "${top}" and post within 48 hours to support stream momentum.`,
+    'Run a fan reactivation push: DM/email your top supporters with a direct Spotify save link.',
+    'Review top cities and target one local collab or micro-event for audience growth.'
+  ];
+
+  actions.forEach((a) => {
+    const li = document.createElement('li');
+    li.textContent = a;
+    el.appendChild(li);
+  });
+
+  const empty = document.getElementById('actionsEmpty');
+  if (empty) empty.classList.toggle('hidden', el.children.length > 0);
+}
+
 function renderAudienceExtras(data) {
   const s4a = data.spotify_for_artists || {};
 
@@ -303,6 +381,18 @@ function renderListsOnly(rangeTracks = null) {
   if (!pi.children.length) document.getElementById('playlistEmpty').classList.remove('hidden');
   else document.getElementById('playlistEmpty').classList.add('hidden');
 
+  const verifiedList = document.getElementById('verifiedPlacements');
+  if (verifiedList) {
+    verifiedList.innerHTML = '';
+    (data.verified_placements || []).filter(p => `${p.track} ${p.name}`.toLowerCase().includes(q)).forEach(p => {
+      const li = document.createElement('li');
+      li.innerHTML = `<strong>${p.track}:</strong> <a href="${p.url}" target="_blank">${p.name}</a>`;
+      verifiedList.appendChild(li);
+    });
+    const verifiedEmpty = document.getElementById('verifiedEmpty');
+    if (verifiedEmpty) verifiedEmpty.classList.toggle('hidden', verifiedList.children.length > 0);
+  }
+
   const captions = document.getElementById('captions');
   captions.innerHTML = '';
   (data.smart_captions || []).filter(c => c.toLowerCase().includes(q)).forEach(c => {
@@ -312,12 +402,16 @@ function renderListsOnly(rangeTracks = null) {
   });
 
   const releases = document.getElementById('releases');
-  releases.innerHTML = '';
-  (data.release_monitor || []).filter(r => `${r.name} ${r.release_date}`.toLowerCase().includes(q)).forEach(r => {
-    const li = document.createElement('li');
-    li.innerHTML = `<a href="${r.url}" target="_blank">${r.name}</a> (${r.release_date || 'n/a'}) • ${r.type || 'release'}`;
-    releases.appendChild(li);
-  });
+  if (releases) {
+    releases.innerHTML = '';
+    (data.release_monitor || []).filter(r => `${r.name} ${r.release_date}`.toLowerCase().includes(q)).forEach(r => {
+      const li = document.createElement('li');
+      li.innerHTML = `<a href="${r.url}" target="_blank">${r.name}</a> (${r.release_date || 'n/a'}) • ${r.type || 'release'}`;
+      releases.appendChild(li);
+    });
+    const releasesEmpty = document.getElementById('releasesEmpty');
+    if (releasesEmpty) releasesEmpty.classList.toggle('hidden', releases.children.length > 0);
+  }
 
   const related = document.getElementById('relatedArtists');
   related.innerHTML = '';

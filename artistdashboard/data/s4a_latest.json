@@ -1,32 +1,32 @@
 {
-  "captured_at": "2026-03-03 09:10 EST",
+  "captured_at": "2026-03-04 09:10 EST",
   "period": "last_28_days",
   "listening_now": 0,
   "overview_metrics": {
     "listeners": {
-      "value": 269,
-      "delta_pct": 14.0,
-      "previous": 236
+      "value": 291,
+      "delta_pct": 24.9,
+      "previous": 233
     },
     "monthly_active_listeners": {
-      "value": 104,
-      "delta_pct": -10.3
+      "value": 107,
+      "delta_pct": -5.3
     },
     "streams": {
-      "value": 1162,
-      "delta_pct": 30.9
+      "value": 1180,
+      "delta_pct": 35.5
     },
     "streams_per_listener": {
-      "value": 4.3,
-      "delta_pct": 14.8
+      "value": 4.1,
+      "delta_pct": 8.5
     },
     "saves": {
-      "value": 27,
-      "delta_pct": -37.2
+      "value": 26,
+      "delta_pct": -38.1
     },
     "playlist_adds": {
-      "value": 50,
-      "delta_pct": -36.7
+      "value": 52,
+      "delta_pct": -31.6
     },
     "followers": {
       "value": 78,
@@ -35,14 +35,14 @@
   },
   "audience_segments": {
     "monthly_active_listeners": {
-      "value": 104,
-      "share_of_monthly_listeners_pct": 39
+      "value": 107,
+      "share_of_monthly_listeners_pct": 37
     },
-    "streams_share_from_monthly_active_pct": 84,
-    "streams_per_listener_monthly_active": 9.4,
+    "streams_share_from_monthly_active_pct": 83,
+    "streams_per_listener_monthly_active": 9.1,
     "new_active_listeners": {
-      "value": 31,
-      "delta_pct": -34.0
+      "value": 34,
+      "delta_pct": -22.7
     },
     "super_listeners": {
       "value": 7,
@@ -53,11 +53,11 @@
     "gender": {
       "female": {
         "pct": 46,
-        "listeners": 123
+        "listeners": 134
       },
       "male": {
         "pct": 50,
-        "listeners": 135
+        "listeners": 146
       },
       "non_binary": {
         "pct": 0,
@@ -71,55 +71,55 @@
     "age_buckets": [
       {
         "range": "<18",
-        "pct": 1,
-        "female": 2,
-        "male": 0,
+        "pct": 2,
+        "female": 3,
+        "male": 1,
         "non_binary": 0,
         "not_specified": 1
       },
       {
         "range": "18-24",
-        "pct": 11,
-        "female": 15,
-        "male": 14,
+        "pct": 12,
+        "female": 16,
+        "male": 17,
         "non_binary": 0,
         "not_specified": 1
       },
       {
         "range": "25-34",
         "pct": 28,
-        "female": 39,
-        "male": 35,
+        "female": 42,
+        "male": 37,
         "non_binary": 0,
         "not_specified": 2
       },
       {
         "range": "35-44",
-        "pct": 31,
-        "female": 36,
-        "male": 42,
+        "pct": 30,
+        "female": 39,
+        "male": 44,
         "non_binary": 0,
         "not_specified": 5
       },
       {
         "range": "45-54",
-        "pct": 17,
+        "pct": 16,
         "female": 19,
-        "male": 25,
+        "male": 27,
         "non_binary": 0,
         "not_specified": 2
       },
       {
         "range": "55-64",
-        "pct": 8,
-        "female": 8,
-        "male": 14,
+        "pct": 9,
+        "female": 11,
+        "male": 15,
         "non_binary": 0,
         "not_specified": 0
       },
       {
         "range": "65+",
-        "pct": 4,
+        "pct": 3,
         "female": 4,
         "male": 5,
         "non_binary": 0,
@@ -131,8 +131,8 @@
     "top_countries": [
       {
         "country": "United States",
-        "listeners": 189,
-        "active_pct": 33.3,
+        "listeners": 208,
+        "active_pct": 30.3,
         "active_listeners": 63
       },
       {
@@ -143,9 +143,9 @@
       },
       {
         "country": "Germany",
-        "listeners": 7,
-        "active_pct": 42.9,
-        "active_listeners": 3
+        "listeners": 8,
+        "active_pct": 50.0,
+        "active_listeners": 4
       },
       {
         "country": "United Kingdom",
@@ -212,18 +212,13 @@
         "listeners": 4
       },
       {
-        "city": "São Paulo",
+        "city": "S\u00e3o Paulo",
         "region": "Brazil, SP",
         "listeners": 4
       },
       {
         "city": "Chicago",
         "region": "United States, IL",
-        "listeners": 4
-      },
-      {
-        "city": "Staten Island",
-        "region": "United States, NY",
         "listeners": 4
       },
       {
@@ -239,6 +234,11 @@
       {
         "city": "Lagos",
         "region": "Nigeria, LA",
+        "listeners": 3
+      },
+      {
+        "city": "Portland",
+        "region": "United States, OR",
         "listeners": 3
       }
     ]
@@ -280,21 +280,21 @@
   "top_songs_last_7_days": [
     {
       "name": "Let Me In",
-      "streams": 187
+      "streams": 196
     },
     {
       "name": "King Birthday",
       "streams": 175
     },
     {
-      "name": "In Your DM",
-      "streams": 27
+      "name": "Paralyzed",
+      "streams": 8
     }
   ],
   "top_playlists_last_7_days": [
     {
       "name": "Radio",
-      "streams": 114
+      "streams": 124
     }
   ]
 }
