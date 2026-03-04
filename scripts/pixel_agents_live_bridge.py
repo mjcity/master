@@ -1,30 +1,34 @@
 #!/usr/bin/env python3
 import json
 import os
-import subprocess
+import threading
 import time
 from datetime import datetime, timezone
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 WORKSPACE = "/home/michael/.openclaw/workspace"
 SESSIONS_JSON = "/home/michael/.openclaw/agents/main/sessions/sessions.json"
 SESSIONS_DIR = "/home/michael/.openclaw/agents/main/sessions"
-LIVE_REPO = f"{WORKSPACE}/tmp/pixel-agents-live"
-LIVE_STATUS = f"{LIVE_REPO}/live-status.json"
+LIVE_STATUS_FILE = f"{WORKSPACE}/tmp/pixel-agents-live/live-status.json"
 TARGET_KEY = "agent:main:telegram:direct:5186415555"
+PORT = 8765
 
-started_at = None
-last_task = "Waiting for request"
+state_lock = threading.Lock()
+state = {
+    "status": "idle",
+    "task": "Waiting for request",
+    "started_at": "",
+    "updated_at": "",
+    "elapsed_sec": 0,
+    "outcome": "pending",
+    "helpers": [],
+}
+_started_epoch = None
+_last_task = "Waiting for request"
 
 
 def now_iso():
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
-
-
-def to_epoch(iso):
-    try:
-        return datetime.fromisoformat(iso.replace("Z", "+00:00")).timestamp()
-    except Exception:
-        return time.time()
 
 
 def get_session_file():
@@ -56,81 +60,90 @@ def extract_text(content):
     return ""
 
 
-def mk_payload(status, task, outcome="pending", helpers=None):
-    global started_at
-    now = now_iso()
-    if status == "working" and not started_at:
-        started_at = now
-    if status == "done" and not started_at:
-        started_at = now
-    if status == "idle":
-        started_at = None
+def set_state(status, task, outcome="pending", helpers=None):
+    global _started_epoch
+    now = time.time()
+    if status == "working":
+        _started_epoch = now
+    if _started_epoch is None:
+        _started_epoch = now
+    elapsed = max(0, int(now - _started_epoch))
 
-    base = to_epoch(started_at) if started_at else time.time()
-    elapsed = max(0, int(time.time() - base))
-    return {
+    payload = {
         "status": status,
         "task": task,
-        "started_at": started_at or now,
-        "updated_at": now,
+        "started_at": datetime.fromtimestamp(_started_epoch, timezone.utc).isoformat().replace("+00:00", "Z"),
+        "updated_at": now_iso(),
         "elapsed_sec": elapsed,
         "outcome": outcome,
         "helpers": helpers or [],
     }
 
+    with state_lock:
+        state.update(payload)
+
+    os.makedirs(os.path.dirname(LIVE_STATUS_FILE), exist_ok=True)
+    with open(LIVE_STATUS_FILE, "w", encoding="utf-8") as f:
+        json.dump(payload, f, indent=2)
+        f.write("\n")
+
 
 def to_status(obj):
-    global started_at, last_task
+    global _last_task
     msg = obj.get("message", {})
     role = msg.get("role")
 
     if role == "user":
         txt = extract_text(msg.get("content", "")).strip().replace("\n", " ")
-        last_task = txt[:120] or "New request"
-        started_at = now_iso()
-        return mk_payload("working", last_task, "pending", helpers=[])
-
-    if role == "assistant":
-        return mk_payload("done", last_task or "Response delivered", "success", helpers=[])
+        _last_task = txt[:120] or "New request"
+        set_state("working", _last_task, "pending", [])
+        return
 
     if role == "toolResult":
         helpers = [
-            {"id": 2, "status": "reading", "task": "Tool output parsing"},
-            {"id": 3, "status": "working", "task": "Task execution"},
+            {"id": 2, "status": "reading", "task": "Analyzing output"},
+            {"id": 3, "status": "working", "task": "Executing task"},
         ]
-        return mk_payload("reading", last_task or "Using tools", "pending", helpers=helpers)
+        set_state("reading", _last_task or "Using tools", "pending", helpers)
+        return
 
-    return None
-
-
-def sync_and_push():
-    subprocess.run(["git", "fetch", "origin", "gh-pages"], cwd=LIVE_REPO, check=False)
-    subprocess.run(["git", "reset", "--hard", "origin/gh-pages"], cwd=LIVE_REPO, check=False)
+    if role == "assistant":
+        set_state("done", _last_task or "Response delivered", "success", [])
+        return
 
 
-def write_status(payload):
-    os.makedirs(os.path.dirname(LIVE_STATUS), exist_ok=True)
-    existing = None
-    if os.path.exists(LIVE_STATUS):
-        try:
-            existing = json.load(open(LIVE_STATUS, "r", encoding="utf-8"))
-        except Exception:
-            existing = None
+class Handler(BaseHTTPRequestHandler):
+    def _send_json(self, data, status=200):
+        body = json.dumps(data).encode("utf-8")
+        self.send_response(status)
+        self.send_header("Content-Type", "application/json")
+        self.send_header("Content-Length", str(len(body)))
+        self.send_header("Cache-Control", "no-store")
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.end_headers()
+        self.wfile.write(body)
 
-    if existing and all(existing.get(k) == payload.get(k) for k in ["status", "task", "outcome", "elapsed_sec"]):
-        return False
+    def do_OPTIONS(self):
+        self.send_response(204)
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Access-Control-Allow-Methods", "GET, OPTIONS")
+        self.send_header("Access-Control-Allow-Headers", "Content-Type")
+        self.end_headers()
 
-    sync_and_push()
-    with open(LIVE_STATUS, "w", encoding="utf-8") as f:
-        json.dump(payload, f, indent=2)
-        f.write("\n")
+    def do_GET(self):
+        if self.path.startswith("/status"):
+            with state_lock:
+                self._send_json(dict(state))
+            return
+        self._send_json({"ok": True, "service": "pixel-agents-live-bridge", "status": "up"})
 
-    subprocess.run(["git", "add", "live-status.json"], cwd=LIVE_REPO, check=False)
-    commit = subprocess.run(["git", "commit", "-m", f"Live status: {payload['status']}"], cwd=LIVE_REPO, capture_output=True, text=True)
-    if commit.returncode == 0:
-        subprocess.run(["git", "push", "origin", "gh-pages"], cwd=LIVE_REPO, check=False)
-        return True
-    return False
+    def log_message(self, fmt, *args):
+        return
+
+
+def serve_http():
+    server = ThreadingHTTPServer(("127.0.0.1", PORT), Handler)
+    server.serve_forever()
 
 
 def follow_file(path):
@@ -139,7 +152,7 @@ def follow_file(path):
         while True:
             line = f.readline()
             if not line:
-                time.sleep(0.6)
+                time.sleep(0.4)
                 continue
             line = line.strip()
             if not line:
@@ -148,16 +161,16 @@ def follow_file(path):
                 obj = json.loads(line)
             except Exception:
                 continue
-            payload = to_status(obj)
-            if payload:
-                write_status(payload)
+            to_status(obj)
 
 
 def main():
+    set_state("idle", "Waiting for request", "pending", [])
+    threading.Thread(target=serve_http, daemon=True).start()
     while True:
         sf = get_session_file()
         if not sf:
-            time.sleep(2)
+            time.sleep(1.0)
             continue
         follow_file(sf)
 
