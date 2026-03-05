@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-04 09:11 EST",
+  "generated_at": "2026-03-05 09:10 EST",
   "artist_snapshot": {
     "name": "Mjcity",
     "id": "4TbJfltoNbaKOASaR8rsYM",
@@ -29,10 +29,10 @@
       "url": "https://open.spotify.com/track/3EUG9ERGhYLcrkmVyHfHq8"
     },
     {
-      "name": "Your Night",
-      "release_date": "2026-01-18",
-      "album": "Your Night",
-      "url": "https://open.spotify.com/track/1m8blKau1orrn7ZnH2QTJ2"
+      "name": "On DND",
+      "release_date": "2025-12-29",
+      "album": "On DND",
+      "url": "https://open.spotify.com/track/1ZRt228N5SR8zIhwUAtXxl"
     },
     {
       "name": "All of My Light",
@@ -114,20 +114,20 @@
           "url": "https://open.spotify.com/playlist/4V5F3d3Vv1UUIagxgjKntQ"
         },
         {
-          "name": "I Put On For My City",
-          "url": "https://open.spotify.com/playlist/4w9U21lvRHbKBlIej3CBl7"
-        },
-        {
           "name": "LATE NIGHT CITY LIGHTS VIBE",
           "url": "https://open.spotify.com/playlist/5rkPgglTxbzp6pJeaIGcXJ"
+        },
+        {
+          "name": "I Put On For My City",
+          "url": "https://open.spotify.com/playlist/4w9U21lvRHbKBlIej3CBl7"
         },
         {
           "name": "Late Night Vibes & City Lights",
           "url": "https://open.spotify.com/playlist/2i3MBRfHq6WABdYv4zXByJ"
         },
         {
-          "name": "New Jack City Soundtrack",
-          "url": "https://open.spotify.com/playlist/3OzysMVidq78HAtOCuJMZj"
+          "name": "Latin Nights & City Lights",
+          "url": "https://open.spotify.com/playlist/5JOdoX6TL0hIf0WY0AVoqK"
         }
       ],
       "verified_count": 0,
@@ -142,43 +142,47 @@
     },
     {
       "track": "In Your DM",
-      "search_hits": 2,
+      "search_hits": 4,
       "sample_playlists": [
         {
           "name": "\ud83c\udf10dm",
           "url": "https://open.spotify.com/playlist/2U3wv3qUZFvZazddTAzF9w"
         },
         {
+          "name": "DM_6'S OFFICIAL STATION",
+          "url": "https://open.spotify.com/playlist/2lXNvorcogFiLmKxbYD2R0"
+        },
+        {
           "name": "DM  + CG 012226",
           "url": "https://open.spotify.com/playlist/2YqDJNYbGkxYJSWNCS40hV"
+        },
+        {
+          "name": "DWM \ud83c\udf00",
+          "url": "https://open.spotify.com/playlist/7m4SP65z9Tsi2idvGmdCYL"
         }
       ],
       "verified_count": 0,
       "verified_playlists": []
     },
     {
-      "track": "Your Night",
-      "search_hits": 5,
+      "track": "On DND",
+      "search_hits": 4,
       "sample_playlists": [
         {
-          "name": "Late Night City Vibes ",
-          "url": "https://open.spotify.com/playlist/0MpQk1QRrDMfsKDI00h4iA"
+          "name": "on DND",
+          "url": "https://open.spotify.com/playlist/3vxjN8vYHBntmKMBhU8Pz1"
         },
         {
-          "name": "LATE NIGHT CITY LIGHTS VIBE",
-          "url": "https://open.spotify.com/playlist/5rkPgglTxbzp6pJeaIGcXJ"
+          "name": "on DND",
+          "url": "https://open.spotify.com/playlist/768zZI81OpzmoCBuyzi0Yo"
         },
         {
-          "name": "Late Night Vibes & City Lights",
-          "url": "https://open.spotify.com/playlist/2i3MBRfHq6WABdYv4zXByJ"
+          "name": "On fye (slowed reverb)",
+          "url": "https://open.spotify.com/playlist/2vPURuEijaRHZqerfBkGoY"
         },
         {
-          "name": "Latin Nights & City Lights",
-          "url": "https://open.spotify.com/playlist/5JOdoX6TL0hIf0WY0AVoqK"
-        },
-        {
-          "name": "Hot City Nights",
-          "url": "https://open.spotify.com/playlist/7mel2iMSkUMLfVkz5YEvgM"
+          "name": "on dnd",
+          "url": "https://open.spotify.com/playlist/24Wln48JKLvCeNeIMOP2Mu"
         }
       ],
       "verified_count": 0,
@@ -189,24 +193,24 @@
       "search_hits": 5,
       "sample_playlists": [
         {
-          "name": "My light ",
-          "url": "https://open.spotify.com/playlist/1HyrKOlkVAsYCEBrmpZ0lt"
+          "name": "City Light Vegas Playlist",
+          "url": "https://open.spotify.com/playlist/4nx9LKRKVVgKFkE32j5mXc"
         },
         {
-          "name": "Sunday Gathering Music | First City Church",
-          "url": "https://open.spotify.com/playlist/1XyIQFosNNY98vC5ZGrWXP"
+          "name": "City Alight Complete Playlist",
+          "url": "https://open.spotify.com/playlist/011aj7QIywBj7t89mC3D1Q"
         },
         {
-          "name": "Mill City Worship Playlist 2025",
-          "url": "https://open.spotify.com/playlist/4o0vkP37Og7wFtoWQGJ7MT"
+          "name": "Songs of City Light",
+          "url": "https://open.spotify.com/playlist/2cu3GjaQ1Uj4OsjfrQIGTK"
         },
         {
-          "name": "Cityalight",
-          "url": "https://open.spotify.com/playlist/3FIO7fuI8fsJCpjWKF1KvC"
+          "name": "Citylight Lincoln Worship",
+          "url": "https://open.spotify.com/playlist/3MOvv0V6bzqVk1ARerr9ye"
         },
         {
-          "name": "Mykah\u2019s Worship",
-          "url": "https://open.spotify.com/playlist/1SqPmQP46EjLWOETGKmSAx"
+          "name": "Citylight Lincoln Worship",
+          "url": "https://open.spotify.com/playlist/38V2ZweXtVlSbOIsRd42B9"
         }
       ],
       "verified_count": 0,
@@ -219,7 +223,7 @@
     "Appreciate every listener rocking with Mjcity. Keep running it up! \ud83d\ude80",
     "Playlist curators: open to placements for Afro-pop energy \u2014 link in bio."
   ],
-  "weekly_report": "This week: 5 active tracks detected, 17 playlist search hits, 0 verified placements.",
+  "weekly_report": "This week: 5 active tracks detected, 18 playlist search hits, 0 verified placements.",
   "catalog_health": "Catalog trend: push your newest 2 releases with short-form video and playlist outreach.",
   "history": [
     {
@@ -241,10 +245,15 @@
       "date": "2026-03-04",
       "followers": null,
       "popularity": null
+    },
+    {
+      "date": "2026-03-05",
+      "followers": null,
+      "popularity": null
     }
   ],
   "spotify_for_artists": {
-    "captured_at": "2026-03-04 09:10 EST",
+    "captured_at": "2026-03-05 09:10 EST",
     "period": "last_28_days",
     "listening_now": 0,
     "overview_metrics": {
@@ -254,8 +263,8 @@
         "previous": 233
       },
       "monthly_active_listeners": {
-        "value": 107,
-        "delta_pct": -5.3
+        "value": 108,
+        "delta_pct": -4.4
       },
       "streams": {
         "value": 1180,
@@ -280,7 +289,7 @@
     },
     "audience_segments": {
       "monthly_active_listeners": {
-        "value": 107,
+        "value": 108,
         "share_of_monthly_listeners_pct": 37
       },
       "streams_share_from_monthly_active_pct": 83,
@@ -490,8 +499,8 @@
     },
     "release_engagement": {
       "release": "In Your DM",
-      "released": "2026-02-07",
-      "day": 24,
+      "released": "2026-02-06",
+      "day": 27,
       "monthly_active_listeners": 104,
       "engaged_listeners": 5,
       "engaged_pct": 4.8,

@@ -1,5 +1,5 @@
 {
-  "captured_at": "2026-03-04 09:10 EST",
+  "captured_at": "2026-03-05 09:10 EST",
   "period": "last_28_days",
   "listening_now": 0,
   "overview_metrics": {
@@ -9,8 +9,8 @@
       "previous": 233
     },
     "monthly_active_listeners": {
-      "value": 107,
-      "delta_pct": -5.3
+      "value": 108,
+      "delta_pct": -4.4
     },
     "streams": {
       "value": 1180,
@@ -35,7 +35,7 @@
   },
   "audience_segments": {
     "monthly_active_listeners": {
-      "value": 107,
+      "value": 108,
       "share_of_monthly_listeners_pct": 37
     },
     "streams_share_from_monthly_active_pct": 83,
@@ -245,8 +245,8 @@
   },
   "release_engagement": {
     "release": "In Your DM",
-    "released": "2026-02-07",
-    "day": 24,
+    "released": "2026-02-06",
+    "day": 27,
     "monthly_active_listeners": 104,
     "engaged_listeners": 5,
     "engaged_pct": 4.8,
