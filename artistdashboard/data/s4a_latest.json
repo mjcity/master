@@ -1,300 +1,33 @@
 {
-  "captured_at": "2026-03-05 09:10 EST",
-  "period": "last_28_days",
-  "listening_now": 0,
-  "overview_metrics": {
-    "listeners": {
-      "value": 291,
-      "delta_pct": 24.9,
-      "previous": 233
+  "artist_name": "Mjcity",
+  "last_updated": "2026-03-07T09:10:00-05:00",
+  "metrics": {
+    "listeners_now": 0,
+    "last_28_days": {
+      "monthly_listeners": 329,
+      "monthly_listeners_delta": "+62.1%",
+      "streams": 1157,
+      "streams_delta": "+33.1%",
+      "active_listeners": 102,
+      "active_listeners_delta": "-4.7%",
+      "new_active_listeners": 35,
+      "new_active_listeners_delta": "0%",
+      "super_listeners": 7,
+      "super_listeners_delta": "+40%"
     },
-    "monthly_active_listeners": {
-      "value": 108,
-      "delta_pct": -4.4
+    "latest_release": {
+      "name": "In Your DM",
+      "type": "Single",
+      "release_date": "2026-02-06",
+      "all_time_streams": 77
     },
-    "streams": {
-      "value": 1180,
-      "delta_pct": 35.5
-    },
-    "streams_per_listener": {
-      "value": 4.1,
-      "delta_pct": 8.5
-    },
-    "saves": {
-      "value": 26,
-      "delta_pct": -38.1
-    },
-    "playlist_adds": {
-      "value": 52,
-      "delta_pct": -31.6
-    },
-    "followers": {
-      "value": 78,
-      "delta_pct": 9.9
-    }
-  },
-  "audience_segments": {
-    "monthly_active_listeners": {
-      "value": 108,
-      "share_of_monthly_listeners_pct": 37
-    },
-    "streams_share_from_monthly_active_pct": 83,
-    "streams_per_listener_monthly_active": 9.1,
-    "new_active_listeners": {
-      "value": 34,
-      "delta_pct": -22.7
-    },
-    "super_listeners": {
-      "value": 7,
-      "delta_pct": 40.0
-    }
-  },
-  "demographics": {
-    "gender": {
-      "female": {
-        "pct": 46,
-        "listeners": 134
-      },
-      "male": {
-        "pct": 50,
-        "listeners": 146
-      },
-      "non_binary": {
-        "pct": 0,
-        "listeners": 0
-      },
-      "not_specified": {
-        "pct": 4,
-        "listeners": 11
-      }
-    },
-    "age_buckets": [
-      {
-        "range": "<18",
-        "pct": 2,
-        "female": 3,
-        "male": 1,
-        "non_binary": 0,
-        "not_specified": 1
-      },
-      {
-        "range": "18-24",
-        "pct": 12,
-        "female": 16,
-        "male": 17,
-        "non_binary": 0,
-        "not_specified": 1
-      },
-      {
-        "range": "25-34",
-        "pct": 28,
-        "female": 42,
-        "male": 37,
-        "non_binary": 0,
-        "not_specified": 2
-      },
-      {
-        "range": "35-44",
-        "pct": 30,
-        "female": 39,
-        "male": 44,
-        "non_binary": 0,
-        "not_specified": 5
-      },
-      {
-        "range": "45-54",
-        "pct": 16,
-        "female": 19,
-        "male": 27,
-        "non_binary": 0,
-        "not_specified": 2
-      },
-      {
-        "range": "55-64",
-        "pct": 9,
-        "female": 11,
-        "male": 15,
-        "non_binary": 0,
-        "not_specified": 0
-      },
-      {
-        "range": "65+",
-        "pct": 3,
-        "female": 4,
-        "male": 5,
-        "non_binary": 0,
-        "not_specified": 0
-      }
-    ]
-  },
-  "location": {
-    "top_countries": [
-      {
-        "country": "United States",
-        "listeners": 208,
-        "active_pct": 30.3,
-        "active_listeners": 63
-      },
-      {
-        "country": "Brazil",
-        "listeners": 18,
-        "active_pct": 16.7,
-        "active_listeners": 3
-      },
-      {
-        "country": "Germany",
-        "listeners": 8,
-        "active_pct": 50.0,
-        "active_listeners": 4
-      },
-      {
-        "country": "United Kingdom",
-        "listeners": 7,
-        "active_pct": 85.7,
-        "active_listeners": 6
-      },
-      {
-        "country": "Canada",
-        "listeners": 7,
-        "active_pct": 71.4,
-        "active_listeners": 5
-      },
-      {
-        "country": "France",
-        "listeners": 6,
-        "active_pct": 83.3,
-        "active_listeners": 5
-      },
-      {
-        "country": "South Africa",
-        "listeners": 5,
-        "active_pct": 40.0,
-        "active_listeners": 2
-      },
-      {
-        "country": "Netherlands",
-        "listeners": 4,
-        "active_pct": 50.0,
-        "active_listeners": 2
-      },
-      {
-        "country": "Nigeria",
-        "listeners": 3,
-        "active_pct": 66.7,
-        "active_listeners": 2
-      },
-      {
-        "country": "Spain",
-        "listeners": 3,
-        "active_pct": 100.0,
-        "active_listeners": 3
-      }
+    "top_songs_7_days": [
+      { "name": "Let Me In", "streams": 167 },
+      { "name": "Paralyzed", "streams": 10 },
+      { "name": "Shawty Glazing Me", "streams": 7 }
     ],
-    "top_cities": [
-      {
-        "city": "Milwaukee",
-        "region": "United States, WI",
-        "listeners": 6
-      },
-      {
-        "city": "San Antonio",
-        "region": "United States, TX",
-        "listeners": 4
-      },
-      {
-        "city": "Dallas",
-        "region": "United States, TX",
-        "listeners": 4
-      },
-      {
-        "city": "Houston",
-        "region": "United States, TX",
-        "listeners": 4
-      },
-      {
-        "city": "S\u00e3o Paulo",
-        "region": "Brazil, SP",
-        "listeners": 4
-      },
-      {
-        "city": "Chicago",
-        "region": "United States, IL",
-        "listeners": 4
-      },
-      {
-        "city": "Rio de Janeiro",
-        "region": "Brazil, RJ",
-        "listeners": 3
-      },
-      {
-        "city": "Phoenix",
-        "region": "United States, AZ",
-        "listeners": 3
-      },
-      {
-        "city": "Lagos",
-        "region": "Nigeria, LA",
-        "listeners": 3
-      },
-      {
-        "city": "Portland",
-        "region": "United States, OR",
-        "listeners": 3
-      }
+    "top_playlists_7_days": [
+      { "name": "Radio", "streams": 124 }
     ]
-  },
-  "release_engagement": {
-    "release": "In Your DM",
-    "released": "2026-02-06",
-    "day": 27,
-    "monthly_active_listeners": 104,
-    "engaged_listeners": 5,
-    "engaged_pct": 4.8,
-    "daily_engaged_series": [
-      0,
-      1,
-      1,
-      2,
-      3,
-      4,
-      4,
-      4,
-      4,
-      4,
-      4,
-      4,
-      5,
-      5,
-      5,
-      5,
-      5,
-      5,
-      5,
-      5,
-      5,
-      5,
-      5,
-      5
-    ]
-  },
-  "top_songs_last_7_days": [
-    {
-      "name": "Let Me In",
-      "streams": 196
-    },
-    {
-      "name": "King Birthday",
-      "streams": 175
-    },
-    {
-      "name": "Paralyzed",
-      "streams": 8
-    }
-  ],
-  "top_playlists_last_7_days": [
-    {
-      "name": "Radio",
-      "streams": 124
-    }
-  ]
+  }
 }

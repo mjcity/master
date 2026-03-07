@@ -23,5 +23,10 @@
     "date": "2026-03-05",
     "followers": null,
     "popularity": null
+  },
+  {
+    "date": "2026-03-07",
+    "followers": 78,
+    "popularity": 2
   }
 ]
