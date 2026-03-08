@@ -1,5 +1,7 @@
-let state = { data: null, range: 30, query: '' };
+let state = { data: null, range: 30, query: '', sourceMeta: {} };
 let growthChart, tracksChart, platformChart, genderChart, ageChart, releaseChart;
+let retryAttempts = 0;
+const SNAPSHOT_CACHE_KEY = 'mjcity_dashboard_last_snapshot_v1';
 
 function setStatus(text, cls = '') {
   const el = document.getElementById('statusBanner');
@@ -8,19 +10,102 @@ function setStatus(text, cls = '') {
   el.textContent = text;
 }
 
+function saveSnapshotCache(data) {
+  try { localStorage.setItem(SNAPSHOT_CACHE_KEY, JSON.stringify(data)); } catch {}
+}
+
+function loadSnapshotCache() {
+  try {
+    const raw = localStorage.getItem(SNAPSHOT_CACHE_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null;
+  }
+}
+
+function setSourceTimestamps(meta = {}) {
+  const el = document.getElementById('sourceTimestamps');
+  if (!el) return;
+  const latest = meta.latest || 'n/a';
+  const s4a = meta.s4a || 'n/a';
+  const qa = meta.qa || 'n/a';
+  el.textContent = `Sources → latest.json: ${latest} • s4a_latest.json: ${s4a} • qa: ${qa}`;
+}
+
+function runQaChecks(data) {
+  const issues = [];
+  if (!(data.tracks || []).length) issues.push('tracks empty');
+  if (!data.generated_at) issues.push('generated_at missing');
+  if (!(data.playlist_intel || []).length) issues.push('playlist_intel empty');
+  if (!(data.history || []).length) issues.push('history empty');
+  (data.tracks || []).forEach((t) => {
+    if (!t.name) issues.push('track missing name');
+    if (t.release_date && Number.isNaN(new Date(t.release_date).getTime())) issues.push(`invalid release date: ${t.name}`);
+  });
+  const uniqueIssues = [...new Set(issues)].slice(0, 6);
+  const qaEl = document.getElementById('qaStatus');
+  if (qaEl) {
+    if (uniqueIssues.length) {
+      qaEl.className = 'status-banner error';
+      qaEl.textContent = `QA checks: issues found (${uniqueIssues.join('; ')})`;
+    } else {
+      qaEl.className = 'status-banner ok';
+      qaEl.textContent = 'QA checks: passed';
+    }
+  }
+  return { passed: uniqueIssues.length === 0, issues: uniqueIssues };
+}
+
 async function loadData() {
   const ctrl = new AbortController();
   const t = setTimeout(() => ctrl.abort(), 12000);
   try {
     setStatus('Loading data…');
-    const res = await fetch('./data/latest.json?_=' + Date.now(), { signal: ctrl.signal, cache: 'no-store' });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data = await res.json();
+    const [resLatest, resS4A, resQA] = await Promise.all([
+      fetch('./data/latest.json?_=' + Date.now(), { signal: ctrl.signal, cache: 'no-store' }),
+      fetch('./data/s4a_latest.json?_=' + Date.now(), { signal: ctrl.signal, cache: 'no-store' }).catch(() => null),
+      fetch('./data/qa_report.json?_=' + Date.now(), { signal: ctrl.signal, cache: 'no-store' }).catch(() => null)
+    ]);
+    if (!resLatest?.ok) throw new Error(`HTTP ${resLatest?.status || 'fetch'}`);
+    const data = await resLatest.json();
     if (!data || !data.tracks) throw new Error('Malformed dashboard JSON');
+
+    let s4aCaptured = null;
+    if (resS4A && resS4A.ok) {
+      const s4aData = await resS4A.json();
+      s4aCaptured = s4aData?.captured_at || null;
+    }
+
+    let qaChecked = null;
+    if (resQA && resQA.ok) {
+      const qaData = await resQA.json();
+      qaChecked = qaData?.checked_at || null;
+      const qaEl = document.getElementById('qaStatus');
+      if (qaEl) {
+        qaEl.className = `status-banner ${qaData?.passed ? 'ok' : 'error'}`;
+        qaEl.textContent = qaData?.passed ? 'QA checks: passed (post-cron)' : `QA checks: issues (${(qaData?.issues || []).join('; ')})`;
+      }
+    }
+
     state.data = data;
+    state.sourceMeta = { latest: data.generated_at || 'n/a', s4a: s4aCaptured || 'n/a', qa: qaChecked || new Date().toISOString() };
+    setSourceTimestamps(state.sourceMeta);
+    saveSnapshotCache({ data: state.data, sourceMeta: state.sourceMeta });
     setStatus(`Loaded snapshot: ${data.generated_at || 'unknown time'}`, 'ok');
+    retryAttempts = 0;
+    runQaChecks(data);
     return true;
   } catch (e) {
+    const cached = loadSnapshotCache();
+    if (cached?.data) {
+      state.data = cached.data;
+      state.sourceMeta = cached.sourceMeta || { latest: cached.data.generated_at || 'n/a', s4a: 'n/a', qa: 'cached' };
+      setSourceTimestamps(state.sourceMeta);
+      setStatus(`Live load failed (${e.message}). Showing last known snapshot.`, 'error');
+      runQaChecks(state.data);
+      return false;
+    }
+
     setStatus(`Data load failed (${e.message}). Showing safe fallback.`, 'error');
     state.data = {
       generated_at: null,
@@ -33,6 +118,9 @@ async function loadData() {
       weekly_report: 'Data unavailable. Please retry.',
       catalog_health: 'Data unavailable.'
     };
+    state.sourceMeta = { latest: 'n/a', s4a: 'n/a', qa: new Date().toISOString() };
+    setSourceTimestamps(state.sourceMeta);
+    runQaChecks(state.data);
     return false;
   } finally {
     clearTimeout(t);
@@ -50,6 +138,12 @@ function bindControls() {
   if (retry && !retry.dataset.bound) {
     retry.dataset.bound = '1';
     retry.addEventListener('click', async () => {
+      retryAttempts += 1;
+      const cooldownMs = Math.min(8000, Math.max(0, (retryAttempts - 1) * 1500));
+      if (cooldownMs > 0) {
+        setStatus(`Retry queued… waiting ${Math.round(cooldownMs / 1000)}s to avoid API throttle.`, 'error');
+        await new Promise(r => setTimeout(r, cooldownMs));
+      }
       await loadData();
       render();
     });
@@ -104,6 +198,7 @@ function render() {
   const rangeTracks = filterTracksByRange(data.tracks || []);
 
   renderDataQuality(data);
+  renderWidgetConfidence(data, rangeTracks);
   renderKpis(data, rangeTracks);
   renderDeltaSnapshot(data, rangeTracks);
   renderGrowth(data);
@@ -130,6 +225,30 @@ function renderDataQuality(data) {
   const cls = source === 'search_fallback' ? 'error' : 'ok';
   el.className = `status-banner ${cls}`;
   el.textContent = `Data quality: ${quality} • Top tracks source: ${source} • Verified placements: ${verified}`;
+}
+
+function renderWidgetConfidence(data, rangeTracks) {
+  const cards = [...document.querySelectorAll('main .card')];
+  cards.forEach(c => {
+    const h2 = c.querySelector('h2');
+    if (!h2) return;
+    const old = h2.querySelector('.conf-badge');
+    if (old) old.remove();
+
+    const t = h2.textContent.toLowerCase();
+    let level = 'verified';
+    if (t.includes('playlist')) level = data.top_tracks_source === 'search_fallback' ? 'estimated' : 'verified';
+    if (t.includes('related artists')) level = (data.related_artists || []).length ? 'estimated' : 'missing';
+    if (t.includes('platform split')) level = (rangeTracks || []).length ? 'estimated' : 'missing';
+    if (t.includes('streams trend')) level = (data.history || []).length ? 'verified' : 'missing';
+    if (t.includes('top tracks')) level = (rangeTracks || []).length ? 'verified' : 'missing';
+    if (t.includes('spotify for artists')) level = data.spotify_for_artists ? 'verified' : 'missing';
+
+    const span = document.createElement('span');
+    span.className = `conf-badge conf-${level}`;
+    span.textContent = level.toUpperCase();
+    h2.appendChild(span);
+  });
 }
 
 function renderKpis(data, rangeTracks) {
