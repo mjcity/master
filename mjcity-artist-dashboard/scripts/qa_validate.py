@@ -19,6 +19,8 @@ else:
 tracks = data.get('tracks', []) if isinstance(data, dict) else []
 history = data.get('history', []) if isinstance(data, dict) else []
 playlist_intel = data.get('playlist_intel', []) if isinstance(data, dict) else []
+s4a = data.get('spotify_for_artists', {}) if isinstance(data, dict) else {}
+m28 = (s4a.get('metrics') or {}).get('last_28_days') or {}
 
 if not data.get('generated_at'):
     issues.append('generated_at missing')
@@ -28,6 +30,12 @@ if not history:
     issues.append('history empty')
 if not playlist_intel:
     issues.append('playlist_intel empty')
+if not m28.get('monthly_listeners'):
+    issues.append('s4a monthly_listeners missing/zero')
+if not m28.get('streams'):
+    issues.append('s4a streams missing/zero')
+if not s4a.get('geo'):
+    issues.append('s4a geo missing')
 
 invalid_dates = []
 for t in tracks:
