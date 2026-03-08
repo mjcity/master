@@ -1,5 +1,9 @@
-let state = { data: null, range: 30, query: '' };
+let state = { data: null, range: 30, query: '', sourceMeta: {} };
 let growthChart, tracksChart, platformChart, genderChart, ageChart, releaseChart;
+let retryAttempts = 0;
+let lastActionSignature = '';
+const SNAPSHOT_CACHE_KEY = 'mjcity_dashboard_last_snapshot_v1';
+const DECISION_HISTORY_KEY = 'mjcity_dashboard_decision_history_v1';
 
 function setStatus(text, cls = '') {
   const el = document.getElementById('statusBanner');
@@ -8,19 +12,119 @@ function setStatus(text, cls = '') {
   el.textContent = text;
 }
 
+function saveSnapshotCache(data) {
+  try { localStorage.setItem(SNAPSHOT_CACHE_KEY, JSON.stringify(data)); } catch {}
+}
+
+function loadSnapshotCache() {
+  try {
+    const raw = localStorage.getItem(SNAPSHOT_CACHE_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null;
+  }
+}
+
+function getDecisionHistory() {
+  try {
+    const raw = localStorage.getItem(DECISION_HISTORY_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+}
+
+function addDecision(entry) {
+  try {
+    const hist = getDecisionHistory();
+    hist.unshift({ ts: new Date().toISOString(), ...entry });
+    localStorage.setItem(DECISION_HISTORY_KEY, JSON.stringify(hist.slice(0, 80)));
+  } catch {}
+}
+
+function setSourceTimestamps(meta = {}) {
+  const el = document.getElementById('sourceTimestamps');
+  if (!el) return;
+  const latest = meta.latest || 'n/a';
+  const s4a = meta.s4a || 'n/a';
+  const qa = meta.qa || 'n/a';
+  el.textContent = `Sources → latest.json: ${latest} • s4a_latest.json: ${s4a} • qa: ${qa}`;
+}
+
+function runQaChecks(data) {
+  const issues = [];
+  if (!(data.tracks || []).length) issues.push('tracks empty');
+  if (!data.generated_at) issues.push('generated_at missing');
+  if (!(data.playlist_intel || []).length) issues.push('playlist_intel empty');
+  if (!(data.history || []).length) issues.push('history empty');
+  (data.tracks || []).forEach((t) => {
+    if (!t.name) issues.push('track missing name');
+    if (t.release_date && Number.isNaN(new Date(t.release_date).getTime())) issues.push(`invalid release date: ${t.name}`);
+  });
+  const uniqueIssues = [...new Set(issues)].slice(0, 6);
+  const qaEl = document.getElementById('qaStatus');
+  if (qaEl) {
+    if (uniqueIssues.length) {
+      qaEl.className = 'status-banner error';
+      qaEl.textContent = `QA checks: issues found (${uniqueIssues.join('; ')})`;
+    } else {
+      qaEl.className = 'status-banner ok';
+      qaEl.textContent = 'QA checks: passed';
+    }
+  }
+  return { passed: uniqueIssues.length === 0, issues: uniqueIssues };
+}
+
 async function loadData() {
   const ctrl = new AbortController();
   const t = setTimeout(() => ctrl.abort(), 12000);
   try {
     setStatus('Loading data…');
-    const res = await fetch('./data/latest.json?_=' + Date.now(), { signal: ctrl.signal, cache: 'no-store' });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data = await res.json();
+    const [resLatest, resS4A, resQA] = await Promise.all([
+      fetch('./data/latest.json?_=' + Date.now(), { signal: ctrl.signal, cache: 'no-store' }),
+      fetch('./data/s4a_latest.json?_=' + Date.now(), { signal: ctrl.signal, cache: 'no-store' }).catch(() => null),
+      fetch('./data/qa_report.json?_=' + Date.now(), { signal: ctrl.signal, cache: 'no-store' }).catch(() => null)
+    ]);
+    if (!resLatest?.ok) throw new Error(`HTTP ${resLatest?.status || 'fetch'}`);
+    const data = await resLatest.json();
     if (!data || !data.tracks) throw new Error('Malformed dashboard JSON');
+
+    let s4aCaptured = null;
+    if (resS4A && resS4A.ok) {
+      const s4aData = await resS4A.json();
+      s4aCaptured = s4aData?.captured_at || s4aData?.last_updated || null;
+    }
+
+    let qaChecked = null;
+    if (resQA && resQA.ok) {
+      const qaData = await resQA.json();
+      qaChecked = qaData?.checked_at || null;
+      const qaEl = document.getElementById('qaStatus');
+      if (qaEl) {
+        qaEl.className = `status-banner ${qaData?.passed ? 'ok' : 'error'}`;
+        qaEl.textContent = qaData?.passed ? 'QA checks: passed (post-cron)' : `QA checks: issues (${(qaData?.issues || []).join('; ')})`;
+      }
+    }
+
     state.data = data;
+    state.sourceMeta = { latest: data.generated_at || 'n/a', s4a: s4aCaptured || 'n/a', qa: qaChecked || new Date().toISOString() };
+    setSourceTimestamps(state.sourceMeta);
+    saveSnapshotCache({ data: state.data, sourceMeta: state.sourceMeta });
     setStatus(`Loaded snapshot: ${data.generated_at || 'unknown time'}`, 'ok');
+    retryAttempts = 0;
+    runQaChecks(data);
     return true;
   } catch (e) {
+    const cached = loadSnapshotCache();
+    if (cached?.data) {
+      state.data = cached.data;
+      state.sourceMeta = cached.sourceMeta || { latest: cached.data.generated_at || 'n/a', s4a: 'n/a', qa: 'cached' };
+      setSourceTimestamps(state.sourceMeta);
+      setStatus(`Live load failed (${e.message}). Showing last known snapshot.`, 'error');
+      runQaChecks(state.data);
+      return false;
+    }
+
     setStatus(`Data load failed (${e.message}). Showing safe fallback.`, 'error');
     state.data = {
       generated_at: null,
@@ -33,6 +137,9 @@ async function loadData() {
       weekly_report: 'Data unavailable. Please retry.',
       catalog_health: 'Data unavailable.'
     };
+    state.sourceMeta = { latest: 'n/a', s4a: 'n/a', qa: new Date().toISOString() };
+    setSourceTimestamps(state.sourceMeta);
+    runQaChecks(state.data);
     return false;
   } finally {
     clearTimeout(t);
@@ -50,6 +157,12 @@ function bindControls() {
   if (retry && !retry.dataset.bound) {
     retry.dataset.bound = '1';
     retry.addEventListener('click', async () => {
+      retryAttempts += 1;
+      const cooldownMs = Math.min(8000, Math.max(0, (retryAttempts - 1) * 1500));
+      if (cooldownMs > 0) {
+        setStatus(`Retry queued… waiting ${Math.round(cooldownMs / 1000)}s to avoid API throttle.`, 'error');
+        await new Promise(r => setTimeout(r, cooldownMs));
+      }
       await loadData();
       render();
     });
@@ -90,6 +203,8 @@ function getRangeCutoff(rangeDays) {
 function filterTracksByRange(tracks) {
   const cutoff = getRangeCutoff(state.range);
   return (tracks || []).filter(t => {
+    // S4A momentum rows are already 28-day scoped and should bypass release-date filtering.
+    if (t.streams_28d !== undefined || t.listeners_28d !== undefined) return true;
     if (!t.release_date) return true;
     const dt = new Date(t.release_date);
     if (Number.isNaN(dt.getTime())) return true;
@@ -101,9 +216,12 @@ function render() {
   const data = state.data || {};
   document.getElementById('updatedAt').textContent = `Last update: ${data.generated_at || 'n/a'}`;
 
-  const rangeTracks = filterTracksByRange(data.tracks || []);
+  const s4aTracks = (data.spotify_for_artists?.top_tracks_28d || []).map(t => ({ name: t.name, streams_28d: t.streams_28d || t.streams || 0, listeners_28d: t.listeners_28d || 0, release_date: t.release_date || null }));
+  const baseTracks = (data.tracks || []).length ? (data.tracks || []) : s4aTracks;
+  const rangeTracks = filterTracksByRange(baseTracks);
 
   renderDataQuality(data);
+  renderWidgetConfidence(data, rangeTracks);
   renderKpis(data, rangeTracks);
   renderDeltaSnapshot(data, rangeTracks);
   renderGrowth(data);
@@ -114,6 +232,7 @@ function render() {
   renderActions(data, rangeTracks);
   renderAudienceExtras(data);
   renderListsOnly(rangeTracks);
+  renderDecisionHistory();
 
   document.getElementById('weeklyReport').textContent = data.weekly_report || 'No weekly report yet.';
   document.getElementById('catalogHealth').textContent = data.catalog_health || 'No catalog health data yet.';
@@ -124,36 +243,64 @@ function render() {
 function renderDataQuality(data) {
   const el = document.getElementById('dataQuality');
   if (!el) return;
-  const source = data.top_tracks_source || 'unknown';
+  const source = data.top_tracks_source || data.spotify_for_artists?.source || 'unknown';
   const verified = (data.verified_placements || []).length;
-  const quality = source === 'search_fallback' ? 'Estimated' : 'Verified';
-  const cls = source === 'search_fallback' ? 'error' : 'ok';
+  const isEstimated = source === 'search_fallback' || source === 'unknown';
+  const quality = isEstimated ? 'Estimated' : 'Verified';
+  const cls = isEstimated ? 'error' : 'ok';
   el.className = `status-banner ${cls}`;
   el.textContent = `Data quality: ${quality} • Top tracks source: ${source} • Verified placements: ${verified}`;
+}
+
+function renderWidgetConfidence(data, rangeTracks) {
+  const cards = [...document.querySelectorAll('main .card')];
+  cards.forEach(c => {
+    const h2 = c.querySelector('h2');
+    if (!h2) return;
+    const old = h2.querySelector('.conf-badge');
+    if (old) old.remove();
+
+    const t = h2.textContent.toLowerCase();
+    let level = 'verified';
+    if (t.includes('playlist')) level = data.top_tracks_source === 'search_fallback' ? 'estimated' : 'verified';
+    if (t.includes('related artists')) level = (data.related_artists || []).length ? 'estimated' : 'missing';
+    if (t.includes('platform split')) level = (rangeTracks || []).length ? 'estimated' : 'missing';
+    if (t.includes('streams trend')) level = (data.history || []).length ? 'verified' : 'missing';
+    if (t.includes('top tracks')) level = (rangeTracks || []).length ? 'verified' : 'missing';
+    if (t.includes('spotify for artists')) level = data.spotify_for_artists ? 'verified' : 'missing';
+
+    const span = document.createElement('span');
+    span.className = `conf-badge conf-${level}`;
+    span.textContent = level.toUpperCase();
+    h2.appendChild(span);
+  });
 }
 
 function renderKpis(data, rangeTracks) {
   const strip = document.getElementById('kpiStrip');
   const hist = (data.history || []).slice(-state.range);
   const s4a = data.spotify_for_artists || {};
+  const metrics28 = s4a.metrics?.last_28_days || {};
   const followers = (data.artist_snapshot || {}).followers || 0;
   const popularity = (data.artist_snapshot || {}).popularity || 0;
-  const tracks = (rangeTracks || []).length;
+  const s4aTracks = (s4a.top_tracks_28d || []).map(t => ({ name: t.name, streams_28d: t.streams_28d || t.streams || 0, listeners_28d: t.listeners_28d || 0, release_date: t.release_date || null }));
+  const effectiveTracks = (rangeTracks && rangeTracks.length) ? rangeTracks : ((data.tracks || []).length ? (data.tracks || []) : s4aTracks);
+  const tracks = (effectiveTracks || []).length;
   const searchHits = (data.playlist_intel || []).reduce((a, x) => a + (x.search_hits || 0), 0);
   const verified = (data.verified_placements || []).length;
   const om = s4a.overview_metrics || {};
-  const monthlyListeners = om.listeners?.value ?? 0;
-  const streams28 = om.streams?.value ?? 0;
+  const monthlyListeners = metrics28.monthly_listeners ?? om.listeners?.value ?? 0;
+  const streams28 = metrics28.streams ?? om.streams?.value ?? 0;
 
   const prev = hist.length > 1 ? (hist[hist.length - 2].followers || 0) : followers;
   const growthPct = prev ? (((followers - prev) / prev) * 100) : 0;
 
   const cards = [
-    { label: 'Monthly Listeners', value: numberOrDash(monthlyListeners), delta: om.listeners?.delta_pct ?? 0 },
-    { label: 'Streams (28d)', value: numberOrDash(streams28), delta: om.streams?.delta_pct ?? 0 },
-    { label: 'Followers', value: numberOrDash((om.followers?.value ?? followers)), delta: om.followers?.delta_pct ?? growthPct },
-    { label: 'Tracks', value: tracks, delta: tracks ? 4 : 0 },
-    { label: 'Verified Placements', value: verified, delta: verified ? 3 : -2 },
+    { label: 'Monthly Listeners', value: numberOrDash(monthlyListeners), delta: pctToNumber(metrics28.monthly_listeners_delta ?? om.listeners?.delta_pct ?? 0) },
+    { label: 'Streams (28d)', value: numberOrDash(streams28), delta: pctToNumber(metrics28.streams_delta ?? om.streams?.delta_pct ?? 0) },
+    { label: 'Followers', value: numberOrDash((om.followers?.value ?? followers)), delta: pctToNumber(om.followers?.delta_pct ?? growthPct) },
+    { label: 'Tracks', value: tracks, delta: pctToNumber(metrics28.streams_delta ?? 0) },
+    { label: 'Verified Placements', value: verified, delta: verified > 0 ? 5 : -5 },
   ];
 
   strip.innerHTML = '';
@@ -290,14 +437,29 @@ function renderActions(data, rangeTracks) {
   const verified = (data.verified_placements || []).length;
   const searchHits = (data.playlist_intel || []).reduce((a, x) => a + (x.search_hits || 0), 0);
   const top = tracks[0]?.name || 'your latest single';
-  const actions = [
-    searchHits > verified
-      ? `Prioritize outreach this week: you have ${searchHits} playlist search hits vs ${verified} verified placements.`
-      : 'Playlist conversion is healthy — maintain current curator outreach cadence.',
-    `Create 2 short-form clips around "${top}" and post within 48 hours to support stream momentum.`,
-    'Run a fan reactivation push: DM/email your top supporters with a direct Spotify save link.',
-    'Review top cities and target one local collab or micro-event for audience growth.'
-  ];
+
+  const hist = data.history || [];
+  const now = hist[hist.length - 1] || {};
+  const d3 = hist.slice(-3);
+  const negStreak = d3.length >= 3 && d3.every((x, i, arr) => i === 0 || (x.followers || 0) <= (arr[i - 1].followers || 0));
+  const zeroVerifiedStreak = verified === 0;
+
+  const actions = [];
+  if (searchHits > verified) {
+    actions.push(`Prioritize outreach this week: ${searchHits} playlist search hits vs ${verified} verified placements.`);
+  } else {
+    actions.push('Playlist conversion is healthy — maintain current curator outreach cadence.');
+  }
+
+  if (zeroVerifiedStreak) {
+    actions.push('Trigger curator push now: verified placements are at zero in current snapshot.');
+  }
+  if (negStreak) {
+    actions.push('Follower trend has declined for 3 snapshots — launch retention content + save CTA campaign within 24h.');
+  }
+
+  actions.push(`Create 2 short-form clips around "${top}" and post within 48 hours to support stream momentum.`);
+  actions.push('Review top cities and target one local collab or micro-event for audience growth.');
 
   actions.forEach((a) => {
     const li = document.createElement('li');
@@ -305,7 +467,39 @@ function renderActions(data, rangeTracks) {
     el.appendChild(li);
   });
 
+  const signature = `${verified}|${searchHits}|${negStreak}|${zeroVerifiedStreak}|${top}`;
+  if (signature !== lastActionSignature) {
+    addDecision({ type: 'action-engine', note: `Actions refreshed (verified=${verified}, hits=${searchHits}, negStreak=${negStreak})` });
+    lastActionSignature = signature;
+  }
+
   const empty = document.getElementById('actionsEmpty');
+  if (empty) empty.classList.toggle('hidden', el.children.length > 0);
+}
+
+function scorePlaylistItem(item = {}, source = 'search_fallback') {
+  const searchHits = Number(item.search_hits || 0);
+  const verifiedCount = Number(item.verified_count || 0);
+  const reliability = source === 'search_fallback' ? 45 : 70;
+  const hitScore = Math.min(20, searchHits * 2);
+  const verifyScore = Math.min(35, verifiedCount * 12);
+  const confidence = Math.min(100, reliability + hitScore + verifyScore);
+  const tier = confidence >= 75 ? 'high' : confidence >= 55 ? 'medium' : 'low';
+  return { confidence, tier };
+}
+
+function renderDecisionHistory() {
+  const el = document.getElementById('decisionHistory');
+  const empty = document.getElementById('decisionHistoryEmpty');
+  if (!el) return;
+  const hist = getDecisionHistory();
+  el.innerHTML = '';
+  hist.slice(0, 12).forEach((h) => {
+    const li = document.createElement('li');
+    const at = new Date(h.ts).toLocaleString();
+    li.textContent = `[${at}] ${h.type}: ${h.note}`;
+    el.appendChild(li);
+  });
   if (empty) empty.classList.toggle('hidden', el.children.length > 0);
 }
 
@@ -332,26 +526,27 @@ function renderAudienceExtras(data) {
 
   const countries = document.getElementById('topCountries');
   countries.innerHTML = '';
-  ((s4a.location || {}).top_countries || []).slice(0, 10).forEach(c => {
+  ((s4a.geo || {}).top_countries_listeners || (s4a.location || {}).top_countries || []).slice(0, 10).forEach(c => {
     const li = document.createElement('li');
-    li.textContent = `${c.country}: ${c.listeners} listeners • ${c.active_pct}% active`;
+    li.textContent = `${c.country}: ${c.listeners} listeners${c.active_pct ? ` • ${c.active_pct} active` : ''}`;
     countries.appendChild(li);
   });
 
   const cities = document.getElementById('topCities');
   cities.innerHTML = '';
-  ((s4a.location || {}).top_cities || []).slice(0, 10).forEach(c => {
+  ((s4a.geo || {}).top_cities_listeners || (s4a.location || {}).top_cities || []).slice(0, 10).forEach(c => {
     const li = document.createElement('li');
-    li.textContent = `${c.city} (${c.region}) — ${c.listeners}`;
+    li.textContent = `${c.city}${c.region ? ` (${c.region})` : ''} — ${c.listeners}`;
     cities.appendChild(li);
   });
 
   const re = s4a.release_engagement || {};
+  const topRel = (s4a.top_tracks_28d || [])[0];
   document.getElementById('releaseEngagementSummary').textContent = re.release
     ? `${re.release}: ${re.engaged_listeners}/${re.monthly_active_listeners} monthly active listeners engaged (${re.engaged_pct}%) by day ${re.day}.`
-    : 'No release engagement snapshot yet.';
+    : (topRel ? `Current top track momentum: ${topRel.name} (${topRel.streams_28d || 0} streams / ${topRel.listeners_28d || 0} listeners in 28d).` : 'No release engagement snapshot yet.');
   if (releaseChart) releaseChart.destroy();
-  const series = re.daily_engaged_series || [];
+  const series = re.daily_engaged_series || ((s4a.top_tracks_28d || []).slice(0,7).map(t => t.streams_28d || 0));
   releaseChart = new Chart(document.getElementById('releaseEngagementChart'), {
     type: 'line',
     data: { labels: series.map((_, i) => `D${i+1}`), datasets: [{ label: 'Engaged listeners', data: series, borderColor: '#34d399', backgroundColor: 'rgba(52,211,153,.2)', fill: true, tension: .25 }] },
@@ -375,7 +570,8 @@ function renderListsOnly(rangeTracks = null) {
   pi.innerHTML = '';
   (data.playlist_intel || []).filter(p => p.track.toLowerCase().includes(q)).forEach(p => {
     const li = document.createElement('li');
-    li.innerHTML = `<strong>${p.track}</strong> — search hits: ${p.search_hits || 0} • verified: ${p.verified_count || 0}`;
+    const score = scorePlaylistItem(p, data.top_tracks_source || 'search_fallback');
+    li.innerHTML = `<strong>${p.track}</strong> — search hits: ${p.search_hits || 0} • verified: ${p.verified_count || 0} • confidence: ${score.confidence}/100 (${score.tier})`;
     pi.appendChild(li);
   });
   if (!pi.children.length) document.getElementById('playlistEmpty').classList.remove('hidden');
@@ -426,14 +622,16 @@ function renderListsOnly(rangeTracks = null) {
   const s4a = data.spotify_for_artists || {};
   const s4aList = document.getElementById('s4aMetrics');
   s4aList.innerHTML = '';
+  const m28 = s4a.metrics?.last_28_days || {};
   const lines = [
-    `Listening now: ${s4a.listening_now ?? '—'}`,
-    `Monthly active listeners: ${numberOrDash((s4a.audience_segments || {}).monthly_active_listeners?.value)} (${((s4a.audience_segments || {}).monthly_active_listeners?.delta_pct ?? 0)}%)`,
-    `New active listeners: ${numberOrDash((s4a.audience_segments || {}).new_active_listeners?.value)} (${((s4a.audience_segments || {}).new_active_listeners?.delta_pct ?? 0)}%)`,
-    `Super listeners: ${numberOrDash((s4a.audience_segments || {}).super_listeners?.value)} (${((s4a.audience_segments || {}).super_listeners?.delta_pct ?? 0)}%)`
+    `Listening now: ${s4a.metrics?.listeners_now ?? s4a.listening_now ?? '—'}`,
+    `Monthly active listeners: ${numberOrDash(m28.active_listeners)} (${m28.active_listeners_delta || '0%'})`,
+    `New active listeners: ${numberOrDash(m28.new_active_listeners)} (${m28.new_active_listeners_delta || '0%'})`,
+    `Super listeners: ${numberOrDash(m28.super_listeners)} (${m28.super_listeners_delta || '0%'})`
   ];
-  const topSongs = (s4a.top_songs_last_7_days || []).map(s => `Top song: ${s.name} (${s.streams} streams)`).slice(0,3);
-  const topPlaylists = (s4a.top_playlists_last_7_days || []).map(p => `Top playlist: ${p.name} (${p.streams} streams)`);
+  const topSongs = (s4a.top_tracks_28d || s4a.top_songs_last_7_days || []).map(s => `Top song: ${s.name} (${s.streams_28d || s.streams || 0} streams)`).slice(0,3);
+  const alg = s4a.playlist_signals?.algorithmic || [];
+  const topPlaylists = alg.map(p => `Top playlist: ${p.title || p.name} (${p.streams || 0} streams)`);
   [...lines, ...topSongs, ...topPlaylists].forEach(txt => {
     const li = document.createElement('li');
     li.textContent = txt;
@@ -461,6 +659,14 @@ function sparklineSvg(values) {
   const max = Math.max(...values, 1), min = Math.min(...values, 0);
   const norm = values.map((v, i) => `${(i/(values.length-1||1))*100},${100-((v-min)/(max-min||1))*100}`).join(' ');
   return `<svg viewBox="0 0 100 100" preserveAspectRatio="none"><polyline fill="none" stroke="#00E5FF" stroke-width="3" points="${norm}"/></svg>`;
+}
+
+function pctToNumber(v) {
+  if (v === null || v === undefined || v === '') return 0;
+  if (typeof v === 'number') return v;
+  const s = String(v).replace('%', '').trim();
+  const n = Number(s);
+  return Number.isFinite(n) ? n : 0;
 }
 
 function numberOrDash(v) { return (v === null || v === undefined || v === '') ? '—' : Number(v).toLocaleString(); }

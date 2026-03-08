@@ -7,7 +7,7 @@
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
   <title>Mjcity Artist Dashboard</title>
-  <link rel="stylesheet" href="./style.css?v=1772892646" />
+  <link rel="stylesheet" href="./style.css?v=1772975485" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -18,6 +18,8 @@
       <p id="updatedAt" class="muted" aria-live="polite">Loading latest snapshot…</p>
       <p id="statusBanner" class="status-banner" role="status" aria-live="polite">Loading data…</p>
       <p id="dataQuality" class="status-banner">Data quality: checking…</p>
+      <p id="sourceTimestamps" class="muted">Sources: loading…</p>
+      <p id="qaStatus" class="status-banner">QA checks: pending…</p>
       <div class="status-actions">
         <button id="retryBtn" class="mini-btn" type="button">Retry load</button>
       </div>
@@ -126,6 +128,12 @@
     </section>
 
     <section class="card">
+      <h2>Decision History</h2>
+      <ul id="decisionHistory" class="list"></ul>
+      <p id="decisionHistoryEmpty" class="empty hidden">No decisions tracked yet.</p>
+    </section>
+
+    <section class="card">
       <h2>Smart Social Captions</h2>
       <ul id="captions" class="list"></ul>
     </section>
@@ -151,6 +159,6 @@
     </section>
   </main>
 
-  <script src="./app.js?v=1772892646"></script>
+  <script src="./app.js?v=1772975485"></script>
 </body>
 </html>

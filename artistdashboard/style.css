@@ -34,6 +34,10 @@ h1 { margin:.2rem 0; font-size:clamp(1.25rem,4vw,2rem); }
 .mobile-summary{display:none; grid-template-columns:repeat(3,1fr); gap:.5rem; margin:.6rem 1rem .1rem}
 .mobile-summary .label{display:block; color:var(--muted); font-size:.72rem}
 .mobile-summary strong{font-size:1.05rem}
+.conf-badge{font-size:.66rem; padding:.15rem .4rem; border-radius:999px; margin-left:.4rem; border:1px solid #334155; color:#cbd5e1}
+.conf-verified{background:#052e2b; color:#6ee7b7; border-color:#065f46}
+.conf-estimated{background:#3a2205; color:#fcd34d; border-color:#92400e}
+.conf-missing{background:#3b0b0b; color:#fca5a5; border-color:#7f1d1d}
 .filters { display:flex; gap:.4rem; flex-wrap:wrap; }
 .filter-btn { background:#121216; color:var(--text); border:1px solid #2a2a2f; border-radius:999px; padding:.35rem .65rem; cursor:pointer; transition:.2s; }
 .filter-btn:hover, .filter-btn.active { border-color:var(--purple); box-shadow:0 0 14px rgba(168,85,247,.35); }
