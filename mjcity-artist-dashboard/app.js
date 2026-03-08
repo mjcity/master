@@ -1,7 +1,9 @@
 let state = { data: null, range: 30, query: '', sourceMeta: {} };
 let growthChart, tracksChart, platformChart, genderChart, ageChart, releaseChart;
 let retryAttempts = 0;
+let lastActionSignature = '';
 const SNAPSHOT_CACHE_KEY = 'mjcity_dashboard_last_snapshot_v1';
+const DECISION_HISTORY_KEY = 'mjcity_dashboard_decision_history_v1';
 
 function setStatus(text, cls = '') {
   const el = document.getElementById('statusBanner');
@@ -21,6 +23,23 @@ function loadSnapshotCache() {
   } catch {
     return null;
   }
+}
+
+function getDecisionHistory() {
+  try {
+    const raw = localStorage.getItem(DECISION_HISTORY_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+}
+
+function addDecision(entry) {
+  try {
+    const hist = getDecisionHistory();
+    hist.unshift({ ts: new Date().toISOString(), ...entry });
+    localStorage.setItem(DECISION_HISTORY_KEY, JSON.stringify(hist.slice(0, 80)));
+  } catch {}
 }
 
 function setSourceTimestamps(meta = {}) {
@@ -209,6 +228,7 @@ function render() {
   renderActions(data, rangeTracks);
   renderAudienceExtras(data);
   renderListsOnly(rangeTracks);
+  renderDecisionHistory();
 
   document.getElementById('weeklyReport').textContent = data.weekly_report || 'No weekly report yet.';
   document.getElementById('catalogHealth').textContent = data.catalog_health || 'No catalog health data yet.';
@@ -409,14 +429,29 @@ function renderActions(data, rangeTracks) {
   const verified = (data.verified_placements || []).length;
   const searchHits = (data.playlist_intel || []).reduce((a, x) => a + (x.search_hits || 0), 0);
   const top = tracks[0]?.name || 'your latest single';
-  const actions = [
-    searchHits > verified
-      ? `Prioritize outreach this week: you have ${searchHits} playlist search hits vs ${verified} verified placements.`
-      : 'Playlist conversion is healthy — maintain current curator outreach cadence.',
-    `Create 2 short-form clips around "${top}" and post within 48 hours to support stream momentum.`,
-    'Run a fan reactivation push: DM/email your top supporters with a direct Spotify save link.',
-    'Review top cities and target one local collab or micro-event for audience growth.'
-  ];
+
+  const hist = data.history || [];
+  const now = hist[hist.length - 1] || {};
+  const d3 = hist.slice(-3);
+  const negStreak = d3.length >= 3 && d3.every((x, i, arr) => i === 0 || (x.followers || 0) <= (arr[i - 1].followers || 0));
+  const zeroVerifiedStreak = verified === 0;
+
+  const actions = [];
+  if (searchHits > verified) {
+    actions.push(`Prioritize outreach this week: ${searchHits} playlist search hits vs ${verified} verified placements.`);
+  } else {
+    actions.push('Playlist conversion is healthy — maintain current curator outreach cadence.');
+  }
+
+  if (zeroVerifiedStreak) {
+    actions.push('Trigger curator push now: verified placements are at zero in current snapshot.');
+  }
+  if (negStreak) {
+    actions.push('Follower trend has declined for 3 snapshots — launch retention content + save CTA campaign within 24h.');
+  }
+
+  actions.push(`Create 2 short-form clips around "${top}" and post within 48 hours to support stream momentum.`);
+  actions.push('Review top cities and target one local collab or micro-event for audience growth.');
 
   actions.forEach((a) => {
     const li = document.createElement('li');
@@ -424,7 +459,39 @@ function renderActions(data, rangeTracks) {
     el.appendChild(li);
   });
 
+  const signature = `${verified}|${searchHits}|${negStreak}|${zeroVerifiedStreak}|${top}`;
+  if (signature !== lastActionSignature) {
+    addDecision({ type: 'action-engine', note: `Actions refreshed (verified=${verified}, hits=${searchHits}, negStreak=${negStreak})` });
+    lastActionSignature = signature;
+  }
+
   const empty = document.getElementById('actionsEmpty');
+  if (empty) empty.classList.toggle('hidden', el.children.length > 0);
+}
+
+function scorePlaylistItem(item = {}, source = 'search_fallback') {
+  const searchHits = Number(item.search_hits || 0);
+  const verifiedCount = Number(item.verified_count || 0);
+  const reliability = source === 'search_fallback' ? 45 : 70;
+  const hitScore = Math.min(20, searchHits * 2);
+  const verifyScore = Math.min(35, verifiedCount * 12);
+  const confidence = Math.min(100, reliability + hitScore + verifyScore);
+  const tier = confidence >= 75 ? 'high' : confidence >= 55 ? 'medium' : 'low';
+  return { confidence, tier };
+}
+
+function renderDecisionHistory() {
+  const el = document.getElementById('decisionHistory');
+  const empty = document.getElementById('decisionHistoryEmpty');
+  if (!el) return;
+  const hist = getDecisionHistory();
+  el.innerHTML = '';
+  hist.slice(0, 12).forEach((h) => {
+    const li = document.createElement('li');
+    const at = new Date(h.ts).toLocaleString();
+    li.textContent = `[${at}] ${h.type}: ${h.note}`;
+    el.appendChild(li);
+  });
   if (empty) empty.classList.toggle('hidden', el.children.length > 0);
 }
 
@@ -494,7 +561,8 @@ function renderListsOnly(rangeTracks = null) {
   pi.innerHTML = '';
   (data.playlist_intel || []).filter(p => p.track.toLowerCase().includes(q)).forEach(p => {
     const li = document.createElement('li');
-    li.innerHTML = `<strong>${p.track}</strong> — search hits: ${p.search_hits || 0} • verified: ${p.verified_count || 0}`;
+    const score = scorePlaylistItem(p, data.top_tracks_source || 'search_fallback');
+    li.innerHTML = `<strong>${p.track}</strong> — search hits: ${p.search_hits || 0} • verified: ${p.verified_count || 0} • confidence: ${score.confidence}/100 (${score.tier})`;
     pi.appendChild(li);
   });
   if (!pi.children.length) document.getElementById('playlistEmpty').classList.remove('hidden');
