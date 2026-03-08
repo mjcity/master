@@ -203,6 +203,8 @@ function getRangeCutoff(rangeDays) {
 function filterTracksByRange(tracks) {
   const cutoff = getRangeCutoff(state.range);
   return (tracks || []).filter(t => {
+    // S4A momentum rows are already 28-day scoped and should bypass release-date filtering.
+    if (t.streams_28d !== undefined || t.listeners_28d !== undefined) return true;
     if (!t.release_date) return true;
     const dt = new Date(t.release_date);
     if (Number.isNaN(dt.getTime())) return true;
