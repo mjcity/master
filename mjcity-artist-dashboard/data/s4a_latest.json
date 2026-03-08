@@ -1,6 +1,6 @@
 {
   "artist_name": "Mjcity",
-  "last_updated": "2026-03-07T20:06:49-05:00",
+  "last_updated": "2026-03-07T21:41:50-05:00",
   "metrics": {
     "listeners_now": 0,
     "last_28_days": {
@@ -39,6 +39,169 @@
       {
         "name": "Radio",
         "streams": 124
+      }
+    ]
+  },
+  "source": "spotify_for_artists_tabs_manual",
+  "geo": {
+    "top_countries_listeners": [
+      {
+        "country": "United States",
+        "listeners": 239,
+        "active_pct": "24.7%",
+        "active_listeners": 59
+      },
+      {
+        "country": "Brazil",
+        "listeners": 21,
+        "active_pct": "19%",
+        "active_listeners": 4
+      },
+      {
+        "country": "Germany",
+        "listeners": 9,
+        "active_pct": "55.6%",
+        "active_listeners": 5
+      },
+      {
+        "country": "Canada",
+        "listeners": 9,
+        "active_pct": "66.7%",
+        "active_listeners": 6
+      },
+      {
+        "country": "United Kingdom",
+        "listeners": 7,
+        "active_pct": "85.7%",
+        "active_listeners": 6
+      },
+      {
+        "country": "France",
+        "listeners": 6,
+        "active_pct": "83.3%",
+        "active_listeners": 5
+      },
+      {
+        "country": "South Africa",
+        "listeners": 4,
+        "active_pct": "25%",
+        "active_listeners": 1
+      }
+    ],
+    "top_cities_listeners": [
+      {
+        "city": "Milwaukee",
+        "listeners": 6
+      },
+      {
+        "city": "Phoenix",
+        "listeners": 5
+      },
+      {
+        "city": "Dallas",
+        "listeners": 5
+      },
+      {
+        "city": "San Antonio",
+        "listeners": 4
+      },
+      {
+        "city": "Houston",
+        "listeners": 4
+      },
+      {
+        "city": "Philadelphia",
+        "listeners": 4
+      },
+      {
+        "city": "Sao Paulo",
+        "listeners": 4
+      },
+      {
+        "city": "Rio de Janeiro",
+        "listeners": 3
+      },
+      {
+        "city": "Lagos",
+        "listeners": 3
+      },
+      {
+        "city": "Los Angeles",
+        "listeners": 3
+      },
+      {
+        "city": "Minneapolis",
+        "listeners": 3
+      },
+      {
+        "city": "Chicago",
+        "listeners": 3
+      }
+    ]
+  },
+  "top_tracks_28d": [
+    {
+      "name": "Let Me In",
+      "streams_28d": 642,
+      "listeners_28d": 267,
+      "release_date": "2025-10-20"
+    },
+    {
+      "name": "King Birthday",
+      "streams_28d": 186,
+      "listeners_28d": 5,
+      "release_date": "2026-01-02"
+    },
+    {
+      "name": "In Your DM",
+      "streams_28d": 77,
+      "listeners_28d": 14,
+      "release_date": "2026-02-07"
+    },
+    {
+      "name": "Shawty Glazing Me",
+      "streams_28d": 38,
+      "listeners_28d": 3,
+      "release_date": "2025-11-28"
+    },
+    {
+      "name": "Butterflies Like Me",
+      "streams_28d": 32,
+      "listeners_28d": 13,
+      "release_date": "2026-02-02"
+    },
+    {
+      "name": "Paralyzed",
+      "streams_28d": 29,
+      "listeners_28d": 10,
+      "release_date": "2025-11-10"
+    },
+    {
+      "name": "All of My Light",
+      "streams_28d": 28,
+      "listeners_28d": 18,
+      "release_date": "2025-08-31"
+    },
+    {
+      "name": "Butterflies Like Me - Acoustic",
+      "streams_28d": 27,
+      "listeners_28d": 7,
+      "release_date": "2026-02-02"
+    }
+  ],
+  "playlist_signals": {
+    "algorithmic": [
+      {
+        "title": "Radio",
+        "songs": 6,
+        "listeners": 199,
+        "streams": 245
+      },
+      {
+        "title": "Release Radar",
+        "songs": 2,
+        "listeners": 8,
+        "streams": 12
       }
     ]
   }
