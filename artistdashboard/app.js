@@ -506,22 +506,47 @@ function renderDecisionHistory() {
 function renderAudienceExtras(data) {
   const s4a = data.spotify_for_artists || {};
 
-  const g = (s4a.demographics || {}).gender || {};
+  // Accept multiple possible source shapes from S4A capture pipeline.
+  const demographics = s4a.demographics || s4a.audience_demographics || s4a.audience?.demographics || {};
+  const gender = demographics.gender || demographics.genders || {};
   const gLabels = ['Female', 'Male', 'Non-binary', 'Not specified'];
-  const gVals = [g.female?.pct || 0, g.male?.pct || 0, g.non_binary?.pct || 0, g.not_specified?.pct || 0];
+  const gVals = [
+    Number(gender.female?.pct ?? gender.female ?? 0),
+    Number(gender.male?.pct ?? gender.male ?? 0),
+    Number(gender.non_binary?.pct ?? gender.non_binary ?? 0),
+    Number(gender.not_specified?.pct ?? gender.not_specified ?? 0)
+  ];
+
+  const age = demographics.age_buckets || demographics.age || [];
+  const ageLabels = age.map(a => a.range || a.label || a.bucket).filter(Boolean);
+  const ageVals = age.map(a => Number(a.pct ?? a.percent ?? a.value ?? 0));
+
+  const hasGenderData = gVals.some(v => Number.isFinite(v) && v > 0);
+  const hasAgeData = ageVals.some(v => Number.isFinite(v) && v > 0);
+  const empty = document.getElementById('demographicsEmpty');
+  if (empty) empty.classList.toggle('hidden', hasGenderData || hasAgeData);
+
   if (genderChart) genderChart.destroy();
   genderChart = new Chart(document.getElementById('genderChart'), {
     type: 'doughnut',
-    data: { labels: gLabels, datasets: [{ data: gVals, backgroundColor: ['#ff2daa', '#00e5ff', '#a855f7', '#34d399'] }] },
+    data: {
+      labels: hasGenderData ? gLabels : ['No demographics data'],
+      datasets: [{
+        data: hasGenderData ? gVals : [1],
+        backgroundColor: hasGenderData ? ['#ff2daa', '#00e5ff', '#a855f7', '#34d399'] : ['#334155']
+      }]
+    },
     options: { plugins: { legend: { labels: { color: '#e2e8f0' } } } }
   });
 
-  const age = (s4a.demographics || {}).age_buckets || [];
   if (ageChart) ageChart.destroy();
   ageChart = new Chart(document.getElementById('ageChart'), {
     type: 'bar',
-    data: { labels: age.map(a => a.range), datasets: [{ label: '% listeners', data: age.map(a => a.pct || 0), backgroundColor: '#a855f7' }] },
-    options: { plugins: { legend: { labels: { color: '#e2e8f0' } } }, scales: { x: { ticks: { color: '#cbd5e1' } }, y: { ticks: { color: '#cbd5e1' } } } }
+    data: {
+      labels: hasAgeData ? ageLabels : ['No data'],
+      datasets: [{ label: '% listeners', data: hasAgeData ? ageVals : [0], backgroundColor: hasAgeData ? '#a855f7' : '#334155' }]
+    },
+    options: { plugins: { legend: { labels: { color: '#e2e8f0' } } }, scales: { x: { ticks: { color: '#cbd5e1' } }, y: { ticks: { color: '#cbd5e1' }, beginAtZero: true } } }
   });
 
   const countries = document.getElementById('topCountries');
