@@ -1,19 +1,19 @@
 {
   "artist_name": "Mjcity",
-  "last_updated": "2026-03-08T12:19:46-04:00",
+  "last_updated": "2026-03-09T09:10:58-04:00",
   "metrics": {
     "listeners_now": 0,
     "last_28_days": {
       "monthly_listeners": 336,
       "monthly_listeners_delta": "+69.7%",
-      "streams": 1100,
+      "streams": 1136,
       "streams_delta": "+27.8%",
       "active_listeners": 100,
       "active_listeners_delta": "-6.5%",
-      "new_active_listeners": null,
-      "new_active_listeners_delta": null,
-      "super_listeners": null,
-      "super_listeners_delta": null,
+      "new_active_listeners": 32,
+      "new_active_listeners_delta": "-11.1%",
+      "super_listeners": 7,
+      "super_listeners_delta": "+40%",
       "streams_per_listener": 3.4,
       "streams_per_listener_delta": "-24.7%",
       "saves": 19,
@@ -94,8 +94,8 @@
     "top_playlists_7_days": [
       {
         "name": "Radio",
-        "listeners": 114,
-        "streams": 124
+        "listeners": 113,
+        "streams": 122
       }
     ]
   },
@@ -159,7 +159,7 @@
         "listeners": 6
       },
       {
-        "city": "São Paulo",
+        "city": "S\u00e3o Paulo",
         "listeners": 5
       },
       {

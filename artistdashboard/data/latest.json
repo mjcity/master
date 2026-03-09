@@ -1,11 +1,13 @@
 {
-  "generated_at": "2026-03-08 12:25 EDT",
+  "generated_at": "2026-03-09 09:11 EDT",
   "artist_snapshot": {
     "name": "Mjcity",
     "id": "4TbJfltoNbaKOASaR8rsYM",
-    "followers": null,
-    "popularity": null,
-    "genres": [],
+    "followers": 78,
+    "popularity": 2,
+    "genres": [
+      "afropop"
+    ],
     "spotify_url": "https://open.spotify.com/artist/4TbJfltoNbaKOASaR8rsYM"
   },
   "top_tracks_source": "search_fallback",
@@ -17,22 +19,22 @@
       "url": "https://open.spotify.com/track/4TDYn3rBDRHZwjowB3Dvcn"
     },
     {
+      "name": "Quiet War",
+      "release_date": "2026-03-08",
+      "album": "Confusion",
+      "url": "https://open.spotify.com/track/2D1HbURKjDxbDTQ55bSkAo"
+    },
+    {
+      "name": "It's You",
+      "release_date": "2026-03-08",
+      "album": "Confusion",
+      "url": "https://open.spotify.com/track/4dPT7JowXff9y7h1FRsGdY"
+    },
+    {
       "name": "King Birthday",
       "release_date": "2026-01-02",
       "album": "King Birthday",
       "url": "https://open.spotify.com/track/4TV3CGZx0dAbbUuiUydRRU"
-    },
-    {
-      "name": "Your Night",
-      "release_date": "2026-01-18",
-      "album": "Your Night",
-      "url": "https://open.spotify.com/track/1m8blKau1orrn7ZnH2QTJ2"
-    },
-    {
-      "name": "On DND",
-      "release_date": "2025-12-29",
-      "album": "On DND",
-      "url": "https://open.spotify.com/track/1ZRt228N5SR8zIhwUAtXxl"
     },
     {
       "name": "All of My Light",
@@ -42,6 +44,12 @@
     }
   ],
   "release_monitor": [
+    {
+      "name": "Confusion",
+      "release_date": "2026-03-08",
+      "type": "album",
+      "url": "https://open.spotify.com/album/0sCRX49POYAoikpViJ6xGI"
+    },
     {
       "name": "In Your DM",
       "release_date": "2026-02-07",
@@ -91,12 +99,6 @@
       "url": "https://open.spotify.com/album/70NGL9WspKUEextTCIoCRC"
     },
     {
-      "name": "Closure",
-      "release_date": "2025-11-24",
-      "type": "single",
-      "url": "https://open.spotify.com/album/4VdywGpQG0gmSmYvX7nTxQ"
-    },
-    {
       "name": "No Tears Allowed",
       "release_date": "2025-07-31",
       "type": "album",
@@ -114,20 +116,76 @@
           "url": "https://open.spotify.com/playlist/4V5F3d3Vv1UUIagxgjKntQ"
         },
         {
-          "name": "Late Night City Vibes ",
-          "url": "https://open.spotify.com/playlist/0MpQk1QRrDMfsKDI00h4iA"
+          "name": "Late Night Vibes & City Lights",
+          "url": "https://open.spotify.com/playlist/2i3MBRfHq6WABdYv4zXByJ"
+        },
+        {
+          "name": "Milly's City",
+          "url": "https://open.spotify.com/playlist/5jHgjy8Wr5J0ED3bn75E4w"
         },
         {
           "name": "LATE NIGHT CITY LIGHTS VIBE",
           "url": "https://open.spotify.com/playlist/5rkPgglTxbzp6pJeaIGcXJ"
         },
         {
-          "name": "Late Night Vibes & City Lights",
-          "url": "https://open.spotify.com/playlist/2i3MBRfHq6WABdYv4zXByJ"
-        },
-        {
           "name": "Latin Nights & City Lights",
           "url": "https://open.spotify.com/playlist/5JOdoX6TL0hIf0WY0AVoqK"
+        }
+      ],
+      "verified_count": 0,
+      "verified_playlists": []
+    },
+    {
+      "track": "Quiet War",
+      "search_hits": 5,
+      "sample_playlists": [
+        {
+          "name": "Quiet Storm (80s, 90s, 00s R&B/Slow Jams)",
+          "url": "https://open.spotify.com/playlist/4cYIBLPT7RqliXbAjkma2q"
+        },
+        {
+          "name": "The QUIET STORM: 10pm - 2am Jams",
+          "url": "https://open.spotify.com/playlist/0ilyRY3z048v74aE6CHgvO"
+        },
+        {
+          "name": "The Very Best of Quiet Storm (R&B's Elite; 80s, 90s, 00s and Beyond Slow Jamz Session)",
+          "url": "https://open.spotify.com/playlist/1EsRiUFQ0OBlQ8FP9Oz746"
+        },
+        {
+          "name": "Quiet Storm",
+          "url": "https://open.spotify.com/playlist/550by5dcF6ifmbVz7MoReR"
+        },
+        {
+          "name": "SOUND CITY\ud83d\udd0a\ud83c\udfb6\ud83c\udfbc",
+          "url": "https://open.spotify.com/playlist/2JGojbNzU1smzPGqqz8wMH"
+        }
+      ],
+      "verified_count": 0,
+      "verified_playlists": []
+    },
+    {
+      "track": "It's You",
+      "search_hits": 5,
+      "sample_playlists": [
+        {
+          "name": "Windy City",
+          "url": "https://open.spotify.com/playlist/5gblyCoKP2tIyFI3cFElKz"
+        },
+        {
+          "name": "Car City",
+          "url": "https://open.spotify.com/playlist/6oS9fZsJBjejVrno07TkJV"
+        },
+        {
+          "name": "LATE NIGHT CITY LIGHTS VIBE",
+          "url": "https://open.spotify.com/playlist/5rkPgglTxbzp6pJeaIGcXJ"
+        },
+        {
+          "name": "Kingdomcity",
+          "url": "https://open.spotify.com/playlist/492PEqiLPRsm77pKknbN2p"
+        },
+        {
+          "name": "Moon City",
+          "url": "https://open.spotify.com/playlist/4WERrshPm3eILeGZf7uvxg"
         }
       ],
       "verified_count": 0,
@@ -135,65 +193,8 @@
     },
     {
       "track": "King Birthday",
-      "search_hits": 1,
-      "sample_playlists": [
-        {
-          "name": "King City",
-          "url": "https://open.spotify.com/playlist/0CVa5fxy5P354RkbkobPRL"
-        }
-      ],
-      "verified_count": 0,
-      "verified_playlists": []
-    },
-    {
-      "track": "Your Night",
-      "search_hits": 5,
-      "sample_playlists": [
-        {
-          "name": "Late Night City Vibes ",
-          "url": "https://open.spotify.com/playlist/0MpQk1QRrDMfsKDI00h4iA"
-        },
-        {
-          "name": "Latin Nights & City Lights",
-          "url": "https://open.spotify.com/playlist/5JOdoX6TL0hIf0WY0AVoqK"
-        },
-        {
-          "name": "aesthetic city nights ",
-          "url": "https://open.spotify.com/playlist/5JB34NnJCHYcOXLHHFI29R"
-        },
-        {
-          "name": "windy city series",
-          "url": "https://open.spotify.com/playlist/7CI49EAY7lsi4g4oDmAZkY"
-        },
-        {
-          "name": "D\u2019s NIGHT CITY MIX",
-          "url": "https://open.spotify.com/playlist/4ZnukDaylLWjQsGYtZfpBq"
-        }
-      ],
-      "verified_count": 0,
-      "verified_playlists": []
-    },
-    {
-      "track": "On DND",
-      "search_hits": 4,
-      "sample_playlists": [
-        {
-          "name": "on DND",
-          "url": "https://open.spotify.com/playlist/3vxjN8vYHBntmKMBhU8Pz1"
-        },
-        {
-          "name": "on DND",
-          "url": "https://open.spotify.com/playlist/768zZI81OpzmoCBuyzi0Yo"
-        },
-        {
-          "name": "On fye (slowed reverb)",
-          "url": "https://open.spotify.com/playlist/2vPURuEijaRHZqerfBkGoY"
-        },
-        {
-          "name": "On bd gd crips",
-          "url": "https://open.spotify.com/playlist/2BrIgthsIyeCFr0EDZLcVC"
-        }
-      ],
+      "search_hits": 0,
+      "sample_playlists": [],
       "verified_count": 0,
       "verified_playlists": []
     },
@@ -202,24 +203,24 @@
       "search_hits": 5,
       "sample_playlists": [
         {
-          "name": "City Lights",
-          "url": "https://open.spotify.com/playlist/3wqyx3JsuUAHoyqF6B3JEw"
+          "name": "City Light Vegas Playlist",
+          "url": "https://open.spotify.com/playlist/4nx9LKRKVVgKFkE32j5mXc"
         },
         {
-          "name": "City Alight Complete Playlist",
-          "url": "https://open.spotify.com/playlist/011aj7QIywBj7t89mC3D1Q"
+          "name": "City Light Worship List",
+          "url": "https://open.spotify.com/playlist/3xU1iM7vCi99WyD6HC4gYW"
         },
         {
-          "name": "Songs of City Light",
-          "url": "https://open.spotify.com/playlist/75BTlklIsOcAog03nHjt4k"
+          "name": "My Light",
+          "url": "https://open.spotify.com/playlist/6mRAZ6wVN6eRpGQnDpmvPI"
         },
         {
-          "name": "Citylight Lincoln Worship",
-          "url": "https://open.spotify.com/playlist/3MOvv0V6bzqVk1ARerr9ye"
+          "name": "My Lighthouse",
+          "url": "https://open.spotify.com/playlist/6bvs8IfxDKrYGtgf4JdYXe"
         },
         {
-          "name": "CityLight Church Worship",
-          "url": "https://open.spotify.com/playlist/0lm0z9EhYozF7w25P4IrSX"
+          "name": "Cityalight",
+          "url": "https://open.spotify.com/playlist/3FIO7fuI8fsJCpjWKF1KvC"
         }
       ],
       "verified_count": 0,
@@ -269,24 +270,29 @@
       "date": "2026-03-08",
       "followers": null,
       "popularity": null
+    },
+    {
+      "date": "2026-03-09",
+      "followers": 78,
+      "popularity": 2
     }
   ],
   "spotify_for_artists": {
     "artist_name": "Mjcity",
-    "last_updated": "2026-03-08T12:19:46-04:00",
+    "last_updated": "2026-03-09T09:10:58-04:00",
     "metrics": {
       "listeners_now": 0,
       "last_28_days": {
         "monthly_listeners": 336,
         "monthly_listeners_delta": "+69.7%",
-        "streams": 1100,
+        "streams": 1136,
         "streams_delta": "+27.8%",
         "active_listeners": 100,
         "active_listeners_delta": "-6.5%",
-        "new_active_listeners": null,
-        "new_active_listeners_delta": null,
-        "super_listeners": null,
-        "super_listeners_delta": null,
+        "new_active_listeners": 32,
+        "new_active_listeners_delta": "-11.1%",
+        "super_listeners": 7,
+        "super_listeners_delta": "+40%",
         "streams_per_listener": 3.4,
         "streams_per_listener_delta": "-24.7%",
         "saves": 19,
@@ -367,8 +373,8 @@
       "top_playlists_7_days": [
         {
           "name": "Radio",
-          "listeners": 114,
-          "streams": 124
+          "listeners": 113,
+          "streams": 122
         }
       ]
     },
