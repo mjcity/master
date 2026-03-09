@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OpenClaw Mission Control</title>
+  <meta name="description" content="Live operational workspace for OpenClaw tasks." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="shell-grid">
+    <aside class="sidebar panel">
+      <div class="brand-block">
+        <div class="brand-mark">🤖</div>
+        <div>
+          <p class="eyebrow">Official Space</p>
+          <h1>OpenClaw Mission Control</h1>
+        </div>
+      </div>
+
+      <div class="sidebar-section assistant-card">
+        <p class="section-label">Assigned Assistant</p>
+        <div class="status-item"><span>Name</span><strong>mjcitybot</strong></div>
+        <div class="status-item"><span>Role</span><strong>Task Orchestrator</strong></div>
+        <div class="status-item"><span>Status</span><strong id="assistantStatus">Ready for Mj</strong></div>
+      </div>
+
+      <div class="sidebar-section">
+        <p class="section-label">System</p>
+        <div class="status-list">
+          <div class="status-item"><span>Workspace</span><strong id="workspaceStatus">Ready</strong></div>
+          <div class="status-item"><span>Agent Link</span><strong id="agentLink">Waiting</strong></div>
+          <div class="status-item"><span>Runtime</span><strong id="runtimeStatus">Idle</strong></div>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <p class="section-label">Modes</p>
+        <div class="mode-pills">
+          <button class="pill active">Build</button>
+          <button class="pill">Debug</button>
+          <button class="pill">Research</button>
+          <button class="pill">Deploy</button>
+        </div>
+      </div>
+
+      <div class="sidebar-section task-inbox">
+        <p class="section-label">Task Intake</p>
+        <textarea id="taskInput" placeholder="Give OpenClaw a task...
+Example: Solve a camera control bug in my isometric tactics game and show me every step."></textarea>
+        <div class="action-row">
+          <button id="dispatchBtn" class="btn btn-primary">Dispatch Task</button>
+          <button id="simulateBtn" class="btn btn-secondary">Simulate Live Run</button>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-column">
+      <section class="hero panel">
+        <div class="hero-copy">
+          <p class="eyebrow">Live Task Theater</p>
+          <h2 id="heroTitle">Watch the machine think in public.</h2>
+          <p id="heroSubtitle">This surface is built to show a task moving from intake to reasoning, execution, validation, and completion in real time.</p>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-card">
+            <span>Active Task</span>
+            <strong id="activeTaskId">—</strong>
+          </div>
+          <div class="stat-card">
+            <span>Current Stage</span>
+            <strong id="currentStage">Idle</strong>
+          </div>
+          <div class="stat-card">
+            <span>Completion</span>
+            <strong id="completionPct">0%</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="workspace-grid">
+        <div class="panel live-stage">
+          <div class="panel-head">
+            <h3>Live Workspace</h3>
+            <span class="live-dot"><i></i> Streaming</span>
+          </div>
+
+          <div class="task-card" id="taskCard">
+            <div class="task-visual">
+              <div class="iso-board">
+                <div class="grid-fx"></div>
+                <div class="agent-token token-a"></div>
+                <div class="agent-token token-b"></div>
+                <div class="cursor"></div>
+                <div class="rain rain-1"></div>
+                <div class="rain rain-2"></div>
+                <div class="rain rain-3"></div>
+              </div>
+            </div>
+            <div class="task-copy">
+              <p class="task-label">Current Objective</p>
+              <h4 id="taskTitle">No task running</h4>
+              <p id="taskSummary">Dispatch a task to begin the live operational stream.</p>
+            </div>
+          </div>
+
+          <div class="progress-rail">
+            <div class="progress-bar"><div id="progressFill"></div></div>
+            <div class="stage-steps" id="stageSteps"></div>
+          </div>
+        </div>
+
+        <div class="panel telemetry">
+          <div class="panel-head">
+            <h3>Telemetry</h3>
+            <span class="muted">Session Signals</span>
+          </div>
+          <div class="telemetry-grid">
+            <div class="telemetry-card"><span>Tokens</span><strong id="metricTokens">0</strong></div>
+            <div class="telemetry-card"><span>Files Touched</span><strong id="metricFiles">0</strong></div>
+            <div class="telemetry-card"><span>Tools Invoked</span><strong id="metricTools">0</strong></div>
+            <div class="telemetry-card"><span>Errors</span><strong id="metricErrors">0</strong></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="bottom-grid">
+        <div class="panel log-panel">
+          <div class="panel-head">
+            <h3>Execution Stream</h3>
+            <button class="ghost-btn" id="clearLogsBtn">Clear</button>
+          </div>
+          <div id="logStream" class="log-stream"></div>
+        </div>
+
+        <div class="panel artifacts-panel">
+          <div class="panel-head">
+            <h3>Outputs</h3>
+            <span class="muted">Artifacts and traces</span>
+          </div>
+          <div id="artifactList" class="artifact-list"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
