@@ -1,101 +1,101 @@
 {
   "artist_name": "Mjcity",
-  "last_updated": "2026-03-10T09:11:59-04:00",
+  "last_updated": "2026-03-14T09:11:42-04:00",
   "metrics": {
     "listeners_now": 0,
     "last_28_days": {
-      "monthly_listeners": 345,
-      "monthly_listeners_delta": "+81.6%",
-      "streams": 1149,
-      "streams_delta": "+34.2%",
-      "active_listeners": 102,
-      "active_listeners_delta": "-2.9%",
-      "new_active_listeners": 31,
-      "new_active_listeners_delta": "-16.2%",
-      "super_listeners": 7,
-      "super_listeners_delta": "+40%",
-      "streams_per_listener": 3.3,
-      "streams_per_listener_delta": "-26.1%",
-      "saves": 18,
-      "saves_delta": "-60.0%",
-      "playlist_adds": 53,
-      "playlist_adds_delta": "-17.2%",
-      "followers": 78,
-      "followers_delta": "+6.8%"
+      "monthly_listeners": 382,
+      "monthly_listeners_delta": "+153.0%",
+      "streams": 1439,
+      "streams_delta": "+83.3%",
+      "active_listeners": 113,
+      "active_listeners_delta": "+27.0%",
+      "new_active_listeners": 35,
+      "new_active_listeners_delta": "+25.0%",
+      "super_listeners": 10,
+      "super_listeners_delta": "+150.0%",
+      "streams_per_listener": 3.8,
+      "streams_per_listener_delta": "-27.5%",
+      "saves": 60,
+      "saves_delta": "+93.5%",
+      "playlist_adds": 71,
+      "playlist_adds_delta": "+16.4%",
+      "followers": 80,
+      "followers_delta": "+9.6%"
     },
     "latest_release": {
-      "name": "In Your DM",
-      "type": "Single",
-      "release_date": "2026-02-07",
-      "all_time_streams": 77
+      "name": "Confusion",
+      "type": "Album",
+      "release_date": "2026-03-07",
+      "all_time_streams": null
     },
     "top_songs_7_days": [
       {
         "name": "Let Me In",
-        "streams": 139,
-        "listeners": 120
+        "streams": 94,
+        "listeners": 84
       },
       {
-        "name": "Shawty Glazing Me",
-        "streams": 16,
-        "listeners": 2
+        "name": "Tethered To You",
+        "streams": 38,
+        "listeners": 10
       },
       {
-        "name": "Paralyzed",
-        "streams": 10,
-        "listeners": 5
-      },
-      {
-        "name": "All of My Light",
-        "streams": 7,
+        "name": "Sunset",
+        "streams": 23,
         "listeners": 7
       },
       {
-        "name": "Butterflies Like Me - Acoustic",
-        "streams": 3,
-        "listeners": 1
+        "name": "Shady",
+        "streams": 21,
+        "listeners": 5
       },
       {
-        "name": "Your Night",
-        "streams": 3,
-        "listeners": 2
+        "name": "Split In Two",
+        "streams": 21,
+        "listeners": 7
       },
       {
-        "name": "Closure - Remix",
-        "streams": 2,
-        "listeners": 1
+        "name": "Sweetest Low",
+        "streams": 20,
+        "listeners": 5
       },
       {
-        "name": "Remy and BackShots",
-        "streams": 2,
-        "listeners": 2
+        "name": "You Say No",
+        "streams": 19,
+        "listeners": 6
       },
       {
-        "name": "In Your DM",
-        "streams": 2,
-        "listeners": 1
+        "name": "Hold You",
+        "streams": 19,
+        "listeners": 6
       },
       {
-        "name": "Butterflies Like Me",
-        "streams": 2,
-        "listeners": 1
+        "name": "Lights Low",
+        "streams": 18,
+        "listeners": 5
       },
       {
-        "name": "You Just Move Different",
-        "streams": 1,
-        "listeners": 1
+        "name": "Body Divine",
+        "streams": 17,
+        "listeners": 4
       },
       {
-        "name": "Shawty Crashing Out",
-        "streams": 1,
+        "name": "Room For Us",
+        "streams": 16,
+        "listeners": 5
+      },
+      {
+        "name": "Shawty Glazing Me",
+        "streams": 15,
         "listeners": 1
       }
     ],
     "top_playlists_7_days": [
       {
         "name": "Radio",
-        "listeners": 98,
-        "streams": 107
+        "listeners": 57,
+        "streams": 67
       }
     ]
   },
@@ -104,9 +104,9 @@
     "top_countries_listeners": [
       {
         "country": "United States",
-        "listeners": 251,
-        "active_pct": "23.9%",
-        "active_listeners": 60
+        "listeners": 280,
+        "active_pct": "25.4%",
+        "active_listeners": 71
       },
       {
         "country": "Brazil",
@@ -117,7 +117,13 @@
       {
         "country": "Germany",
         "listeners": 10,
-        "active_pct": "50%",
+        "active_pct": "60%",
+        "active_listeners": 6
+      },
+      {
+        "country": "France",
+        "listeners": 8,
+        "active_pct": "62.5%",
         "active_listeners": 5
       },
       {
@@ -128,21 +134,27 @@
       },
       {
         "country": "United Kingdom",
-        "listeners": 7,
-        "active_pct": "85.7%",
-        "active_listeners": 6
-      },
-      {
-        "country": "France",
         "listeners": 6,
         "active_pct": "83.3%",
         "active_listeners": 5
+      },
+      {
+        "country": "Philippines",
+        "listeners": 5,
+        "active_pct": "\u2014",
+        "active_listeners": "\u2014"
       },
       {
         "country": "South Africa",
         "listeners": 4,
         "active_pct": "25%",
         "active_listeners": 1
+      },
+      {
+        "country": "Nigeria",
+        "listeners": 4,
+        "active_pct": "50%",
+        "active_listeners": 2
       }
     ],
     "top_cities_listeners": [
@@ -159,7 +171,15 @@
         "listeners": 5
       },
       {
-        "city": "São Paulo",
+        "city": "Houston",
+        "listeners": 5
+      },
+      {
+        "city": "Philadelphia",
+        "listeners": 5
+      },
+      {
+        "city": "S\u00e3o Paulo",
         "listeners": 5
       },
       {
@@ -171,14 +191,6 @@
         "listeners": 4
       },
       {
-        "city": "Houston",
-        "listeners": 4
-      },
-      {
-        "city": "Philadelphia",
-        "listeners": 4
-      },
-      {
         "city": "Lagos",
         "listeners": 3
       },
@@ -187,7 +199,11 @@
         "listeners": 3
       },
       {
-        "city": "Chicago",
+        "city": "Brooklyn",
+        "listeners": 3
+      },
+      {
+        "city": "Staten Island",
         "listeners": 3
       }
     ]
@@ -195,71 +211,71 @@
   "top_tracks_28d": [
     {
       "name": "Let Me In",
-      "streams_28d": 663,
-      "listeners_28d": 285,
+      "streams_28d": 674,
+      "listeners_28d": 313,
       "release_date": "2025-10-20"
     },
     {
       "name": "King Birthday",
-      "streams_28d": 185,
-      "listeners_28d": 4,
+      "streams_28d": 184,
+      "listeners_28d": 5,
       "release_date": "2026-01-02"
     },
     {
-      "name": "In Your DM",
-      "streams_28d": 76,
-      "listeners_28d": 14,
-      "release_date": "2026-02-07"
-    },
-    {
       "name": "Shawty Glazing Me",
-      "streams_28d": 47,
+      "streams_28d": 53,
       "listeners_28d": 3,
       "release_date": "2025-11-28"
     },
     {
+      "name": "In Your DM",
+      "streams_28d": 52,
+      "listeners_28d": 13,
+      "release_date": "2026-02-07"
+    },
+    {
+      "name": "Tethered To You",
+      "streams_28d": 38,
+      "listeners_28d": 10,
+      "release_date": "2026-03-08"
+    },
+    {
       "name": "Paralyzed",
-      "streams_28d": 30,
+      "streams_28d": 32,
       "listeners_28d": 10,
       "release_date": "2025-11-10"
     },
     {
       "name": "All of My Light",
-      "streams_28d": 28,
-      "listeners_28d": 19,
+      "streams_28d": 30,
+      "listeners_28d": 21,
       "release_date": "2025-08-31"
     },
     {
-      "name": "Butterflies Like Me",
-      "streams_28d": 14,
-      "listeners_28d": 10,
-      "release_date": "2026-02-02"
-    },
-    {
-      "name": "Butterflies Like Me - Acoustic",
-      "streams_28d": 13,
+      "name": "Sunset",
+      "streams_28d": 23,
       "listeners_28d": 7,
-      "release_date": "2026-02-02"
+      "release_date": "2026-03-08"
     },
     {
-      "name": "You Just Move Different",
-      "streams_28d": 11,
-      "listeners_28d": 10,
-      "release_date": "2025-07-24"
+      "name": "Shady",
+      "streams_28d": 21,
+      "listeners_28d": 5,
+      "release_date": "2026-03-08"
     },
     {
-      "name": "Your Night",
-      "streams_28d": 11,
-      "listeners_28d": 9,
-      "release_date": "2026-01-18"
+      "name": "Split In Two",
+      "streams_28d": 21,
+      "listeners_28d": 7,
+      "release_date": "2026-03-08"
     }
   ],
   "playlist_signals": {
     "algorithmic": [
       {
         "title": "Radio",
-        "listeners": 98,
-        "streams": 107
+        "listeners": 57,
+        "streams": 67
       }
     ]
   }
