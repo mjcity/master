@@ -1,13 +1,11 @@
 {
-  "generated_at": "2026-03-14 09:11 EDT",
+  "generated_at": "2026-03-15 09:11 EDT",
   "artist_snapshot": {
     "name": "Mjcity",
     "id": "4TbJfltoNbaKOASaR8rsYM",
-    "followers": 80,
-    "popularity": 3,
-    "genres": [
-      "afropop"
-    ],
+    "followers": null,
+    "popularity": null,
+    "genres": [],
     "spotify_url": "https://open.spotify.com/artist/4TbJfltoNbaKOASaR8rsYM"
   },
   "top_tracks_source": "search_fallback",
@@ -31,16 +29,16 @@
       "url": "https://open.spotify.com/track/4TV3CGZx0dAbbUuiUydRRU"
     },
     {
+      "name": "It's You",
+      "release_date": "2026-03-08",
+      "album": "Confusion",
+      "url": "https://open.spotify.com/track/4dPT7JowXff9y7h1FRsGdY"
+    },
+    {
       "name": "Quiet War",
       "release_date": "2026-03-08",
       "album": "Confusion",
       "url": "https://open.spotify.com/track/2D1HbURKjDxbDTQ55bSkAo"
-    },
-    {
-      "name": "All of My Light",
-      "release_date": "2025-08-31",
-      "album": "All of My Light",
-      "url": "https://open.spotify.com/track/745zuMIEtmagjamsBRFeje"
     }
   ],
   "release_monitor": [
@@ -120,8 +118,8 @@
           "url": "https://open.spotify.com/playlist/5rkPgglTxbzp6pJeaIGcXJ"
         },
         {
-          "name": "Milly's City",
-          "url": "https://open.spotify.com/playlist/5jHgjy8Wr5J0ED3bn75E4w"
+          "name": "I Put On For My City",
+          "url": "https://open.spotify.com/playlist/4w9U21lvRHbKBlIej3CBl7"
         },
         {
           "name": "Late Night Vibes & City Lights",
@@ -140,24 +138,24 @@
       "search_hits": 5,
       "sample_playlists": [
         {
-          "name": "City Lights",
-          "url": "https://open.spotify.com/playlist/3wqyx3JsuUAHoyqF6B3JEw"
+          "name": "Moon City",
+          "url": "https://open.spotify.com/playlist/4WERrshPm3eILeGZf7uvxg"
         },
         {
-          "name": "City Lights & Heartbreak",
-          "url": "https://open.spotify.com/playlist/46ZtSYUQ7YDDbcaHfrA3Go"
+          "name": "MyCity\u2728",
+          "url": "https://open.spotify.com/playlist/73Tt2BgRe5SEwdDRQfIhGV"
         },
         {
-          "name": "NEW JACK CITY",
-          "url": "https://open.spotify.com/playlist/4PwlNRacZ7dvSI8zIOdAMp"
+          "name": "City Lobby Mix",
+          "url": "https://open.spotify.com/playlist/1UO47ikUiCIxygIDoB4Yhd"
+        },
+        {
+          "name": "City Soul VOL.3 | Sings My Soul",
+          "url": "https://open.spotify.com/playlist/4ptZKHQPm0MVPqx8QSPAYs"
         },
         {
           "name": "MJCO New Mix",
           "url": "https://open.spotify.com/playlist/6SiooiGCm7jQwupkiX1Uzz"
-        },
-        {
-          "name": "Citiy",
-          "url": "https://open.spotify.com/playlist/0nQoZTes9X4wEOIW6r8yeT"
         }
       ],
       "verified_count": 0,
@@ -167,6 +165,30 @@
       "track": "King Birthday",
       "search_hits": 0,
       "sample_playlists": [],
+      "verified_count": 0,
+      "verified_playlists": []
+    },
+    {
+      "track": "It's You",
+      "search_hits": 4,
+      "sample_playlists": [
+        {
+          "name": "Car City",
+          "url": "https://open.spotify.com/playlist/6oS9fZsJBjejVrno07TkJV"
+        },
+        {
+          "name": "windy city series",
+          "url": "https://open.spotify.com/playlist/7CI49EAY7lsi4g4oDmAZkY"
+        },
+        {
+          "name": "Radio CITY",
+          "url": "https://open.spotify.com/playlist/2Ut3aXY3VdONAflil3ATS5"
+        },
+        {
+          "name": "Kingdomcity",
+          "url": "https://open.spotify.com/playlist/492PEqiLPRsm77pKknbN2p"
+        }
+      ],
       "verified_count": 0,
       "verified_playlists": []
     },
@@ -183,44 +205,16 @@
           "url": "https://open.spotify.com/playlist/4JLwe9C0trOKLMhLoZiaZ8"
         },
         {
-          "name": "Smooth Jazz Quiet Storm",
-          "url": "https://open.spotify.com/playlist/6ISvwLQKgSDzUpAXomkbkP"
-        },
-        {
-          "name": "Quiet storm 80 and 90s slow jams ",
-          "url": "https://open.spotify.com/playlist/3Dri3BCF29fyalTXHAwRPR"
-        },
-        {
           "name": "The Quiet Storm - 90s 00s R&B",
           "url": "https://open.spotify.com/playlist/0EhGr2aCC58HYUmsOFackM"
-        }
-      ],
-      "verified_count": 0,
-      "verified_playlists": []
-    },
-    {
-      "track": "All of My Light",
-      "search_hits": 5,
-      "sample_playlists": [
-        {
-          "name": "City Lights",
-          "url": "https://open.spotify.com/playlist/3wqyx3JsuUAHoyqF6B3JEw"
         },
         {
-          "name": "City Light Vegas Playlist",
-          "url": "https://open.spotify.com/playlist/4nx9LKRKVVgKFkE32j5mXc"
+          "name": "Grown Folks Radio: The Quiet Storm",
+          "url": "https://open.spotify.com/playlist/2o7maiyJCkcOcDK1K6EMtE"
         },
         {
-          "name": "City Alight Complete Playlist",
-          "url": "https://open.spotify.com/playlist/011aj7QIywBj7t89mC3D1Q"
-        },
-        {
-          "name": "Songs of City Light",
-          "url": "https://open.spotify.com/playlist/75BTlklIsOcAog03nHjt4k"
-        },
-        {
-          "name": "Citylight Lincoln Worship",
-          "url": "https://open.spotify.com/playlist/3MOvv0V6bzqVk1ARerr9ye"
+          "name": "V103 - Quiet Storm",
+          "url": "https://open.spotify.com/playlist/6kYJdPlviS2l90U7b2c5vz"
         }
       ],
       "verified_count": 0,
@@ -233,7 +227,7 @@
     "Appreciate every listener rocking with Mjcity. Keep running it up! \ud83d\ude80",
     "Playlist curators: open to placements for Afro-pop energy \u2014 link in bio."
   ],
-  "weekly_report": "This week: 5 active tracks detected, 20 playlist search hits, 0 verified placements.",
+  "weekly_report": "This week: 5 active tracks detected, 19 playlist search hits, 0 verified placements.",
   "catalog_health": "Catalog trend: push your newest 2 releases with short-form video and playlist outreach.",
   "history": [
     {
@@ -285,24 +279,29 @@
       "date": "2026-03-14",
       "followers": 80,
       "popularity": 3
+    },
+    {
+      "date": "2026-03-15",
+      "followers": null,
+      "popularity": null
     }
   ],
   "spotify_for_artists": {
     "artist_name": "Mjcity",
-    "last_updated": "2026-03-14T09:11:42-04:00",
+    "last_updated": "2026-03-15T09:10:59-04:00",
     "metrics": {
       "listeners_now": 0,
       "last_28_days": {
-        "monthly_listeners": 382,
-        "monthly_listeners_delta": "+153.0%",
-        "streams": 1439,
-        "streams_delta": "+83.3%",
-        "active_listeners": 113,
-        "active_listeners_delta": "+27.0%",
-        "new_active_listeners": 35,
-        "new_active_listeners_delta": "+25.0%",
-        "super_listeners": 10,
-        "super_listeners_delta": "+150.0%",
+        "monthly_listeners": 383,
+        "monthly_listeners_delta": "+166%",
+        "streams": 1498,
+        "streams_delta": "+93.8%",
+        "active_listeners": 112,
+        "active_listeners_delta": "+27.3%",
+        "new_active_listeners": 34,
+        "new_active_listeners_delta": "+21.4%",
+        "super_listeners": 9,
+        "super_listeners_delta": "+125%",
         "streams_per_listener": 3.8,
         "streams_per_listener_delta": "-27.5%",
         "saves": 60,
@@ -316,75 +315,35 @@
         "name": "Confusion",
         "type": "Album",
         "release_date": "2026-03-07",
-        "all_time_streams": null
+        "all_time_streams": 417
       },
       "top_songs_7_days": [
         {
           "name": "Let Me In",
-          "streams": 94,
-          "listeners": 84
+          "streams": 76,
+          "listeners": null
         },
         {
           "name": "Tethered To You",
-          "streams": 38,
-          "listeners": 10
+          "streams": 46,
+          "listeners": null
         },
         {
           "name": "Sunset",
-          "streams": 23,
-          "listeners": 7
-        },
-        {
-          "name": "Shady",
-          "streams": 21,
-          "listeners": 5
-        },
-        {
-          "name": "Split In Two",
-          "streams": 21,
-          "listeners": 7
-        },
-        {
-          "name": "Sweetest Low",
-          "streams": 20,
-          "listeners": 5
-        },
-        {
-          "name": "You Say No",
-          "streams": 19,
-          "listeners": 6
-        },
-        {
-          "name": "Hold You",
-          "streams": 19,
-          "listeners": 6
-        },
-        {
-          "name": "Lights Low",
-          "streams": 18,
-          "listeners": 5
-        },
-        {
-          "name": "Body Divine",
-          "streams": 17,
-          "listeners": 4
-        },
-        {
-          "name": "Room For Us",
-          "streams": 16,
-          "listeners": 5
-        },
-        {
-          "name": "Shawty Glazing Me",
-          "streams": 15,
-          "listeners": 1
+          "streams": 27,
+          "listeners": null
         }
       ],
       "top_playlists_7_days": [
         {
           "name": "Radio",
-          "listeners": 57,
-          "streams": 67
+          "listeners": null,
+          "streams": 50
+        },
+        {
+          "name": "Release Radar",
+          "listeners": null,
+          "streams": 6
         }
       ]
     },
