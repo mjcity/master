@@ -1,48 +1,48 @@
 {
   "artist_name": "Mjcity",
-  "last_updated": "2026-03-15T09:10:59-04:00",
+  "last_updated": "2026-03-16T09:12:02-04:00",
   "metrics": {
     "listeners_now": 0,
     "last_28_days": {
-      "monthly_listeners": 383,
-      "monthly_listeners_delta": "+166%",
-      "streams": 1498,
-      "streams_delta": "+93.8%",
-      "active_listeners": 112,
-      "active_listeners_delta": "+27.3%",
-      "new_active_listeners": 34,
-      "new_active_listeners_delta": "+21.4%",
+      "monthly_listeners": 388,
+      "monthly_listeners_delta": "+185.3%",
+      "streams": 1530,
+      "streams_delta": "+100.8%",
+      "active_listeners": 114,
+      "active_listeners_delta": "+23.9%",
+      "new_active_listeners": 33,
+      "new_active_listeners_delta": "+17.9%",
       "super_listeners": 9,
       "super_listeners_delta": "+125%",
-      "streams_per_listener": 3.8,
-      "streams_per_listener_delta": "-27.5%",
-      "saves": 60,
-      "saves_delta": "+93.5%",
-      "playlist_adds": 71,
-      "playlist_adds_delta": "+16.4%",
-      "followers": 80,
-      "followers_delta": "+9.6%"
+      "streams_per_listener": 3.9,
+      "streams_per_listener_delta": "-29.6%",
+      "saves": 64,
+      "saves_delta": "+113.3%",
+      "playlist_adds": 76,
+      "playlist_adds_delta": "+31.0%",
+      "followers": 81,
+      "followers_delta": "+9.5%"
     },
     "latest_release": {
       "name": "Confusion",
       "type": "Album",
-      "release_date": "2026-03-07",
-      "all_time_streams": 417
+      "release_date": "2026-03-08",
+      "all_time_streams": 488
     },
     "top_songs_7_days": [
       {
         "name": "Let Me In",
-        "streams": 76,
+        "streams": 72,
         "listeners": null
       },
       {
         "name": "Tethered To You",
-        "streams": 46,
+        "streams": 48,
         "listeners": null
       },
       {
-        "name": "Sunset",
-        "streams": 27,
+        "name": "Split In Two",
+        "streams": 29,
         "listeners": null
       }
     ],
@@ -50,12 +50,12 @@
       {
         "name": "Radio",
         "listeners": null,
-        "streams": 50
+        "streams": 40
       },
       {
         "name": "Release Radar",
         "listeners": null,
-        "streams": 6
+        "streams": 11
       }
     ]
   },
@@ -64,27 +64,27 @@
     "top_countries_listeners": [
       {
         "country": "United States",
-        "listeners": 280,
-        "active_pct": "25.4%",
+        "listeners": 281,
+        "active_pct": "25.3%",
         "active_listeners": 71
       },
       {
         "country": "Brazil",
-        "listeners": 23,
-        "active_pct": "17.4%",
+        "listeners": 24,
+        "active_pct": "16.7%",
         "active_listeners": 4
       },
       {
         "country": "Germany",
-        "listeners": 10,
-        "active_pct": "60%",
+        "listeners": 11,
+        "active_pct": "54.5%",
         "active_listeners": 6
       },
       {
         "country": "France",
         "listeners": 8,
-        "active_pct": "62.5%",
-        "active_listeners": 5
+        "active_pct": "50%",
+        "active_listeners": 4
       },
       {
         "country": "Canada",
@@ -101,8 +101,8 @@
       {
         "country": "Philippines",
         "listeners": 5,
-        "active_pct": "\u2014",
-        "active_listeners": "\u2014"
+        "active_pct": "—",
+        "active_listeners": "—"
       },
       {
         "country": "South Africa",
@@ -119,27 +119,19 @@
     ],
     "top_cities_listeners": [
       {
+        "city": "Dallas",
+        "listeners": 7
+      },
+      {
         "city": "Phoenix",
         "listeners": 6
-      },
-      {
-        "city": "Dallas",
-        "listeners": 6
-      },
-      {
-        "city": "Milwaukee",
-        "listeners": 5
       },
       {
         "city": "Houston",
         "listeners": 5
       },
       {
-        "city": "Philadelphia",
-        "listeners": 5
-      },
-      {
-        "city": "S\u00e3o Paulo",
+        "city": "São Paulo",
         "listeners": 5
       },
       {
@@ -151,7 +143,19 @@
         "listeners": 4
       },
       {
+        "city": "Milwaukee",
+        "listeners": 4
+      },
+      {
+        "city": "Philadelphia",
+        "listeners": 4
+      },
+      {
         "city": "Lagos",
+        "listeners": 3
+      },
+      {
+        "city": "Paris",
         "listeners": 3
       },
       {
@@ -171,62 +175,62 @@
   "top_tracks_28d": [
     {
       "name": "Let Me In",
-      "streams_28d": 674,
-      "listeners_28d": 313,
+      "streams_28d": 677,
+      "listeners_28d": 319,
       "release_date": "2025-10-20"
     },
     {
       "name": "King Birthday",
-      "streams_28d": 184,
-      "listeners_28d": 5,
+      "streams_28d": 183,
+      "listeners_28d": 4,
       "release_date": "2026-01-02"
     },
     {
       "name": "Shawty Glazing Me",
-      "streams_28d": 53,
+      "streams_28d": 56,
       "listeners_28d": 3,
       "release_date": "2025-11-28"
     },
     {
-      "name": "In Your DM",
-      "streams_28d": 52,
-      "listeners_28d": 13,
-      "release_date": "2026-02-07"
-    },
-    {
       "name": "Tethered To You",
-      "streams_28d": 38,
-      "listeners_28d": 10,
+      "streams_28d": 48,
+      "listeners_28d": 13,
       "release_date": "2026-03-08"
     },
     {
+      "name": "In Your DM",
+      "streams_28d": 47,
+      "listeners_28d": 9,
+      "release_date": "2026-02-07"
+    },
+    {
       "name": "Paralyzed",
-      "streams_28d": 32,
+      "streams_28d": 33,
       "listeners_28d": 10,
       "release_date": "2025-11-10"
     },
     {
       "name": "All of My Light",
-      "streams_28d": 30,
+      "streams_28d": 29,
       "listeners_28d": 21,
       "release_date": "2025-08-31"
     },
     {
+      "name": "Split In Two",
+      "streams_28d": 29,
+      "listeners_28d": 8,
+      "release_date": "2026-03-08"
+    },
+    {
       "name": "Sunset",
-      "streams_28d": 23,
-      "listeners_28d": 7,
+      "streams_28d": 28,
+      "listeners_28d": 8,
       "release_date": "2026-03-08"
     },
     {
       "name": "Shady",
-      "streams_28d": 21,
-      "listeners_28d": 5,
-      "release_date": "2026-03-08"
-    },
-    {
-      "name": "Split In Two",
-      "streams_28d": 21,
-      "listeners_28d": 7,
+      "streams_28d": 27,
+      "listeners_28d": 6,
       "release_date": "2026-03-08"
     }
   ],
@@ -234,8 +238,13 @@
     "algorithmic": [
       {
         "title": "Radio",
-        "listeners": 57,
-        "streams": 67
+        "listeners": null,
+        "streams": 293
+      },
+      {
+        "title": "Release Radar",
+        "listeners": null,
+        "streams": 14
       }
     ]
   }
