@@ -1,6 +1,6 @@
 {
   "artist_name": "Mjcity",
-  "last_updated": "2026-03-16T22:23:38-04:00",
+  "last_updated": "2026-03-16T22:32:09-04:00",
   "metrics": {
     "listeners_now": 0,
     "last_28_days": {
@@ -26,7 +26,7 @@
     "latest_release": {
       "name": "Confusion",
       "type": "Album",
-      "release_date": "2026-03-07",
+      "release_date": "2026-03-08",
       "all_time_streams": 490
     },
     "top_songs_7_days": [
@@ -64,15 +64,15 @@
     "top_countries_listeners": [
       {
         "country": "United States",
-        "listeners": 281,
+        "listeners": 285,
         "active_pct": "25.3%",
-        "active_listeners": 71
+        "active_listeners": 72
       },
       {
         "country": "Brazil",
-        "listeners": 24,
-        "active_pct": "16.7%",
-        "active_listeners": 4
+        "listeners": 23,
+        "active_pct": "13%",
+        "active_listeners": 3
       },
       {
         "country": "Germany",
@@ -81,16 +81,16 @@
         "active_listeners": 6
       },
       {
+        "country": "Canada",
+        "listeners": 9,
+        "active_pct": "55.6%",
+        "active_listeners": 5
+      },
+      {
         "country": "France",
         "listeners": 8,
         "active_pct": "50%",
         "active_listeners": 4
-      },
-      {
-        "country": "Canada",
-        "listeners": 8,
-        "active_pct": "62.5%",
-        "active_listeners": 5
       },
       {
         "country": "United Kingdom",
@@ -155,6 +155,10 @@
         "listeners": 3
       },
       {
+        "city": "Los Angeles",
+        "listeners": 3
+      },
+      {
         "city": "Paris",
         "listeners": 3
       },
@@ -176,7 +180,7 @@
     {
       "name": "Let Me In",
       "streams_28d": 677,
-      "listeners_28d": 319,
+      "listeners_28d": 321,
       "release_date": "2025-10-20"
     },
     {
@@ -187,13 +191,13 @@
     },
     {
       "name": "Shawty Glazing Me",
-      "streams_28d": 56,
+      "streams_28d": 58,
       "listeners_28d": 3,
       "release_date": "2025-11-28"
     },
     {
       "name": "Tethered To You",
-      "streams_28d": 48,
+      "streams_28d": 52,
       "listeners_28d": 13,
       "release_date": "2026-03-08"
     },
@@ -210,42 +214,95 @@
       "release_date": "2025-11-10"
     },
     {
-      "name": "All of My Light",
-      "streams_28d": 29,
-      "listeners_28d": 21,
-      "release_date": "2025-08-31"
-    },
-    {
-      "name": "Split In Two",
-      "streams_28d": 29,
-      "listeners_28d": 8,
-      "release_date": "2026-03-08"
-    },
-    {
       "name": "Sunset",
-      "streams_28d": 28,
+      "streams_28d": 33,
       "listeners_28d": 8,
       "release_date": "2026-03-08"
     },
     {
       "name": "Shady",
-      "streams_28d": 27,
+      "streams_28d": 31,
       "listeners_28d": 6,
       "release_date": "2026-03-08"
+    },
+    {
+      "name": "Split In Two",
+      "streams_28d": 31,
+      "listeners_28d": 8,
+      "release_date": "2026-03-08"
+    },
+    {
+      "name": "All of My Light",
+      "streams_28d": 30,
+      "listeners_28d": 20,
+      "release_date": "2025-08-31"
     }
   ],
   "playlist_signals": {
     "algorithmic": [
       {
         "title": "Radio",
-        "listeners": null,
-        "streams": 293
+        "listeners": 239,
+        "streams": 294
       },
       {
         "title": "Release Radar",
-        "listeners": null,
-        "streams": 14
+        "listeners": 6,
+        "streams": 15
       }
     ]
+  },
+  "demographics": {
+    "gender": {
+      "female": 51,
+      "male": 46,
+      "non_binary": 0,
+      "not_specified": 3
+    },
+    "age_buckets": [
+      {
+        "range": "<18",
+        "pct": 3
+      },
+      {
+        "range": "18-24",
+        "pct": 12
+      },
+      {
+        "range": "25-34",
+        "pct": 27
+      },
+      {
+        "range": "35-44",
+        "pct": 28
+      },
+      {
+        "range": "45-54",
+        "pct": 17
+      },
+      {
+        "range": "55-64",
+        "pct": 9
+      },
+      {
+        "range": "65+",
+        "pct": 4
+      }
+    ]
+  },
+  "segments": {
+    "total_audience": 2479,
+    "reactivated_listeners": 38,
+    "new_active_listeners": 31,
+    "new_listeners": 298,
+    "monthly_active_pct": 5,
+    "previously_active_pct": 35,
+    "programmed_pct": 60,
+    "release_engagement": {
+      "release": "Confusion",
+      "first_8_days_streamed_release": 13,
+      "monthly_active_listeners": 113,
+      "engagement_pct": "11.5%"
+    }
   }
 }
