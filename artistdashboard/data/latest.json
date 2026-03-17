@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-16 22:32 EDT",
+  "generated_at": "2026-03-17 09:10 EDT",
   "artist_snapshot": {
     "name": "Mjcity",
     "id": "4TbJfltoNbaKOASaR8rsYM",
@@ -118,16 +118,16 @@
           "url": "https://open.spotify.com/playlist/5rkPgglTxbzp6pJeaIGcXJ"
         },
         {
+          "name": "I Put On For My City",
+          "url": "https://open.spotify.com/playlist/4w9U21lvRHbKBlIej3CBl7"
+        },
+        {
           "name": "Late Night Vibes & City Lights",
           "url": "https://open.spotify.com/playlist/2i3MBRfHq6WABdYv4zXByJ"
         },
         {
           "name": "Latin Nights & City Lights",
           "url": "https://open.spotify.com/playlist/5JOdoX6TL0hIf0WY0AVoqK"
-        },
-        {
-          "name": "Radio CITY",
-          "url": "https://open.spotify.com/playlist/2Ut3aXY3VdONAflil3ATS5"
         }
       ],
       "verified_count": 0,
@@ -138,20 +138,47 @@
       "search_hits": 5,
       "sample_playlists": [
         {
-          "name": "New Soul City",
-          "url": "https://open.spotify.com/playlist/5dJHr0uMIP2o8oYIvPsKFp"
+          "name": "City lights \ud83c\udf03  (best playlist)",
+          "url": "https://open.spotify.com/playlist/2B7Ik0QoMf44bzzqiKbzmG"
         },
         {
-          "name": "City cove ",
-          "url": "https://open.spotify.com/playlist/0pwG6rBcroYQzHsqTVmvjc"
+          "name": "Med City Jams",
+          "url": "https://open.spotify.com/playlist/0I9nmXVKhLMpMgHbXzDdLC"
         },
         {
-          "name": "Moon City",
-          "url": "https://open.spotify.com/playlist/4WERrshPm3eILeGZf7uvxg"
+          "name": "Mi city boy",
+          "url": "https://open.spotify.com/playlist/7DBCMvkXmq5E3isuvvoOIP"
         },
         {
-          "name": "New City View",
-          "url": "https://open.spotify.com/playlist/4LPqziQdvHRCG0fBKrTSxr"
+          "name": "My City",
+          "url": "https://open.spotify.com/playlist/3kNtswoGuUFr5cmmnq9MPp"
+        },
+        {
+          "name": "City Lobby Mix",
+          "url": "https://open.spotify.com/playlist/1UO47ikUiCIxygIDoB4Yhd"
+        }
+      ],
+      "verified_count": 0,
+      "verified_playlists": []
+    },
+    {
+      "track": "King Birthday",
+      "search_hits": 0,
+      "sample_playlists": [],
+      "verified_count": 0,
+      "verified_playlists": []
+    },
+    {
+      "track": "Quiet War",
+      "search_hits": 3,
+      "sample_playlists": [
+        {
+          "name": "MJ Music",
+          "url": "https://open.spotify.com/playlist/3rn0aNEhBafCr9fTvbWTJ2"
+        },
+        {
+          "name": "MJ MusicShow",
+          "url": "https://open.spotify.com/playlist/7Gff0rfNsQ8DV12jROAVzF"
         },
         {
           "name": "MJCO New Mix",
@@ -162,68 +189,28 @@
       "verified_playlists": []
     },
     {
-      "track": "King Birthday",
-      "search_hits": 1,
-      "sample_playlists": [
-        {
-          "name": "King City",
-          "url": "https://open.spotify.com/playlist/0CVa5fxy5P354RkbkobPRL"
-        }
-      ],
-      "verified_count": 0,
-      "verified_playlists": []
-    },
-    {
-      "track": "Quiet War",
-      "search_hits": 5,
-      "sample_playlists": [
-        {
-          "name": "QUIET MOMENTS",
-          "url": "https://open.spotify.com/playlist/2h5NrsDcbw6wx1IM0Trtyc"
-        },
-        {
-          "name": "Quiet Storm The Sound Wave",
-          "url": "https://open.spotify.com/playlist/4JLwe9C0trOKLMhLoZiaZ8"
-        },
-        {
-          "name": "A Quiet While",
-          "url": "https://open.spotify.com/playlist/3WJeqsn941VDStIPGjg1Sp"
-        },
-        {
-          "name": "Quiet Storm by RNB RADAR",
-          "url": "https://open.spotify.com/playlist/0j06RO2O3yigaK6Z5eV8MT"
-        },
-        {
-          "name": "The QUIET STORM: 10pm - 2am Jams",
-          "url": "https://open.spotify.com/playlist/0ilyRY3z048v74aE6CHgvO"
-        }
-      ],
-      "verified_count": 0,
-      "verified_playlists": []
-    },
-    {
       "track": "It's You",
       "search_hits": 5,
       "sample_playlists": [
+        {
+          "name": "Party City Doc",
+          "url": "https://open.spotify.com/playlist/5dm4ZaUX8LbuxPksMIfhrg"
+        },
         {
           "name": "LATE NIGHT CITY LIGHTS VIBE",
           "url": "https://open.spotify.com/playlist/5rkPgglTxbzp6pJeaIGcXJ"
         },
         {
-          "name": "Car City",
-          "url": "https://open.spotify.com/playlist/6oS9fZsJBjejVrno07TkJV"
+          "name": "The city slows down, but your thoughts keep moving",
+          "url": "https://open.spotify.com/playlist/5BlsaIA8HWLeo785ZYjvXs"
         },
         {
-          "name": "windy city series",
-          "url": "https://open.spotify.com/playlist/7CI49EAY7lsi4g4oDmAZkY"
+          "name": "soda city funk",
+          "url": "https://open.spotify.com/playlist/1odmmZozjUkQvm49UPRU10"
         },
         {
-          "name": "Moon City",
-          "url": "https://open.spotify.com/playlist/4WERrshPm3eILeGZf7uvxg"
-        },
-        {
-          "name": "Kingdomcity",
-          "url": "https://open.spotify.com/playlist/492PEqiLPRsm77pKknbN2p"
+          "name": "Hot City Nights",
+          "url": "https://open.spotify.com/playlist/7mel2iMSkUMLfVkz5YEvgM"
         }
       ],
       "verified_count": 0,
@@ -236,7 +223,7 @@
     "Appreciate every listener rocking with Mjcity. Keep running it up! \ud83d\ude80",
     "Playlist curators: open to placements for Afro-pop energy \u2014 link in bio."
   ],
-  "weekly_report": "This week: 5 active tracks detected, 21 playlist search hits, 0 verified placements.",
+  "weekly_report": "This week: 5 active tracks detected, 18 playlist search hits, 0 verified placements.",
   "catalog_health": "Catalog trend: push your newest 2 releases with short-form video and playlist outreach.",
   "history": [
     {
@@ -298,11 +285,16 @@
       "date": "2026-03-16",
       "followers": null,
       "popularity": null
+    },
+    {
+      "date": "2026-03-17",
+      "followers": null,
+      "popularity": null
     }
   ],
   "spotify_for_artists": {
     "artist_name": "Mjcity",
-    "last_updated": "2026-03-16T22:32:09-04:00",
+    "last_updated": "2026-03-17T09:10:38-04:00",
     "metrics": {
       "listeners_now": 0,
       "last_28_days": {
@@ -328,8 +320,8 @@
       "latest_release": {
         "name": "Confusion",
         "type": "Album",
-        "release_date": "2026-03-08",
-        "all_time_streams": 490
+        "release_date": "2026-03-07",
+        "all_time_streams": null
       },
       "top_songs_7_days": [
         {

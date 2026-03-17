@@ -1,6 +1,6 @@
 {
   "artist_name": "Mjcity",
-  "last_updated": "2026-03-16T22:32:09-04:00",
+  "last_updated": "2026-03-17T09:10:38-04:00",
   "metrics": {
     "listeners_now": 0,
     "last_28_days": {
@@ -26,8 +26,8 @@
     "latest_release": {
       "name": "Confusion",
       "type": "Album",
-      "release_date": "2026-03-08",
-      "all_time_streams": 490
+      "release_date": "2026-03-07",
+      "all_time_streams": null
     },
     "top_songs_7_days": [
       {
