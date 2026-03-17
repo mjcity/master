@@ -1,13 +1,11 @@
 {
-  "generated_at": "2026-03-16 22:07 EDT",
+  "generated_at": "2026-03-16 22:23 EDT",
   "artist_snapshot": {
     "name": "Mjcity",
     "id": "4TbJfltoNbaKOASaR8rsYM",
-    "followers": 81,
-    "popularity": 3,
-    "genres": [
-      "afropop"
-    ],
+    "followers": null,
+    "popularity": null,
+    "genres": [],
     "spotify_url": "https://open.spotify.com/artist/4TbJfltoNbaKOASaR8rsYM"
   },
   "top_tracks_source": "search_fallback",
@@ -120,16 +118,16 @@
           "url": "https://open.spotify.com/playlist/5rkPgglTxbzp6pJeaIGcXJ"
         },
         {
-          "name": "I Put On For My City",
-          "url": "https://open.spotify.com/playlist/4w9U21lvRHbKBlIej3CBl7"
-        },
-        {
           "name": "Late Night Vibes & City Lights",
           "url": "https://open.spotify.com/playlist/2i3MBRfHq6WABdYv4zXByJ"
         },
         {
-          "name": "New Jack City Soundtrack",
-          "url": "https://open.spotify.com/playlist/3OzysMVidq78HAtOCuJMZj"
+          "name": "Latin Nights & City Lights",
+          "url": "https://open.spotify.com/playlist/5JOdoX6TL0hIf0WY0AVoqK"
+        },
+        {
+          "name": "Radio CITY",
+          "url": "https://open.spotify.com/playlist/2Ut3aXY3VdONAflil3ATS5"
         }
       ],
       "verified_count": 0,
@@ -140,24 +138,24 @@
       "search_hits": 5,
       "sample_playlists": [
         {
-          "name": "CITY LIGHTS\ud83c\udf03\ud83e\udea9\ud83c\udf7e",
-          "url": "https://open.spotify.com/playlist/0v3UVi5DOZTOERmEeRBiRc"
+          "name": "New Soul City",
+          "url": "https://open.spotify.com/playlist/5dJHr0uMIP2o8oYIvPsKFp"
         },
         {
-          "name": "Manny citypop",
-          "url": "https://open.spotify.com/playlist/2KgyoHgjYVUd7ELBEOynWi"
+          "name": "City cove ",
+          "url": "https://open.spotify.com/playlist/0pwG6rBcroYQzHsqTVmvjc"
         },
         {
-          "name": "Med City Jams",
-          "url": "https://open.spotify.com/playlist/0I9nmXVKhLMpMgHbXzDdLC"
+          "name": "Moon City",
+          "url": "https://open.spotify.com/playlist/4WERrshPm3eILeGZf7uvxg"
         },
         {
-          "name": "ITY ITY",
-          "url": "https://open.spotify.com/playlist/5IZ6OL5YDCfZ9IAiKmaSmM"
+          "name": "New City View",
+          "url": "https://open.spotify.com/playlist/4LPqziQdvHRCG0fBKrTSxr"
         },
         {
-          "name": "City Soul VOL.3 | Sings My Soul",
-          "url": "https://open.spotify.com/playlist/4ptZKHQPm0MVPqx8QSPAYs"
+          "name": "MJCO New Mix",
+          "url": "https://open.spotify.com/playlist/6SiooiGCm7jQwupkiX1Uzz"
         }
       ],
       "verified_count": 0,
@@ -165,8 +163,13 @@
     },
     {
       "track": "King Birthday",
-      "search_hits": 0,
-      "sample_playlists": [],
+      "search_hits": 1,
+      "sample_playlists": [
+        {
+          "name": "King City",
+          "url": "https://open.spotify.com/playlist/0CVa5fxy5P354RkbkobPRL"
+        }
+      ],
       "verified_count": 0,
       "verified_playlists": []
     },
@@ -175,24 +178,24 @@
       "search_hits": 5,
       "sample_playlists": [
         {
-          "name": "Quiet Storm (80s, 90s, 00s R&B/Slow Jams)",
-          "url": "https://open.spotify.com/playlist/4cYIBLPT7RqliXbAjkma2q"
+          "name": "QUIET MOMENTS",
+          "url": "https://open.spotify.com/playlist/2h5NrsDcbw6wx1IM0Trtyc"
+        },
+        {
+          "name": "Quiet Storm The Sound Wave",
+          "url": "https://open.spotify.com/playlist/4JLwe9C0trOKLMhLoZiaZ8"
+        },
+        {
+          "name": "A Quiet While",
+          "url": "https://open.spotify.com/playlist/3WJeqsn941VDStIPGjg1Sp"
         },
         {
           "name": "Quiet Storm by RNB RADAR",
           "url": "https://open.spotify.com/playlist/0j06RO2O3yigaK6Z5eV8MT"
         },
         {
-          "name": "Quiet storm 80 and 90s slow jams ",
-          "url": "https://open.spotify.com/playlist/3Dri3BCF29fyalTXHAwRPR"
-        },
-        {
-          "name": "70s & 80s & 90s Quiet Storm BEST",
-          "url": "https://open.spotify.com/playlist/5gWFlxEpGSICZeOpF8KA0Z"
-        },
-        {
-          "name": "Grown Folks Radio: The Quiet Storm",
-          "url": "https://open.spotify.com/playlist/2o7maiyJCkcOcDK1K6EMtE"
+          "name": "The QUIET STORM: 10pm - 2am Jams",
+          "url": "https://open.spotify.com/playlist/0ilyRY3z048v74aE6CHgvO"
         }
       ],
       "verified_count": 0,
@@ -233,7 +236,7 @@
     "Appreciate every listener rocking with Mjcity. Keep running it up! \ud83d\ude80",
     "Playlist curators: open to placements for Afro-pop energy \u2014 link in bio."
   ],
-  "weekly_report": "This week: 5 active tracks detected, 20 playlist search hits, 0 verified placements.",
+  "weekly_report": "This week: 5 active tracks detected, 21 playlist search hits, 0 verified placements.",
   "catalog_health": "Catalog trend: push your newest 2 releases with short-form video and playlist outreach.",
   "history": [
     {
@@ -293,13 +296,13 @@
     },
     {
       "date": "2026-03-16",
-      "followers": 81,
-      "popularity": 3
+      "followers": null,
+      "popularity": null
     }
   ],
   "spotify_for_artists": {
     "artist_name": "Mjcity",
-    "last_updated": "2026-03-16T22:07:41-04:00",
+    "last_updated": "2026-03-16T22:23:38-04:00",
     "metrics": {
       "listeners_now": 0,
       "last_28_days": {
