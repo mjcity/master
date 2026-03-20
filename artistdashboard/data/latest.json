@@ -1,13 +1,11 @@
 {
-  "generated_at": "2026-03-19 19:06 EDT",
+  "generated_at": "2026-03-20 09:11 EDT",
   "artist_snapshot": {
     "name": "Mjcity",
     "id": "4TbJfltoNbaKOASaR8rsYM",
-    "followers": 81,
-    "popularity": 3,
-    "genres": [
-      "afropop"
-    ],
+    "followers": null,
+    "popularity": null,
+    "genres": [],
     "spotify_url": "https://open.spotify.com/artist/4TbJfltoNbaKOASaR8rsYM"
   },
   "top_tracks_source": "search_fallback",
@@ -37,10 +35,10 @@
       "url": "https://open.spotify.com/track/2D1HbURKjDxbDTQ55bSkAo"
     },
     {
-      "name": "All of My Light",
-      "release_date": "2025-08-31",
-      "album": "All of My Light",
-      "url": "https://open.spotify.com/track/745zuMIEtmagjamsBRFeje"
+      "name": "It's You",
+      "release_date": "2026-03-08",
+      "album": "Confusion",
+      "url": "https://open.spotify.com/track/4dPT7JowXff9y7h1FRsGdY"
     }
   ],
   "release_monitor": [
@@ -137,15 +135,27 @@
     },
     {
       "track": "Tethered To You",
-      "search_hits": 2,
+      "search_hits": 5,
       "sample_playlists": [
         {
-          "name": "MJ & new",
-          "url": "https://open.spotify.com/playlist/6uV75Eswj9TuTAq8G4pU15"
+          "name": "City Lights",
+          "url": "https://open.spotify.com/playlist/3wqyx3JsuUAHoyqF6B3JEw"
         },
         {
-          "name": "M.j.",
-          "url": "https://open.spotify.com/playlist/4KF4AQNFDcp3n1AYp4GXBM"
+          "name": "Soul City RnB/HipHop '80's",
+          "url": "https://open.spotify.com/playlist/6BPtIxQ3zjZ0taHpHgHGEp"
+        },
+        {
+          "name": "MyCity\u2728",
+          "url": "https://open.spotify.com/playlist/73Tt2BgRe5SEwdDRQfIhGV"
+        },
+        {
+          "name": "City Soul VOL.3 | Sings My Soul",
+          "url": "https://open.spotify.com/playlist/4ptZKHQPm0MVPqx8QSPAYs"
+        },
+        {
+          "name": "MJCO New Mix",
+          "url": "https://open.spotify.com/playlist/6SiooiGCm7jQwupkiX1Uzz"
         }
       ],
       "verified_count": 0,
@@ -160,55 +170,51 @@
     },
     {
       "track": "Quiet War",
-      "search_hits": 5,
+      "search_hits": 4,
       "sample_playlists": [
         {
-          "name": "Quiet Storm (80s, 90s, 00s R&B/Slow Jams)",
-          "url": "https://open.spotify.com/playlist/4cYIBLPT7RqliXbAjkma2q"
+          "name": "Quiet Storm Essentials",
+          "url": "https://open.spotify.com/playlist/6NCioOkykrjzrF8b0agZYd"
         },
         {
-          "name": "Quiet Storm The Sound Wave",
-          "url": "https://open.spotify.com/playlist/4JLwe9C0trOKLMhLoZiaZ8"
+          "name": "Quiet storm 80 and 90s slow jams ",
+          "url": "https://open.spotify.com/playlist/3Dri3BCF29fyalTXHAwRPR"
         },
         {
-          "name": "Best of Quiet Storm/Chill Out/Love Making/Slow Jams",
-          "url": "https://open.spotify.com/playlist/0wD8c5KjcDrmsdMMWh2DEA"
+          "name": "70s & 80s & 90s Quiet Storm BEST",
+          "url": "https://open.spotify.com/playlist/5gWFlxEpGSICZeOpF8KA0Z"
         },
         {
           "name": "Grown Folks Radio: The Quiet Storm",
           "url": "https://open.spotify.com/playlist/2o7maiyJCkcOcDK1K6EMtE"
-        },
-        {
-          "name": "A Quiet Revolution: 30 Years of Windham Hill",
-          "url": "https://open.spotify.com/playlist/4YL5u2wtobqZi4AsTKP3ii"
         }
       ],
       "verified_count": 0,
       "verified_playlists": []
     },
     {
-      "track": "All of My Light",
+      "track": "It's You",
       "search_hits": 5,
       "sample_playlists": [
         {
-          "name": "City Lights",
-          "url": "https://open.spotify.com/playlist/3wqyx3JsuUAHoyqF6B3JEw"
+          "name": "Windy City",
+          "url": "https://open.spotify.com/playlist/5gblyCoKP2tIyFI3cFElKz"
         },
         {
-          "name": "City Light Vegas Playlist",
-          "url": "https://open.spotify.com/playlist/4nx9LKRKVVgKFkE32j5mXc"
+          "name": "LATE NIGHT CITY LIGHTS VIBE",
+          "url": "https://open.spotify.com/playlist/5rkPgglTxbzp6pJeaIGcXJ"
         },
         {
-          "name": "City Alight Complete Playlist",
-          "url": "https://open.spotify.com/playlist/011aj7QIywBj7t89mC3D1Q"
+          "name": "It's you",
+          "url": "https://open.spotify.com/playlist/1bFD7wdT2YlyQ82MeRsAsG"
         },
         {
-          "name": "Songs of City Light",
-          "url": "https://open.spotify.com/playlist/2cu3GjaQ1Uj4OsjfrQIGTK"
+          "name": "Car City",
+          "url": "https://open.spotify.com/playlist/6oS9fZsJBjejVrno07TkJV"
         },
         {
-          "name": "CityLight Church Worship",
-          "url": "https://open.spotify.com/playlist/0lm0z9EhYozF7w25P4IrSX"
+          "name": "New Jack City Soundtrack",
+          "url": "https://open.spotify.com/playlist/3OzysMVidq78HAtOCuJMZj"
         }
       ],
       "verified_count": 0,
@@ -221,7 +227,7 @@
     "Appreciate every listener rocking with Mjcity. Keep running it up! \ud83d\ude80",
     "Playlist curators: open to placements for Afro-pop energy \u2014 link in bio."
   ],
-  "weekly_report": "This week: 5 active tracks detected, 17 playlist search hits, 0 verified placements.",
+  "weekly_report": "This week: 5 active tracks detected, 19 playlist search hits, 0 verified placements.",
   "catalog_health": "Catalog trend: push your newest 2 releases with short-form video and playlist outreach.",
   "history": [
     {
@@ -298,11 +304,16 @@
       "date": "2026-03-19",
       "followers": 81,
       "popularity": 3
+    },
+    {
+      "date": "2026-03-20",
+      "followers": null,
+      "popularity": null
     }
   ],
   "spotify_for_artists": {
     "artist_name": "Mjcity",
-    "last_updated": "2026-03-19T19:05:49-04:00",
+    "last_updated": "2026-03-20T09:11:01-04:00",
     "metrics": {
       "listeners_now": 0,
       "last_28_days": {
