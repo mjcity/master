@@ -1,19 +1,19 @@
 {
   "artist_name": "Mjcity",
-  "last_updated": "2026-03-20T09:11:01-04:00",
+  "last_updated": "2026-03-21T09:10:44-04:00",
   "metrics": {
     "listeners_now": 0,
     "last_28_days": {
-      "monthly_listeners": 381,
-      "monthly_listeners_delta": "+188.6%",
-      "streams": 1358,
-      "streams_delta": "+50.2%",
-      "active_listeners": 104,
-      "active_listeners_delta": "+5.1%",
-      "new_active_listeners": 29,
-      "new_active_listeners_delta": "-9.4%",
-      "super_listeners": 9,
-      "super_listeners_delta": "+28.6%",
+      "monthly_listeners": 0,
+      "monthly_listeners_delta": "0%",
+      "streams": 0,
+      "streams_delta": "0%",
+      "active_listeners": 0,
+      "active_listeners_delta": "0%",
+      "new_active_listeners": 0,
+      "new_active_listeners_delta": "0%",
+      "super_listeners": 0,
+      "super_listeners_delta": "0%",
       "streams_per_listener": 3.9,
       "streams_per_listener_delta": "-29.6%",
       "saves": 64,
@@ -27,17 +27,17 @@
       "name": "Confusion",
       "type": "Album",
       "release_date": "2026-03-07",
-      "all_time_streams": 513
+      "all_time_streams": 529
     },
     "top_songs_7_days": [
       {
         "name": "Let Me In",
-        "streams": 37,
+        "streams": 31,
         "listeners": null
       },
       {
         "name": "Tethered To You",
-        "streams": 24,
+        "streams": 22,
         "listeners": null
       },
       {
@@ -50,7 +50,7 @@
       {
         "name": "Radio",
         "listeners": null,
-        "streams": 19
+        "streams": 15
       },
       {
         "name": "Release Radar",
@@ -304,5 +304,7 @@
       "monthly_active_listeners": 113,
       "engagement_pct": "11.5%"
     }
-  }
+  },
+  "captured_from": "home_overview",
+  "captured_window_7d": "2026-03-13_to_2026-03-19"
 }
