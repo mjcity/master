@@ -3,6 +3,9 @@
 ## Durable context
 - Human: Michael John-Anyaehie (Mj), timezone America/New_York.
 - Primary active projects include TechMyMoney workflows and Mjcity tracker/site operations.
+- Preferred sub-agent naming normalization:
+  - `codemj` is the preferred name for the coding/dev sub-agent previously referred to in logs as `CodeMint-Elite`.
+  - `researchmj` is the preferred name for the research sub-agent; do not refer to it as `ResearchForge-Elite` going forward.
 
 ## Workspace governance decisions
 - 2026-02-26: Core always-loaded files were intentionally slimmed to reduce baseline context cost.
