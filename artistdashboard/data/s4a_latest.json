@@ -1,13 +1,13 @@
 {
   "artist_name": "Mjcity",
-  "last_updated": "2026-03-21T09:10:44-04:00",
+  "last_updated": "2026-03-23T09:12:02-04:00",
   "metrics": {
-    "listeners_now": 0,
+    "listeners_now": 53,
     "last_28_days": {
-      "monthly_listeners": 0,
-      "monthly_listeners_delta": "0%",
-      "streams": 0,
-      "streams_delta": "0%",
+      "monthly_listeners": 53,
+      "monthly_listeners_delta": "-43.6%",
+      "streams": 270,
+      "streams_delta": "-48.3%",
       "active_listeners": 0,
       "active_listeners_delta": "0%",
       "new_active_listeners": 0,
@@ -20,8 +20,8 @@
       "saves_delta": "+113.3%",
       "playlist_adds": 76,
       "playlist_adds_delta": "+31.0%",
-      "followers": 81,
-      "followers_delta": "+9.5%"
+      "followers": 82,
+      "followers_delta": "+1.2%"
     },
     "latest_release": {
       "name": "Confusion",
@@ -32,34 +32,44 @@
     "top_songs_7_days": [
       {
         "name": "Let Me In",
-        "streams": 31,
-        "listeners": null
-      },
-      {
-        "name": "Tethered To You",
-        "streams": 22,
-        "listeners": null
+        "streams": 23,
+        "listeners": 20
       },
       {
         "name": "Don't Let Go",
-        "streams": 22,
-        "listeners": null
+        "streams": 18,
+        "listeners": 3
+      },
+      {
+        "name": "Tethered To You",
+        "streams": 16,
+        "listeners": 7
+      },
+      {
+        "name": "Sunset",
+        "streams": 13,
+        "listeners": 6
+      },
+      {
+        "name": "Quiet War",
+        "streams": 13,
+        "listeners": 5
       }
     ],
     "top_playlists_7_days": [
       {
         "name": "Radio",
-        "listeners": null,
-        "streams": 15
+        "listeners": 5,
+        "streams": 12
       },
       {
         "name": "Release Radar",
-        "listeners": null,
-        "streams": 15
+        "listeners": 4,
+        "streams": 6
       }
     ]
   },
-  "source": "spotify_for_artists_home_manual_openclaw",
+  "source": "spotify_for_artists_home_service_openclaw",
   "geo": {
     "top_countries_listeners": [
       {
@@ -305,6 +315,6 @@
       "engagement_pct": "11.5%"
     }
   },
-  "captured_from": "home_overview",
-  "captured_window_7d": "2026-03-13_to_2026-03-19"
+  "captured_from": "home_overview_api",
+  "captured_window_7d": "2026-03-21 home_overview_last7d"
 }
