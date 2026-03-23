@@ -21,10 +21,15 @@
   - Safety rules are strict: no fabrication, no padding, no auto-publish, and uncertainty callouts when facts are not fully confirmed.
   - `writemj` specific rules:
     - enforce human-style, anti-generic writing.
+    - when the user provides a source link and asks for a rewrite/recreation, mirror the source article's effective writing shape and reading tempo while making TechMyMoney's version better and more original.
+    - if the source is short, write a short post; if the source is long/review-style/feature-style, match that scale and structure within the allowed source-type band.
+    - TechMyMoney short posts should stay tight because tech readers consume many stories quickly; do not bloat short-source rewrites with unnecessary padding.
+    - avoid AI-summary voice, generic transitions, and inflated explanatory filler; the piece should read like a real tech publication written by a human editor.
     - claim-point source-linking standard is required, not just footer-only source dumping.
     - WordPress formatting guardrails are mandatory: no literal markdown tokens in final WP draft and no wall-of-text single block; use clean multi-paragraph block structure.
     - media rights + Newsmag policy must be applied during drafting, not as an afterthought.
     - cron-ready output contract is required: return type, word count, post ID/edit URL when applicable, source links, media rights status, and other completion metadata needed for morning review/publish workflow.
+  - `lumawordpress` should follow the same source-shape mirroring principle: match short/long/review/feature energy to the source and improve it, rather than flattening everything into one generic house style.
 - Mj is preparing to return to work after roughly 3 months recovering from surgery and wants reliable overnight cron-driven TechMyMoney drafting so he can review posts in the morning before publishing.
 
 ## Workspace governance decisions
