@@ -1,13 +1,11 @@
 {
-  "generated_at": "2026-03-23 09:12 EDT",
+  "generated_at": "2026-03-24 15:26 EDT",
   "artist_snapshot": {
     "name": "Mjcity",
     "id": "4TbJfltoNbaKOASaR8rsYM",
-    "followers": 82,
-    "popularity": 3,
-    "genres": [
-      "afropop"
-    ],
+    "followers": null,
+    "popularity": null,
+    "genres": [],
     "spotify_url": "https://open.spotify.com/artist/4TbJfltoNbaKOASaR8rsYM"
   },
   "top_tracks_source": "search_fallback",
@@ -19,16 +17,16 @@
       "url": "https://open.spotify.com/track/4TDYn3rBDRHZwjowB3Dvcn"
     },
     {
-      "name": "Tethered To You",
-      "release_date": "2026-03-08",
-      "album": "Confusion",
-      "url": "https://open.spotify.com/track/2nWXaX0hyxRNWQO00vHRol"
-    },
-    {
       "name": "King Birthday",
       "release_date": "2026-01-02",
       "album": "King Birthday",
       "url": "https://open.spotify.com/track/4TV3CGZx0dAbbUuiUydRRU"
+    },
+    {
+      "name": "Tethered To You",
+      "release_date": "2026-03-08",
+      "album": "Confusion",
+      "url": "https://open.spotify.com/track/2nWXaX0hyxRNWQO00vHRol"
     },
     {
       "name": "Quiet War",
@@ -112,40 +110,24 @@
       "search_hits": 5,
       "sample_playlists": [
         {
-          "name": "Big City Greens",
-          "url": "https://open.spotify.com/playlist/4V5F3d3Vv1UUIagxgjKntQ"
-        },
-        {
           "name": "Late Night City Vibes ",
           "url": "https://open.spotify.com/playlist/0MpQk1QRrDMfsKDI00h4iA"
+        },
+        {
+          "name": "Windy City",
+          "url": "https://open.spotify.com/playlist/5gblyCoKP2tIyFI3cFElKz"
+        },
+        {
+          "name": "Background City Noise: 8 Hour Of Relaxing Sounds To Help You Sleep",
+          "url": "https://open.spotify.com/playlist/78AojGXjVrlgcIes1oW45L"
         },
         {
           "name": "Latin Nights & City Lights",
           "url": "https://open.spotify.com/playlist/5JOdoX6TL0hIf0WY0AVoqK"
         },
         {
-          "name": "Late Night Vibes & City Lights",
-          "url": "https://open.spotify.com/playlist/2i3MBRfHq6WABdYv4zXByJ"
-        },
-        {
-          "name": "New Jack City Soundtrack",
-          "url": "https://open.spotify.com/playlist/3OzysMVidq78HAtOCuJMZj"
-        }
-      ],
-      "verified_count": 0,
-      "verified_playlists": []
-    },
-    {
-      "track": "Tethered To You",
-      "search_hits": 2,
-      "sample_playlists": [
-        {
-          "name": "M.j.",
-          "url": "https://open.spotify.com/playlist/4KF4AQNFDcp3n1AYp4GXBM"
-        },
-        {
-          "name": "MJ  Connection \ud83d\udc95",
-          "url": "https://open.spotify.com/playlist/1JBzvkCZRjtM3MTi8OkQod"
+          "name": "R. City - Make Up",
+          "url": "https://open.spotify.com/playlist/7vjwdz6WQJwCzqVam4zJgu"
         }
       ],
       "verified_count": 0,
@@ -153,11 +135,34 @@
     },
     {
       "track": "King Birthday",
-      "search_hits": 1,
+      "search_hits": 0,
+      "sample_playlists": [],
+      "verified_count": 0,
+      "verified_playlists": []
+    },
+    {
+      "track": "Tethered To You",
+      "search_hits": 5,
       "sample_playlists": [
         {
-          "name": "King City",
-          "url": "https://open.spotify.com/playlist/0CVa5fxy5P354RkbkobPRL"
+          "name": "Med City Jams",
+          "url": "https://open.spotify.com/playlist/0I9nmXVKhLMpMgHbXzDdLC"
+        },
+        {
+          "name": "Mi city boy",
+          "url": "https://open.spotify.com/playlist/7DBCMvkXmq5E3isuvvoOIP"
+        },
+        {
+          "name": "Gt.City Jams",
+          "url": "https://open.spotify.com/playlist/01R0qaKi2mRZzmgLJMCaYU"
+        },
+        {
+          "name": "My City",
+          "url": "https://open.spotify.com/playlist/3kNtswoGuUFr5cmmnq9MPp"
+        },
+        {
+          "name": "My City",
+          "url": "https://open.spotify.com/playlist/7rfrPCVJt7FM84QLNLgwzm"
         }
       ],
       "verified_count": 0,
@@ -165,7 +170,7 @@
     },
     {
       "track": "Quiet War",
-      "search_hits": 4,
+      "search_hits": 5,
       "sample_playlists": [
         {
           "name": "Quiet Storm (80s, 90s, 00s R&B/Slow Jams)",
@@ -176,12 +181,16 @@
           "url": "https://open.spotify.com/playlist/4lf4DnEiXf96ckLHTLolTm"
         },
         {
-          "name": "70s & 80s & 90s Quiet Storm BEST",
-          "url": "https://open.spotify.com/playlist/5gWFlxEpGSICZeOpF8KA0Z"
+          "name": "The QUIET STORM: 10pm - 2am Jams",
+          "url": "https://open.spotify.com/playlist/0ilyRY3z048v74aE6CHgvO"
         },
         {
-          "name": "Quiet storm",
-          "url": "https://open.spotify.com/playlist/3eMCr9YmYgLEX7K3EaCHqe"
+          "name": "Best of Quiet Storm/Chill Out/Love Making/Slow Jams",
+          "url": "https://open.spotify.com/playlist/0wD8c5KjcDrmsdMMWh2DEA"
+        },
+        {
+          "name": "Grown Folks Radio: The Quiet Storm",
+          "url": "https://open.spotify.com/playlist/2o7maiyJCkcOcDK1K6EMtE"
         }
       ],
       "verified_count": 0,
@@ -192,24 +201,24 @@
       "search_hits": 5,
       "sample_playlists": [
         {
-          "name": "City Alight Complete Playlist",
-          "url": "https://open.spotify.com/playlist/011aj7QIywBj7t89mC3D1Q"
+          "name": "Songs of City Light",
+          "url": "https://open.spotify.com/playlist/75BTlklIsOcAog03nHjt4k"
         },
         {
-          "name": "My Light",
-          "url": "https://open.spotify.com/playlist/6mRAZ6wVN6eRpGQnDpmvPI"
-        },
-        {
-          "name": "City Lights Worship",
-          "url": "https://open.spotify.com/playlist/1Z7aBZ2egcWFK0yaVCDUwD"
+          "name": "Citylight Lincoln Worship",
+          "url": "https://open.spotify.com/playlist/3MOvv0V6bzqVk1ARerr9ye"
         },
         {
           "name": "Songs of City Light",
           "url": "https://open.spotify.com/playlist/2cu3GjaQ1Uj4OsjfrQIGTK"
         },
         {
-          "name": "City Lights Mix",
-          "url": "https://open.spotify.com/playlist/0LUy3FQoXZaoa7kup7R72R"
+          "name": "CityLight Church Worship",
+          "url": "https://open.spotify.com/playlist/0lm0z9EhYozF7w25P4IrSX"
+        },
+        {
+          "name": "City Lights Worship ",
+          "url": "https://open.spotify.com/playlist/4WHaz5lMx0iK7vELIndCqz"
         }
       ],
       "verified_count": 0,
@@ -222,7 +231,7 @@
     "Appreciate every listener rocking with Mjcity. Keep running it up! \ud83d\ude80",
     "Playlist curators: open to placements for Afro-pop energy \u2014 link in bio."
   ],
-  "weekly_report": "This week: 5 active tracks detected, 17 playlist search hits, 0 verified placements.",
+  "weekly_report": "This week: 5 active tracks detected, 20 playlist search hits, 0 verified placements.",
   "catalog_health": "Catalog trend: push your newest 2 releases with short-form video and playlist outreach.",
   "history": [
     {
@@ -314,6 +323,11 @@
       "date": "2026-03-23",
       "followers": 82,
       "popularity": 3
+    },
+    {
+      "date": "2026-03-24",
+      "followers": null,
+      "popularity": null
     }
   ],
   "spotify_for_artists": {
