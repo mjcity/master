@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-24 15:26 EDT",
+  "generated_at": "2026-03-25 09:10 EDT",
   "artist_snapshot": {
     "name": "Mjcity",
     "id": "4TbJfltoNbaKOASaR8rsYM",
@@ -35,10 +35,10 @@
       "url": "https://open.spotify.com/track/2D1HbURKjDxbDTQ55bSkAo"
     },
     {
-      "name": "All of My Light",
-      "release_date": "2025-08-31",
-      "album": "All of My Light",
-      "url": "https://open.spotify.com/track/745zuMIEtmagjamsBRFeje"
+      "name": "It's You",
+      "release_date": "2026-03-08",
+      "album": "Confusion",
+      "url": "https://open.spotify.com/track/4dPT7JowXff9y7h1FRsGdY"
     }
   ],
   "release_monitor": [
@@ -110,24 +110,24 @@
       "search_hits": 5,
       "sample_playlists": [
         {
-          "name": "Late Night City Vibes ",
-          "url": "https://open.spotify.com/playlist/0MpQk1QRrDMfsKDI00h4iA"
+          "name": "Big City Greens",
+          "url": "https://open.spotify.com/playlist/4V5F3d3Vv1UUIagxgjKntQ"
         },
         {
-          "name": "Windy City",
-          "url": "https://open.spotify.com/playlist/5gblyCoKP2tIyFI3cFElKz"
+          "name": "LATE NIGHT CITY LIGHTS VIBE",
+          "url": "https://open.spotify.com/playlist/5rkPgglTxbzp6pJeaIGcXJ"
         },
         {
-          "name": "Background City Noise: 8 Hour Of Relaxing Sounds To Help You Sleep",
-          "url": "https://open.spotify.com/playlist/78AojGXjVrlgcIes1oW45L"
+          "name": "I Put On For My City",
+          "url": "https://open.spotify.com/playlist/4w9U21lvRHbKBlIej3CBl7"
         },
         {
-          "name": "Latin Nights & City Lights",
-          "url": "https://open.spotify.com/playlist/5JOdoX6TL0hIf0WY0AVoqK"
+          "name": "Late Night Vibes & City Lights",
+          "url": "https://open.spotify.com/playlist/2i3MBRfHq6WABdYv4zXByJ"
         },
         {
-          "name": "R. City - Make Up",
-          "url": "https://open.spotify.com/playlist/7vjwdz6WQJwCzqVam4zJgu"
+          "name": "Walk in the city",
+          "url": "https://open.spotify.com/playlist/4su1DaZMyyMEC6gTjhyBzV"
         }
       ],
       "verified_count": 0,
@@ -135,8 +135,13 @@
     },
     {
       "track": "King Birthday",
-      "search_hits": 0,
-      "sample_playlists": [],
+      "search_hits": 1,
+      "sample_playlists": [
+        {
+          "name": "King City",
+          "url": "https://open.spotify.com/playlist/0CVa5fxy5P354RkbkobPRL"
+        }
+      ],
       "verified_count": 0,
       "verified_playlists": []
     },
@@ -145,20 +150,20 @@
       "search_hits": 5,
       "sample_playlists": [
         {
-          "name": "Med City Jams",
-          "url": "https://open.spotify.com/playlist/0I9nmXVKhLMpMgHbXzDdLC"
+          "name": "Moon City",
+          "url": "https://open.spotify.com/playlist/4WERrshPm3eILeGZf7uvxg"
         },
         {
-          "name": "Mi city boy",
-          "url": "https://open.spotify.com/playlist/7DBCMvkXmq5E3isuvvoOIP"
+          "name": "4citylight",
+          "url": "https://open.spotify.com/playlist/2gjkx3sjhbEzrftw8QK23a"
         },
         {
-          "name": "Gt.City Jams",
-          "url": "https://open.spotify.com/playlist/01R0qaKi2mRZzmgLJMCaYU"
+          "name": "MyCity\u2728",
+          "url": "https://open.spotify.com/playlist/73Tt2BgRe5SEwdDRQfIhGV"
         },
         {
-          "name": "My City",
-          "url": "https://open.spotify.com/playlist/3kNtswoGuUFr5cmmnq9MPp"
+          "name": "New City View",
+          "url": "https://open.spotify.com/playlist/4LPqziQdvHRCG0fBKrTSxr"
         },
         {
           "name": "My City",
@@ -170,7 +175,7 @@
     },
     {
       "track": "Quiet War",
-      "search_hits": 5,
+      "search_hits": 4,
       "sample_playlists": [
         {
           "name": "Quiet Storm (80s, 90s, 00s R&B/Slow Jams)",
@@ -181,44 +186,40 @@
           "url": "https://open.spotify.com/playlist/4lf4DnEiXf96ckLHTLolTm"
         },
         {
-          "name": "The QUIET STORM: 10pm - 2am Jams",
-          "url": "https://open.spotify.com/playlist/0ilyRY3z048v74aE6CHgvO"
+          "name": "V103 - Quiet Storm",
+          "url": "https://open.spotify.com/playlist/6kYJdPlviS2l90U7b2c5vz"
         },
         {
-          "name": "Best of Quiet Storm/Chill Out/Love Making/Slow Jams",
-          "url": "https://open.spotify.com/playlist/0wD8c5KjcDrmsdMMWh2DEA"
-        },
-        {
-          "name": "Grown Folks Radio: The Quiet Storm",
-          "url": "https://open.spotify.com/playlist/2o7maiyJCkcOcDK1K6EMtE"
+          "name": "MJ \u2122",
+          "url": "https://open.spotify.com/playlist/3f68Q8PqzvBt49qbgFLxAN"
         }
       ],
       "verified_count": 0,
       "verified_playlists": []
     },
     {
-      "track": "All of My Light",
+      "track": "It's You",
       "search_hits": 5,
       "sample_playlists": [
         {
-          "name": "Songs of City Light",
-          "url": "https://open.spotify.com/playlist/75BTlklIsOcAog03nHjt4k"
+          "name": "Windy City",
+          "url": "https://open.spotify.com/playlist/5gblyCoKP2tIyFI3cFElKz"
         },
         {
-          "name": "Citylight Lincoln Worship",
-          "url": "https://open.spotify.com/playlist/3MOvv0V6bzqVk1ARerr9ye"
+          "name": "LATE NIGHT CITY LIGHTS VIBE",
+          "url": "https://open.spotify.com/playlist/5rkPgglTxbzp6pJeaIGcXJ"
         },
         {
-          "name": "Songs of City Light",
-          "url": "https://open.spotify.com/playlist/2cu3GjaQ1Uj4OsjfrQIGTK"
+          "name": "windy city series",
+          "url": "https://open.spotify.com/playlist/7CI49EAY7lsi4g4oDmAZkY"
         },
         {
-          "name": "CityLight Church Worship",
-          "url": "https://open.spotify.com/playlist/0lm0z9EhYozF7w25P4IrSX"
+          "name": "soda city funk",
+          "url": "https://open.spotify.com/playlist/1odmmZozjUkQvm49UPRU10"
         },
         {
-          "name": "City Lights Worship ",
-          "url": "https://open.spotify.com/playlist/4WHaz5lMx0iK7vELIndCqz"
+          "name": "Olw City",
+          "url": "https://open.spotify.com/playlist/3b9Q95rOM6baaa0gcXewSO"
         }
       ],
       "verified_count": 0,
@@ -326,6 +327,11 @@
     },
     {
       "date": "2026-03-24",
+      "followers": null,
+      "popularity": null
+    },
+    {
+      "date": "2026-03-25",
       "followers": null,
       "popularity": null
     }
